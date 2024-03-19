@@ -3,6 +3,7 @@ module be.ugent.objprog.ugentopoly {
     requires javafx.fxml;
     requires be.ugent.objprog.dice;
     requires jdom;
+    requires java.desktop;
 
     opens be.ugent.objprog.ugentopoly to javafx.fxml;
     opens be.ugent.objprog.ugentopoly.controller to javafx.fxml;

@@ -1,14 +1,19 @@
 package be.ugent.objprog.ugentopoly.controller;
 
+import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneUpdater;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+
+import java.util.Set;
 
 public class GameController {
     private Board board;
@@ -17,77 +22,84 @@ public class GameController {
     private AnchorPane rootPane;
 
     @FXML
-    private GridPane leftGrid;
+    private HBox  top;
 
     @FXML
-    private GridPane rightGrid;
+    private HBox bottom;
 
     @FXML
-    private GridPane topGrid;
+    private VBox left;
 
     @FXML
-    private GridPane bottomGrid;
-
-    @FXML
-    private AnchorPane topLeftCorner;
-
-    @FXML
-    private AnchorPane topRightCorner;
-
-    @FXML
-    private Pane tile0;
-
-    @FXML
-    private AnchorPane bottomRightCorner;
+    private VBox right;
 
     @FXML
     private AnchorPane tileInfoPane;
-    @FXML
-    private Label infoTitle;
-    @FXML
-    private Pane infoColor;
-    @FXML
-    private Label rent;
-    @FXML
-    private Label price;
-    @FXML
-    private Label owner;
-
-    @FXML
-    private Label playerInfoLabel;
 
 
     private TileInfoPaneUpdater tileInfoPaneUpdater;
 
-    @FXML
-    public void initialize() {
-        tileInfoPaneUpdater = new TileInfoPaneUpdater(tileInfoPane);
-    }
 
 
     public void setBoard(Board board) {
         this.board = board;
-        attachClickHandlers(leftGrid);
-        attachClickHandlers(rightGrid);
-        attachClickHandlers(topGrid);
-        attachClickHandlers(bottomGrid);
-        attachClickHandlers(topLeftCorner);
-        attachClickHandlers(topRightCorner);
-        attachClickHandlers(tile0);
-        attachClickHandlers(bottomRightCorner);
+        tileInfoPaneUpdater = new TileInfoPaneUpdater(tileInfoPane, board.getSettings());
+        colorAreaPanes();
+        updateTileLabels();
+        // todo put in list
+        attachClickHandlers(top);
+        attachClickHandlers(bottom);
+        attachClickHandlers(left);
+        attachClickHandlers(right);
+    }
+
+
+    private void colorAreaPanes() {
+        for (Area area : board.getAreas()) {
+            String areaId = area.getId();
+            // turns areaid into area class
+            String areaClass = "area-" + areaId.substring(4);
+            rootPane.lookupAll("." + areaClass).forEach(node -> {
+                Pane areaPane = (Pane) node;
+                areaPane.setStyle("-fx-background-color: " + area.getColor());
+            });
+        }
+    }
+
+    private void updateTileLabels() {
+        for (Tile tile : board.getTiles()) {
+            String tileId = tile.getId();
+            Set<Node> nodes = rootPane.lookupAll("#" + tileId);
+            for (Node node : nodes) {
+                Pane tilePane = (Pane) node;
+                Label tileLabel = (Label) tilePane.lookup("Label");
+                if (tileLabel != null) {
+                    tileLabel.setText(tile.getName());
+                    tileLabel.setFont(Font.font("System", FontWeight.SEMI_BOLD, 14));
+                    tileLabel.setWrapText(true);
+                    tileLabel.setAlignment(Pos.CENTER);
+                    tileLabel.setTextAlignment(TextAlignment.CENTER);
+                }
+            }
+        }
     }
 
     private void attachClickHandlers(Pane parent) {
-        if (parent instanceof GridPane) {
-            GridPane grid = (GridPane) parent;
+        if (parent instanceof GridPane grid) {
             for (Node node : grid.getChildren()) {
-                if (node instanceof Pane) {
-                    Pane tilePane = (Pane) node;
+                if (node instanceof Pane tilePane) {
                     attachClickHandler(tilePane);
                 }
             }
-        } else if (parent instanceof AnchorPane) {
-            attachClickHandler(parent);
+        } else if (parent instanceof HBox || parent instanceof VBox || parent instanceof AnchorPane) {
+            for (Node node : parent.getChildren()) {
+                if (node instanceof Pane tilePane) {
+                    attachClickHandler(tilePane);
+                }
+                if (node instanceof Pane nestedPane) {
+                    attachClickHandlers(nestedPane);
+                }
+            }
         }
     }
 

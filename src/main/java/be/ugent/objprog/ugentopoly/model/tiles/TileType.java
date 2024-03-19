@@ -10,5 +10,14 @@ public enum TileType {
     TAX,
     UTILITY,
     RAILWAY,
-    STREET
+    STREET;
+
+    public static boolean isValidTileType(String id) {
+        for (TileType tileType : TileType.values()) {
+            if (tileType.name().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

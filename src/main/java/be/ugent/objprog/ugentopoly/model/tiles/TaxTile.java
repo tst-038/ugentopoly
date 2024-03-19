@@ -5,8 +5,8 @@ import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 public class TaxTile extends Tile {
     private final int amount;
 
-    public TaxTile(String id, int position, TileType type, int amount) {
-        super(id, position, type);
+    public TaxTile(String id, int position, int amount) {
+        super(id, position, TileType.TAX);
         this.amount = amount;
     }
 

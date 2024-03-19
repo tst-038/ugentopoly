@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
-import javafx.scene.layout.Pane;
 
 public abstract class Tile {
 
@@ -11,7 +10,7 @@ public abstract class Tile {
     private String name;
 
     protected Tile(String id, int position, TileType type) {
-        this.id = id.replace("tile.","");
+        this.id = id.replace("tile.", "");
         this.position = position;
         this.type = type;
     }

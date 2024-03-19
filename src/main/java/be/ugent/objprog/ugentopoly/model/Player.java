@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model;
 
 public class Player {
-    private String name;
+    private final String name;
     private int position;
     private int balance;
 

@@ -41,6 +41,7 @@ public class Board {
     public List<Tile> getTiles() {
         return tiles;
     }
+
     public Tile getTileById(String id) {
         return tiles.stream().filter(tile -> tile.getId().equals(id)).findFirst().orElse(null);
     }

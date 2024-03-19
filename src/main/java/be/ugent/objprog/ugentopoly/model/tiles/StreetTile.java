@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
-import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Area;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 
 public class StreetTile extends Tile {
@@ -9,11 +9,11 @@ public class StreetTile extends Tile {
     private final int cost;
     private final Area area;
     private final int[] rent;
-    private int housesBuild;
-    private Player owner;
+    private final int housesBuild;
+    private final Player owner;
 
-    public StreetTile(String id, int position, TileType type, int cost, Area area, int[] rent) {
-        super(id, position, type);
+    public StreetTile(String id, int position, int cost, Area area, int[] rent) {
+        super(id, position, TileType.STREET);
         this.cost = cost;
         this.area = area;
         this.rent = rent;
@@ -33,7 +33,7 @@ public class StreetTile extends Tile {
         return rent[housesBuild];
     }
 
-    public int[] getAllRents(){
+    public int[] getAllRents() {
         return rent;
     }
 

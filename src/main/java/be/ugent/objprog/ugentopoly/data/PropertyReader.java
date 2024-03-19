@@ -14,6 +14,6 @@ public class PropertyReader {
     }
 
     public String getTileName(String id) {
-        return properties.getProperty("tile."+id);
+        return properties.getProperty("tile." + id);
     }
 }
