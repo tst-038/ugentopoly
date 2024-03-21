@@ -1,9 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.JailTile;
-import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import javafx.geometry.Pos;
@@ -36,7 +35,7 @@ public class JailTileInfoPaneFactory implements TileInfoPaneFactory {
     }
 
     private ImageView createStartImage() {
-        ImageView startImage = new ImageView(new Image(Ugentopoly.class.getResourceAsStream("assets/start.png")));
+        ImageView startImage = new ImageView(ResourceLoader.loadImage("assets/start.png"));
         startImage.setFitHeight(75.0);
         startImage.setFitWidth(75.0);
         AnchorPane.setTopAnchor(startImage, 5.0);

@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 public class BoardReader {
 
     public static List<Tile> readTiles(List<Area> areas) {
-        try (InputStream xmlInputStream = Ugentopoly.class.getResourceAsStream("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();
@@ -83,7 +83,7 @@ public class BoardReader {
     }
 
     public Settings readSettings() {
-        try (InputStream xmlInputStream = Ugentopoly.class.getResourceAsStream("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();
@@ -100,7 +100,7 @@ public class BoardReader {
     }
 
     public List<Area> readAreas() {
-        try (InputStream xmlInputStream = Ugentopoly.class.getResourceAsStream("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();

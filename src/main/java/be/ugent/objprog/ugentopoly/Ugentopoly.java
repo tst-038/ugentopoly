@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.controller.GameController;
+import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Board;
 import javafx.application.Application;
@@ -35,7 +36,7 @@ public class Ugentopoly extends Application {
             GameController gameController = loader.getController();
             Board board = new Board();
             board.init();
-            gameController.setBoard(board);
+            gameController.initializeBoard(board);
 
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setTitle("Ugentopoly");
@@ -50,10 +51,7 @@ public class Ugentopoly extends Application {
 
     private void setIcon(Stage stage) {
         Path iconPath = Path.of("assets/logo.png");
-        try (InputStream iconStream = Ugentopoly.class.getResourceAsStream(iconPath.toString())) {
-            if (iconStream == null) {
-                throw new UIInitializationException("Failed to load the icon");
-            }
+        try (InputStream iconStream = ResourceLoader.loadResource(iconPath.toString())) {
             Image icon = new Image(iconStream);
             stage.getIcons().add(icon);
 

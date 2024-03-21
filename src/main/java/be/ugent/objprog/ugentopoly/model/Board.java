@@ -3,6 +3,7 @@ package be.ugent.objprog.ugentopoly.model;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.data.BoardReader;
 import be.ugent.objprog.ugentopoly.data.PropertyReader;
+import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.PropertyReadException;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
@@ -23,7 +24,7 @@ public class Board {
         areas = boardReader.readAreas();
         tiles = BoardReader.readTiles(areas);
 
-        try (InputStream propertiesInputStream = Ugentopoly.class.getResourceAsStream("ugentopoly.properties")) {
+        try (InputStream propertiesInputStream = ResourceLoader.loadResource("ugentopoly.properties")) {
             PropertyReader propertyReader = new PropertyReader(propertiesInputStream);
             for (Tile tile : tiles) {
                 String tileName = propertyReader.getTileName(tile.getId());
