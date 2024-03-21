@@ -149,7 +149,7 @@
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <AnchorPane fx:id="area3" prefHeight="200.0" prefWidth="200.0" styleClass="area-3" GridPane.rowIndex="1" />
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="area-3" GridPane.rowIndex="1" />
                               <Label alignment="CENTER" contentDisplay="CENTER" minHeight="61.0" minWidth="125.0" prefHeight="61.0" prefWidth="125.0" rotate="90.0" text="Label" textAlignment="CENTER" textFill="WHITE" translateX="-32.0" />
                            </children>
                         </GridPane>

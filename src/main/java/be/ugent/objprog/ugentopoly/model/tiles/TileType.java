@@ -13,11 +13,11 @@ public enum TileType {
     STREET;
 
     public static boolean isValidTileType(String id) {
-        for (TileType tileType : TileType.values()) {
-            if (tileType.name().equals(id)) {
-                return true;
-            }
+        try {
+            TileType.valueOf(id);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return false;
     }
 }

@@ -7,25 +7,11 @@ import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneUpdater implements TileVisitor {
     private final AnchorPane tileInfoPane;
-    private final StreetTileInfoPaneFactory streetTileInfoPaneFactory;
-    private final TaxTileInfoPaneFactory taxTileInfoPaneFactory;
-    private final StartTileInfoPaneFactory startTileInfoPaneFactory;
-    private final FreeParkingTileInfoPaneFactory freeParkingTileInfoPaneFactory;
-    private final GoToJailTileInfoPaneFactory goToJailTileInfoPaneFactory;
-    private final JailTileInfoPaneFactory jailTileInfoPaneFactory;
-    private final RailwayTilePaneFactory railwayTileInfoPaneFactory;
-    private final ChestTileInfoPaneFactory chestTileInfoPaneFactory;
+    private final Settings settings;
 
     public TileInfoPaneUpdater(AnchorPane tileInfoPane, Settings settings) {
         this.tileInfoPane = tileInfoPane;
-        this.streetTileInfoPaneFactory = new StreetTileInfoPaneFactory();
-        this.taxTileInfoPaneFactory = new TaxTileInfoPaneFactory();
-        this.startTileInfoPaneFactory = new StartTileInfoPaneFactory(settings);
-        this.freeParkingTileInfoPaneFactory = new FreeParkingTileInfoPaneFactory();
-        this.goToJailTileInfoPaneFactory = new GoToJailTileInfoPaneFactory();
-        this.jailTileInfoPaneFactory = new JailTileInfoPaneFactory();
-        this.railwayTileInfoPaneFactory = new RailwayTilePaneFactory();
-        this.chestTileInfoPaneFactory = new ChestTileInfoPaneFactory();
+        this.settings = settings;
     }
 
     private void updateTileInfoPane(Tile tile, TileInfoPaneFactory factory) {
@@ -34,29 +20,29 @@ public class TileInfoPaneUpdater implements TileVisitor {
         } else {
             tileInfoPane.setVisible(true);
             tileInfoPane.getChildren().clear();
-            AnchorPane tileInfoPane = factory.createTileInfoPane(tile);
-            this.tileInfoPane.getChildren().add(tileInfoPane);
+            AnchorPane infoPane = factory.createTileInfoPane(tile);
+            this.tileInfoPane.getChildren().add(infoPane);
         }
     }
 
     @Override
     public void visit(StreetTile tile) {
-        updateTileInfoPane(tile, streetTileInfoPaneFactory);
+        updateTileInfoPane(tile, new StreetTileInfoPaneFactory());
     }
 
     @Override
     public void visit(TaxTile tile) {
-        updateTileInfoPane(tile, taxTileInfoPaneFactory);
+        updateTileInfoPane(tile, new TaxTileInfoPaneFactory());
     }
 
     @Override
     public void visit(RailwayTile tile) {
-        updateTileInfoPane(tile, railwayTileInfoPaneFactory);
+        updateTileInfoPane(tile, new RailwayTilePaneFactory());
     }
 
     @Override
     public void visit(ChestTile tile) {
-        updateTileInfoPane(tile, chestTileInfoPaneFactory);
+        updateTileInfoPane(tile, new ChestTileInfoPaneFactory());
     }
 
     @Override
@@ -70,21 +56,21 @@ public class TileInfoPaneUpdater implements TileVisitor {
 
     @Override
     public void visit(GoToJailTile tile) {
-        updateTileInfoPane(tile, goToJailTileInfoPaneFactory);
+        updateTileInfoPane(tile, new GoToJailTileInfoPaneFactory());
     }
 
     @Override
     public void visit(JailTile tile) {
-        updateTileInfoPane(tile, jailTileInfoPaneFactory);
+        updateTileInfoPane(tile, new JailTileInfoPaneFactory());
     }
 
     @Override
     public void visit(FreeParkingTile tile) {
-        updateTileInfoPane(tile, freeParkingTileInfoPaneFactory);
+        updateTileInfoPane(tile, new FreeParkingTileInfoPaneFactory());
     }
 
     @Override
     public void visit(StartTile tile){
-        updateTileInfoPane(tile, startTileInfoPaneFactory);
+        updateTileInfoPane(tile, new StartTileInfoPaneFactory(settings));
     }
 }
