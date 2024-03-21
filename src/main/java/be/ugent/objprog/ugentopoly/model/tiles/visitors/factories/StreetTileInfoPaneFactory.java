@@ -6,8 +6,12 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
@@ -18,9 +22,15 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label infoTitle = createTitleLabel(streetTile);
         infoColor.getChildren().add(infoTitle);
 
-        Label rentLabel = createLabel("Rent :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 71.0, null);
-        Label[] rents = createRentLabels(streetTile);
-        Label priceLabel = createLabel("Price :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 161.0, null);
+        Label rentLabel = createLabel("Rent :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 80.0, null);
+        rentLabel.setAlignment(Pos.CENTER_LEFT);
+        GridPane rents = createRentGrid(streetTile);
+        AnchorPane.setLeftAnchor(rents, 50.0);
+        AnchorPane.setTopAnchor(rents, 80.0);
+        AnchorPane.setRightAnchor(rents, 2.0);
+
+        Label priceLabel = createLabel("Price :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 60., null);
+        priceLabel.setAlignment(Pos.CENTER_LEFT);
         Label price = createPriceLabel(streetTile);
         Label ownerLabel = createOwnerLabel();
         Label owner = createOwnerLabel(streetTile);
@@ -45,17 +55,32 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return infoTitle;
     }
 
-    private Label[] createRentLabels(StreetTile tile) {
-        Label[] rents = new Label[5];
-        for (int i = 0; i < 5; i++) {
-            rents[i] = createLabel(Settings.getMoneyUnit() + tile.getAllRents()[i], FontWeight.BOLD, 12, Color.WHITE, null, 2.0, 71.0 + (i * 18.0), null);
-            rents[i].setAlignment(Pos.CENTER_RIGHT);
+    private GridPane createRentGrid(StreetTile tile) {
+        GridPane rentGrid = new GridPane();
+        rentGrid.setHgap(5);
+        rentGrid.setVgap(5);
+        rentGrid.setPrefSize(100,100);
+        rentGrid.setAlignment(Pos.TOP_RIGHT);
+
+        // Assuming getAllRents returns an array of your rent prices
+        int[] rentPrices = tile.getAllRents();
+
+        for (int i = 0; i < rentPrices.length; i++) {
+            Label rentLabel = new Label(Settings.getMoneyUnit()+rentPrices[i]);
+            rentLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
+            rentLabel.setTextFill(Color.WHITE);
+            rentLabel.setTextAlignment(TextAlignment.RIGHT);
+            rentLabel.setMaxWidth(Double.MAX_VALUE);
+            rentLabel.setAlignment(Pos.CENTER_RIGHT);
+
+            rentGrid.add(rentLabel, i % 2, i / 2);
         }
-        return rents;
+
+        return rentGrid;
     }
 
     private Label createPriceLabel(StreetTile tile) {
-        Label price = createLabel(Settings.getMoneyUnit() + tile.getPrice(), FontWeight.BOLD, 12, Color.WHITE, null, 2.0, 161.0, null);
+        Label price = createLabel(Settings.getMoneyUnit() + tile.getPrice(), FontWeight.NORMAL, 12, Color.WHITE, null, 2.0, 60.0, null);
         price.setAlignment(Pos.CENTER_RIGHT);
         return price;
     }
@@ -65,7 +90,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createOwnerLabel(StreetTile tile) {
-        Label owner = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : "<None>", FontWeight.BOLD, 12, Color.WHITE, 0.0, 0.0, null, 25.0);
+        Label owner = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : "<None>", FontWeight.NORMAL, 12, Color.WHITE, 0.0, 0.0, null, 25.0);
         owner.setAlignment(Pos.CENTER);
         return owner;
     }

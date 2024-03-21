@@ -646,7 +646,7 @@
                         <Image url="@../assets/gent_skyline.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane fx:id="tileInfoPane" layoutX="211.0" layoutY="165.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #3B3B3B; -fx-border-color: black; -fx-border-radius: 2px; -fx-border-width: 3px;" visible="false">
+                  <AnchorPane fx:id="tileInfoPane" layoutX="211.0" layoutY="165.0" maxHeight="200.0" maxWidth="150.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #3B3B3B; -fx-border-color: black; -fx-border-radius: 2px; -fx-border-width: 3px;" visible="false">
                      <children>
                         <Label layoutX="8.0" layoutY="71.0" prefHeight="15.0" prefWidth="33.0" text="Rent :" textFill="WHITE" AnchorPane.leftAnchor="5.0">
                            <font>

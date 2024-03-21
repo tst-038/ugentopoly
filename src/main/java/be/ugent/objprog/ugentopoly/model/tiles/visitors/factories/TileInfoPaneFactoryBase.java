@@ -19,9 +19,6 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         AnchorPane tileInfoPane = new AnchorPane();
         tileInfoPane.setPrefSize(PANE_WIDTH, PANE_HEIGHT);
 
-        // Subclasses can override this method to add their specific components
-        // or call this method and add additional components
-
         return tileInfoPane;
     }
 
