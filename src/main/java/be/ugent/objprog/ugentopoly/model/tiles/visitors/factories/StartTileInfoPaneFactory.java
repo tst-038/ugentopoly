@@ -39,11 +39,11 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createTitleLabel(Tile tile) {
-        return createLabel(tile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 60.0, 35.0);
+        return createLabel(tile.getName(), "start-title", 5.0, 5.0, 60.0, 35.0);
     }
 
     private Label createInfoLabel() {
         String infoText = "This is the start position. You will receive " + Settings.getMoneyUnit() + settings.getStartAmount() + " when you pass this tile.";
-        return createLabel(infoText, FontWeight.NORMAL, 12, Color.WHITE, 5.0, 5.0, 120.0, 5.0);
+        return createLabel(infoText, "start-info", 5.0, 5.0, 120.0, 5.0);
     }
 }

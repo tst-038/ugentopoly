@@ -1,0 +1,16 @@
+.jail-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.jail-info {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+}

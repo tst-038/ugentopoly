@@ -35,12 +35,12 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createTitleLabel(Tile tile) {
         TaxTile taxTile = (TaxTile) tile;
-        return createLabel(taxTile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 85.0, 35.0);
+        return createLabel(taxTile.getName(), "tax-title", 5.0, 5.0, 85.0, 35.0);
     }
 
     private Label createInfoLabel(Tile tile) {
         TaxTile taxTile = (TaxTile) tile;
         String infoText = Settings.getMoneyUnit() + taxTile.getAmount();
-        return createLabel(infoText, FontWeight.BOLD, 12, Color.WHITE, 5.0, 5.0, null, 25.0);
+        return createLabel(infoText, "tax-info", 5.0, 5.0, null, 25.0);
     }
 }

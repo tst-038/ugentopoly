@@ -8,9 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
@@ -22,21 +19,19 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label infoTitle = createTitleLabel(streetTile);
         infoColor.getChildren().add(infoTitle);
 
-        Label rentLabel = createLabel("Rent :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 80.0, null);
-        rentLabel.setAlignment(Pos.CENTER_LEFT);
+        Label rentLabel = createLabel("Rent :", "street-tile-rent-title", 5.0, null, 80.0, null);
         GridPane rents = createRentGrid(streetTile);
         AnchorPane.setLeftAnchor(rents, 50.0);
         AnchorPane.setTopAnchor(rents, 80.0);
-        AnchorPane.setRightAnchor(rents, 2.0);
+        AnchorPane.setRightAnchor(rents, 5.0);
 
-        Label priceLabel = createLabel("Price :", FontWeight.BOLD, 12, Color.WHITE, 5.0, null, 60., null);
-        priceLabel.setAlignment(Pos.CENTER_LEFT);
+        Label priceLabel = createLabel("Price :", "street-tile-price-title", 5.0, null, 60.0, null);
         Label price = createPriceLabel(streetTile);
         Label ownerLabel = createOwnerLabel();
         Label owner = createOwnerLabel(streetTile);
 
         tileInfoPane.getChildren().addAll(infoColor, rentLabel, priceLabel, price, ownerLabel, owner);
-        tileInfoPane.getChildren().addAll(rents);
+        tileInfoPane.getChildren().add(rents);
 
         return tileInfoPane;
     }
@@ -44,35 +39,25 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     private AnchorPane createInfoColor(StreetTile tile) {
         AnchorPane infoColor = new AnchorPane();
         infoColor.setStyle("-fx-background-color: " + tile.getArea().getColor() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
-        infoColor.setPrefHeight(46.0);
-        infoColor.setPrefWidth(146.0);
-        return createAnchorPane(infoColor, 0.0, 0.0, 3.0, 3.0, -3.0, null);
+        infoColor.setPrefHeight(50.0);
+        infoColor.setPrefWidth(150.0);
+        return createAnchorPane(infoColor, 0.0, 0.0, 3.0, 3.0, 3.0, null);
     }
 
     private Label createTitleLabel(StreetTile tile) {
-        Label infoTitle = createLabel(tile.getName(), FontWeight.BOLD, 20, getTextColor(tile), 0.0, 0.0, 5.0, 5.0);
-        infoTitle.setAlignment(Pos.CENTER);
+        Label infoTitle = createLabel(tile.getName(), "street-tile-title", 0.0, 0.0, 5.0, 5.0);
+        infoTitle.getStyleClass().add(getTextColorClass(tile));
         return infoTitle;
     }
 
     private GridPane createRentGrid(StreetTile tile) {
         GridPane rentGrid = new GridPane();
-        rentGrid.setHgap(5);
-        rentGrid.setVgap(5);
-        rentGrid.setPrefSize(100,100);
-        rentGrid.setAlignment(Pos.TOP_RIGHT);
+        rentGrid.getStyleClass().add("street-tile-rent-grid");
 
-        // Assuming getAllRents returns an array of your rent prices
         int[] rentPrices = tile.getAllRents();
 
         for (int i = 0; i < rentPrices.length; i++) {
-            Label rentLabel = new Label(Settings.getMoneyUnit()+rentPrices[i]);
-            rentLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
-            rentLabel.setTextFill(Color.WHITE);
-            rentLabel.setTextAlignment(TextAlignment.RIGHT);
-            rentLabel.setMaxWidth(Double.MAX_VALUE);
-            rentLabel.setAlignment(Pos.CENTER_RIGHT);
-
+            Label rentLabel = createLabel(Settings.getMoneyUnit() + rentPrices[i], "street-tile-rent", null, null, null, null);
             rentGrid.add(rentLabel, i % 2, i / 2);
         }
 
@@ -80,24 +65,20 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createPriceLabel(StreetTile tile) {
-        Label price = createLabel(Settings.getMoneyUnit() + tile.getPrice(), FontWeight.NORMAL, 12, Color.WHITE, null, 2.0, 60.0, null);
-        price.setAlignment(Pos.CENTER_RIGHT);
-        return price;
+        return createLabel(Settings.getMoneyUnit() + tile.getPrice(), "street-tile-price", null, 5.0, 60.0, null);
     }
 
     private Label createOwnerLabel() {
-        return createLabel("Current Owner :", FontWeight.BOLD, 12, Color.WHITE, 0.0, 0.0, null, 40.0);
+        return createLabel("Current Owner :", "street-tile-owner-title", 0.0, 0.0, null, 30.0);
     }
 
     private Label createOwnerLabel(StreetTile tile) {
-        Label owner = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : "<None>", FontWeight.NORMAL, 12, Color.WHITE, 0.0, 0.0, null, 25.0);
-        owner.setAlignment(Pos.CENTER);
-        return owner;
+        return createLabel(tile.getOwner() != null ? tile.getOwner().getName() : "<None>", "street-tile-owner", 0.0, 0.0, null, 15.0);
     }
 
-    private Color getTextColor(StreetTile tile) {
+    private String getTextColorClass(StreetTile tile) {
         Color areaColor = Color.web(tile.getArea().getColor());
         double brightness = (areaColor.getRed() * 299 + areaColor.getGreen() * 587 + areaColor.getBlue() * 114) / 1000;
-        return brightness > 0.7 ? Color.BLACK : Color.WHITE;
+        return brightness > 0.7 ? "street-tile-title-black" : "street-tile-title-white";
     }
 }

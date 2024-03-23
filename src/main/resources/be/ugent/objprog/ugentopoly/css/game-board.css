@@ -1,7 +1,17 @@
+@import "tileinfopanels/start-tile.css";
+@import "tileinfopanels/street-tile.css";
+@import "tileinfopanels/tax-tile.css";
+@import "tileinfopanels/railway-tile.css";
+@import "tileinfopanels/go-to-jail-tile.css";
+@import "tileinfopanels/jail-tile.css";
+@import "tileinfopanels/free-parking-tile.css";
+@import "tileinfopanels/chest-tile.css";
+
 .tile:hover {
     -fx-background-color: #344955;
 }
 
 .label {
-    -fx-font-size: 1.2em;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }

@@ -33,10 +33,10 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createTitleLabel(ChestTile tile) {
-        return createLabel(tile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 80.0, 35.0);
+        return createLabel(tile.getName(), "chest-title", 5.0, 5.0, 80.0, 35.0);
     }
 
     private Label createInfoLabel() {
-        return createLabel("Draw a card from the chest", FontWeight.NORMAL, 12, Color.WHITE, 5.0, 5.0, 140.0, 5.0);
+        return createLabel("Draw a card from the chest", "chest-info", 5.0, 5.0, 140.0, 5.0);
     }
 }

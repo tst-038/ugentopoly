@@ -34,12 +34,12 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createTitleLabel(Tile tile) {
-        return createLabel(tile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 80.0, 35.0);
+        return createLabel(tile.getName(), "railway-title", 5.0, 5.0, 80.0, 35.0);
     }
 
     private Label createInfoLabel(Tile tile) {
         RailwayTile railwayTile = (RailwayTile) tile;
         String infoText = "Price: " + Settings.getMoneyUnit() + railwayTile.getPrice();
-        return createLabel(infoText, FontWeight.BOLD, 12, Color.WHITE, null, 2.0, 161.0, null);
+        return createLabel(infoText, "railway-info", null, 2.0, 161.0, null);
     }
 }

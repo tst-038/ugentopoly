@@ -55,14 +55,7 @@ public class Ugentopoly extends Application {
             Image icon = new Image(iconStream);
             stage.getIcons().add(icon);
 
-            if (Taskbar.isTaskbarSupported()) {
-                Taskbar taskbar = Taskbar.getTaskbar();
 
-                if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
-                    Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-                    taskbar.setIconImage(defaultToolkit.getImage(getClass().getResource("assets/logo.png")));
-                }
-            }
         } catch (IOException e) {
             throw new UIInitializationException("Failed to set the icon", e);
         }

@@ -22,14 +22,11 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         return tileInfoPane;
     }
 
-    protected Label createLabel(String text, FontWeight fontWeight, double fontSize, Color color,
+    protected Label createLabel(String text, String styleClass,
                                 Double leftAnchor, Double rightAnchor, Double topAnchor, Double bottomAnchor) {
         Label label = new Label(text);
-        label.setFont(Font.font("San Francisco", fontWeight, fontSize));
-        label.setWrapText(true);
-        label.setAlignment(Pos.CENTER);
-        label.setTextAlignment(TextAlignment.CENTER);
-        label.setTextFill(color);
+        label.getStyleClass().add(styleClass);
+
         label.setPrefWidth(PANE_WIDTH - 10);
 
         if (leftAnchor != null) AnchorPane.setLeftAnchor(label, leftAnchor);

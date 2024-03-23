@@ -33,10 +33,10 @@ public class GoToJailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createTitleLabel(GoToJailTile tile) {
-        return createLabel(tile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 80.0, 35.0);
+        return createLabel(tile.getName(), "go-to-jail-title", 5.0, 5.0, 80.0, 35.0);
     }
 
     private Label createInfoLabel() {
-        return createLabel("When you land on this tile, you will be sent to jail.", FontWeight.NORMAL, 12, Color.WHITE, 5.0, 5.0, 140.0, 5.0);
+        return createLabel("When you land on this tile, you will be sent to jail.", "go-to-jail-info", 5.0, 5.0, 140.0, 5.0);
     }
 }

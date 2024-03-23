@@ -15,15 +15,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
-public class JailTileInfoPaneFactory implements TileInfoPaneFactory {
+public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
-        if(tile.getType() != TileType.JAIL) {
-            throw new IllegalArgumentException("Tile must be of type "+TileType.JAIL);
-        }
-
         JailTile jailTile = (JailTile) tile;
-        AnchorPane tileInfoPane = new AnchorPane();
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
 
         ImageView jailImage = createStartImage();
         Label title = createTitleLabel(jailTile);
@@ -38,42 +34,14 @@ public class JailTileInfoPaneFactory implements TileInfoPaneFactory {
         ImageView startImage = new ImageView(ResourceLoader.loadImage("assets/start.png"));
         startImage.setFitHeight(75.0);
         startImage.setFitWidth(75.0);
-        AnchorPane.setTopAnchor(startImage, 5.0);
-        AnchorPane.setLeftAnchor(startImage, 37.5);
-        AnchorPane.setRightAnchor(startImage, 37.5);
-        return startImage;
+        return createImageView(startImage, 5.0, 37.5, 37.5, null);
     }
 
     private Label createTitleLabel(JailTile tile) {
-        Label info = new Label(tile.getName());
-        info.setFont(Font.font("System", FontWeight.BOLD, 20));
-        info.setWrapText(true);
-        info.setAlignment(Pos.CENTER);
-        info.setTextAlignment(TextAlignment.CENTER);
-        info.setTextFill(Color.WHITE);
-        info.setPrefWidth(140.0);
-        AnchorPane.setLeftAnchor(info, 5.0);
-        AnchorPane.setRightAnchor(info, 5.0);
-        AnchorPane.setTopAnchor(info, 60.0);
-        AnchorPane.setBottomAnchor(info, 35.0);
-        return info;
+        return createLabel(tile.getName(), "jail-title", 5.0, 5.0, 60.0, 35.0);
     }
 
     private Label createInfoLabel() {
-        // TODO ask if we can add fields in the configuration files, if allowed remove hardcoded values
-        Label info = new Label("You are in jail, you can't do anything until you roll a double or pay X$");
-        info.setFont(Font.font("System", FontWeight.NORMAL, 12));
-        info.setWrapText(true);
-        info.setAlignment(Pos.CENTER);
-        info.setTextAlignment(TextAlignment.CENTER);
-        info.setTextFill(Color.WHITE);
-        info.setPrefWidth(140.0);
-        AnchorPane.setLeftAnchor(info, 5.0);
-        AnchorPane.setRightAnchor(info, 5.0);
-        AnchorPane.setTopAnchor(info, 120.);
-        AnchorPane.setBottomAnchor(info, 5.0);
-        return info;
+        return createLabel("You are in jail, you can't do anything until you roll a double or pay X$", "jail-info", 5.0, 5.0, 120.0, 5.0);
     }
-
-
 }

@@ -41,10 +41,7 @@ public class UIUpdater {
                 Label tileLabel = (Label) tilePane.lookup("Label");
                 if (tileLabel != null) {
                     tileLabel.setText(tile.getName());
-                    tileLabel.setFont(Font.font("System", FontWeight.SEMI_BOLD, 14));
-                    tileLabel.setWrapText(true);
-                    tileLabel.setAlignment(Pos.CENTER);
-                    tileLabel.setTextAlignment(TextAlignment.CENTER);
+                    tileLabel.getStyleClass().add("tile-label");
                 }
             }
         }

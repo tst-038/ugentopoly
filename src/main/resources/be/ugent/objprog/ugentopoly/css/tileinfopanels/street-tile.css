@@ -1,0 +1,64 @@
+.street-tile-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-alignment: center;
+}
+
+.street-tile-title-black {
+    -fx-text-fill: black;
+}
+
+.street-tile-title-white {
+    -fx-text-fill: white;
+}
+
+.street-tile-rent-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.street-tile-rent {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center-right;
+}
+
+.street-tile-rent-grid {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+    -fx-pref-width: 100;
+    -fx-pref-height: 100;
+    -fx-alignment: top-right;
+    -fx-text-fill: white;
+}
+
+.street-tile-price-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.street-tile-price {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center-right;
+}
+
+.street-tile-owner-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+.street-tile-owner {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}

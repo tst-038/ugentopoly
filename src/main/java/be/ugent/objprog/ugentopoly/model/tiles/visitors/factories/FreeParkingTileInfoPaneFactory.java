@@ -33,11 +33,11 @@ public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createTitleLabel(FreeParkingTile tile) {
-        return createLabel(tile.getName(), FontWeight.BOLD, 20, Color.WHITE, 5.0, 5.0, 60.0, 35.0);
+        return createLabel(tile.getName(), "free-parking-title", 5.0, 5.0, 60.0, 35.0);
     }
 
     private Label createInfoLabel() {
         String infoText = "You are in the Free Parking tile. You can rest here and enjoy the view.";
-        return createLabel(infoText, FontWeight.NORMAL, 12, Color.WHITE, 5.0, 5.0, 140.0, 5.0);
+        return createLabel(infoText, "free-parking-info", 5.0, 5.0, 140.0, 5.0);
     }
 }
