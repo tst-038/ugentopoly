@@ -5,12 +5,10 @@ public class Settings {
     private static final char MONEY_UNIT = '€';
     private final int startingBalance;
     private final int startAmount;
-    private final int gameBoardSize;
 
-    public Settings(int startingBalance, int startingPosition, int gameBoardSize) {
+    public Settings(int startingBalance, int startingPosition) {
         this.startingBalance = startingBalance;
         this.startAmount = startingPosition;
-        this.gameBoardSize = gameBoardSize;
     }
 
     public static String getMoneyUnit() {
@@ -25,7 +23,4 @@ public class Settings {
         return startAmount;
     }
 
-    public int getGameBoardSize() {
-        return gameBoardSize;
-    }
 }

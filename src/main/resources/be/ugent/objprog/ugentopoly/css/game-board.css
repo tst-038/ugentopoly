@@ -1,3 +1,7 @@
 .tile:hover {
     -fx-background-color: #344955;
 }
+
+.label {
+    -fx-font-size: 1.2em;
+}

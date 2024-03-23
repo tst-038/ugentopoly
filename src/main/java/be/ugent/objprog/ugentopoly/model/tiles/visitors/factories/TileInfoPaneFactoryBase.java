@@ -25,7 +25,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     protected Label createLabel(String text, FontWeight fontWeight, double fontSize, Color color,
                                 Double leftAnchor, Double rightAnchor, Double topAnchor, Double bottomAnchor) {
         Label label = new Label(text);
-        label.setFont(Font.font("System", fontWeight, fontSize));
+        label.setFont(Font.font("San Francisco", fontWeight, fontSize));
         label.setWrapText(true);
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.CENTER);

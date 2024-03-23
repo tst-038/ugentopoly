@@ -91,9 +91,8 @@ public class BoardReader {
 
             int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
             int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
-            int size = Integer.parseInt(settingsElement.getAttributeValue("size"));
 
-            return new Settings(balance, start, size);
+            return new Settings(balance, start);
         } catch (IOException | JDOMException e) {
             throw new SettingReadException("Failed to read settings information from XML file", e);
         }
