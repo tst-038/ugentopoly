@@ -1,14 +1,9 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
 
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     protected static final double PANE_WIDTH = 150.0;

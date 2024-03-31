@@ -1,11 +1,12 @@
 package be.ugent.objprog.ugentopoly.data;
 
-import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.AreaReadException;
 import be.ugent.objprog.ugentopoly.exceptions.SettingReadException;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.tiles.*;
+import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import be.ugent.objprog.ugentopoly.model.tiles.TileType;
+import be.ugent.objprog.ugentopoly.model.tiles.factories.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -14,10 +15,13 @@ import org.jdom2.input.SAXBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Map;
 
 public class BoardReader {
+
+
 
     public static List<Tile> readTiles(List<Area> areas) {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
@@ -27,53 +31,17 @@ public class BoardReader {
             Element tilesElement = root.getChild("tiles");
 
             List<Tile> tiles = new ArrayList<>();
+            Map<TileType, TileFactory> tileFactories = createTileFactories(areas);
+
             for (Element tileElement : tilesElement.getChildren("tile")) {
-                String id = tileElement.getAttributeValue("id");
-                int position = Integer.parseInt(tileElement.getAttributeValue("position"));
                 TileType type = TileType.valueOf(tileElement.getAttributeValue("type"));
 
-                Tile tile;
-                switch (type) {
-                    case START:
-                        tile = new StartTile(id, position);
-                        break;
-                    case JAIL:
-                        tile = new JailTile(id, position);
-                        break;
-                    case FREE_PARKING:
-                        tile = new FreeParkingTile(id, position);
-                        break;
-                    case GO_TO_JAIL:
-                        tile = new GoToJailTile(id, position);
-                        break;
-                    case CHANCE:
-                        tile = new ChanceTile(id, position);
-                        break;
-                    case CHEST:
-                        tile = new ChestTile(id, position);
-                        break;
-                    case TAX:
-                        int amount = Integer.parseInt(tileElement.getAttributeValue("amount"));
-                        tile = new TaxTile(id, position, amount);
-                        break;
-                    case UTILITY:
-                        int utilityCost = Integer.parseInt(tileElement.getAttributeValue("cost"));
-                        tile = new UtilityTile(id, position, utilityCost);
-                        break;
-                    case RAILWAY:
-                        int railwayCost = Integer.parseInt(tileElement.getAttributeValue("cost"));
-                        tile = new RailwayTile(id, position, railwayCost);
-                        break;
-                    case STREET:
-                        int streetCost = Integer.parseInt(tileElement.getAttributeValue("cost"));
-                        String area = tileElement.getAttributeValue("area");
-                        int[] rents = IntStream.range(0, 6)
-                                .map(i -> Integer.parseInt(tileElement.getAttributeValue("rent" + i))).toArray();
-                        tile = new StreetTile(id, position, streetCost, areas.stream().filter(ar -> ar.getId().equals(area)).findFirst().orElse(null), rents);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown tile type: " + type);
+                TileFactory tileFactory = tileFactories.get(type);
+                if (tileFactory == null) {
+                    throw new IllegalArgumentException("Unknown tile type: " + type);
                 }
+
+                Tile tile = tileFactory.createTile(tileElement);
                 tiles.add(tile);
             }
             return tiles;
@@ -81,6 +49,22 @@ public class BoardReader {
             throw new AreaReadException("Failed to read areas information from XML file", e);
         }
     }
+
+    private static Map<TileType, TileFactory> createTileFactories(List<Area> areas) {
+        Map<TileType, TileFactory> tileFactories = new EnumMap<>(TileType.class);
+        tileFactories.put(TileType.START, new StartTileFactory());
+        tileFactories.put(TileType.JAIL, new JailTileFactory());
+        tileFactories.put(TileType.FREE_PARKING, new FreeParkingTileFactory());
+        tileFactories.put(TileType.GO_TO_JAIL, new GoToJailTileFactory());
+        tileFactories.put(TileType.CHANCE, new ChanceTileFactory());
+        tileFactories.put(TileType.CHEST, new ChestTileFactory());
+        tileFactories.put(TileType.TAX, new TaxTileFactory());
+        tileFactories.put(TileType.UTILITY, new UtilityTileFactory());
+        tileFactories.put(TileType.RAILWAY, new RailwayTileFactory());
+        tileFactories.put(TileType.STREET, new StreetTileFactory(areas));
+        return tileFactories;
+    }
+
 
     public Settings readSettings() {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {

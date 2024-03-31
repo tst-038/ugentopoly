@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -26,6 +25,9 @@ public class Ugentopoly extends Application {
     // Overpoort info panel
     // Kans info panel
     // Utility info panel
+    // remove the rent grid and go back to one price
+    // refractor info panel classes
+    // add animations
 
     @Override
     public void start(Stage primaryStage) {
@@ -54,8 +56,6 @@ public class Ugentopoly extends Application {
         try (InputStream iconStream = ResourceLoader.loadResource(iconPath.toString())) {
             Image icon = new Image(iconStream);
             stage.getIcons().add(icon);
-
-
         } catch (IOException e) {
             throw new UIInitializationException("Failed to set the icon", e);
         }

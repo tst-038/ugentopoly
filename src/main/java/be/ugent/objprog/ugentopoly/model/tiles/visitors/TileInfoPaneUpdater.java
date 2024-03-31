@@ -47,11 +47,12 @@ public class TileInfoPaneUpdater implements TileVisitor {
 
     @Override
     public void visit(ChanceTile tile) {
-
+        updateTileInfoPane(tile, new ChanceTileInfoPaneFactory());
     }
 
     @Override
     public void visit(UtilityTile tile) {
+        updateTileInfoPane(tile, new UtilityTileInfoPaneFactory());
     }
 
     @Override

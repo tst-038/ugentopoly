@@ -1,15 +1,14 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.Area;
+import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import javafx.geometry.Pos;
+import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 import java.util.List;
 import java.util.Set;
@@ -32,16 +31,24 @@ public class UIUpdater {
         }
     }
 
+    // TODO refractor to make use of position instead of tile id
     public void updateTileLabels(List<Tile> tiles) {
         for (Tile tile : tiles) {
-            String tileId = tile.getId();
-            Set<Node> nodes = rootPane.lookupAll("#" + tileId);
+            Set<Node> nodes = rootPane.lookupAll("#_" + tile.getPosition());
             for (Node node : nodes) {
                 Pane tilePane = (Pane) node;
                 Label tileLabel = (Label) tilePane.lookup("Label");
                 if (tileLabel != null) {
                     tileLabel.setText(tile.getName());
                     tileLabel.getStyleClass().add("tile-label");
+                }
+                if (tile.getType() == TileType.STREET){
+                    StreetTile streetTile = (StreetTile) tile;
+                    Node areaNode = node.lookup("#area");
+                    if (areaNode != null){
+                        Pane areaPane = (Pane) areaNode;
+                        areaPane.setStyle("-fx-background-color: "+ streetTile.getArea().getColor());
+                    }
                 }
             }
         }

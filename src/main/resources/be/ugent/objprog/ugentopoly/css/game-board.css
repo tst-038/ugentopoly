@@ -6,9 +6,11 @@
 @import "tileinfopanels/jail-tile.css";
 @import "tileinfopanels/free-parking-tile.css";
 @import "tileinfopanels/chest-tile.css";
+@import "tileinfopanels/chance-tile.css";
+@import "tileinfopanels/utility-tile.css";
 
 .tile:hover {
-    -fx-background-color: #344955;
+    -fx-background-color: #93b7be;
 }
 
 .label {

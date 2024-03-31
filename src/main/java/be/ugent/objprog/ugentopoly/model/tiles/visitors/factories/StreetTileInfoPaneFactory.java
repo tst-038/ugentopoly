@@ -3,7 +3,6 @@ package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -12,6 +11,7 @@ import javafx.scene.paint.Color;
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
+        System.out.println("create tile info pane street");
         StreetTile streetTile = (StreetTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile);
 

@@ -17,6 +17,6 @@ public class UtilityTile extends Tile {
 
     @Override
     public void accept(TileVisitor visitor) {
-
+        visitor.visit(this);
     }
 }

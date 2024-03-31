@@ -60,7 +60,7 @@ public class GameController {
 
     private void showTileInfo(Pane tilePane) {
         String tileId = tilePane.getId();
-        Tile tile = board.getTileById(tileId);
+        Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_","")));
         if (tile != null) {
             tile.accept(tileInfoPaneUpdater);
         }
