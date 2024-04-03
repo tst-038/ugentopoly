@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="150.0" prefWidth="150.0">
+    <children>
+        <Label alignment="CENTER" contentDisplay="TOP" layoutX="29.0" layoutY="12.0" prefHeight="130.0" prefWidth="88.0" rotate="45.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <graphic>
+                <ImageView fitHeight="75.0" fitWidth="75.0" preserveRatio="true">
+                </ImageView>
+            </graphic>
+        </Label>
+    </children>
+</AnchorPane>

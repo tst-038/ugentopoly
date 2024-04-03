@@ -3,6 +3,7 @@ package be.ugent.objprog.ugentopoly.controller;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneUpdater;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
@@ -24,7 +25,7 @@ public class GameController {
 
         UIUpdater uiUpdater = new UIUpdater(rootPane);
         uiUpdater.colorAreaPanes(board.getAreas());
-        uiUpdater.updateTileLabels(board.getTiles());
+        uiUpdater.updateTiles(board.getTiles());
 
         attachTileClickHandlers();
     }
@@ -39,9 +40,7 @@ public class GameController {
             for (Node node : parent.getChildren()) {
                 if (node instanceof Pane tilePane) {
                     attachTileClickHandler(tilePane);
-                }
-                if (node instanceof Pane nestedPane) {
-                    attachClickHandlers(nestedPane);
+                    attachClickHandlers(tilePane);
                 }
             }
         } else if (parent instanceof GridPane grid) {
@@ -54,12 +53,14 @@ public class GameController {
     }
 
     private void attachTileClickHandler(Pane tilePane) {
-        tilePane.setOnMouseEntered(event -> showTileInfo(tilePane));
-        tilePane.setOnMouseExited(event -> showTileInfo(tilePane));
+        tilePane.setOnMouseClicked(event -> showTileInfo(tilePane));
     }
 
     private void showTileInfo(Pane tilePane) {
         String tileId = tilePane.getId();
+        if (tileId == null){
+            return;
+        }
         Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_","")));
         if (tile != null) {
             tile.accept(tileInfoPaneUpdater);

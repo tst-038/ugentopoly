@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="_5" styleClass="tile" GridPane.rowIndex="4" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<children>
+    <Label graphicTextGap="5.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+        </graphic>
+        <padding>
+            <Insets left="10.0" />
+        </padding>
+    </Label>
+</children>
+</AnchorPane>

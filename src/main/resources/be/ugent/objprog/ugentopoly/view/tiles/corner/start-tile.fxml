@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0">
+    <children>
+        <Group>
+            <children>
+                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="-56.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" scaleX="0.8" scaleY="0.8" AnchorPane.leftAnchor="-56.0">
+                            <image>
+                                <Image url="@../../../assets/start-arrow.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="113.0" fitWidth="76.0" layoutX="59.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" rotate="14.9" scaleX="1.2" scaleY="1.2">
+                            <image>
+                                <Image url="@../../../assets/start.png" />
+                            </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="117.0" prefHeight="40.0" prefWidth="123.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </Group>
+    </children>
+</AnchorPane>

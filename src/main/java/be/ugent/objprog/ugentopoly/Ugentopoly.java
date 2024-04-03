@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Board;
+import be.ugent.objprog.ugentopoly.model.tiles.Orientation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,6 +49,10 @@ public class Ugentopoly extends Application {
             primaryStage.show();
         } catch (Exception e) {
             throw new UIInitializationException("Failed to initialize the UI", e);
+        }
+
+        for (int i = 0; i < 40; i++) {
+            System.out.println(Orientation.getOrientation(i));
         }
     }
 
