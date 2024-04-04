@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
-        System.out.println("UtilityTileInfoPaneFactory");
         AnchorPane tileInfoPane = super.createTileInfoPane(tile);
 
         ImageView utilityTileImage  = createUtilityImage(tile);

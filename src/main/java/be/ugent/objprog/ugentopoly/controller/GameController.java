@@ -6,7 +6,6 @@ import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneUpdater;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -44,7 +43,7 @@ public class GameController {
             }
         }
         // Attach click handler to the root pane to close the info pane when clicking outside of a tile
-        ((BorderPane) rootPane.getChildren().get(0)).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
+        ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
     }
 
     private Pane findTilePane(Pane parent, String tileId) {
@@ -53,8 +52,7 @@ public class GameController {
         }
 
         for (Node node : parent.getChildren()) {
-            if (node instanceof Pane) {
-                Pane childPane = (Pane) node;
+            if (node instanceof Pane childPane) {
                 Pane foundPane = findTilePane(childPane, tileId);
                 if (foundPane != null) {
                     return foundPane;
@@ -78,7 +76,6 @@ public class GameController {
         } else {
             // If a different tile is clicked, update the info pane and show it
             Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
-            System.out.println("tile" + tile);
             if (tile != null) {
                 tile.accept(tileInfoPaneUpdater);
                 tileInfoPane.setVisible(true);

@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
-        System.out.println("create tile info pane street");
         StreetTile streetTile = (StreetTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile);
 

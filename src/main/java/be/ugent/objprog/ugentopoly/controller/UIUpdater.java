@@ -41,9 +41,7 @@ public class UIUpdater {
         for (Tile tile : tiles) {
             try {
                 Node node = rootPane.lookup("#_" + tile.getPosition());
-                System.out.println("#_" + tile.getPosition());
                 String fxmlFileName = TileConfig.getFXMLFileName(tile.getType(), tile.getOrientation());
-                System.out.println(fxmlFileName);
                 FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/tiles/"+fxmlFileName));
                 Node tileNode = loader.load();
 
@@ -52,7 +50,6 @@ public class UIUpdater {
                 Label label = null;
                 if(tile.getType() != TileType.UTILITY){
                     label = (Label) tileNode.lookup("Label");
-                    System.out.println(label);
                     label.setText(tile.getName());
                 }
 
@@ -78,16 +75,12 @@ public class UIUpdater {
                     ImageView image = (ImageView) tileNode.lookup("ImageView");
                     image.setImage(tile.getImage());
                 }
-                System.out.println(node);
-                System.out.println(tileNode);
 
                 rootPane.getChildren().add(tileNode);
 
                 if(node instanceof GridPane grid){
-                    System.out.println("GRIIDDD");
                     grid.add(tileNode, 0, 0);
                 }else if (node instanceof Pane pane) {
-                    System.out.println("PANE");
                     pane.getChildren().add(tileNode);
                 }
             }catch (Exception e) {

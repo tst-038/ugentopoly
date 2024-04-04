@@ -50,10 +50,6 @@ public class Ugentopoly extends Application {
         } catch (Exception e) {
             throw new UIInitializationException("Failed to initialize the UI", e);
         }
-
-        for (int i = 0; i < 40; i++) {
-            System.out.println(Orientation.getOrientation(i));
-        }
     }
 
     private void setIcon(Stage stage) {

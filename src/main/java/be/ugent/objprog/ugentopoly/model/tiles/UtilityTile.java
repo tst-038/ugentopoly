@@ -20,7 +20,6 @@ public class UtilityTile extends Tile {
     }
 
     public Image getImage() {
-        System.out.println("assets/" + getId().replaceAll("tile.", "") + ".png");
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") + ".png")));
     }
 
