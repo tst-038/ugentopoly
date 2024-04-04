@@ -3,10 +3,12 @@ package be.ugent.objprog.ugentopoly.controller;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneUpdater;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class GameController {
     private Board board;
@@ -18,6 +20,9 @@ public class GameController {
     private AnchorPane tileInfoPane;
 
     private TileInfoPaneUpdater tileInfoPaneUpdater;
+
+    private Pane currentlySelectedTile = null;
+
 
     public void initializeBoard(Board board) {
         this.board = board;
@@ -31,25 +36,33 @@ public class GameController {
     }
 
     private void attachTileClickHandlers() {
-        BorderPane boardPane = (BorderPane) rootPane.getChildren().get(0);
-        boardPane.getChildren().forEach(node -> attachClickHandlers((Pane) node));
+        for (Tile tile : board.getTiles()) {
+            String tileId = "_" + tile.getPosition();
+            Pane tilePane = findTilePane(rootPane, tileId);
+            if (tilePane != null) {
+                attachTileClickHandler(tilePane);
+            }
+        }
+        // Attach click handler to the root pane to close the info pane when clicking outside of a tile
+        ((BorderPane) rootPane.getChildren().get(0)).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
     }
 
-    private void attachClickHandlers(Pane parent) {
-        if (parent instanceof HBox || parent instanceof VBox || parent instanceof AnchorPane) {
-            for (Node node : parent.getChildren()) {
-                if (node instanceof Pane tilePane) {
-                    attachTileClickHandler(tilePane);
-                    attachClickHandlers(tilePane);
-                }
-            }
-        } else if (parent instanceof GridPane grid) {
-            for (Node node : grid.getChildren()) {
-                if (node instanceof Pane tilePane) {
-                    attachTileClickHandler(tilePane);
+    private Pane findTilePane(Pane parent, String tileId) {
+        if (parent.getId() != null && parent.getId().equals(tileId)) {
+            return parent;
+        }
+
+        for (Node node : parent.getChildren()) {
+            if (node instanceof Pane) {
+                Pane childPane = (Pane) node;
+                Pane foundPane = findTilePane(childPane, tileId);
+                if (foundPane != null) {
+                    return foundPane;
                 }
             }
         }
+
+        return null;
     }
 
     private void attachTileClickHandler(Pane tilePane) {
@@ -58,12 +71,24 @@ public class GameController {
 
     private void showTileInfo(Pane tilePane) {
         String tileId = tilePane.getId();
-        if (tileId == null){
-            return;
+
+        if (currentlySelectedTile != null && currentlySelectedTile.getId().equals(tileId)) {
+            // If the clicked tile is already selected, close the info pane
+            hideTileInfoPane();
+        } else {
+            // If a different tile is clicked, update the info pane and show it
+            Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
+            System.out.println("tile" + tile);
+            if (tile != null) {
+                tile.accept(tileInfoPaneUpdater);
+                tileInfoPane.setVisible(true);
+                currentlySelectedTile = tilePane;
+            }
         }
-        Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_","")));
-        if (tile != null) {
-            tile.accept(tileInfoPaneUpdater);
-        }
+    }
+
+    private void hideTileInfoPane() {
+        tileInfoPane.setVisible(false);
+        currentlySelectedTile = null;
     }
 }

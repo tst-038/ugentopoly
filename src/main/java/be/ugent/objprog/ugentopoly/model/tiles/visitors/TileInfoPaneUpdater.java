@@ -15,14 +15,10 @@ public class TileInfoPaneUpdater implements TileVisitor {
     }
 
     private void updateTileInfoPane(Tile tile, TileInfoPaneFactory factory) {
-        if (tileInfoPane.isVisible()) {
-            tileInfoPane.setVisible(false);
-        } else {
-            tileInfoPane.setVisible(true);
-            tileInfoPane.getChildren().clear();
-            AnchorPane infoPane = factory.createTileInfoPane(tile);
-            this.tileInfoPane.getChildren().add(infoPane);
-        }
+        tileInfoPane.setVisible(false);
+        tileInfoPane.getChildren().clear();
+        AnchorPane infoPane = factory.createTileInfoPane(tile);
+        this.tileInfoPane.getChildren().add(infoPane);
     }
 
     @Override
