@@ -12,16 +12,14 @@ public class StreetTile extends Tile {
 
     private final int cost;
     private final Area area;
-    private final int[] rent;
-    private final int housesBuild;
+    private final int rent;
     private final Player owner;
 
-    public StreetTile(String id, int position, int cost, Area area, int[] rent) {
+    public StreetTile(String id, int position, int cost, Area area, int rent) {
         super(id, position, TileType.STREET);
         this.cost = cost;
         this.area = area;
         this.rent = rent;
-        this.housesBuild = 0;
         this.owner = null;
     }
 
@@ -34,10 +32,6 @@ public class StreetTile extends Tile {
     }
 
     public int getRent() {
-        return rent[housesBuild];
-    }
-
-    public int[] getAllRents() {
         return rent;
     }
 

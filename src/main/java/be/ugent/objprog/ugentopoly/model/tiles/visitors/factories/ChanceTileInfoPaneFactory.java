@@ -37,6 +37,6 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel() {
-        return createLabel("Draw a chance card", "chance-info", 5.0, 5.0, 110.0, 5.0);
+        return createLabel("Trek een kans kaart!", "chance-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

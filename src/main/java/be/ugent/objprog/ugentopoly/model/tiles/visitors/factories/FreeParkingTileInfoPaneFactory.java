@@ -33,7 +33,7 @@ public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel() {
-        String infoText = "You are in the Free Parking tile. You can rest here and enjoy the view.";
+        String infoText = "Tijd voor een academische comeback!";
         return createLabel(infoText, "free-parking-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

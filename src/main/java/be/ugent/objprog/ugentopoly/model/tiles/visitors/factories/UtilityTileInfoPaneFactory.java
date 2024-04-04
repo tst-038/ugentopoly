@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.UtilityTile;
@@ -15,7 +16,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView utilityTileImage  = createUtilityImage(tile);
         Label title = createTitleLabel((UtilityTile) tile);
-        Label info = createInfoLabel();
+        Label info = createInfoLabel((UtilityTile) tile);
 
         tileInfoPane.getChildren().addAll(utilityTileImage, title, info);
 
@@ -36,8 +37,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "utility-title", 5.0, 5.0, 0.0, 35.0);
     }
 
-    // TODO change this to show the price of the utility
-    private Label createInfoLabel() {
-        return createLabel("TODO", "utility-info", 5.0, 5.0, 140.0, 5.0);
+    private Label createInfoLabel(UtilityTile tile) {
+        return createLabel("Kostprijs: "+tile.getCost()+ Settings.getMoneyUnit(), "utility-info", 5.0, 5.0, 100.0, 5.0);
     }
 }

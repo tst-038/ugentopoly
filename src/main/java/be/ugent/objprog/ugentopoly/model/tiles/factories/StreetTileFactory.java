@@ -19,9 +19,8 @@ public class StreetTileFactory implements TileFactory {
     public Tile createTile(Element element) {
         int streetCost = Integer.parseInt(element.getAttributeValue("cost"));
         String area = element.getAttributeValue("area");
-        int[] rents = IntStream.range(0, 6)
-                .map(i -> Integer.parseInt(element.getAttributeValue("rent" + i))).toArray();
+        int rent = Integer.parseInt(element.getAttributeValue("rent0"));
         return new StreetTile(element.getAttributeValue("id"), Integer.parseInt(element.getAttributeValue("position")),
-                streetCost, areas.stream().filter(ar -> ar.getId().equals(area)).findFirst().orElse(null), rents);
+                streetCost, areas.stream().filter(ar -> ar.getId().equals(area)).findFirst().orElse(null), rent);
     }
 }

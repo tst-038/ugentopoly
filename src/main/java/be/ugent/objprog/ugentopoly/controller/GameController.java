@@ -79,6 +79,12 @@ public class GameController {
             if (tile != null) {
                 tile.accept(tileInfoPaneUpdater);
                 tileInfoPane.setVisible(true);
+
+                if (currentlySelectedTile != null) {
+                    currentlySelectedTile.getStyleClass().remove("tile-selected");
+                }
+
+                tilePane.getStyleClass().add("tile-selected");
                 currentlySelectedTile = tilePane;
             }
         }
@@ -86,6 +92,7 @@ public class GameController {
 
     private void hideTileInfoPane() {
         tileInfoPane.setVisible(false);
+        currentlySelectedTile.getStyleClass().remove("tile-selected");
         currentlySelectedTile = null;
     }
 }

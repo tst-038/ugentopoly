@@ -33,6 +33,6 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel() {
-        return createLabel("Draw a card from the chest", "chest-info", 5.0, 5.0, 110.0, 5.0);
+        return createLabel("Trek een kist kaart!", "chest-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

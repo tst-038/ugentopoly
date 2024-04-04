@@ -33,6 +33,7 @@ public class GoToJailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel() {
-        return createLabel("When you land on this tile, you will be sent to jail.", "go-to-jail-info", 5.0, 5.0, 110.0, 5.0);
+        String info = "Stop met studeren, ga naar de overpoort!";
+        return createLabel(info, "go-to-jail-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

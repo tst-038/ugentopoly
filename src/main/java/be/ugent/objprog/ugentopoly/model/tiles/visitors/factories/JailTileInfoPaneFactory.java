@@ -40,6 +40,7 @@ public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel() {
-        return createLabel("You are in jail, you can't do anything until you roll a double or pay X$", "jail-info", 5.0, 5.0, 110.0, 5.0);
+        String info = "Tijd om erop los te gaan in de overpoort!";
+        return createLabel(info,"jail-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

@@ -36,7 +36,7 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createInfoLabel(Tile tile) {
         TaxTile taxTile = (TaxTile) tile;
-        String infoText = "Pay: "+Settings.getMoneyUnit() + taxTile.getAmount();
+        String infoText = "Boete : "+Settings.getMoneyUnit() + taxTile.getAmount();
         return createLabel(infoText, "tax-info", 5.0, 5.0,110., 5.);
     }
 }

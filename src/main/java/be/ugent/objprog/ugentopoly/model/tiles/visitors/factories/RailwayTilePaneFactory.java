@@ -35,7 +35,7 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createInfoLabel(Tile tile) {
         RailwayTile railwayTile = (RailwayTile) tile;
-        String infoText = "Price: " + Settings.getMoneyUnit() + railwayTile.getPrice();
+        String infoText = "Kostprijs: " + Settings.getMoneyUnit() + railwayTile.getPrice();
         return createLabel(infoText, "railway-info", null, 2.0, 110.0, 5.);
     }
 }

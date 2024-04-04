@@ -10,7 +10,12 @@
 @import "tileinfopanels/utility-tile.css";
 
 .tile:hover {
-    -fx-background-color: #93b7be;
+    -fx-background-color: #67c0da;
+    -fx-font-size: 1.15em;
+}
+
+.tile-selected {
+    -fx-background-color: #62b4b6;
 }
 
 .label {
