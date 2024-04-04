@@ -16,6 +16,6 @@ public class JailTile extends Tile {
     }
     @Override
     public void accept(TileVisitor visitor) {
-
+        visitor.visit(this);
     }
 }
