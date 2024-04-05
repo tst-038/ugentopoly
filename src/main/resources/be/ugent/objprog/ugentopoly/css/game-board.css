@@ -11,7 +11,7 @@
 
 .tile:hover {
     -fx-background-color: #67c0da;
-    -fx-font-size: 1.15em;
+    -fx-font-size: 1.11em;
 }
 
 .tile-selected {

@@ -66,8 +66,8 @@ public class UIUpdater {
                     label.setGraphic(imageView);
                 } else if (tile.getType() == TileType.JAIL || tile.getType() == TileType.GO_TO_JAIL || tile.getType() == TileType.FREE_PARKING ){
                     ImageView imageView = new ImageView(tile.getImage());
-                    imageView.setFitHeight(75);
-                    imageView.setFitWidth(75);
+                    imageView.setFitHeight(55);
+                    imageView.setFitWidth(55);
                     imageView.setPreserveRatio(true);
                     imageView.setPickOnBounds(true);
                     label.setGraphic(imageView);
