@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.JailTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -21,7 +22,7 @@ public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label title = createTitleLabel(jailTile);
         title.setGraphic(jailImage);
         title.setContentDisplay(ContentDisplay.TOP);
-        Label info = createInfoLabel();
+        Label info = createInfoLabel(tile);
 
         tileInfoPane.getChildren().addAll(title, info);
 
@@ -39,8 +40,8 @@ public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "jail-title", 5.0, 5.0, 10.0, null);
     }
 
-    private Label createInfoLabel() {
-        String info = "Tijd om erop los te gaan in de overpoort!";
-        return createLabel(info,"jail-info", 5.0, 5.0, 110.0, 5.0);
+    private Label createInfoLabel(Tile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
+        return createLabel(desc,"jail-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

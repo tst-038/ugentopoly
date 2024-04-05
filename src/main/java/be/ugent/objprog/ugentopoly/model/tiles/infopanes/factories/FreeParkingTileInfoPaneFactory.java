@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.FreeParkingTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -14,7 +15,7 @@ public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView freeParkingImage = createFreeParkingImage();
         Label title = createTitleLabel((FreeParkingTile) tile);
-        Label info = createInfoLabel();
+        Label info = createInfoLabel(tile);
 
         tileInfoPane.getChildren().addAll(freeParkingImage, title, info);
 
@@ -32,8 +33,8 @@ public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "free-parking-title", 5.0, 5.0, 50.0, 35.0);
     }
 
-    private Label createInfoLabel() {
-        String infoText = "Tijd voor een academische comeback!";
-        return createLabel(infoText, "free-parking-info", 5.0, 5.0, 110.0, 5.0);
+    private Label createInfoLabel(Tile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
+        return createLabel(desc, "free-parking-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

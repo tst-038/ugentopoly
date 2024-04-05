@@ -1,8 +1,8 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.ChanceTile;
-import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -15,7 +15,7 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView chanceTileImage  = createChanceImage();
         Label title = createTitleLabel((ChanceTile) tile);
-        Label info = createInfoLabel();
+        Label info = createInfoLabel(tile);
 
         tileInfoPane.getChildren().addAll(chanceTileImage, title, info);
 
@@ -36,7 +36,8 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "chance-title", 5.0, 5.0, 50.0, 35.0);
     }
 
-    private Label createInfoLabel() {
-        return createLabel("Trek een kans kaart!", "chance-info", 5.0, 5.0, 110.0, 5.0);
+    private Label createInfoLabel(Tile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
+        return createLabel(desc, "chance-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

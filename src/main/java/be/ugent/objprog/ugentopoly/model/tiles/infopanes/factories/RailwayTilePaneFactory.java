@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.RailwayTile;
@@ -35,7 +36,7 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createInfoLabel(Tile tile) {
         RailwayTile railwayTile = (RailwayTile) tile;
-        String infoText = "Kostprijs: " + Settings.getMoneyUnit() + railwayTile.getPrice();
+        String infoText = PropertyReader.getInstance().get("label.price") +": " + Settings.getMoneyUnit() + railwayTile.getPrice();
         return createLabel(infoText, "railway-info", null, 2.0, 110.0, 5.);
     }
 }

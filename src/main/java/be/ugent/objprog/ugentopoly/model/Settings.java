@@ -1,8 +1,10 @@
 package be.ugent.objprog.ugentopoly.model;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
+
 public class Settings {
 
-    private static final char MONEY_UNIT = '€';
+    private static final char MONEY_UNIT = PropertyReader.getInstance().get("money_symbol").charAt(0);
     private final int startingBalance;
     private final int startAmount;
 

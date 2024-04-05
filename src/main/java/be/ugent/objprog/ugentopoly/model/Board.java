@@ -25,15 +25,10 @@ public class Board {
         settings = boardReader.readSettings();
         areas = boardReader.readAreas();
         tiles = BoardReader.readTiles(areas);
-
-        try (InputStream propertiesInputStream = ResourceLoader.loadResource("ugentopoly.properties")) {
-            PropertyReader propertyReader = new PropertyReader(propertiesInputStream);
-            for (Tile tile : tiles) {
-                String tileName = propertyReader.getTileName(tile.getId());
-                tile.setName(tileName);
-            }
-        } catch (IOException e) {
-            throw new PropertyReadException("Failed to read properties file", e);
+        PropertyReader propertyReader = PropertyReader.getInstance();
+        for (Tile tile : tiles) {
+            String tileName = propertyReader.getTileName(tile.getId());
+            tile.setName(tileName);
         }
     }
 

@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -20,7 +21,7 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView startImage = createTileImage();
         Label titleLabel = createTitleLabel(tile);
-        Label infoLabel = createInfoLabel();
+        Label infoLabel = createInfoLabel(tile);
 
         tileInfoPane.getChildren().addAll(startImage, titleLabel, infoLabel);
 
@@ -38,8 +39,8 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "start-title", 5.0, 5.0, 50.0, 35.0);
     }
 
-    private Label createInfoLabel() {
-        String infoText = "This is the start position. You will receive " + Settings.getMoneyUnit() + settings.getStartAmount() + " when you pass this tile.";
-        return createLabel(infoText, "start-info", 5.0, 5.0, 110.0, 5.0);
+    private Label createInfoLabel(Tile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit()+settings.getStartAmount());
+        return createLabel(desc, "start-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

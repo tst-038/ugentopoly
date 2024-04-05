@@ -2,7 +2,7 @@ package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneUpdater;
+import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -18,14 +18,14 @@ public class GameController {
     @FXML
     private AnchorPane tileInfoPane;
 
-    private TileInfoPaneUpdater tileInfoPaneUpdater;
+    private TileInfoPaneVisitor tileInfoPaneUpdater;
 
     private Pane currentlySelectedTile = null;
 
 
     public void initializeBoard(Board board) {
         this.board = board;
-        tileInfoPaneUpdater = new TileInfoPaneUpdater(tileInfoPane, board.getSettings());
+        tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane, board.getSettings());
 
         UIUpdater uiUpdater = new UIUpdater(rootPane);
         uiUpdater.colorAreaPanes(board.getAreas());

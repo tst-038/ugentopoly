@@ -1,8 +1,8 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.UtilityTile;
 import javafx.scene.control.Label;
@@ -38,6 +38,6 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel(UtilityTile tile) {
-        return createLabel("Kostprijs: "+tile.getCost()+ Settings.getMoneyUnit(), "utility-info", 5.0, 5.0, 100.0, 5.0);
+        return createLabel(PropertyReader.getInstance().get("label.price") +": "+tile.getCost()+ Settings.getMoneyUnit(), "utility-info", 5.0, 5.0, 100.0, 5.0);
     }
 }

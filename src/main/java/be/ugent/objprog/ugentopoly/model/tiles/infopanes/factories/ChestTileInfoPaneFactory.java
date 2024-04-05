@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -14,7 +15,7 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView chestTileImage = createChestImage();
         Label title = createTitleLabel((ChestTile) tile);
-        Label info = createInfoLabel();
+        Label info = createInfoLabel(tile);
 
         tileInfoPane.getChildren().addAll(chestTileImage, title, info);
 
@@ -32,7 +33,8 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(tile.getName(), "chest-title", 5.0, 5.0, 50.0, 35.0);
     }
 
-    private Label createInfoLabel() {
-        return createLabel("Trek een kist kaart!", "chest-info", 5.0, 5.0, 110.0, 5.0);
+    private Label createInfoLabel(Tile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
+        return createLabel(desc, "chest-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

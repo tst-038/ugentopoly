@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.TaxTile;
@@ -15,7 +16,7 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView taxImage = createTileImage();
         Label titleLabel = createTitleLabel(tile);
-        Label infoLabel = createInfoLabel(tile);
+        Label infoLabel = createInfoLabel((TaxTile) tile);
 
         tileInfoPane.getChildren().addAll(taxImage, titleLabel, infoLabel);
 
@@ -34,9 +35,8 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         return createLabel(taxTile.getName(), "tax-title", 5.0, 5.0, 50.0, 35.0);
     }
 
-    private Label createInfoLabel(Tile tile) {
-        TaxTile taxTile = (TaxTile) tile;
-        String infoText = "Boete : "+Settings.getMoneyUnit() + taxTile.getAmount();
-        return createLabel(infoText, "tax-info", 5.0, 5.0,110., 5.);
+    private Label createInfoLabel(TaxTile tile) {
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId().replaceAll("\\d","")).formatted(Settings.getMoneyUnit() + tile.getAmount());
+        return createLabel(desc, "tax-info", 5.0, 5.0,110., 5.);
     }
 }

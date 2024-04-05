@@ -1,11 +1,11 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.data.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
@@ -18,10 +18,10 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label infoTitle = createTitleLabel(streetTile);
         infoColor.getChildren().add(infoTitle);
 
-        Label rentLabel = createLabel("Huurprijs :", "street-tile-rent-title", 5.0, null, 80.0, null);
+        Label rentLabel = createLabel(PropertyReader.getInstance().get("label.rent") +": ", "street-tile-rent-title", 5.0, null, 80.0, null);
         Label rent = createLabel(Settings.getMoneyUnit() + streetTile.getRent(), "street-tile-rent", null, 5.0, 80.0, null);
 
-        Label priceLabel = createLabel("Kostprijs :", "street-tile-price-title", 5.0, null, 60.0, null);
+        Label priceLabel = createLabel(PropertyReader.getInstance().get("label.price")+": ",  "street-tile-price-title", 5.0, null, 60.0, null);
         Label price = createPriceLabel(streetTile);
 
         if (streetTile.getOwner() == null) {

@@ -1,4 +1,4 @@
-package be.ugent.objprog.ugentopoly.model.tiles.visitors.factories;
+package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.layout.AnchorPane;
