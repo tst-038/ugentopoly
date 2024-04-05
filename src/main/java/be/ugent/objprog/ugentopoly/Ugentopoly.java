@@ -4,7 +4,6 @@ import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Board;
-import be.ugent.objprog.ugentopoly.model.tiles.Orientation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

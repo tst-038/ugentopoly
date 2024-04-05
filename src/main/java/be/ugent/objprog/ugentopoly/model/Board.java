@@ -2,15 +2,8 @@ package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.data.BoardReader;
 import be.ugent.objprog.ugentopoly.data.PropertyReader;
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.exceptions.PropertyReadException;
-import be.ugent.objprog.ugentopoly.model.tiles.ChanceTile;
-import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Board {

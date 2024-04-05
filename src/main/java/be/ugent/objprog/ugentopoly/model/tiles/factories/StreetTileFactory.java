@@ -6,7 +6,6 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import org.jdom2.Element;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class StreetTileFactory implements TileFactory {
     private final List<Area> areas;

@@ -9,14 +9,12 @@ import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.List;
-import java.util.Set;
 
 public class UIUpdater {
     private final AnchorPane rootPane;
