@@ -1,23 +1,24 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 public enum TileType {
-    START,
-    JAIL,
-    FREE_PARKING,
-    GO_TO_JAIL,
-    CHANCE,
-    CHEST,
-    TAX,
-    UTILITY,
-    RAILWAY,
-    STREET;
+    START("start"),
+    JAIL("corner"),
+    FREE_PARKING("corner"),
+    GO_TO_JAIL("corner"),
+    CHANCE("image"),
+    CHEST("image"),
+    TAX("image"),
+    UTILITY("utility"),
+    RAILWAY("image"),
+    STREET("street");
 
-    public static boolean isValidTileType(String id) {
-        try {
-            TileType.valueOf(id);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+    private final String fxmlFilePrefix;
+
+    TileType(String fileName) {
+        this.fxmlFilePrefix = fileName;
+    }
+
+    public String getFXMLFileName() {
+        return fxmlFilePrefix.toLowerCase() + "-tile.fxml";
     }
 }

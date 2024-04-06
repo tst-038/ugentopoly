@@ -42,9 +42,13 @@ public class Ugentopoly extends Application {
         }
     }
 
+    private static void setPrimaryStage(Stage primaryStage) {
+        Ugentopoly.primaryStage = primaryStage;
+    }
+
     @Override
     public void start(Stage primaryStage) {
-        Ugentopoly.primaryStage = primaryStage;
+        Ugentopoly.setPrimaryStage(primaryStage);
         showStartWindow();
     }
 

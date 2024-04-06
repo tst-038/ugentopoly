@@ -7,7 +7,17 @@ module be.ugent.objprog.ugentopoly {
 
     opens be.ugent.objprog.ugentopoly to javafx.fxml;
     opens be.ugent.objprog.ugentopoly.controller to javafx.fxml;
-    exports be.ugent.objprog.ugentopoly;
-    exports be.ugent.objprog.ugentopoly.model;
     opens be.ugent.objprog.ugentopoly.model to javafx.fxml;
+
+    // Export the main package
+    exports be.ugent.objprog.ugentopoly;
+
+    // Export the model package
+    exports be.ugent.objprog.ugentopoly.model;
+
+    // Export the exceptions packages
+    exports be.ugent.objprog.ugentopoly.exceptions.bank;
+    exports be.ugent.objprog.ugentopoly.exceptions.data;
+    exports be.ugent.objprog.ugentopoly.exceptions.model;
+    exports be.ugent.objprog.ugentopoly.exceptions.ui;
 }

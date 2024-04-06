@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Bank {
+
     private static Bank instance;
-    private Map<Player, Integer> balances;
+    private final Map<Player, Integer> balances;
 
     private Bank() {
         balances = new HashMap<>();

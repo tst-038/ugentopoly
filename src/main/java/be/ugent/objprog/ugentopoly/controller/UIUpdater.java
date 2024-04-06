@@ -1,10 +1,9 @@
 package be.ugent.objprog.ugentopoly.controller;
 
-import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.model.tiles.TileConfig;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.net.URL;
 import java.util.List;
 
 public class UIUpdater {
@@ -25,25 +25,24 @@ public class UIUpdater {
 
     public void colorAreaPanes(List<Area> areas) {
         for (Area area : areas) {
-            String areaId = area.getId();
+            String areaId = area.id();
             String areaClass = "area-" + areaId.substring(4);
             rootPane.lookupAll("." + areaClass).forEach(node -> {
                 Pane areaPane = (Pane) node;
-                areaPane.setStyle("-fx-background-color: " + area.getColor());
+                areaPane.setStyle("-fx-background-color: " + area.color());
             });
         }
     }
 
-    // TODO refractor to make use of position instead of tile id
     public void updateTiles(List<Tile> tiles) {
         for (Tile tile : tiles) {
             try {
                 Node node = rootPane.lookup("#_" + tile.getPosition());
-                String fxmlFileName = TileConfig.getFXMLFileName(tile.getType(), tile.getOrientation());
-                FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/tiles/"+fxmlFileName));
+                URL fxmlFileURL = tile.getFxmlURL();
+                FXMLLoader loader = new FXMLLoader(fxmlFileURL);
                 Node tileNode = loader.load();
 
-                tileNode.setRotate(tile.getOrientation().getRotation(tile.getType()));
+                tileNode.setRotate(tile.getOrientation().getRotation());
 
                 Label label = null;
                 if(tile.getType() != TileType.UTILITY){
@@ -53,21 +52,22 @@ public class UIUpdater {
 
                 if (tile.getType() == TileType.STREET) {
                     StreetTile streetTile = (StreetTile) tile;
-                    tileNode.lookup("#area").setStyle("-fx-background-color: " + streetTile.getArea().getColor());
+                    tileNode.lookup("#area").setStyle("-fx-background-color: " + streetTile.getArea().color());
                 }else if(tile.getType() == TileType.CHANCE || tile.getType() == TileType.RAILWAY || tile.getType() == TileType.TAX || tile.getType() == TileType.CHEST){
                     ImageView imageView = new ImageView(tile.getImage());
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
                     imageView.setPreserveRatio(true);
-                    //TODO needed?
                     imageView.setPickOnBounds(true);
+                    assert label != null;
                     label.setGraphic(imageView);
                 } else if (tile.getType() == TileType.JAIL || tile.getType() == TileType.GO_TO_JAIL || tile.getType() == TileType.FREE_PARKING ){
                     ImageView imageView = new ImageView(tile.getImage());
-                    imageView.setFitHeight(55);
-                    imageView.setFitWidth(55);
+                    imageView.setFitHeight(50);
+                    imageView.setFitWidth(50);
                     imageView.setPreserveRatio(true);
                     imageView.setPickOnBounds(true);
+                    assert label != null;
                     label.setGraphic(imageView);
                 }else if (tile.getType() == TileType.UTILITY) {
                     ImageView image = (ImageView) tileNode.lookup("ImageView");
@@ -82,7 +82,7 @@ public class UIUpdater {
                     pane.getChildren().add(tileNode);
                 }
             }catch (Exception e) {
-                e.printStackTrace();
+                throw new UIUpdateException("Error updating UI for tile " + tile.getId(), e);
             }
         }
     }

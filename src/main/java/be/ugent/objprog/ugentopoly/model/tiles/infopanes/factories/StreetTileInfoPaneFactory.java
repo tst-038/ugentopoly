@@ -42,7 +42,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     private AnchorPane createInfoColor(StreetTile tile) {
         AnchorPane infoColor = new AnchorPane();
         infoColor.getStyleClass().add("street-tile-area");
-        infoColor.setStyle("-fx-background-color: " + tile.getArea().getColor() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
+        infoColor.setStyle("-fx-background-color: " + tile.getArea().color() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
         infoColor.setPrefHeight(50.0);
         infoColor.setPrefWidth(150.0);
         return createAnchorPane(infoColor, 0.0, 0.0, 3.0, 3.0, 3.0, null);
@@ -71,7 +71,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private String getTextColorClass(StreetTile tile) {
-        Color areaColor = Color.web(tile.getArea().getColor());
+        Color areaColor = Color.web(tile.getArea().color());
         double brightness = (areaColor.getRed() * 299 + areaColor.getGreen() * 587 + areaColor.getBlue() * 114) / 1000;
         return brightness > 0.7 ? "street-tile-title-black" : "street-tile-title-white";
     }

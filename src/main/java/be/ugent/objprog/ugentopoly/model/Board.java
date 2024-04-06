@@ -11,11 +11,15 @@ public class Board {
     private List<Area> areas;
     private List<Tile> tiles;
 
+    // Initialize the board
+    // Reads the areas, tiles and settings from the XML files
+    // Reads and sets the names of the tiles from the properties file
     public void init() {
         BoardReader boardReader = new BoardReader();
         areas = boardReader.readAreas();
         tiles = BoardReader.readTiles(areas);
         boardReader.readSettings();
+
         PropertyReader propertyReader = PropertyReader.getInstance();
         for (Tile tile : tiles) {
             String tileName = propertyReader.getTileName(tile.getId());

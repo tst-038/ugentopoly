@@ -1,23 +1,30 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
-public enum Orientation {
-    CORNER_1(0),
-    CORNER_2(90),
-    CORNER_3(180),
-    CORNER_4(270),
-    HORIZONTAL_LEFT(0),
-    HORIZONTAL_RIGHT(180),
-    VERTICAL_TOP(0),
-    VERTICAL_BOTTOM(180);
 
+public enum Orientation {
+    VERTICAL_TOP("vertical", 0),
+    VERTICAL_BOTTOM("vertical", 180),
+    HORIZONTAL_LEFT("horizontal", 0),
+    HORIZONTAL_RIGHT("horizontal", 180),
+    CORNER_1("corner", 0),
+    CORNER_2("corner", 90),
+    CORNER_3("corner", 180),
+    CORNER_4("corner", 270);
+
+    private final String directoryName;
     private final int defaultRotation;
 
-    Orientation(int defaultRotation) {
+    Orientation(String directoryName, int defaultRotation) {
+        this.directoryName = directoryName;
         this.defaultRotation = defaultRotation;
     }
-    public int getRotation(TileType tileType) {
 
+    public int getRotation() {
         return defaultRotation;
+    }
+
+    public String getDirectoryName() {
+        return directoryName;
     }
 
     public static Orientation getOrientation(int position) {

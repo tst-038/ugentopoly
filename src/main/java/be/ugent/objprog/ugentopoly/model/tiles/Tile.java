@@ -1,7 +1,10 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
+import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import javafx.scene.image.Image;
+
+import java.net.URL;
 
 public abstract class Tile {
 
@@ -41,6 +44,11 @@ public abstract class Tile {
     public Orientation getOrientation() {
         return orientation;
     }
+
+    public URL getFxmlURL() {
+        return Ugentopoly.class.getResource("view/tiles/" + orientation.getDirectoryName() + "/" + type.getFXMLFileName());
+    }
+
 
     public abstract Image getImage();
 
