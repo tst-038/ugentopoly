@@ -3,6 +3,8 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
+import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
@@ -12,12 +14,12 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable {
+public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buyable, Rentable {
 
     private final int cost;
     private final Area area;
     private final int rent;
-    private final Player owner;
+    private Player owner;
 
     public StreetTile(String id, int position, int cost, Area area, int rent) {
         super(id, position, TileType.STREET);
@@ -41,6 +43,11 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable {
 
     public Player getOwner() {
         return owner;
+    }
+
+    @Override
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     public Image getImage() {

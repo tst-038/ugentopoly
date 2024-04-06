@@ -2,19 +2,19 @@ package be.ugent.objprog.ugentopoly.model;
 
 import javafx.scene.paint.Color;
 
-import java.util.Objects;
-
 public class Player {
     private String name;
     private Color color;
     private int position;
     private int balance;
+    private int ownedRailways;
 
     public Player(String name, Color color) {
         this.name = name.strip();
         this.color = color;
         this.position = Settings.getInstance().getStartAmount();
-        this.balance = Settings.getInstance().getStartingBalance(); // Starting balance
+        this.balance = Settings.getInstance().getStartingBalance();
+        this.ownedRailways = 0;
     }
 
     public void setName(String name) {
@@ -45,21 +45,13 @@ public class Player {
         this.color = color;
     }
 
-    public void updateBalance(int amount) {
-        balance += amount;
+    public void addRailway() {
+        ownedRailways++;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return Objects.equals(name, player.name) &&
-                Objects.equals(color, player.color);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, color);
+    public void removeRailway() {
+        if (ownedRailways > 0) {
+            ownedRailways--;
+        }
     }
 }

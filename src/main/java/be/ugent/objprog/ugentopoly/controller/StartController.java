@@ -25,6 +25,8 @@ public class StartController {
     @FXML
     private Label playerColorsNotUnique;
     @FXML
+    private Label playerAmount;
+    @FXML
     private Button playButton;
 
     private List<Player> players;
@@ -34,6 +36,8 @@ public class StartController {
         players = new ArrayList<>();
         playerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int numPlayers = newValue.intValue();
+            // TODO put in properties file
+            playerAmount.setText(numPlayers + " spelers");
             updatePlayerFields(numPlayers);
         });
         updatePlayerFields(2);
@@ -78,15 +82,14 @@ public class StartController {
                 AnchorPane playerFieldPane = new AnchorPane();
                 playerFieldPane.setPrefSize(200, 25);
                 TextField usernameField = new TextField();
-                usernameField.setPrefWidth(150);
-                usernameField.setText("Player " + (i + 1));
-                usernameField.setStyle("-fx-background-color: gray; -fx-border-color: dimgray; -fx-border-radius: 10px; -fx-border-width: 2px;");
+                usernameField.setPrefWidth(125);
+                usernameField.setText("Speler " + (i + 1));
                 AnchorPane.setLeftAnchor(usernameField, 0.0);
 
                 ColorPicker colorPicker = new ColorPicker();
                 colorPicker.setValue(defaultColors[i]);
                 colorPicker.setPrefSize(31, 25);
-                colorPicker.setStyle("-fx-color-label-visible: false; -fx-background-color: transparent;");
+                colorPicker.setStyle("");
                 AnchorPane.setRightAnchor(colorPicker, 20.0);
                 AnchorPane.setTopAnchor(colorPicker, 2.0);
 

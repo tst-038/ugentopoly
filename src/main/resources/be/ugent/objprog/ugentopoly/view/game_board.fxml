@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -470,6 +471,40 @@
                         </Label>
                      </children>
                   </AnchorPane>
+                  <HBox maxWidth="550.0" prefHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="137.5"/>
+                        <AnchorPane fx:id="playerPanel" minWidth="275.0" opacity="0.6" prefWidth="275.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="111.0" layoutY="14.0" styleClass="player"
+                                     text="Player X" textAlignment="CENTER" textFill="RED"/>
+                              <AnchorPane layoutX="14.0" layoutY="40.0" prefHeight="20.0" prefWidth="150.0"/>
+                              <HBox layoutY="40.0" prefHeight="16.0" prefWidth="275.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Balans: " textFill="WHITE">
+                                       <padding>
+                                          <Insets right="10.0"/>
+                                       </padding>
+                                    </Label>
+                                    <Label alignment="CENTER" text="€20" textAlignment="CENTER" textFill="WHITE"/>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0"/>
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox maxWidth="550.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="150.0" AnchorPane.leftAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="137.5"/>
+                        <AnchorPane minWidth="275.0" prefWidth="275.0"/>
+                        <AnchorPane minWidth="275.0" prefWidth="275.0"/>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </center>
