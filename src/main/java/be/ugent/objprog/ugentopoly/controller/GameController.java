@@ -27,7 +27,6 @@ public class GameController {
 
 
     public void initializeBoard(Board board, List<Player> players) {
-        System.out.println(players);
         this.board = board;
         tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
         UIUpdater uiUpdater = new UIUpdater(rootPane);

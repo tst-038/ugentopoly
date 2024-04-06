@@ -2,7 +2,10 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
+import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 
@@ -53,4 +56,6 @@ public abstract class Tile {
     public abstract Image getImage();
 
     public abstract void accept(TileVisitor visitor);
+
+    public abstract void acceptUIUpdate(UIUpdateVisitor visitor, Node tileNode, Pane rootPane);
 }
