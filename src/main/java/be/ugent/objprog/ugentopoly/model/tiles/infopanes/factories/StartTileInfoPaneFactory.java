@@ -9,11 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
-    private final Settings settings;
-
-    public StartTileInfoPaneFactory(Settings settings) {
-        this.settings = settings;
-    }
 
     @Override
     public AnchorPane createTileInfoPane(Tile tile) {
@@ -40,7 +35,7 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel(Tile tile) {
-        String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit()+settings.getStartAmount());
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit() + Settings.getInstance().getStartAmount());
         return createLabel(desc, "start-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

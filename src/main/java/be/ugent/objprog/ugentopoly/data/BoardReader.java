@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.data;
 
-import be.ugent.objprog.ugentopoly.exceptions.AreaReadException;
-import be.ugent.objprog.ugentopoly.exceptions.SettingReadException;
+import be.ugent.objprog.ugentopoly.exceptions.data.AreaReadException;
+import be.ugent.objprog.ugentopoly.exceptions.data.SettingReadException;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -66,7 +66,7 @@ public class BoardReader {
     }
 
 
-    public Settings readSettings() {
+    public void readSettings() {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
@@ -76,7 +76,7 @@ public class BoardReader {
             int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
             int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
 
-            return new Settings(balance, start);
+            Settings.getInstance().initialize(balance, start);
         } catch (IOException | JDOMException e) {
             throw new SettingReadException("Failed to read settings information from XML file", e);
         }

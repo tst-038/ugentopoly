@@ -1,6 +1,8 @@
-package be.ugent.objprog.ugentopoly.exceptions;
+package be.ugent.objprog.ugentopoly.exceptions.ui;
 
-public class UIInitializationException extends RuntimeException {
+import be.ugent.objprog.ugentopoly.exceptions.UgentopolyException;
+
+public class UIInitializationException extends UgentopolyException {
     public UIInitializationException(String message) {
         super(message);
     }

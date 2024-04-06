@@ -1,17 +1,14 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors;
 
-import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.*;
 import be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories.*;
 import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneVisitor implements TileVisitor {
     private final AnchorPane tileInfoPane;
-    private final Settings settings;
 
-    public TileInfoPaneVisitor(AnchorPane tileInfoPane, Settings settings) {
+    public TileInfoPaneVisitor(AnchorPane tileInfoPane) {
         this.tileInfoPane = tileInfoPane;
-        this.settings = settings;
     }
 
     private void updateTileInfoPane(Tile tile, TileInfoPaneFactory factory) {
@@ -68,6 +65,6 @@ public class TileInfoPaneVisitor implements TileVisitor {
 
     @Override
     public void visit(StartTile tile){
-        updateTileInfoPane(tile, new StartTileInfoPaneFactory(settings));
+        updateTileInfoPane(tile, new StartTileInfoPaneFactory());
     }
 }

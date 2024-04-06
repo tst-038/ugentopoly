@@ -1,6 +1,8 @@
-package be.ugent.objprog.ugentopoly.exceptions;
+package be.ugent.objprog.ugentopoly.exceptions.model;
 
-public class InvalidTileTypeException extends RuntimeException {
+import be.ugent.objprog.ugentopoly.exceptions.UgentopolyException;
+
+public class InvalidTileTypeException extends UgentopolyException {
     public InvalidTileTypeException(String message, Throwable cause) {
         super(message, cause);
     }

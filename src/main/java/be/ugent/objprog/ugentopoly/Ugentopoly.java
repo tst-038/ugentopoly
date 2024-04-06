@@ -2,7 +2,7 @@ package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.exceptions.UIInitializationException;
+import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Board;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

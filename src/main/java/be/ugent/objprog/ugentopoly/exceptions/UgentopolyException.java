@@ -5,4 +5,7 @@ public class UgentopolyException extends RuntimeException {
         super(message, cause);
     }
 
+    public UgentopolyException(String message) {
+        super(message);
+    }
 }

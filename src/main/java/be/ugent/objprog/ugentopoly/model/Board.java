@@ -10,14 +10,12 @@ public class Board {
 
     private List<Area> areas;
     private List<Tile> tiles;
-    private Settings settings;
-
 
     public void init() {
         BoardReader boardReader = new BoardReader();
-        settings = boardReader.readSettings();
         areas = boardReader.readAreas();
         tiles = BoardReader.readTiles(areas);
+        boardReader.readSettings();
         PropertyReader propertyReader = PropertyReader.getInstance();
         for (Tile tile : tiles) {
             String tileName = propertyReader.getTileName(tile.getId());
@@ -36,9 +34,4 @@ public class Board {
     public Tile getTileByPosition(int position) {
         return tiles.stream().filter(tile -> tile.getPosition() == position).findFirst().orElse(null);
     }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
 }

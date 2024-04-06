@@ -25,8 +25,7 @@ public class GameController {
 
     public void initializeBoard(Board board) {
         this.board = board;
-        tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane, board.getSettings());
-
+        tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
         UIUpdater uiUpdater = new UIUpdater(rootPane);
         uiUpdater.colorAreaPanes(board.getAreas());
         uiUpdater.updateTiles(board.getTiles());
@@ -92,6 +91,9 @@ public class GameController {
 
     private void hideTileInfoPane() {
         tileInfoPane.setVisible(false);
+        if (currentlySelectedTile == null) {
+            return;
+        }
         currentlySelectedTile.getStyleClass().remove("tile-selected");
         currentlySelectedTile = null;
     }

@@ -1,6 +1,6 @@
 package be.ugent.objprog.ugentopoly.data;
 
-import be.ugent.objprog.ugentopoly.exceptions.PropertyReadException;
+import be.ugent.objprog.ugentopoly.exceptions.data.PropertyReadException;
 
 import java.io.IOException;
 import java.io.InputStream;
