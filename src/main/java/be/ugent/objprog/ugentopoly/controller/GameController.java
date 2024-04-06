@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.Board;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import javafx.fxml.FXML;
@@ -8,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+
+import java.util.List;
 
 public class GameController {
     private Board board;
@@ -23,7 +26,8 @@ public class GameController {
     private Pane currentlySelectedTile = null;
 
 
-    public void initializeBoard(Board board) {
+    public void initializeBoard(Board board, List<Player> players) {
+        System.out.println(players);
         this.board = board;
         tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
         UIUpdater uiUpdater = new UIUpdater(rootPane);
