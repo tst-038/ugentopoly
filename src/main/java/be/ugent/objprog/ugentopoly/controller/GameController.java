@@ -32,6 +32,7 @@ public class GameController {
         UIUpdater uiUpdater = new UIUpdater(rootPane);
         uiUpdater.colorAreaPanes(board.getAreas());
         uiUpdater.updateTiles(board.getTiles());
+        uiUpdater.updatePlayers(players);
 
         attachTileClickHandlers();
     }

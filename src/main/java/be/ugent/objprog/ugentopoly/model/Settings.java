@@ -8,7 +8,7 @@ public class Settings {
     // Singleton instance
     private static Settings instance = null;
     private int startingBalance;
-    private int startAmount;
+    private int startBonus;
 
     // Private constructor
     private Settings() {
@@ -23,9 +23,9 @@ public class Settings {
     }
 
     // Method to initialize the settings
-    public void initialize(int startingBalance, int startingPosition) {
+    public void initialize(int startingBalance, int startBonus) {
         this.startingBalance = startingBalance;
-        this.startAmount = startingPosition;
+        this.startBonus = startBonus;
     }
 
     public static String getMoneyUnit() {
@@ -36,8 +36,8 @@ public class Settings {
         return startingBalance;
     }
 
-    public int getStartAmount() {
-        return startAmount;
+    public int getStartBonus() {
+        return startBonus;
     }
 
 }

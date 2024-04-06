@@ -1,14 +1,19 @@
 package be.ugent.objprog.ugentopoly.controller;
 
+import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.model.Area;
+import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitorImpl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -54,6 +59,42 @@ public class UIUpdater {
                 }
             } catch (Exception e) {
                 throw new UIUpdateException("Error updating UI for tile " + tile.getId(), e);
+            }
+        }
+    }
+
+    public void updatePlayers(List<Player> players) {
+        HBox playerPanel1 = (HBox) rootPane.lookup("#playerPanel1");
+        HBox playerPanel2 = (HBox) rootPane.lookup("#playerPanel2");
+
+        playerPanel1.getChildren().clear();
+        playerPanel2.getChildren().clear();
+
+        int panelIndex = 0;
+        for (Player player : players) {
+            try {
+                FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/ui/playerpanel.fxml"));
+                Node playerNode = loader.load();
+                playerNode.setOpacity(1);
+
+                playerNode.setId("player" + player.getName());
+                Label playerName = (Label) playerNode.lookup("#playerName");
+                playerName.setText(player.getName());
+                playerName.setTextFill(player.getColor());
+
+                Label playerBalance = (Label) playerNode.lookup("#playerBalance");
+                playerBalance.setText(Settings.getMoneyUnit() + player.getBalance());
+
+                if (panelIndex < 2) {
+                    playerPanel1.getChildren().add(playerNode);
+                } else {
+                    playerNode.setRotate(180);
+                    playerPanel2.getChildren().add(playerNode);
+                }
+
+                panelIndex++;
+            } catch (Exception e) {
+                throw new UIUpdateException("Error updating UI for player " + player.getName(), e);
             }
         }
     }

@@ -22,3 +22,12 @@
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
+
+.playerPanel {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-border-color: dimgray;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-insets: 10px;
+}

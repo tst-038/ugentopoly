@@ -35,7 +35,7 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createInfoLabel(Tile tile) {
-        String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit() + Settings.getInstance().getStartAmount());
+        String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit() + Settings.getInstance().getStartBonus());
         return createLabel(desc, "start-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

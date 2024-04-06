@@ -1,9 +1,7 @@
 package be.ugent.objprog.ugentopoly.data;
 
 import be.ugent.objprog.ugentopoly.exceptions.data.AreaReadException;
-import be.ugent.objprog.ugentopoly.exceptions.data.SettingReadException;
 import be.ugent.objprog.ugentopoly.model.Area;
-import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.model.tiles.factories.*;
@@ -63,23 +61,6 @@ public class BoardReader {
         tileFactories.put(TileType.RAILWAY, new RailwayTileFactory());
         tileFactories.put(TileType.STREET, new StreetTileFactory(areas));
         return tileFactories;
-    }
-
-
-    public void readSettings() {
-        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
-            SAXBuilder builder = new SAXBuilder();
-            Document document = builder.build(xmlInputStream);
-            Element root = document.getRootElement();
-            Element settingsElement = root.getChild("settings");
-
-            int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
-            int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
-
-            Settings.getInstance().initialize(balance, start);
-        } catch (IOException | JDOMException e) {
-            throw new SettingReadException("Failed to read settings information from XML file", e);
-        }
     }
 
     public List<Area> readAreas() {

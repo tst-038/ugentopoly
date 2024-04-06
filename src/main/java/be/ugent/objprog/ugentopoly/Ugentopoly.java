@@ -2,6 +2,7 @@ package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.SettingsReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -48,6 +49,7 @@ public class Ugentopoly extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        SettingsReader.readSettings();
         Ugentopoly.setPrimaryStage(primaryStage);
         showStartWindow();
     }

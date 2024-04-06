@@ -12,7 +12,7 @@ public class Player {
     public Player(String name, Color color) {
         this.name = name.strip();
         this.color = color;
-        this.position = Settings.getInstance().getStartAmount();
+        this.position = Settings.getInstance().getStartBonus();
         this.balance = Settings.getInstance().getStartingBalance();
         this.ownedRailways = 0;
     }

@@ -18,7 +18,6 @@ public class Board {
         BoardReader boardReader = new BoardReader();
         areas = boardReader.readAreas();
         tiles = BoardReader.readTiles(areas);
-        boardReader.readSettings();
 
         PropertyReader propertyReader = PropertyReader.getInstance();
         for (Tile tile : tiles) {
