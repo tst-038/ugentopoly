@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="rootPane" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/game-board.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.GameController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -114,7 +129,7 @@
                <children>
                   <Pane fx:id="_0" maxHeight="150.0" maxWidth="150.0" minHeight="150.0" minWidth="150.0" prefHeight="150.0" prefWidth="150.0" styleClass="tile">
                       <children>
-                          <HBox fx:id="pionContainer" prefHeight="150.0" prefWidth="150.0"/>
+                          <HBox fx:id="pionContainer" prefHeight="150.0" prefWidth="150.0" />
                       </children>
                   </Pane>
                   <GridPane gridLinesVisible="true" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" prefWidth="550.0">
@@ -241,7 +256,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_7" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="2">
@@ -252,7 +267,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_6" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="3">
@@ -263,7 +278,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_5" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="4">
@@ -274,7 +289,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_4" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="5">
@@ -285,7 +300,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_3" GridPane.rowIndex="6">
@@ -296,7 +311,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_2" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="7">
@@ -307,7 +322,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_1" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="8">
@@ -318,7 +333,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="_8" GridPane.rowIndex="1">
@@ -329,12 +344,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                             <children>
-                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0"/>
+                                <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" />
                             </children>
                         </GridPane>
                      </children>
                       <padding>
-                          <Insets left="-1.0"/>
+                          <Insets left="-1.0" />
                       </padding>
                   </GridPane>
                </children>
@@ -504,19 +519,23 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                   <HBox fx:id="playerPanel1" maxWidth="550.0" prefHeight="100.0" AnchorPane.bottomAnchor="0.0"
-                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                   <HBox fx:id="playerPanel1" maxWidth="550.0" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                         <Pane prefHeight="200.0" prefWidth="137.5"/>
+                         <Pane prefHeight="200.0" prefWidth="137.5" />
 
                      </children>
                   </HBox>
-                   <HBox fx:id="playerPanel2" maxWidth="550.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0"
-                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                   <HBox fx:id="playerPanel2" maxWidth="550.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                         <Pane prefHeight="200.0" prefWidth="137.5"/>
+                         <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
                   </HBox>
+                  <ImageView onMouseClicked="#handleLogbookButtonClicked" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0">
+                     <image>
+                        <Image url="@../assets/logbook.png" />
+                     </image>
+                  </ImageView>
+                  <fx:include fx:id="logbookRoot" source="ui/logbook.fxml" />
                </children>
             </AnchorPane>
          </center>

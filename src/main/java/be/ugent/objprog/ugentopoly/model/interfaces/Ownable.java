@@ -10,4 +10,7 @@ public interface Ownable {
     default boolean isOwned() {
         return getOwner() != null;
     }
+
+    String getName();
+    void setName(String name);
 }

@@ -1,6 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.LabelUpdatable;
@@ -11,7 +13,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
+public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable, Visitable {
     public ChanceTile(String id, int position) {
         super(id, position, TileType.CHANCE);
     }
@@ -32,5 +34,10 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
     public void updateUI(Node tileNode, Pane rootPane) {
         updateLabel(tileNode);
         updateImage(tileNode);
+    }
+
+    @Override
+    public void onVisit(Player player) {
+
     }
 }

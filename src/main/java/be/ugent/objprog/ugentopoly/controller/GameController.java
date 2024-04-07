@@ -8,6 +8,7 @@ import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GameController {
+    @FXML
+    private Group logbookRoot;
+
     private Board board;
 
     @FXML
@@ -150,5 +154,10 @@ public class GameController {
 
     private PlayerPion getPlayerPion(Player player) {
         return playerPionMap.get(player);
+    }
+
+    @FXML
+    private void handleLogbookButtonClicked() {
+        logbookRoot.setVisible(!logbookRoot.isVisible());
     }
 }

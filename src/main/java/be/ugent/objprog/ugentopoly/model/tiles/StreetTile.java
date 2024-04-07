@@ -5,6 +5,7 @@ import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
+import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
@@ -14,7 +15,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buyable, Rentable {
+public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buyable, Rentable, Visitable {
 
     private final int cost;
     private final Area area;
@@ -68,5 +69,10 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
     public void updateUI(Node tileNode, Pane rootPane) {
         tileNode.lookup("#area").setStyle("-fx-background-color: " + getArea().color());
         updateLabel(tileNode);
+    }
+
+    @Override
+    public void onVisit(Player player) {
+
     }
 }
