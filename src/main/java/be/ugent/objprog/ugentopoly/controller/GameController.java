@@ -1,9 +1,12 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.animation.TranslateTransition;
@@ -109,10 +112,11 @@ public class GameController {
     public void initializeBoard(Board board, List<Player> players) {
         this.board = board;
         tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
-        UIUpdater uiUpdater = new UIUpdater(rootPane);
+        UIUpdater uiUpdater = UIUpdater.getInstance(rootPane);
         uiUpdater.colorAreaPanes(board.getAreas());
         uiUpdater.updateTiles(board.getTiles());
         uiUpdater.updatePlayers(players);
+        Bank.getInstance().initializeBalances(players);
         initializePlayerPions(players);
 
         attachTileClickHandlers();

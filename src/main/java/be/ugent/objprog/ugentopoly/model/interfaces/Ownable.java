@@ -13,4 +13,6 @@ public interface Ownable {
 
     String getName();
     void setName(String name);
+
+    int getPosition();
 }

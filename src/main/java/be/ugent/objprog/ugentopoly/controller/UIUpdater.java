@@ -5,6 +5,7 @@ import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitorImpl;
@@ -15,15 +16,29 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.net.URL;
 import java.util.List;
 
 public class UIUpdater {
+    private static UIUpdater instance = null;
     private final AnchorPane rootPane;
 
-    public UIUpdater(AnchorPane rootPane) {
+    private UIUpdater(AnchorPane rootPane) {
         this.rootPane = rootPane;
+    }
+
+    public static UIUpdater getInstance(AnchorPane rootPane) {
+        if (instance == null) {
+            instance = new UIUpdater(rootPane);
+        }
+        return instance;
+    }
+
+    public static UIUpdater getInstance() {
+        return instance;
     }
 
     public void colorAreaPanes(List<Area> areas) {
@@ -83,7 +98,7 @@ public class UIUpdater {
                 playerName.setTextFill(player.getColor());
 
                 Label playerBalance = (Label) playerNode.lookup("#playerBalance");
-                playerBalance.setText(Settings.getMoneyUnit() + player.getBalance());
+                playerBalance.textProperty().bind(player.balanceProperty().asString(Settings.getMoneyUnit() + "%d"));
 
                 if (panelIndex < 2) {
                     playerPanel1.getChildren().add(playerNode);
@@ -97,5 +112,11 @@ public class UIUpdater {
                 throw new UIUpdateException("Error updating UI for player " + player.getName(), e);
             }
         }
+    }
+
+    public void playerBoughtTile(Player player, Buyable tile){
+        Label tileName = (Label) rootPane.lookup("#_" + tile.getPosition()).lookup("Label");
+        tileName.setTextFill(player.getColor());
+        tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize()+2));
     }
 }

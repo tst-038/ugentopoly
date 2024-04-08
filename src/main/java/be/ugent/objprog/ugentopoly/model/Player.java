@@ -1,19 +1,21 @@
 package be.ugent.objprog.ugentopoly.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
 public class Player {
     private String name;
     private Color color;
     private int position;
-    private int balance;
+    private IntegerProperty balance;
     private int ownedRailways;
 
     public Player(String name, Color color) {
         this.name = name.strip();
         this.color = color;
         this.position = Settings.getInstance().getStartBonus();
-        this.balance = Settings.getInstance().getStartingBalance();
+        this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.ownedRailways = 0;
     }
 
@@ -33,8 +35,16 @@ public class Player {
         this.position = position;
     }
 
-    public int getBalance() {
+    public IntegerProperty balanceProperty() {
         return balance;
+    }
+
+    public int getBalance() {
+        return balance.get();
+    }
+
+    public void setBalance(int balance) {
+        this.balance.set(balance);
     }
 
     public Color getColor() {

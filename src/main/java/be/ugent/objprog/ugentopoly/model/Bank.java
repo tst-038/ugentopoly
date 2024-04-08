@@ -9,10 +9,8 @@ import java.util.Map;
 public class Bank {
 
     private static Bank instance;
-    private final Map<Player, Integer> balances;
 
     private Bank() {
-        balances = new HashMap<>();
     }
 
     public static Bank getInstance() {
@@ -24,29 +22,24 @@ public class Bank {
 
     public void initializeBalances(List<Player> players) {
         for (Player player : players) {
-            balances.put(player, 1500); // Starting balance
+            player.setBalance(Settings.getInstance().getStartingBalance());
         }
     }
 
     public void addMoney(Player player, int amount) {
-        int currentBalance = balances.get(player);
-        balances.put(player, currentBalance + amount);
+        player.setBalance(player.getBalance() + amount);
     }
 
     public void subtractMoney(Player player, int amount) throws InsufficientFundsException {
-        int currentBalance = balances.get(player);
+        int currentBalance = player.getBalance();
         if (currentBalance < amount) {
             throw new InsufficientFundsException("Insufficient funds for player " + player.getName());
         }
-        balances.put(player, currentBalance - amount);
+        player.setBalance(currentBalance - amount);
     }
 
     public void transferMoney(Player fromPlayer, Player toPlayer, int amount) throws InsufficientFundsException {
         subtractMoney(fromPlayer, amount);
         addMoney(toPlayer, amount);
-    }
-
-    public int getBalance(Player player) {
-        return balances.get(player);
     }
 }
