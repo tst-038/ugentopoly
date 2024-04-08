@@ -33,7 +33,6 @@ public class LogBookController {
 
     public void initialize() {
         logBook = GameLogBook.getInstance();
-        logBook.addEntry(new PlayerMoveLog(new Player("Tristan", Color.BEIGE), new StreetTile("2", 10, 50, new Area("5", "blue", 55), 5), new ChanceTile("4", 15)));
 
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
         timestampColumn.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
