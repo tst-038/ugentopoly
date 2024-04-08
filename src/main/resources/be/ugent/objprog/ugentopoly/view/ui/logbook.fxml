@@ -7,21 +7,21 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Group fx:id="logbookRoot" layoutX="105.0" stylesheets="@../../css/logbook.css" visible="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.LogBookController">
-    <children>
-      <AnchorPane prefHeight="550.0" prefWidth="350.0" styleClass="anchor-pane">
+<Group fx:id="logbookRoot" layoutX="100.0" layoutY="25.0" stylesheets="@../../css/logbook.css" visible="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.LogBookController">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="350.0" styleClass="anchor-pane">
          <children>
-            <TableView fx:id="logTableView" maxWidth="350.0" prefHeight="500.0" prefWidth="350.0">
+            <TableView fx:id="logTableView" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="timestampColumn" styleClass="timestampColumn" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" sortable="false" text="Tijd" />
-                <TableColumn fx:id="messageColumn" styleClass="logColumn" editable="false" maxWidth="279.0" minWidth="279.0" prefWidth="-1.0" sortable="false" text="Log" />
+                  <TableColumn fx:id="timestampColumn" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" resizable="false" sortable="false" styleClass="timestampColumn" text="Tijd" />
+                  <TableColumn fx:id="messageColumn" editable="false" maxWidth="-1.0" minWidth="280.0" prefWidth="-1.0" resizable="false" sortable="false" styleClass="logColumn" text="Log" />
               </columns>
             </TableView>
+            <Button mnemonicParsing="false" onAction="#hideLogbook" styleClass="button" text="Terug" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
          </children>
          <effect>
             <DropShadow />
          </effect>
       </AnchorPane>
-        <Button layoutX="14.0" layoutY="510.0" mnemonicParsing="false" onAction="#hideLogbook" styleClass="button" text="Terug" />
-    </children>
+   </children>
 </Group>
