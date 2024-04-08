@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 public class GameLogBook {
 
     private static GameLogBook instance;
-    private ObservableList<Log> entries;
+    private final ObservableList<Log> entries;
 
     private GameLogBook() {
         entries = FXCollections.observableArrayList();

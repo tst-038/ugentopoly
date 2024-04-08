@@ -1,7 +1,9 @@
-package be.ugent.objprog.ugentopoly.controller;
+// UIUpdater.java
+package be.ugent.objprog.ugentopoly.ui.util;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
+import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
@@ -11,6 +13,7 @@ import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitorImpl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,8 +26,8 @@ import java.net.URL;
 import java.util.List;
 
 public class UIUpdater {
-    private static UIUpdater instance = null;
-    private final AnchorPane rootPane;
+    private static UIUpdater instance;
+    private AnchorPane rootPane;
 
     private UIUpdater(AnchorPane rootPane) {
         this.rootPane = rootPane;
@@ -82,15 +85,11 @@ public class UIUpdater {
         HBox playerPanel1 = (HBox) rootPane.lookup("#playerPanel1");
         HBox playerPanel2 = (HBox) rootPane.lookup("#playerPanel2");
 
-        playerPanel1.getChildren().clear();
-        playerPanel2.getChildren().clear();
-
         int panelIndex = 0;
         for (Player player : players) {
             try {
                 FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/ui/playerpanel.fxml"));
                 Node playerNode = loader.load();
-                playerNode.setOpacity(1);
 
                 playerNode.setId("player" + player.getName());
                 Label playerName = (Label) playerNode.lookup("#playerName");
@@ -100,12 +99,30 @@ public class UIUpdater {
                 Label playerBalance = (Label) playerNode.lookup("#playerBalance");
                 playerBalance.textProperty().bind(player.balanceProperty().asString(Settings.getMoneyUnit() + "%d"));
 
-                if (panelIndex < 2) {
-                    playerPanel1.getChildren().add(playerNode);
+                Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
+                rollDiceButton.setOnAction(event -> {
+                    List<Integer> diceResult = DiceHandler.getInstance().rollDice(player);
+                    // TODO moveplayer
+                });
+
+                Button propertiesButton = new Button("View Properties");
+                propertiesButton.setOnAction(event -> {
+                    // TODO display properties to the user
+                });
+
+                //TODO remove and make it a property
+                if (panelIndex == 0) {
+                    playerNode.getStyleClass().add("activePlayerPanel");
+                }
+
+                if (panelIndex % 2 == 0) {
+                    playerPanel1.getChildren().addLast(playerNode);
                 } else {
                     playerNode.setRotate(180);
-                    playerPanel2.getChildren().add(playerNode);
+                    playerPanel2.getChildren().addLast(playerNode);
                 }
+
+
 
                 panelIndex++;
             } catch (Exception e) {

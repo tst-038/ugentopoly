@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.SubScene?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +10,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -530,7 +524,7 @@
                          <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
                   </HBox>
-                  <ImageView onMouseClicked="#handleLogbookButtonClicked" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="400.0" onMouseClicked="#handleLogbookButtonClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0">
                      <image>
                         <Image url="@../assets/logbook.png" />
                      </image>

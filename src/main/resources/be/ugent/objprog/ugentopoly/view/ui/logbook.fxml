@@ -7,7 +7,7 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Group fx:id="logbookRoot" layoutX="100.0" layoutY="25.0" stylesheets="@../../css/logbook.css" visible="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.LogBookController">
+<Group fx:id="logbookRoot" layoutX="100.0" layoutY="25.0" stylesheets="@../../css/ui/logbook.css" visible="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.LogBookController">
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="350.0" styleClass="anchor-pane">
          <children>

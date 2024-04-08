@@ -2,18 +2,12 @@ package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.Log;
-import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
-import be.ugent.objprog.ugentopoly.model.Area;
-import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.tiles.ChanceTile;
-import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 
 public class LogBookController {
 

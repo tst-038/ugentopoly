@@ -8,7 +8,7 @@ public class Player {
     private String name;
     private Color color;
     private int position;
-    private IntegerProperty balance;
+    private final IntegerProperty balance;
     private int ownedRailways;
 
     public Player(String name, Color color) {

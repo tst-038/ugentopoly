@@ -35,7 +35,7 @@ public class Ugentopoly extends Application {
             GameController gameController = loader.getController();
             Board board = new Board();
             board.init();
-            gameController.initializeBoard(board, players);
+            gameController.initializeGame(board, players);
 
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setScene(scene);
@@ -63,7 +63,7 @@ public class Ugentopoly extends Application {
             if (root instanceof Pane) {
                 // Start the money animation
                 MoneyAnimation moneyAnimation = new MoneyAnimation();
-                moneyAnimation.start((Pane) root);
+                MoneyAnimation.start((Pane) root);
             }
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setTitle("Ugentopoly");

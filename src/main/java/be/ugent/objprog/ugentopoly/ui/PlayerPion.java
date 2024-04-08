@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 
 public class PlayerPion extends ImageView {
     public HBox pionContainer;
-    private Player player;
+    private final Player player;
 
     public PlayerPion(Player player, Image image, HBox pionContainer) {
         this.player = player;

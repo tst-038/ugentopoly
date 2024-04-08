@@ -1,10 +1,9 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
+import be.ugent.objprog.ugentopoly.logic.GameState;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Bank {
 
@@ -38,8 +37,24 @@ public class Bank {
         player.setBalance(currentBalance - amount);
     }
 
-    public void transferMoney(Player fromPlayer, Player toPlayer, int amount) throws InsufficientFundsException {
-        subtractMoney(fromPlayer, amount);
-        addMoney(toPlayer, amount);
+    public void transferMoney(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) throws InsufficientFundsException {
+        if (priority == TransactionPriority.HIGH) {
+            try {
+                subtractMoney(fromPlayer, amount);
+                addMoney(toPlayer, amount);
+            } catch (InsufficientFundsException e) {
+                // If the transaction is high priority (e.g., paying rent) and there are insufficient funds,
+                // transfer all remaining money and notify game over listeners
+                int remainingMoney = fromPlayer.getBalance();
+                subtractMoney(fromPlayer, remainingMoney);
+                addMoney(toPlayer, remainingMoney);
+                GameState.getInstance().notifyGameOverListeners(fromPlayer);
+                throw e;
+            }
+        } else {
+            // For low-priority transactions, simply throw the InsufficientFundsException
+            subtractMoney(fromPlayer, amount);
+            addMoney(toPlayer, amount);
+        }
     }
 }
