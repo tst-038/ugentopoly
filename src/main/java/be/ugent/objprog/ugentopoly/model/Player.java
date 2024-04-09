@@ -1,5 +1,10 @@
 package be.ugent.objprog.ugentopoly.model;
 
+import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
+import be.ugent.objprog.ugentopoly.logic.BoardManager;
+import be.ugent.objprog.ugentopoly.logic.GameState;
+import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
@@ -17,7 +22,7 @@ public class Player {
         this.id = idCounter++;
         this.name = name.strip();
         this.color = color;
-        this.position = Settings.getInstance().getStartBonus();
+        this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.ownedRailways = 0;
     }
@@ -41,6 +46,10 @@ public class Player {
 
     //TODO auto update ui position on position change
     public void setPosition(int position) {
+        Board board = GameState.getInstance().getBoard();
+        Visitable old = board.getTileByPosition(this.position);
+        Visitable current = board.getTileByPosition(position);
+        GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, old, current));
         this.position = position;
     }
 

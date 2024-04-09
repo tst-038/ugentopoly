@@ -1,5 +1,6 @@
-package be.ugent.objprog.ugentopoly.data;
+package be.ugent.objprog.ugentopoly.data.readers;
 
+import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.data.SettingReadException;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import org.jdom2.Document;

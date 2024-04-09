@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.ui;
 
 import be.ugent.objprog.ugentopoly.model.tiles.*;
+import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 

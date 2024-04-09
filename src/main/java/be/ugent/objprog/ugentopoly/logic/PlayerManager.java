@@ -3,7 +3,7 @@ package be.ugent.objprog.ugentopoly.logic;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
-import be.ugent.objprog.ugentopoly.ui.util.UIUpdater;
+import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;

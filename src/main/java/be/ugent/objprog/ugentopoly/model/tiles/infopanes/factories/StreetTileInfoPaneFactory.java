@@ -1,9 +1,13 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.PropertyReader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -27,6 +31,9 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         if (streetTile.getOwner() == null) {
             Label forSale = createForSaleLabel();
             tileInfoPane.getChildren().add(forSale);
+            Button buyButton = createButton("buy", "street-tile-buy-button", "buy-button", 20., null, 150., null);
+            Button cancelButton = createButton("close", "street-tile-close-button", "close-button", null, 20., 150., null);
+            tileInfoPane.getChildren().addAll(buyButton, cancelButton);
         }else {
             Label ownerLabel = createOwnerLabel();
             Label owner = createOwnerLabel(streetTile);
@@ -74,5 +81,16 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Color areaColor = Color.web(tile.getArea().color());
         double brightness = (areaColor.getRed() * 299 + areaColor.getGreen() * 587 + areaColor.getBlue() * 114) / 1000;
         return brightness > 0.7 ? "street-tile-title-black" : "street-tile-title-white";
+    }
+
+    private Button createButton(String text, String styleClass, String id, Double left, Double right, Double top, Double bottom) {
+        Button button = new Button(text);
+        button.getStyleClass().add(styleClass);
+        button.setId(id);
+        AnchorPane.setTopAnchor(button, top);
+        AnchorPane.setLeftAnchor(button, left);
+        AnchorPane.setRightAnchor(button, right);
+        AnchorPane.setBottomAnchor(button, bottom);
+        return button;
     }
 }

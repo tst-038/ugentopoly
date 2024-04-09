@@ -49,9 +49,6 @@ public class StartController {
             // Pass the list of players to the main class to start the game
             Ugentopoly.startGame(players);
 
-        } else {
-            // Show an error message or highlight the duplicate names/colors
-            System.out.println("Duplicate names or colors found!");
         }
     }
 

@@ -21,9 +21,17 @@ public class TileInfoPaneManager {
         return instance;
     }
 
+    public static TileInfoPaneManager getInstance() {
+        return instance;
+    }
+
     public void showTileInfo(Tile tile) {
         tile.accept(tileInfoPaneUpdater);
         tileInfoPane.setVisible(true);
+    }
+
+    public AnchorPane getTileInfoPane() {
+        return tileInfoPane;
     }
 
     public void hideTileInfoPane() {

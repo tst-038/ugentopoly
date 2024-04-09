@@ -5,7 +5,7 @@ import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PropertyBoughtLog;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.ui.util.UIUpdater;
+import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 
 public interface Buyable extends Ownable {
     default void buy(Player player) {

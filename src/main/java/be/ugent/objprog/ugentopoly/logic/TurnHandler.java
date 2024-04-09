@@ -1,5 +1,7 @@
 package be.ugent.objprog.ugentopoly.logic;
 
+import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;

@@ -2,9 +2,8 @@ package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.data.SettingsReader;
+import be.ugent.objprog.ugentopoly.data.readers.SettingsReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
-import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
 import javafx.application.Application;

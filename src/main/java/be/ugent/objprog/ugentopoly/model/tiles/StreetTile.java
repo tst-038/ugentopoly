@@ -7,13 +7,16 @@ import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.LabelUpdatable;
-import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
+import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
+import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buyable, Rentable, Visitable {
 
@@ -73,6 +76,15 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
     @Override
     public void onVisit(Player player) {
-
+        TileInfoPaneManager.getInstance().showTileInfo(this);
+        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        pane.lookup("#buy-button").setOnMouseClicked(event -> {
+            buy(player);
+            TileInfoPaneManager.getInstance().hideTileInfoPane();
+        });
+        pane.lookup("#close-button").setOnMouseClicked(event -> {
+            buy(player);
+            TileInfoPaneManager.getInstance().hideTileInfoPane();
+        });
     }
 }

@@ -1,5 +1,5 @@
 // UIUpdater.java
-package be.ugent.objprog.ugentopoly.ui.util;
+package be.ugent.objprog.ugentopoly.ui;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
@@ -9,8 +9,7 @@ import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
-import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitorImpl;
+import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package be.ugent.objprog.ugentopoly.ui;
+package be.ugent.objprog.ugentopoly.ui.interfaces;
 
 import be.ugent.objprog.ugentopoly.model.tiles.*;
 import javafx.scene.Node;

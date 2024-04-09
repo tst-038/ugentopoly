@@ -1,6 +1,6 @@
 package be.ugent.objprog.ugentopoly.model;
 
-import be.ugent.objprog.ugentopoly.data.PropertyReader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 
 public class Settings {
 
