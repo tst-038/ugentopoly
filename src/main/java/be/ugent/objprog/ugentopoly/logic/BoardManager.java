@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.model.Board;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.util.UIUpdater;
@@ -10,18 +11,30 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class BoardManager {
+    private static BoardManager instance;
     private Board board;
     private AnchorPane rootPane;
     private UIUpdater uiUpdater;
     private TileInfoPaneManager tileInfoPaneManager;
     private Pane currentlySelectedTile;
 
-    public BoardManager(Board board, AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+    private BoardManager(Board board, AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
         this.board = board;
         this.rootPane = rootPane;
         this.uiUpdater = uiUpdater;
-        this.tileInfoPaneManager = new TileInfoPaneManager(tileinfoPane);
+        this.tileInfoPaneManager = TileInfoPaneManager.getInstance(tileinfoPane);
         this.currentlySelectedTile = null;
+    }
+
+    public static BoardManager getInstance(Board board, AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+        if (instance == null) {
+            instance = new BoardManager(board, rootPane, uiUpdater, tileinfoPane);
+        }
+        return instance;
+    }
+
+    public static BoardManager getInstance() {
+        return instance;
     }
 
     public void initializeBoard() {
@@ -41,6 +54,8 @@ public class BoardManager {
         ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
     }
 
+
+    // TODO simplify
     private Pane findTilePane(Pane parent, String tileId) {
         if (parent.getId() != null && parent.getId().equals(tileId)) {
             return parent;
@@ -56,6 +71,10 @@ public class BoardManager {
         }
 
         return null;
+    }
+
+    public Pane findPlayerPane(Player player){
+        return (Pane) rootPane.lookup("#player_"+player.getName());
     }
 
     private void attachTileClickHandler(Pane tilePane) {

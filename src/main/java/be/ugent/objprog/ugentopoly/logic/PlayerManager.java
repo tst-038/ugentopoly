@@ -17,16 +17,28 @@ import java.util.Map;
 import java.util.Objects;
 
 public class PlayerManager {
+    private static PlayerManager instance;
     private List<Player> players;
     private AnchorPane rootPane;
     private UIUpdater uiUpdater;
     private Map<Player, PlayerPion> playerPionMap;
 
-    public PlayerManager(List<Player> players, AnchorPane rootPane, UIUpdater uiUpdater) {
+    private PlayerManager(List<Player> players, AnchorPane rootPane, UIUpdater uiUpdater) {
         this.players = players;
         this.rootPane = rootPane;
         this.uiUpdater = uiUpdater;
         this.playerPionMap = new HashMap<>();
+    }
+
+    public static PlayerManager getInstance(List<Player> players, AnchorPane rootPane, UIUpdater uiUpdater) {
+        if (instance == null) {
+            instance = new PlayerManager(players, rootPane, uiUpdater);
+        }
+        return instance;
+    }
+
+    public static PlayerManager getInstance() {
+        return instance;
     }
 
     public void initializePlayers() {
@@ -68,5 +80,18 @@ public class PlayerManager {
 
     private PlayerPion getPlayerPion(Player player) {
         return playerPionMap.get(player);
+    }
+
+    public void enableButtonForPlayer(Player player) {
+        // TODO: Implement the logic to enable the button for the specified player
+
+
+
+        System.out.println("Enabling button for player: " + player.getName());
+    }
+
+    public void disableButtonForPlayer(Player player) {
+        // TODO: Implement the logic to disable the button for the specified player
+        System.out.println("Disabling button for player: " + player.getName());
     }
 }

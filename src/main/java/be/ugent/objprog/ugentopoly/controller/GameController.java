@@ -1,7 +1,9 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.logic.BoardManager;
+import be.ugent.objprog.ugentopoly.logic.GameState;
 import be.ugent.objprog.ugentopoly.logic.PlayerManager;
+import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Board;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -30,13 +32,15 @@ public class GameController {
 
     public void initializeGame(Board board, List<Player> players) {
         uiUpdater = UIUpdater.getInstance(rootPane);
-        boardManager = new BoardManager(board, rootPane, uiUpdater, tileInfoPane);
-        playerManager = new PlayerManager(players, rootPane, uiUpdater);
-        logbookManager = new LogbookManager(logbookRoot);
+        boardManager = BoardManager.getInstance(board, rootPane, uiUpdater, tileInfoPane);
+        playerManager = PlayerManager.getInstance(players, rootPane, uiUpdater);
+        logbookManager = LogbookManager.getInstance(logbookRoot);
 
         boardManager.initializeBoard();
         playerManager.initializePlayers();
         Bank.getInstance().initializeBalances(players);
+
+        TurnHandler.getInstance(playerManager).startGame();
     }
 
     @FXML

@@ -43,7 +43,7 @@
       <AnchorPane prefHeight="100.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0">
          <children>
             <Button fx:id="propertiesButton" mnemonicParsing="false" text="Properties" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
-            <Button fx:id="rollDiceButton" layoutX="206.0" layoutY="11.0" mnemonicParsing="false" text="Roll  Dice" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+            <Button fx:id="rollDiceButton" disable="true" layoutX="206.0" layoutY="11.0" mnemonicParsing="false" text="Roll  Dice" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
               <Label fx:id="playerName" alignment="CENTER" layoutX="115.0" layoutY="9.0" styleClass="player" text="Player X" textAlignment="CENTER" textFill="RED" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="13.0" />

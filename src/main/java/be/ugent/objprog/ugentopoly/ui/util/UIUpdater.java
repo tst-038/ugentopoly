@@ -91,7 +91,7 @@ public class UIUpdater {
                 FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/ui/playerpanel.fxml"));
                 Node playerNode = loader.load();
 
-                playerNode.setId("player" + player.getName());
+                playerNode.setId("player_" + player.getName());
                 Label playerName = (Label) playerNode.lookup("#playerName");
                 playerName.setText(player.getName());
                 playerName.setTextFill(player.getColor());
@@ -130,6 +130,8 @@ public class UIUpdater {
             }
         }
     }
+
+
 
     public void playerBoughtTile(Player player, Buyable tile){
         Label tileName = (Label) rootPane.lookup("#_" + tile.getPosition()).lookup("Label");

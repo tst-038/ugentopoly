@@ -7,37 +7,43 @@ public class TurnHandler implements GameOverListener {
     private static TurnHandler instance;
     private int currentPlayerIndex;
     private boolean gameOver;
+    private PlayerManager playerManager;
 
-    private TurnHandler() {
+    private TurnHandler(PlayerManager playerManager) {
         currentPlayerIndex = 0;
+        this.playerManager = playerManager;
     }
 
-    public static TurnHandler getInstance() {
+    public static TurnHandler getInstance(PlayerManager playerManager) {
         if (instance == null) {
-            instance = new TurnHandler();
+            instance = new TurnHandler(playerManager);
         }
         return instance;
     }
 
     public void startGame() {
         // Initialize the game state and start the game loop
+        GameState.getInstance().addGameOverListener(this);
+        playerManager.enableButtonForPlayer(getCurrentPlayer());
         while (!isGameOver()) {
-            playTurn();
+            // Wait for the player to take their turn
         }
         // Handle game over logic
     }
 
     public void playTurn() {
-        Player currentPlayer = GameState.getInstance().getPlayers().get(currentPlayerIndex);
+        Player currentPlayer = getCurrentPlayer();
         // Perform actions for the current player's turn
-        // For example:
-        // 1. Roll the dice using DiceHandler
-        //TODO enable dice button for player
+        // ...
 
-        // 2. Move the player's token on the board
-        // 3. Handle any special actions or events based on the player's position
-        // 4. End the turn and move to the next player
-        playTurn();
+        // End the turn and move to the next player
+        playerManager.disableButtonForPlayer(currentPlayer);
+        currentPlayerIndex = (currentPlayerIndex + 1) % GameState.getInstance().getPlayers().size();
+        playerManager.enableButtonForPlayer(getCurrentPlayer());
+    }
+
+    private Player getCurrentPlayer() {
+        return GameState.getInstance().getPlayers().get(currentPlayerIndex);
     }
 
     private boolean isGameOver() {

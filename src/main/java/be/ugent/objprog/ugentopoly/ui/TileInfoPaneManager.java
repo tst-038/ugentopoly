@@ -5,12 +5,20 @@ import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneManager {
+    private static TileInfoPaneManager instance;
     private AnchorPane tileInfoPane;
     private TileInfoPaneVisitor tileInfoPaneUpdater;
 
-    public TileInfoPaneManager(AnchorPane tileInfoPane) {
+    private TileInfoPaneManager(AnchorPane tileInfoPane) {
         this.tileInfoPane = tileInfoPane;
         this.tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
+    }
+
+    public static TileInfoPaneManager getInstance(AnchorPane tileInfoPane) {
+        if (instance == null) {
+            instance = new TileInfoPaneManager(tileInfoPane);
+        }
+        return instance;
     }
 
     public void showTileInfo(Tile tile) {
