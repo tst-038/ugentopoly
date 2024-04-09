@@ -104,13 +104,6 @@ public class UIUpdater {
                     DiceHandler.getInstance().rollDice(player);
                 });
 
-                Button propertiesButton = new Button("View Properties");
-                propertiesButton.setOnAction(event -> {
-                    // TODO display properties to the user
-                });
-
-                //TODO remove and make it a property
-
                 if (panelIndex % 2 == 0) {
                     playerPanel1.getChildren().addLast(playerNode);
                 } else {

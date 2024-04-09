@@ -11,6 +11,7 @@ import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.util.List;
 
@@ -31,8 +32,9 @@ public class GameController {
     private UIUpdater uiUpdater;
     private GameState gameState;
 
+    // TODO Refractor to use getrootpane and gettileinfopane...
     public void initializeGame(List<Player> players) {
-        gameState = GameState.getInstance();
+        gameState = GameState.getInstance(rootPane);
         uiUpdater = UIUpdater.getInstance(rootPane);
         boardManager = BoardManager.getInstance(rootPane, uiUpdater, tileInfoPane);
         playerManager = PlayerManager.getInstance(players, rootPane, uiUpdater);

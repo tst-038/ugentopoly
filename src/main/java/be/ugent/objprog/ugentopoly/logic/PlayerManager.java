@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,18 +42,11 @@ public class PlayerManager {
 
     public void initializePlayers() {
         uiUpdater.updatePlayers(players);
-        initializePlayerPions();
+        players.forEach(player -> {
+            player.initializePion();
+        });
     }
 
-    private void initializePlayerPions() {
-        for (Player player : players) {
-            Image pionImage = new Image(Objects.requireNonNull(ResourceLoader.loadResource("assets/token" + (playerPionMap.size() + 1) + ".png")));
-            HBox pionContainer = (HBox) rootPane.lookup("#_1").lookup("#pionContainer");
-            PlayerPion playerPion = new PlayerPion(player, pionImage, pionContainer);
-            playerPionMap.put(player, playerPion);
-            pionContainer.toFront();
-        }
-    }
 
 // TODO remove this
 //    public void movePlayerPion(Player player, int steps) {
