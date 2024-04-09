@@ -18,17 +18,17 @@ public class BoardManager {
     private TileInfoPaneManager tileInfoPaneManager;
     private Pane currentlySelectedTile;
 
-    private BoardManager(Board board, AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
-        this.board = board;
+    private BoardManager(AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+        this.board = GameState.getInstance().getBoard();
         this.rootPane = rootPane;
         this.uiUpdater = uiUpdater;
         this.tileInfoPaneManager = TileInfoPaneManager.getInstance(tileinfoPane);
         this.currentlySelectedTile = null;
     }
 
-    public static BoardManager getInstance(Board board, AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+    public static BoardManager getInstance(AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
         if (instance == null) {
-            instance = new BoardManager(board, rootPane, uiUpdater, tileinfoPane);
+            instance = new BoardManager(rootPane, uiUpdater, tileinfoPane);
         }
         return instance;
     }
@@ -73,8 +73,8 @@ public class BoardManager {
         return null;
     }
 
-    public Pane findPlayerPane(Player player){
-        return (Pane) rootPane.lookup("#player_"+player.getName());
+    public Node findPlayerNode(Player player){
+        return  rootPane.lookup("#player_"+player.getId());
     }
 
     private void attachTileClickHandler(Pane tilePane) {

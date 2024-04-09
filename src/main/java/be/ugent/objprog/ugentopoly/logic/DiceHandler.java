@@ -7,15 +7,18 @@ import be.ugent.objprog.ugentopoly.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiceHandler {
 
     private static DiceHandler instance;
     private final Dice dice;
+    private List<DiceRolledListener> listeners;
 
     private DiceHandler() {
         this.dice = new Dice();
+        this.listeners = new ArrayList<>();
     }
 
     public static DiceHandler getInstance() {
@@ -25,16 +28,36 @@ public class DiceHandler {
         return instance;
     }
 
-    public List<Integer> rollDice(EventHandler<ActionEvent> callback) {
-        return dice.roll(callback);
+    public void addDiceRolledListener(DiceRolledListener listener) {
+        listeners.add(listener);
     }
 
-    public List<Integer> rollDice(Player player) {
-        List<Integer> rolls = dice.roll();
-        GameLogBook.getInstance().addEntry(new DiceRolledLog(player, rolls.getFirst(), rolls.getLast()));
-        return rolls;
+    private void waitForDiceToStopRolling() {
+        while (dice.isRolling()) {
+            try {
+                Thread.sleep(100); // Wait for a short interval before checking again
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-   // I wanted to add a method bringToFront to bring the diceStage to the front, but I couldn't find a way to do it
+    public void rollDice(Player player) {
+        dice.roll(event -> {
+            waitForDiceToStopRolling();
+            List<Integer> rolls = dice.getLastRoll();
+            GameLogBook.getInstance().addEntry(new DiceRolledLog(player, rolls.getFirst(), rolls.getLast()));
+            notifyDiceRolledListeners(player, rolls);
+        });
+    }
+
+    private void notifyDiceRolledListeners(Player player, List<Integer> rolls) {
+        for (DiceRolledListener listener : listeners) {
+            listener.onDiceRolled(player, rolls);
+        }
+    }
+
+
+    // I wanted to add a method bringToFront to bring the diceStage to the front, but I couldn't find a way to do it
     // I used reflections to acces the stage object, but I just couldn't work around the dice module not being open to the ugentopoly module
 }

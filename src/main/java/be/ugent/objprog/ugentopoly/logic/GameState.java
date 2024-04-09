@@ -10,12 +10,11 @@ public class GameState {
 
     private static GameState instance;
     private final Board board;
-    private final List<Player> players;
     private List<GameOverListener> gameOverListeners = new ArrayList<>();
 
     private GameState() {
-        board = new Board();
-        players = new ArrayList<>();
+        this.board =  new Board();
+        this.board.init();
     }
 
     public static GameState getInstance() {
@@ -31,10 +30,6 @@ public class GameState {
 
     public Board getBoard() {
         return board;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
     }
 
     public void notifyGameOverListeners(Player player) {

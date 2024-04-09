@@ -25,14 +25,17 @@ public class GameController {
     @FXML
     private AnchorPane tileInfoPane;
 
+    //TODO maybe remove these unneeded variables as they are all singletons
     private BoardManager boardManager;
     private PlayerManager playerManager;
     private LogbookManager logbookManager;
     private UIUpdater uiUpdater;
+    private GameState gameState;
 
-    public void initializeGame(Board board, List<Player> players) {
+    public void initializeGame(List<Player> players) {
+        gameState = GameState.getInstance();
         uiUpdater = UIUpdater.getInstance(rootPane);
-        boardManager = BoardManager.getInstance(board, rootPane, uiUpdater, tileInfoPane);
+        boardManager = BoardManager.getInstance(rootPane, uiUpdater, tileInfoPane);
         playerManager = PlayerManager.getInstance(players, rootPane, uiUpdater);
         logbookManager = LogbookManager.getInstance(logbookRoot);
 

@@ -2,14 +2,12 @@ package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import be.ugent.objprog.ugentopoly.ui.util.UIUpdater;
-import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -78,20 +76,29 @@ public class PlayerManager {
 //        }
 //    }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     private PlayerPion getPlayerPion(Player player) {
         return playerPionMap.get(player);
     }
 
-    public void enableButtonForPlayer(Player player) {
-        // TODO: Implement the logic to enable the button for the specified player
-
-
-
-        System.out.println("Enabling button for player: " + player.getName());
+    public void setPlayerPanelToActive(Player player) {
+        Node playerPane = BoardManager.getInstance().findPlayerNode(player);
+        if (playerPane != null) {
+            playerPane.getStyleClass().add("activePlayerPanel");
+            Node rollDiceButton = playerPane.lookup("#rollDiceButton");
+            if (rollDiceButton != null) {
+                rollDiceButton.setDisable(false);
+            }
+        }
     }
 
-    public void disableButtonForPlayer(Player player) {
-        // TODO: Implement the logic to disable the button for the specified player
-        System.out.println("Disabling button for player: " + player.getName());
+    public void setPlayerPanelToInactive(Player player) {
+        Node playerPane = BoardManager.getInstance().findPlayerNode(player);
+        if (playerPane != null) {
+            playerPane.getStyleClass().remove("activePlayerPanel");
+        }
     }
 }

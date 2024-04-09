@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
 public class Player {
+    private static int idCounter = 0;
+    private int id;
     private String name;
     private Color color;
     private int position;
@@ -12,11 +14,16 @@ public class Player {
     private int ownedRailways;
 
     public Player(String name, Color color) {
+        this.id = idCounter++;
         this.name = name.strip();
         this.color = color;
         this.position = Settings.getInstance().getStartBonus();
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.ownedRailways = 0;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void setName(String name) {
@@ -31,6 +38,8 @@ public class Player {
         return position;
     }
 
+
+    //TODO auto update ui position on position change
     public void setPosition(int position) {
         this.position = position;
     }

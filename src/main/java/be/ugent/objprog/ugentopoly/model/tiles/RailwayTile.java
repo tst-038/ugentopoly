@@ -66,4 +66,9 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     public boolean isOwned() {
         return false;
     }
+
+    @Override
+    public void onVisit(Player player) {
+
+    }
 }

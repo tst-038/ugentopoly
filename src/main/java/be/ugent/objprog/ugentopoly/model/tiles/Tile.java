@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.UIUpdateVisitor;
 import javafx.scene.Node;
@@ -9,7 +10,7 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 
-public abstract class Tile {
+public abstract class Tile implements Visitable {
 
     private final String id;
     private final int position;

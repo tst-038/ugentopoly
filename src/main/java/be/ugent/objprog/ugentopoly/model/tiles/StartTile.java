@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.UIUpdatable;
@@ -31,5 +32,10 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
     @Override
     public void updateUI(Node tileNode, Pane rootPane) {
         updateLabel(tileNode);
+    }
+
+    @Override
+    public void onVisit(Player player) {
+
     }
 }

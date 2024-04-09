@@ -91,7 +91,7 @@ public class UIUpdater {
                 FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/ui/playerpanel.fxml"));
                 Node playerNode = loader.load();
 
-                playerNode.setId("player_" + player.getName());
+                playerNode.setId("player_" + player.getId());
                 Label playerName = (Label) playerNode.lookup("#playerName");
                 playerName.setText(player.getName());
                 playerName.setTextFill(player.getColor());
@@ -101,8 +101,8 @@ public class UIUpdater {
 
                 Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
                 rollDiceButton.setOnAction(event -> {
-                    List<Integer> diceResult = DiceHandler.getInstance().rollDice(player);
-                    // TODO moveplayer
+                    rollDiceButton.setDisable(true);
+                    DiceHandler.getInstance().rollDice(player);
                 });
 
                 Button propertiesButton = new Button("View Properties");
@@ -111,9 +111,6 @@ public class UIUpdater {
                 });
 
                 //TODO remove and make it a property
-                if (panelIndex == 0) {
-                    playerNode.getStyleClass().add("activePlayerPanel");
-                }
 
                 if (panelIndex % 2 == 0) {
                     playerPanel1.getChildren().addLast(playerNode);

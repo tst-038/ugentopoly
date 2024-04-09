@@ -33,9 +33,7 @@ public class Ugentopoly extends Application {
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            Board board = new Board();
-            board.init();
-            gameController.initializeGame(board, players);
+            gameController.initializeGame(players);
 
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setScene(scene);

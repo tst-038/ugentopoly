@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.UIUpdatable;
@@ -48,5 +49,10 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable {
     @Override
     public void updateUI(Node tileNode, Pane rootPane) {
         updateImage(tileNode);
+    }
+
+    @Override
+    public void onVisit(Player player) {
+
     }
 }
