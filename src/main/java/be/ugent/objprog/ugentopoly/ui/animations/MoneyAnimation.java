@@ -13,15 +13,19 @@ import javafx.util.Duration;
 import java.util.Random;
 
 public class MoneyAnimation {
-    private static final int NUM_BILLS = 20; // number of money bills
     private static final String MONEY_IMAGE_URL = "assets/money.png"; // URL of the money image
     private static final int SCREEN_WIDTH = 850; // width of the screen
     private static final int SCREEN_HEIGHT = 850; // height of the screen
+    private int cycleCount;
 
-    public static void start(Pane pane) {
+    public MoneyAnimation(int cycleCount){
+        this.cycleCount =   cycleCount;
+    }
+
+    public void play(Pane pane, int numBills) {
         Random random = new Random();
 
-        for (int i = 0; i < NUM_BILLS; i++) {
+        for (int i = 0; i < numBills; i++) {
             ImageView moneyBill = new ImageView(new Image(ResourceLoader.loadResource(MONEY_IMAGE_URL)));
             int size = random.nextInt(20) + 10; // random size between 50 and 100
             moneyBill.setFitHeight(size);
@@ -34,7 +38,7 @@ public class MoneyAnimation {
             TranslateTransition transition = new TranslateTransition(Duration.seconds(10 + random.nextDouble() * 3), moneyBill);
             transition.setToY(SCREEN_HEIGHT  - y  + 100); // end offscreen at the bottom
             transition.setToX((random.nextInt(SCREEN_WIDTH))* getRandomFactor(random));
-            transition.setCycleCount(Animation.INDEFINITE);
+            transition.setCycleCount(cycleCount);
 
             // Add a pause before the transition
             PauseTransition pause = new PauseTransition(Duration.seconds(random.nextDouble() * 10));

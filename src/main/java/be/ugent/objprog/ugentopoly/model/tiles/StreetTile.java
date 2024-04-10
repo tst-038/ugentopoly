@@ -78,13 +78,21 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
     public void onVisit(Player player) {
         TileInfoPaneManager.getInstance().showTileInfo(this);
         AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
-        pane.lookup("#buy-button").setOnMouseClicked(event -> {
-            buy(player);
-            TileInfoPaneManager.getInstance().hideTileInfoPane();
-        });
-        pane.lookup("#close-button").setOnMouseClicked(event -> {
-            buy(player);
-            TileInfoPaneManager.getInstance().hideTileInfoPane();
-        });
+
+        if (owner != null) {
+            pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
+                payRent(player);
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+
+        } else {
+            pane.lookup("#buy-button").setOnMouseClicked(event -> {
+                buy(player);
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+            pane.lookup("#close-button").setOnMouseClicked(event -> {
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+        }
     }
 }

@@ -54,62 +54,8 @@ public class PlayerPion extends ImageView {
         // Get the target pionContainer based on the position
         String tileId = "#_" + position;
         pionContainer = (Pane) GameState.getInstance().getRootpane().lookup(tileId).lookup("#pionContainer");
-
-        PlayerPion newPion = new PlayerPion(player);
-        newPion.setVisible(false);
-
-        // Add the new pion to the target pionContainer
-        pionContainer.getChildren().add(newPion);
         pionContainer.toFront();
-
-        // Calculate the start position coordinates in the scene
-        Bounds startBounds = this.localToScene(this.getBoundsInLocal());
-        double startX = startBounds.getMinX();
-        double startY = startBounds.getMinY();
-
-        // Calculate the target position coordinates in the scene
-        Bounds targetBounds = newPion.localToScene(newPion.getBoundsInLocal());
-        double targetX = targetBounds.getMinX();
-        double targetY = targetBounds.getMinY();
-
-        // Calculate the position of the image within the container
-        double containerWidth = pionContainer.getWidth();
-        double containerHeight = pionContainer.getHeight();
-        double imageWidth = newPion.getBoundsInLocal().getWidth();
-        double imageHeight = newPion.getBoundsInLocal().getHeight();
-        double marginX = 10.0; // Adjust this value to change the horizontal margin
-        double marginY = 10.0; // Adjust this value to change the vertical margin
-
-        double imageX, imageY;
-        if ((position >= 0 && position <= 10) || (position >= 30 && position < 40)) {
-            // Horizontal positioning for tiles 0-10 and 30-39 (HBox)
-            imageX = (pionContainer.getChildren().size() - 1) * (imageWidth + marginX) + marginX;
-            imageY = (containerHeight - imageHeight) / 2;
-        } else {
-            // Vertical positioning for tiles 11-29 (VBox)
-            imageX = (containerWidth - imageWidth) / 2;
-            imageY = (pionContainer.getChildren().size() - 1) * (imageHeight + marginY) + marginY;
-        }
-
-        // Set the initial position of the pion in the scene
-        this.setLayoutX(startX);
-        this.setLayoutY(startY);
-
-        // Create a TranslateTransition to animate the pion movement
-        this.toFront();
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), this);
-        transition.setToX(targetX - startX + imageX);
-        transition.setToY(targetY - startY + imageY);
-
-        // Set an event handler to remove the current pion and make the new pion visible
-        transition.setOnFinished(event -> {
-            currentPionContainer.getChildren().remove(this);
-            newPion.setVisible(true);
-            newPion.setLayoutX(imageX);
-            newPion.setLayoutY(imageY);
-        });
-
-        // Start the animation
-        transition.play();
+        pionContainer.getChildren().add(this);
+        currentPionContainer.getChildren().remove(this);
     }
 }

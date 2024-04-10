@@ -433,7 +433,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_23" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="2">
@@ -444,7 +444,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_24" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="3">
@@ -455,7 +455,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_26" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="5">
@@ -466,7 +466,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_27" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="6">
@@ -477,7 +477,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_29" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="8">
@@ -488,7 +488,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_22" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="1">
@@ -499,7 +499,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_25" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="4">
@@ -510,7 +510,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="_28" gridLinesVisible="true" styleClass="tile" GridPane.rowIndex="7">
@@ -521,7 +521,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" rotate="180.0" styleClass="pionContainer" />
+                              <HBox fx:id="pionContainer" prefHeight="100.0" prefWidth="200.0" styleClass="pionContainer" />
                            </children>
                         </GridPane>
                      </children>

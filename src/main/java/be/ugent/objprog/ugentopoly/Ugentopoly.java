@@ -59,8 +59,8 @@ public class Ugentopoly extends Application {
             Parent root = loader.load();
             if (root instanceof Pane) {
                 // Start the money animation
-                MoneyAnimation moneyAnimation = new MoneyAnimation();
-                MoneyAnimation.start((Pane) root);
+                MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
+                moneyAnimation.play((Pane) root, 20);
             }
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setTitle("Ugentopoly");

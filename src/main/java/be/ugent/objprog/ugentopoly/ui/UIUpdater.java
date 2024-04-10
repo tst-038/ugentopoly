@@ -123,7 +123,8 @@ public class UIUpdater {
 
 
     public void playerBoughtTile(Player player, Buyable tile){
-        Label tileName = (Label) rootPane.lookup("#_" + tile.getPosition()).lookup("Label");
+        Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
+        Label tileName = (Label) tilePane.lookup("Label");
         tileName.setTextFill(player.getColor());
         tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize()+2));
     }

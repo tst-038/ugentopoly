@@ -28,16 +28,19 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label priceLabel = createLabel(PropertyReader.getInstance().get("label.price")+": ",  "street-tile-price-title", 5.0, null, 60.0, null);
         Label price = createPriceLabel(streetTile);
 
+
+        //TODO make seperate infopanes for buy rent ...
         if (streetTile.getOwner() == null) {
             Label forSale = createForSaleLabel();
             tileInfoPane.getChildren().add(forSale);
-            Button buyButton = createButton("buy", "street-tile-buy-button", "buy-button", 20., null, 150., null);
-            Button cancelButton = createButton("close", "street-tile-close-button", "close-button", null, 20., 150., null);
+            Button buyButton = createButton("Buy", "street-tile-buy-button", "buy-button", 10., null, 150., null);
+            Button cancelButton = createButton("Close", "street-tile-close-button", "close-button", null, 10., 150., null);
             tileInfoPane.getChildren().addAll(buyButton, cancelButton);
         }else {
             Label ownerLabel = createOwnerLabel();
             Label owner = createOwnerLabel(streetTile);
-            tileInfoPane.getChildren().addAll(ownerLabel, owner);
+            Button payrentButton = createButton("Pay rent", "street-pay-rent-button", "pay-rent-button", 20., 20., 150., null);
+            tileInfoPane.getChildren().addAll(payrentButton, ownerLabel, owner);
         }
 
         tileInfoPane.getChildren().addAll(infoColor, rentLabel, priceLabel, price);
