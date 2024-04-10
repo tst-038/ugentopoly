@@ -7,6 +7,7 @@ import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -56,8 +57,8 @@ public class Player {
         Visitable old = board.getTileByPosition(this.position);
         Visitable current = board.getTileByPosition(position);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, old, current));
-        this.position = position;
         this.pion.movePion(position);
+        this.position = position;
     }
 
     public IntegerProperty balanceProperty() {
@@ -82,6 +83,8 @@ public class Player {
 
     public void setPion(PlayerPion pion){
         this.pion = pion;
+        Pane pionContainer = (Pane) GameState.getInstance().getRootpane().lookup("#_"+pion.getPlayer().getPosition()).lookup("#pionContainer");
+        this.pion.setPionContainer(pionContainer);
     }
 
     public void addRailway() {
