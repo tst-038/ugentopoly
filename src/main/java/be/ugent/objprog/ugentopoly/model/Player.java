@@ -17,6 +17,7 @@ public class Player {
     private Color color;
     private int position;
     private final IntegerProperty balance;
+    private final IntegerProperty networth;
     private int ownedRailways;
     private int ownedUtility;
     private PlayerPion pion;
@@ -27,6 +28,7 @@ public class Player {
         this.color = color;
         this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
+        this.networth = new SimpleIntegerProperty(0);
         this.ownedRailways = 0;
         this.ownedUtility = 0;
         this.pion = new PlayerPion(this);
@@ -34,6 +36,14 @@ public class Player {
 
     public void initializePion(){
         pion.initialize();
+    }
+
+    public void setNetworth(int networth) {
+        this.networth.set(networth);
+    }
+
+    public int getNetworth() {
+        return networth.get();
     }
 
     public int getId(){
@@ -65,6 +75,10 @@ public class Player {
 
     public IntegerProperty balanceProperty() {
         return balance;
+    }
+
+    public IntegerProperty networthProperty() {
+        return networth;
     }
 
     public int getBalance() {

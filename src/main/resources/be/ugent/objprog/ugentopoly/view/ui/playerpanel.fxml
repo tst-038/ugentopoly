@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="playerPanelX" minWidth="275.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="275.0" styleClass="playerPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane layoutX="14.0" layoutY="40.0" prefHeight="20.0" prefWidth="150.0" />
@@ -11,7 +15,7 @@
             <padding>
                 <Insets left="20.0" right="20.0" />
             </padding>
-         <AnchorPane prefWidth="275.0">
+         <AnchorPane prefWidth="200.0">
             <children>
                   <Label fx:id="playerBalanceLabel" alignment="CENTER" text="Balans: " textFill="WHITE" AnchorPane.leftAnchor="0.0">
                       <padding>
@@ -21,7 +25,7 @@
                   <Label fx:id="playerBalance" alignment="CENTER" text="€20" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0" />
             </children>
          </AnchorPane>
-         <AnchorPane prefWidth="275.0">
+         <AnchorPane prefWidth="225.0">
             <children>
                <Label fx:id="playerNetworthLabel" alignment="CENTER" text="Marktwaarde:" textFill="WHITE" AnchorPane.leftAnchor="0.0">
                   <padding>
@@ -32,11 +36,6 @@
             </children>
          </AnchorPane>
         </HBox>
-      <HBox layoutY="59.0" prefHeight="16.0" prefWidth="275.0">
-         <padding>
-            <Insets left="20.0" right="20.0" />
-         </padding>
-      </HBox>
       <AnchorPane prefHeight="100.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0">
          <children>
             <Button fx:id="rollDiceButton" disable="true" layoutX="206.0" layoutY="11.0" mnemonicParsing="false" text="Roll  Dice" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
@@ -45,6 +44,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <ImageView fx:id="pion" fitHeight="50.0" fitWidth="50.0" layoutX="21.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
     </children>

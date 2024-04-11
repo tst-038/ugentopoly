@@ -95,6 +95,8 @@ public class UIUpdater {
 
                 Label playerBalance = (Label) playerNode.lookup("#playerBalance");
                 playerBalance.textProperty().bind(player.balanceProperty().asString(Settings.getMoneyUnit() + "%d"));
+                Label playerNetworth = (Label) playerNode.lookup("#playerNetworth");
+                playerNetworth.textProperty().bind(player.networthProperty().asString(Settings.getMoneyUnit() + "%d"));
 
                 Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
                 rollDiceButton.setOnAction(event -> {
@@ -124,7 +126,7 @@ public class UIUpdater {
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
         if(tileName == null){
-            tilePane.setBorder(new Border(new BorderStroke(player.getColor(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0,0,2,0))));
+            tilePane.setBorder(new Border(new BorderStroke(player.getColor(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0,0,4,0))));
             return;
         }
         tileName.setTextFill(player.getColor());
