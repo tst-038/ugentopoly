@@ -14,10 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -125,6 +123,10 @@ public class UIUpdater {
     public void playerBoughtTile(Player player, Buyable tile){
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
+        if(tileName == null){
+            tilePane.setBorder(new Border(new BorderStroke(player.getColor(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0,0,2,0))));
+            return;
+        }
         tileName.setTextFill(player.getColor());
         tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize()+2));
     }

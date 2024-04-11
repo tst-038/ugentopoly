@@ -3,7 +3,6 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
-import be.ugent.objprog.ugentopoly.logic.GameState;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
@@ -25,16 +24,12 @@ import java.util.Optional;
 
 public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Buyable, Rentable  {
 
-    private final int cost;
+    private final int price;
     private Player owner;
 
     public UtilityTile(String id, int position, int cost) {
         super(id, position, TileType.UTILITY);
-        this.cost = cost;
-    }
-
-    public int getCost() {
-        return cost;
+        this.price = cost;
     }
 
     public Image getImage() {
@@ -89,7 +84,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getPrice() {
-        return 0;
+        return price;
     }
 
     @Override

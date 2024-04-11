@@ -13,3 +13,16 @@
     -fx-text-alignment: center;
     -fx-alignment: center;
 }
+
+.utility-tile-owner-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+.utility-tile-owner {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-alignment: center;
+}

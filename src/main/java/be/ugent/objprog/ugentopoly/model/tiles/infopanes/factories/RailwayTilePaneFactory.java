@@ -22,6 +22,9 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
 
         ImageView railwayImage = createTileImage();
         Label titleLabel = createTitleLabel(tile);
+        Label owner = createOwnerLabel(railwayTile);
+
+        tileInfoPane.getChildren().addAll(railwayImage, titleLabel, owner);
 
         if (railwayTile.getOwner() == null) {
             Label forSale = createForSaleLabel();
@@ -40,9 +43,6 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
                 tileInfoPane.getChildren().add(payrentButton);
             }
         }
-        Label owner = createOwnerLabel(railwayTile);
-
-        tileInfoPane.getChildren().addAll(railwayImage, titleLabel, owner);
 
         return tileInfoPane;
     }
