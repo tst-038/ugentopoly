@@ -22,8 +22,8 @@ public class ChestTile extends Tile implements UIUpdatable, LabelUpdatable, Imag
     }
 
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override

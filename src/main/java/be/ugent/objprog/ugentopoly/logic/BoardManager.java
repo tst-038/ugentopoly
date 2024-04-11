@@ -79,6 +79,7 @@ public class BoardManager {
         tilePane.setOnMouseClicked(event -> showTileInfo(tilePane));
     }
 
+    //TODO maybe get rid of this one and use Tilemanagers one
     private void showTileInfo(Pane tilePane) {
         String tileId = tilePane.getId();
 
@@ -91,7 +92,7 @@ public class BoardManager {
             return;
         }
 
-        tileInfoPaneManager.showTileInfo(tile);
+        tileInfoPaneManager.showTileInfo(tile,false );
 
         if (currentlySelectedTile != null) {
             currentlySelectedTile.getStyleClass().remove("tile-selected");

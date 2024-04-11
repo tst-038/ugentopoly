@@ -4,25 +4,25 @@ import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.logic.GameState;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Bank {
 
-    private static Bank instance;
+    private static Optional<Bank> instance = Optional.empty();
 
     private Bank() {
     }
 
     public static Bank getInstance() {
-        if (instance == null) {
-            instance = new Bank();
-        }
-        return instance;
+        return instance.orElseGet(() -> {
+            instance = Optional.of(new Bank());
+            return instance.get();
+        });
     }
 
     public void initializeBalances(List<Player> players) {
-        for (Player player : players) {
-            player.setBalance(Settings.getInstance().getStartingBalance());
-        }
+        int startingBalance = Settings.getInstance().getStartingBalance();
+        players.forEach(player -> player.setBalance(startingBalance));
     }
 
     public void addMoney(Player player, int amount) {
@@ -37,24 +37,35 @@ public class Bank {
         player.setBalance(currentBalance - amount);
     }
 
-    public void transferMoney(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) throws InsufficientFundsException {
+    public void transferMoney(Player fromPlayer, Optional<Player> toPlayer, int amount, TransactionPriority priority) throws InsufficientFundsException {
         if (priority == TransactionPriority.HIGH) {
-            try {
-                subtractMoney(fromPlayer, amount);
-                addMoney(toPlayer, amount);
-            } catch (InsufficientFundsException e) {
-                // If the transaction is high priority (e.g., paying rent) and there are insufficient funds,
-                // transfer all remaining money and notify game over listeners
-                int remainingMoney = fromPlayer.getBalance();
-                subtractMoney(fromPlayer, remainingMoney);
-                addMoney(toPlayer, remainingMoney);
-                GameState.getInstance().notifyGameOverListeners(fromPlayer);
-                throw e;
-            }
+            handleHighPriorityTransaction(fromPlayer, toPlayer, amount);
         } else {
-            // For low-priority transactions, simply throw the InsufficientFundsException
+            handleLowPriorityTransaction(fromPlayer, toPlayer, amount);
+        }
+    }
+
+    private void handleHighPriorityTransaction(Player fromPlayer, Optional<Player> toPlayer, int amount) {
+        try {
             subtractMoney(fromPlayer, amount);
-            addMoney(toPlayer, amount);
+            toPlayer.ifPresent(player -> addMoney(player, amount));
+        } catch (InsufficientFundsException e) {
+            handleInsufficientFunds(fromPlayer, toPlayer);
+            GameState.getInstance().notifyGameOverListeners(fromPlayer);
+        }
+    }
+
+    private void handleLowPriorityTransaction(Player fromPlayer, Optional<Player> toPlayer, int amount) throws InsufficientFundsException {
+        subtractMoney(fromPlayer, amount);
+        toPlayer.ifPresent(player -> addMoney(player, amount));
+    }
+
+    private void handleInsufficientFunds(Player fromPlayer, Optional<Player> toPlayer) {
+        int remainingMoney = fromPlayer.getBalance();
+        try {
+            subtractMoney(fromPlayer, remainingMoney);
+            toPlayer.ifPresent(player -> addMoney(player, remainingMoney));
+        } catch (InsufficientFundsException ignored) {
         }
     }
 }

@@ -20,8 +20,8 @@ public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, I
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/go_to_jail.png")));
     }
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override

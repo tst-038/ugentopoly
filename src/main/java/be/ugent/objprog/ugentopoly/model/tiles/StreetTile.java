@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
 
 public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buyable, Rentable, Visitable {
 
@@ -59,8 +58,8 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
     }
 
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override
@@ -76,7 +75,10 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
     @Override
     public void onVisit(Player player) {
-        TileInfoPaneManager.getInstance().showTileInfo(this);
+        if(owner == player){
+            return;
+        }
+        TileInfoPaneManager.getInstance().showTileInfo(this, true);
         AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
         if (owner != null) {
@@ -84,7 +86,6 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
                 payRent(player);
                 TileInfoPaneManager.getInstance().hideTileInfoPane();
             });
-
         } else {
             pane.lookup("#buy-button").setOnMouseClicked(event -> {
                 buy(player);

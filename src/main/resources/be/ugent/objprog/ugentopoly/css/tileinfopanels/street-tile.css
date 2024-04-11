@@ -63,6 +63,5 @@
 .street-tile-owner {
     -fx-font-weight: normal;
     -fx-font-size: 1em;
-    -fx-text-fill: white;
     -fx-alignment: center;
 }

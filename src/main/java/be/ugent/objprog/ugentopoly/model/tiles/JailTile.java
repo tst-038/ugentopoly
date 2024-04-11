@@ -21,8 +21,8 @@ public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, Image
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") +".png")));
     }
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, Image
 
     @Override
     public void onVisit(Player player) {
-
+        // Do nothing
     }
 }

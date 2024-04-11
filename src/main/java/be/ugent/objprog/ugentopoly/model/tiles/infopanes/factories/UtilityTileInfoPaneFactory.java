@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.UtilityTile;
@@ -11,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         ImageView utilityTileImage  = createUtilityImage(tile);
         Label title = createTitleLabel((UtilityTile) tile);

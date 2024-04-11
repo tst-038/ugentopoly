@@ -1,21 +1,32 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
+import be.ugent.objprog.ugentopoly.logic.DiceHandler;
+import be.ugent.objprog.ugentopoly.logic.GameState;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.TransactionPriority;
+import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
+import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
+import java.util.Optional;
 
-public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable {
+public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Buyable, Rentable  {
 
     private final int cost;
+    private Player owner;
 
     public UtilityTile(String id, int position, int cost) {
         super(id, position, TileType.UTILITY);
@@ -31,8 +42,8 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable {
     }
 
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override
@@ -53,6 +64,55 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable {
 
     @Override
     public void onVisit(Player player) {
+        if(owner == player){
+            return;
+        }
+        TileInfoPaneManager.getInstance().showTileInfo(this, true);
+        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
+        if (owner != null) {
+            pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
+                payRent(player);
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+        } else {
+            pane.lookup("#buy-button").setOnMouseClicked(event -> {
+                buy(player);
+                player.addOwnedUtility();
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+            pane.lookup("#close-button").setOnMouseClicked(event -> {
+                TileInfoPaneManager.getInstance().hideTileInfoPane();
+            });
+        }
     }
+
+    @Override
+    public int getPrice() {
+        return 0;
+    }
+
+    @Override
+    public int getRent() {
+        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum();
+    }
+
+    @Override
+    public Player getOwner() {
+        return owner;
+    }
+
+    @Override
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public void payRent(Player player) {
+        int multiplier = owner.getOwnedUtility() == 1 ? 4 : 10;
+            try {
+                Bank.getInstance().transferMoney(player, Optional.of(getOwner()), getRent()*multiplier, TransactionPriority.HIGH);
+            } catch (InsufficientFundsException ignored) {
+            }
+        }
 }

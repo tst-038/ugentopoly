@@ -1,9 +1,10 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -11,14 +12,18 @@ import javafx.scene.layout.AnchorPane;
 public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit){
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         ImageView startImage = createTileImage();
         Label titleLabel = createTitleLabel(tile);
         Label infoLabel = createInfoLabel(tile);
-
         tileInfoPane.getChildren().addAll(startImage, titleLabel, infoLabel);
+
+        if(onVisit) {
+            Button claimButton = createButton("Claim", "claim-button", "claim-button", 20.0, 20.0, 150.0, null);
+            tileInfoPane.getChildren().add(claimButton);
+        }
 
         return tileInfoPane;
     }
@@ -36,6 +41,6 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createInfoLabel(Tile tile) {
         String desc = PropertyReader.getInstance().getTileDescription(tile.getId()).formatted(Settings.getMoneyUnit() + Settings.getInstance().getStartBonus());
-        return createLabel(desc, "start-info", 5.0, 5.0, 110.0, 5.0);
+        return createLabel(desc, "start-info", 5.0, 5.0, 80.0, 5.0);
     }
 }

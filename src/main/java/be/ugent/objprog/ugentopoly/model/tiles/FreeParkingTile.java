@@ -20,8 +20,8 @@ public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/free_parking.png")));
     }
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit) {
+        visitor.visit(this, onVisit);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable
 
     @Override
     public void onVisit(Player player) {
-
+        // Do nothing
     }
 }

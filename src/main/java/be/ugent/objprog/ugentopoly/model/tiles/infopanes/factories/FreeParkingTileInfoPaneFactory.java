@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.tiles.FreeParkingTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.Label;
@@ -10,8 +10,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         ImageView freeParkingImage = createFreeParkingImage();
         Label title = createTitleLabel((FreeParkingTile) tile);

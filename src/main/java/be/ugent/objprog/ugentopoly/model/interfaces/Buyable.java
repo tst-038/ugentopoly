@@ -14,8 +14,7 @@ public interface Buyable extends Ownable {
             setOwner(player);
             UIUpdater.getInstance().playerBoughtTile(player, this);
             GameLogBook.getInstance().addEntry(new PropertyBoughtLog(player, this));
-        } catch (InsufficientFundsException e) {
-            e.printStackTrace();
+        } catch (InsufficientFundsException ignored) {
         }
     }
 

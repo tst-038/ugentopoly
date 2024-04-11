@@ -1,24 +1,29 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.TaxTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         ImageView taxImage = createTileImage();
         Label titleLabel = createTitleLabel(tile);
         Label infoLabel = createInfoLabel((TaxTile) tile);
-
         tileInfoPane.getChildren().addAll(taxImage, titleLabel, infoLabel);
+
+        if(onVisit){
+            Button payrentButton = createButton("Pay tax", "tax-pay-button", "tax-pay-button", 20., 20., 150., null);
+            tileInfoPane.getChildren().add(payrentButton);
+        }
 
         return tileInfoPane;
     }
@@ -37,6 +42,6 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private Label createInfoLabel(TaxTile tile) {
         String desc = PropertyReader.getInstance().getTileDescription(tile.getId().replaceAll("\\d","")).formatted(Settings.getMoneyUnit() + tile.getAmount());
-        return createLabel(desc, "tax-info", 5.0, 5.0,110., 5.);
+        return createLabel(desc, "tax-info", 5.0, 5.0,130., null);
     }
 }

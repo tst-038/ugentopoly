@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -10,7 +11,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     protected static final double PANE_HEIGHT = 200.0;
 
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         AnchorPane tileInfoPane = new AnchorPane();
         tileInfoPane.setPrefSize(PANE_WIDTH, PANE_HEIGHT);
 
@@ -49,5 +50,17 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         if (rightAnchor != null) AnchorPane.setRightAnchor(anchorPane, rightAnchor);
         if (bottomAnchor != null) AnchorPane.setBottomAnchor(anchorPane, bottomAnchor);
         return anchorPane;
+    }
+
+
+    protected Button createButton(String text, String styleClass, String id, Double left, Double right, Double top, Double bottom) {
+        Button button = new Button(text);
+        button.getStyleClass().add(styleClass);
+        button.setId(id);
+        AnchorPane.setTopAnchor(button, top);
+        AnchorPane.setLeftAnchor(button, left);
+        AnchorPane.setRightAnchor(button, right);
+        AnchorPane.setBottomAnchor(button, bottom);
+        return button;
     }
 }

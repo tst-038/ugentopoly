@@ -1,12 +1,17 @@
 package be.ugent.objprog.ugentopoly.logic;
 
+import be.ugent.objprog.ugentopoly.log.DiceRolledLog;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
-import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
+import be.ugent.objprog.ugentopoly.log.PassedStartLog;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
+import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import be.ugent.objprog.ugentopoly.ui.LogbookManager;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
 
@@ -27,6 +32,10 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         return instance;
     }
 
+    public static TurnHandler getInstance() {
+        return instance;
+    }
+
     public void startGame() {
         // Initialize the game state and start the game loop
         GameState.getInstance().addGameOverListener(this);
@@ -34,7 +43,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }
 
-    private Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return playerManager.getPlayers().get(currentPlayerIndex);
     }
 
@@ -56,14 +65,25 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
         // Move the player's position
         int newPosition = (player.getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
+        if (newPosition < player.getPosition()) {
+            // Player has passed the start tile, give them the start bonus
+            Bank.getInstance().addMoney(player, Settings.getInstance().getStartBonus());
+            GameLogBook.getInstance().addEntry(new PassedStartLog(player));
+        }
         player.setPosition(newPosition);
 
         // Trigger the onLand event for the landed tile
         Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(newPosition);
         landedTile.onVisit(player);
 
-        playerManager.setPlayerPanelToInactive(getCurrentPlayer());
-        currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
+        // Check if the player rolled a double if not disable the current player and enable the next player
+        if (!rolls.getFirst().equals(rolls.get(1))) {
+            playerManager.setPlayerPanelToInactive(getCurrentPlayer());
+            currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
+            playerManager.setPlayerPanelToActive(getCurrentPlayer());
+        }
+
+        // Player has rolled dubble reenable roll button
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }
 }

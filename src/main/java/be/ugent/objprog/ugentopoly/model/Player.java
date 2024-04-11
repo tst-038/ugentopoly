@@ -18,6 +18,7 @@ public class Player {
     private int position;
     private final IntegerProperty balance;
     private int ownedRailways;
+    private int ownedUtility;
     private PlayerPion pion;
 
     public Player(String name, Color color) {
@@ -27,6 +28,7 @@ public class Player {
         this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.ownedRailways = 0;
+        this.ownedUtility = 0;
         this.pion = new PlayerPion(this);
     }
 
@@ -91,9 +93,15 @@ public class Player {
         ownedRailways++;
     }
 
-    public void removeRailway() {
-        if (ownedRailways > 0) {
-            ownedRailways--;
-        }
+    public int getOwnedRailways() {
+        return ownedRailways;
+    }
+
+    public void addOwnedUtility() {
+        ownedUtility++;
+    }
+
+    public int getOwnedUtility() {
+        return ownedUtility;
     }
 }

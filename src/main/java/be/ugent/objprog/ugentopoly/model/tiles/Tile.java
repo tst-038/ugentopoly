@@ -56,7 +56,7 @@ public abstract class Tile implements Visitable {
 
     public abstract Image getImage();
 
-    public abstract void accept(TileVisitor visitor);
+    public abstract void accept(TileVisitor visitor, boolean onVisit);
 
     public abstract void acceptUIUpdate(UIUpdateVisitor visitor, Node tileNode, Pane rootPane);
 }

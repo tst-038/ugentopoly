@@ -1,30 +1,19 @@
 package be.ugent.objprog.ugentopoly.ui;
 
-import be.ugent.objprog.ugentopoly.controller.GameController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.logic.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
-import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 import java.util.Objects;
 
 public class PlayerPion extends ImageView {
-    public Pane pionContainer;
+    private Pane pionContainer;
     private final Player player;
 
     public PlayerPion(Player player) {

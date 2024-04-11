@@ -4,8 +4,6 @@ import be.ugent.objprog.dice.Dice;
 import be.ugent.objprog.ugentopoly.log.DiceRolledLog;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.model.Player;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +53,10 @@ public class DiceHandler {
         for (DiceRolledListener listener : listeners) {
             listener.onDiceRolled(player, rolls);
         }
+    }
+
+    public List<Integer> getLastRoll(){
+        return dice.getLastRoll();
     }
 
 

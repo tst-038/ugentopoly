@@ -21,8 +21,8 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") + ".png")));
     }
     @Override
-    public void accept(TileVisitor visitor) {
-        visitor.visit(this);
+    public void accept(TileVisitor visitor, boolean onVisit){
+        visitor.visit(this, onVisit);
     }
 
     @Override

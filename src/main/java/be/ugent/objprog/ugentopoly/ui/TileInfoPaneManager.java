@@ -25,8 +25,8 @@ public class TileInfoPaneManager {
         return instance;
     }
 
-    public void showTileInfo(Tile tile) {
-        tile.accept(tileInfoPaneUpdater);
+    public void showTileInfo(Tile tile, boolean onVisit) {
+        tile.accept(tileInfoPaneUpdater, onVisit);
         tileInfoPane.setVisible(true);
     }
 

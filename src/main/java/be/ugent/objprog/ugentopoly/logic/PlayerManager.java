@@ -1,19 +1,14 @@
 package be.ugent.objprog.ugentopoly.logic;
 
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class PlayerManager {
     private static PlayerManager instance;
@@ -81,7 +76,9 @@ public class PlayerManager {
     public void setPlayerPanelToActive(Player player) {
         Node playerPane = BoardManager.getInstance().findPlayerNode(player);
         if (playerPane != null) {
-            playerPane.getStyleClass().add("activePlayerPanel");
+            if (!playerPane.getStyleClass().contains("activePlayerPanel")) {
+                playerPane.getStyleClass().add("activePlayerPanel");
+            }
             Node rollDiceButton = playerPane.lookup("#rollDiceButton");
             if (rollDiceButton != null) {
                 rollDiceButton.setDisable(false);

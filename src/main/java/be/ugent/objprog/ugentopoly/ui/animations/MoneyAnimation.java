@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.ui.animations;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;

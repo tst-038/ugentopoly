@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.tiles.JailTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.ContentDisplay;
@@ -11,9 +11,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         JailTile jailTile = (JailTile) tile;
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile);
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         ImageView jailImage = createJailImage();
         jailImage.setFitHeight(75);
