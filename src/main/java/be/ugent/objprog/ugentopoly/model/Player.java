@@ -31,10 +31,6 @@ public class Player {
         this.ownedUtility = 0;
     }
 
-    public void initializePion(PlayerPion pion) {
-        this.pion = pion;
-    }
-
     public void setNetworth(int networth) {
         this.networth.set(networth);
     }

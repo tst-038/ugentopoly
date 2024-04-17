@@ -41,7 +41,7 @@ public class PlayerManager {
         players.forEach(player -> {
             Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition()).lookup("#pionContainer");
             PlayerPion pion = new PlayerPion(player);
-            player.initializePion(pion);
+            player.setPion(pion);
             pion.addToContainer(pionContainer);
         });
     }
