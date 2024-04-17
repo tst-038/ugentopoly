@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.logic.GameState;
 
 import java.util.List;
 import java.util.Optional;

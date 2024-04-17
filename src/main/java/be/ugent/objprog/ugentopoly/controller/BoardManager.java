@@ -1,6 +1,7 @@
-package be.ugent.objprog.ugentopoly.logic;
+package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.Board;
+import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
@@ -15,22 +16,20 @@ import java.util.Objects;
 public class BoardManager {
     private static BoardManager instance;
     private Board board;
-    private AnchorPane rootPane;
     private UIUpdater uiUpdater;
     private TileInfoPaneManager tileInfoPaneManager;
     private Pane currentlySelectedTile;
 
-    private BoardManager(AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+    private BoardManager(UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
         this.board = GameState.getInstance().getBoard();
-        this.rootPane = rootPane;
         this.uiUpdater = uiUpdater;
-        this.tileInfoPaneManager = TileInfoPaneManager.getInstance(tileinfoPane);
+        this.tileInfoPaneManager = tileInfoPaneManager;
         this.currentlySelectedTile = null;
     }
 
-    public static BoardManager getInstance(AnchorPane rootPane, UIUpdater uiUpdater, AnchorPane tileinfoPane) {
+    public static BoardManager getInstance(UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
         if (instance == null) {
-            instance = new BoardManager(rootPane, uiUpdater, tileinfoPane);
+            instance = new BoardManager(uiUpdater, tileInfoPaneManager);
         }
         return instance;
     }
@@ -39,13 +38,13 @@ public class BoardManager {
         return instance;
     }
 
-    public void initializeBoard() {
+    public void initializeBoard(AnchorPane rootPane) {
         uiUpdater.colorAreaPanes(board.getAreas());
         uiUpdater.updateTiles(board.getTiles());
-        attachTileClickHandlers();
+        attachTileClickHandlers(rootPane);
     }
 
-    private void attachTileClickHandlers() {
+    private void attachTileClickHandlers(AnchorPane rootPane) {
         for (Tile tile : board.getTiles()) {
             String tileId = "_" + tile.getPosition();
             Pane tilePane = findTilePane(rootPane, tileId);
@@ -55,7 +54,6 @@ public class BoardManager {
         }
         ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
     }
-
 
     private Pane findTilePane(Pane parent, String tileId) {
         if (parent.getId() != null && parent.getId().equals(tileId)) {
@@ -71,15 +69,14 @@ public class BoardManager {
                 .orElse(null);
     }
 
-    public Node findPlayerNode(Player player){
-        return  rootPane.lookup("#player_"+player.getId());
+    public Node findPlayerNode(Player player, AnchorPane rootPane) {
+        return rootPane.lookup("#player_" + player.getId());
     }
 
     private void attachTileClickHandler(Pane tilePane) {
         tilePane.setOnMouseClicked(event -> showTileInfo(tilePane));
     }
 
-    //TODO maybe get rid of this one and use Tilemanagers one
     private void showTileInfo(Pane tilePane) {
         String tileId = tilePane.getId();
 
@@ -92,7 +89,7 @@ public class BoardManager {
             return;
         }
 
-        tileInfoPaneManager.showTileInfo(tile,false );
+        tileInfoPaneManager.showTileInfo(tile, false);
 
         if (currentlySelectedTile != null) {
             currentlySelectedTile.getStyleClass().remove("tile-selected");

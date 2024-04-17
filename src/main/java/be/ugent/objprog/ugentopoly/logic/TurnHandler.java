@@ -1,17 +1,15 @@
 package be.ugent.objprog.ugentopoly.logic;
 
-import be.ugent.objprog.ugentopoly.log.DiceRolledLog;
+import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PassedStartLog;
 import be.ugent.objprog.ugentopoly.model.Bank;
+import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.ui.LogbookManager;
 
 import java.util.List;
-import java.util.Objects;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
 
@@ -83,7 +81,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             playerManager.setPlayerPanelToActive(getCurrentPlayer());
         }
 
-        // Player has rolled dubble reenable roll button
+        // Player has rolled double reenable roll button
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }
 }

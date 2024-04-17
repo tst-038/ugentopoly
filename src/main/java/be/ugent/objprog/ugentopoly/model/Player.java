@@ -2,12 +2,10 @@ package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
-import be.ugent.objprog.ugentopoly.logic.GameState;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -31,11 +29,10 @@ public class Player {
         this.networth = new SimpleIntegerProperty(0);
         this.ownedRailways = 0;
         this.ownedUtility = 0;
-        this.pion = new PlayerPion(this);
     }
 
-    public void initializePion(){
-        pion.initialize();
+    public void initializePion(PlayerPion pion) {
+        this.pion = pion;
     }
 
     public void setNetworth(int networth) {
@@ -46,7 +43,7 @@ public class Player {
         return networth.get();
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
@@ -62,15 +59,13 @@ public class Player {
         return position;
     }
 
-
-    //TODO auto update ui position on position change
     public void setPosition(int position) {
         Board board = GameState.getInstance().getBoard();
         Visitable old = board.getTileByPosition(this.position);
         Visitable current = board.getTileByPosition(position);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, old, current));
-        this.pion.movePion(position);
         this.position = position;
+        pion.updatePosition(position);
     }
 
     public IntegerProperty balanceProperty() {
@@ -97,10 +92,12 @@ public class Player {
         this.color = color;
     }
 
-    public void setPion(PlayerPion pion){
+    public PlayerPion getPion() {
+        return pion;
+    }
+
+    public void setPion(PlayerPion pion) {
         this.pion = pion;
-        Pane pionContainer = (Pane) GameState.getInstance().getRootpane().lookup("#_"+pion.getPlayer().getPosition()).lookup("#pionContainer");
-        this.pion.setPionContainer(pionContainer);
     }
 
     public void addRailway() {

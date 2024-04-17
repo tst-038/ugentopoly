@@ -48,7 +48,6 @@ public class StartController {
         if (areNamesAndColorsUnique()) {
             // Pass the list of players to the main class to start the game
             Ugentopoly.startGame(players);
-
         }
     }
 

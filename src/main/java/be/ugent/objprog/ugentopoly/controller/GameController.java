@@ -1,12 +1,10 @@
 package be.ugent.objprog.ugentopoly.controller;
 
-import be.ugent.objprog.ugentopoly.logic.BoardManager;
-import be.ugent.objprog.ugentopoly.logic.GameState;
-import be.ugent.objprog.ugentopoly.logic.PlayerManager;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.LogbookManager;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -25,17 +23,17 @@ public class GameController {
     private AnchorPane tileInfoPane;
 
     public void initializeGame(List<Player> players) {
-        GameState.getInstance(rootPane);
-        UIUpdater.getInstance(rootPane);
-        BoardManager.getInstance(rootPane, UIUpdater.getInstance(rootPane), tileInfoPane);
-        PlayerManager.getInstance(players, rootPane, UIUpdater.getInstance(rootPane));
-        LogbookManager.getInstance(logbookRoot);
+        UIUpdater uiUpdater = UIUpdater.getInstance(rootPane);
+        TileInfoPaneManager tileInfoPaneManager = TileInfoPaneManager.getInstance(tileInfoPane);
+        BoardManager boardManager = BoardManager.getInstance(uiUpdater, tileInfoPaneManager);
+        PlayerManager playerManager = PlayerManager.getInstance(players, uiUpdater, rootPane);
+        LogbookManager logbookManager = LogbookManager.getInstance(logbookRoot);
 
-        BoardManager.getInstance(rootPane, UIUpdater.getInstance(rootPane), tileInfoPane).initializeBoard();
-        PlayerManager.getInstance(players, rootPane, UIUpdater.getInstance(rootPane)).initializePlayers();
+        boardManager.initializeBoard(rootPane);
+        playerManager.initializePlayers(rootPane);
         Bank.getInstance().initializeBalances(players);
 
-        TurnHandler.getInstance(PlayerManager.getInstance(players, rootPane, UIUpdater.getInstance(rootPane))).startGame();
+        TurnHandler.getInstance(playerManager).startGame();
     }
 
     @FXML
