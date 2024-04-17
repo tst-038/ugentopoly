@@ -13,6 +13,7 @@ public class DiceHandler {
     private static DiceHandler instance;
     private final Dice dice;
     private List<DiceRolledListener> listeners;
+    private List<Integer> lastRoll;
 
     private DiceHandler() {
         this.dice = new Dice();
@@ -30,20 +31,9 @@ public class DiceHandler {
         listeners.add(listener);
     }
 
-    private void waitForDiceToStopRolling() {
-        while (dice.isRolling()) {
-            try {
-                Thread.sleep(100); // Wait for a short interval before checking again
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void rollDice(Player player) {
-        dice.roll(event -> {
-            waitForDiceToStopRolling();
-            List<Integer> rolls = dice.getLastRoll();
+        dice.roll(rolls -> {
+            lastRoll = rolls;
             GameLogBook.getInstance().addEntry(new DiceRolledLog(player, rolls.getFirst(), rolls.getLast()));
             notifyDiceRolledListeners(player, rolls);
         });
@@ -55,8 +45,9 @@ public class DiceHandler {
         }
     }
 
+    //TODO see if this can work without.
     public List<Integer> getLastRoll(){
-        return dice.getLastRoll();
+        return lastRoll;
     }
 
 
