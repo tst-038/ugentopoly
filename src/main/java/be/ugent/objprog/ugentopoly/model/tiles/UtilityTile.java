@@ -89,7 +89,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getRent() {
-        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum();
+        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum()*owner.getOwnedUtility() == 1 ? 4 :10;
     }
 
     @Override
@@ -104,9 +104,8 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public void payRent(Player player) {
-        int multiplier = owner.getOwnedUtility() == 1 ? 4 : 10;
             try {
-                Bank.getInstance().transferMoney(player, Optional.of(getOwner()), getRent()*multiplier, TransactionPriority.HIGH);
+                Bank.getInstance().transferMoney(player, Optional.of(getOwner()), getRent(), TransactionPriority.HIGH);
             } catch (InsufficientFundsException ignored) {
             }
         }

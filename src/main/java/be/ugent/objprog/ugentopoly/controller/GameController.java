@@ -29,6 +29,7 @@ public class GameController {
         PlayerManager playerManager = PlayerManager.getInstance(players, uiUpdater, rootPane);
         LogbookManager logbookManager = LogbookManager.getInstance(logbookRoot);
 
+        uiUpdater.initializeDices();
         boardManager.initializeBoard(rootPane);
         playerManager.initializePlayers(rootPane);
         Bank.getInstance().initializeBalances(players);

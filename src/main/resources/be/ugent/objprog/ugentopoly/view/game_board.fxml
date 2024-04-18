@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="rootPane" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/game-board.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.GameController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -541,6 +550,7 @@
                         <Image url="@../assets/gent_skyline.png" />
                      </image>
                   </ImageView>
+                  <AnchorPane fx:id="dicePane" layoutX="150.0" layoutY="190.0" prefHeight="150.0" prefWidth="250.0" />
                   <AnchorPane fx:id="tileInfoPane" layoutX="211.0" layoutY="165.0" maxHeight="200.0" maxWidth="150.0" minHeight="200.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #3B3B3B; -fx-border-color: black; -fx-border-radius: 10px; -fx-border-width: 3; -fx-background-radius: 15px;" visible="false">
                      <children>
                         <Label layoutX="8.0" layoutY="71.0" prefHeight="15.0" prefWidth="33.0" text="Rent :" textFill="WHITE" AnchorPane.leftAnchor="5.0">

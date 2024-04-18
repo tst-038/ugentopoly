@@ -1,9 +1,11 @@
 package be.ugent.objprog.ugentopoly.logic;
 
-import be.ugent.objprog.dice.Dice;
+import be.ugent.objprog.dice.DiceDialog;
+import be.ugent.objprog.dice.DicePanel;
 import be.ugent.objprog.ugentopoly.log.DiceRolledLog;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.model.Player;
+import javafx.scene.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +13,13 @@ import java.util.List;
 public class DiceHandler {
 
     private static DiceHandler instance;
-    private final Dice dice;
-    private List<DiceRolledListener> listeners;
+    private final DicePanel dice;
+    private final List<DiceRolledListener> listeners;
     private List<Integer> lastRoll;
 
     private DiceHandler() {
-        this.dice = new Dice();
+        this.dice = new DicePanel();
+        System.setProperty("dice.testing", "true");
         this.listeners = new ArrayList<>();
     }
 
@@ -25,6 +28,10 @@ public class DiceHandler {
             instance = new DiceHandler();
         }
         return instance;
+    }
+
+    public Node getDiceDialog(){
+        return dice;
     }
 
     public void addDiceRolledListener(DiceRolledListener listener) {

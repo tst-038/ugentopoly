@@ -128,6 +128,14 @@ public class UIUpdater {
         }
     }
 
+    public void initializeDices(){
+        AnchorPane dicePane = (AnchorPane) rootPane.lookup("#dicePane");
+        dicePane.getChildren().add(DiceHandler.getInstance().getDiceDialog());
+        AnchorPane.setTopAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
+        AnchorPane.setLeftAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
+        AnchorPane.setRightAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
+        AnchorPane.setBottomAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
+    }
 
 
     public void playerBoughtTile(Player player, Buyable tile){
