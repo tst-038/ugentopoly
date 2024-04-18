@@ -8,10 +8,12 @@ public class TileInfoPaneManager {
     private static TileInfoPaneManager instance;
     private AnchorPane tileInfoPane;
     private TileInfoPaneVisitor tileInfoPaneUpdater;
+    private boolean isClosable;
 
     private TileInfoPaneManager(AnchorPane tileInfoPane) {
         this.tileInfoPane = tileInfoPane;
         this.tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
+        this.isClosable = true;
     }
 
     public static TileInfoPaneManager getInstance(AnchorPane tileInfoPane) {
@@ -26,7 +28,11 @@ public class TileInfoPaneManager {
     }
 
     public void showTileInfo(Tile tile, boolean onVisit) {
+        if (tile != null && !isClosable){
+            return;
+        }
         tile.accept(tileInfoPaneUpdater, onVisit);
+        isClosable = !onVisit;
         tileInfoPane.setVisible(true);
     }
 
@@ -35,6 +41,17 @@ public class TileInfoPaneManager {
     }
 
     public void hideTileInfoPane() {
-        tileInfoPane.setVisible(false);
+        if (isClosable) {
+            tileInfoPane.setVisible(false);
+        }
+    }
+
+    public void setPaneClosableAndHide(){
+        isClosable = true;
+        hideTileInfoPane();
+    }
+
+    public boolean isClosable(){
+        return isClosable;
     }
 }

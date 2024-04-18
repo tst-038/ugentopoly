@@ -80,16 +80,16 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
                 payRent(player);
-                TileInfoPaneManager.getInstance().hideTileInfoPane();
+                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
         } else {
             pane.lookup("#buy-button").setOnMouseClicked(event -> {
                 buy(player);
                 player.addRailway();
-                TileInfoPaneManager.getInstance().hideTileInfoPane();
+                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
             pane.lookup("#close-button").setOnMouseClicked(event -> {
-                TileInfoPaneManager.getInstance().hideTileInfoPane();
+                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
         }
     }

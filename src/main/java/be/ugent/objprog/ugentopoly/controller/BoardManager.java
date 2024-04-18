@@ -95,8 +95,10 @@ public class BoardManager {
             currentlySelectedTile.getStyleClass().remove("tile-selected");
         }
 
-        tilePane.getStyleClass().add("tile-selected");
-        currentlySelectedTile = tilePane;
+        if(tileInfoPaneManager.isClosable()){
+            tilePane.getStyleClass().add("tile-selected");
+            currentlySelectedTile = tilePane;
+        }
     }
 
     private void hideTileInfoPane() {

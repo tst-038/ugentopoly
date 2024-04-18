@@ -51,7 +51,7 @@ public class TaxTile extends Tile implements UIUpdatable, LabelUpdatable, ImageU
 
         pane.lookup("#tax-pay-button").setOnMouseClicked(event -> {
                 payTax(player);
-                TileInfoPaneManager.getInstance().hideTileInfoPane();
+                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
         });
     }
 }
