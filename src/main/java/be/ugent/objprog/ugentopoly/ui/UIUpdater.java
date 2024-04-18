@@ -12,6 +12,7 @@ import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -141,8 +142,9 @@ public class UIUpdater {
     public void playerBoughtTile(Player player, Buyable tile){
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
+        // Only utility tiles dont have a label
         if(tileName == null){
-            tilePane.setBorder(new Border(new BorderStroke(player.getColor(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0,0,4,0))));
+            ((AnchorPane)tilePane.lookup("#ownerColor")).setBackground(new Background(new BackgroundFill(player.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
             return;
         }
         tileName.setTextFill(player.getColor());

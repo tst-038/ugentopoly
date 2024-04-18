@@ -18,8 +18,8 @@ public class DiceHandler {
     private List<Integer> lastRoll;
 
     private DiceHandler() {
-        this.dice = new DicePanel();
         System.setProperty("dice.testing", "true");
+        this.dice = new DicePanel();
         this.listeners = new ArrayList<>();
     }
 
