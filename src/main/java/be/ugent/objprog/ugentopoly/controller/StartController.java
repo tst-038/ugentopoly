@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -25,7 +26,13 @@ public class StartController {
     @FXML
     private Label playerColorsNotUnique;
     @FXML
+    private Label playerAmountTitle;
+    @FXML
     private Label playerAmount;
+    @FXML
+    private Label playerColor;
+    @FXML
+    private Label playerName;
     @FXML
     private Button playButton;
 
@@ -36,11 +43,10 @@ public class StartController {
         players = new ArrayList<>();
         playerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int numPlayers = newValue.intValue();
-            // TODO put in properties file
-            playerAmount.setText(numPlayers + " spelers");
+            playerAmount.setText(String.format(PropertyReader.getInstance().get("label.player_amount"), numPlayers));
             updatePlayerFields(numPlayers);
         });
-        updatePlayerFields(2);
+        updateText();
     }
 
     @FXML
@@ -49,6 +55,14 @@ public class StartController {
             // Pass the list of players to the main class to start the game
             Ugentopoly.startGame(players);
         }
+    }
+
+    private void updateText(){
+        updatePlayerFields(2);
+        playButton.setText(PropertyReader.getInstance().get("button.play"));
+        playerAmountTitle.setText(PropertyReader.getInstance().get("label.player_amount_title"));
+        playerColor.setText(PropertyReader.getInstance().get("label.color"));
+        playerName.setText(PropertyReader.getInstance().get("label.username"));
     }
 
     private boolean areNamesAndColorsUnique() {
@@ -80,6 +94,7 @@ public class StartController {
                 TextField usernameField = new TextField();
                 usernameField.setPrefWidth(125);
                 usernameField.setText("Speler " + (i + 1));
+                usernameField.setText(String.format(PropertyReader.getInstance().get("label.default_player_name"), (i + 1)));
                 AnchorPane.setLeftAnchor(usernameField, 0.0);
 
                 ColorPicker colorPicker = new ColorPicker();

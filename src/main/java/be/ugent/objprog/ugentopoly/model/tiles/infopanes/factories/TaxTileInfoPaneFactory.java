@@ -21,7 +21,7 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         tileInfoPane.getChildren().addAll(taxImage, titleLabel, infoLabel);
 
         if(onVisit){
-            Button payrentButton = createButton("Pay tax", "tax-pay-button", "tax-pay-button", 20., 20., 150., null);
+            Button payrentButton = createButton(PropertyReader.getInstance().get("button.pay_tax"), "tax-pay-button", "tax-pay-button", 20., 20., 160., null);
             tileInfoPane.getChildren().add(payrentButton);
         }
 

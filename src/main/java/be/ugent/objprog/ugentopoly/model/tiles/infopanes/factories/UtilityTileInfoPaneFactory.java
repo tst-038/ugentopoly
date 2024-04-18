@@ -29,8 +29,8 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             Label forSale = createForSaleLabel();
             tileInfoPane.getChildren().add(forSale);
             if(onVisit) {
-                Button buyButton = createButton("Buy", "street-tile-buy-button", "buy-button", 10., null, 150., null);
-                Button cancelButton = createButton("Close", "street-tile-close-button", "close-button", null, 10., 150., null);
+                Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "utility-tile-buy-button", "buy-button", 10., null, 160., null);
+                Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "utility-tile-close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
         }else {
@@ -38,7 +38,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             tileInfoPane.getChildren().add(ownerLabel);
             // If the player is not the owner of the street, show the pay rent button
             if(onVisit && utilityTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()){
-                Button payrentButton = createButton("Pay rent", "street-pay-rent-button", "pay-rent-button", 20., 20., 150., null);
+                Button payrentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "utility-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
                 tileInfoPane.getChildren().add(payrentButton);
             }
         }
@@ -49,11 +49,11 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createOwnerLabel() {
-        return createLabel("Eigenaar :", "utility-tile-owner-title", 0.0, 0.0, 115., null);
+        return createLabel(PropertyReader.getInstance().get("label.owner"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
     }
 
     private Label createForSaleLabel(){
-        return createLabel("Te koop!", "utility-tile-owner-title", 0.0, 0.0, 115., null);
+        return createLabel(PropertyReader.getInstance().get("label.for_sale"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
     }
 
     private Label createOwnerLabel(Buyable tile) {

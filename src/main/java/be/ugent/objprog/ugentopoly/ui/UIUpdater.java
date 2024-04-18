@@ -2,6 +2,7 @@
 package be.ugent.objprog.ugentopoly.ui;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Area;
@@ -93,12 +94,19 @@ public class UIUpdater {
                 playerName.setText(player.getName());
                 playerName.setTextFill(player.getColor());
 
+                Label playerBalanceLabel = (Label) playerNode.lookup("#playerBalanceLabel");
+                playerBalanceLabel.setText(PropertyReader.getInstance().get("label.balance"));
+
                 Label playerBalance = (Label) playerNode.lookup("#playerBalance");
                 playerBalance.textProperty().bind(player.balanceProperty().asString(Settings.getMoneyUnit() + "%d"));
+
+                Label playerNetworthLabel = (Label) playerNode.lookup("#playerNetworthLabel");
+                playerNetworthLabel.setText(PropertyReader.getInstance().get("label.networth"));
                 Label playerNetworth = (Label) playerNode.lookup("#playerNetworth");
                 playerNetworth.textProperty().bind(player.networthProperty().asString(Settings.getMoneyUnit() + "%d"));
 
                 Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
+                rollDiceButton.setText(PropertyReader.getInstance().get("button.roll_dice"));
                 rollDiceButton.setOnAction(event -> {
                     rollDiceButton.setDisable(true);
                     DiceHandler.getInstance().rollDice(player);

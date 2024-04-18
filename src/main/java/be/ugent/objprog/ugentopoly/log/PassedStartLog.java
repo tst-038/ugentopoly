@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.log;
 
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
@@ -9,6 +10,6 @@ import java.util.Set;
 public class PassedStartLog extends Log {
 
     public PassedStartLog(Player player) {
-        super(player.getName() + " ontving " + Settings.getMoneyUnit() + Settings.getInstance().getStartBonus() + " voor het passeren van start.");
+        super(String.format(PropertyReader.getInstance().get("log.passed_start"), player.getName(), Settings.getMoneyUnit()+Settings.getInstance().getStartBonus()));
     }
 }

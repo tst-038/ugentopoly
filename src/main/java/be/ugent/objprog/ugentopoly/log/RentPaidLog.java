@@ -1,6 +1,8 @@
 package be.ugent.objprog.ugentopoly.log;
 
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
 
 public class RentPaidLog extends Log {
@@ -8,7 +10,7 @@ public class RentPaidLog extends Log {
     private final Rentable tile;
 
     public RentPaidLog(Player renter, Rentable tile) {
-        super(renter.getName() + " paid " +tile.getRent() + " rent to " + tile.getOwner().getName());
+        super(String.format(PropertyReader.getInstance().get("log.property_rent_paid"), renter.getName(), Settings.getMoneyUnit()+tile.getRent(), tile.getOwner().getName()));
         this.renter = renter;
         this.tile = tile;
     }

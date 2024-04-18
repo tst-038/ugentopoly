@@ -21,7 +21,7 @@ public class StartTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         tileInfoPane.getChildren().addAll(startImage, titleLabel, infoLabel);
 
         if(onVisit) {
-            Button claimButton = createButton("Claim", "claim-button", "claim-button", 20.0, 20.0, 150.0, null);
+            Button claimButton = createButton(PropertyReader.getInstance().get("button.claim_start_bonus"), "claim-button", "claim-button", 20.0, 20.0, 160.0, null);
             tileInfoPane.getChildren().add(claimButton);
         }
 

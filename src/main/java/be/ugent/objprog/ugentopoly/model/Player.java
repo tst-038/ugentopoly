@@ -57,9 +57,8 @@ public class Player {
 
     public void setPosition(int position) {
         Board board = GameState.getInstance().getBoard();
-        Visitable old = board.getTileByPosition(this.position);
         Visitable current = board.getTileByPosition(position);
-        GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, old, current));
+        GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, current));
         this.position = position;
         pion.updatePosition(position);
     }

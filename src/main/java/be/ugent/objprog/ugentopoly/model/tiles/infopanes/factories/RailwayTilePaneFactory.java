@@ -30,8 +30,8 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
             Label forSale = createForSaleLabel();
             tileInfoPane.getChildren().add(forSale);
             if(onVisit) {
-                Button buyButton = createButton("Buy", "buy-button", "buy-button", 10., null, 150., null);
-                Button cancelButton = createButton("Close", "close-button", "close-button", null, 10., 150., null);
+                Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "buy-button", "buy-button", 10., null, 160., null);
+                Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
         }else {
@@ -39,7 +39,7 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
             tileInfoPane.getChildren().add(ownerLabel);
             // If the player is not the owner of the street, show the pay rent button
             if(onVisit && railwayTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()){
-                Button payrentButton = createButton("Pay rent", "pay-rent-button", "pay-rent-button", 20., 20., 150., null);
+                Button payrentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "pay-rent-button", "pay-rent-button", 20., 20., 160., null);
                 tileInfoPane.getChildren().add(payrentButton);
             }
         }
@@ -48,11 +48,11 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private Label createOwnerLabel() {
-        return createLabel("Eigenaar :", "tax-tile-owner-title", 0.0, 0.0, 115., null);
+        return createLabel(PropertyReader.getInstance().get("label.owner"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
     }
 
     private Label createForSaleLabel(){
-        return createLabel("Te koop!", "tax-tile-owner-title", 0.0, 0.0, 115., null);
+        return createLabel(PropertyReader.getInstance().get("label.for_sale"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
     }
 
     private Label createOwnerLabel(RailwayTile tile) {
