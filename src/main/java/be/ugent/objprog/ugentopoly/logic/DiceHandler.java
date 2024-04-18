@@ -18,7 +18,7 @@ public class DiceHandler {
     private List<Integer> lastRoll;
 
     private DiceHandler() {
-        System.setProperty("dice.testing", "false");
+        System.setProperty("dice.testing", "true");
         this.dice = new DicePanel();
         this.listeners = new ArrayList<>();
     }

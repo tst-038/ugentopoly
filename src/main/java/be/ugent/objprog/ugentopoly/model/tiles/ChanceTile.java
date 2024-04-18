@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable, Visitable {
     public ChanceTile(String id, int position) {
@@ -47,10 +48,7 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
         AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            List<Card> cards = player.getCards();
-            for(int i = 0; i<cards.size(); i++){
-                cards.get(i).execute(player);
-            }
+            IntStream.range(0, player.getCards().size()).forEachOrdered(i -> player.getCards().get(i).execute(player));
             TileInfoPaneManager.getInstance().setPaneClosableAndHide();
         });
     }

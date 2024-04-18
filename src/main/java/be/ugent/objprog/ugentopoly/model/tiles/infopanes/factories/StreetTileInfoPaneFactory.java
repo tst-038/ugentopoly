@@ -41,7 +41,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             tileInfoPane.getChildren().add(forSaleLabel);
             if(onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "street-tile-buy-button", "buy-button", 10., null, 160., null);
-                Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "street-tile-close-button", "close-button", null, 10., 160., null);
+                Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "street-tile-close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
             ownerLabel = createLabel(Settings.getMoneyUnit() + streetTile.getPrice(), "street-tile-owner", 0.0, 0.0, 130., null);
@@ -50,7 +50,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             Label ownerTitleLabel = createLabel(PropertyReader.getInstance().get("label.owner"), "street-tile-owner-title", 0.0, 0.0, 115., null);
             tileInfoPane.getChildren().add(ownerTitleLabel);
             if(onVisit && streetTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()) {
-                Button payRentButton = createButton(PropertyReader.getInstance().get("button.rent"), "street-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
+                Button payRentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "street-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
                 tileInfoPane.getChildren().add(payRentButton);
             }
             ownerLabel = createLabel(streetTile.getOwner().getName(), "street-tile-owner", 0.0, 0.0, 130., null);

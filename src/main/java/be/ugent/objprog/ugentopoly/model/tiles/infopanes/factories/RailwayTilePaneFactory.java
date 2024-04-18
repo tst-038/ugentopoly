@@ -33,7 +33,7 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
             tileInfoPane.getChildren().add(forSaleLabel);
             if(onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "buy-button", "buy-button", 10., null, 160., null);
-                Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "close-button", "close-button", null, 10., 160., null);
+                Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
         } else {

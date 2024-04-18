@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
@@ -31,8 +30,8 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         if (onVisit) {
             Card card = Deck.getChanceDeck().drawCard();
             TurnHandler.getInstance().getCurrentPlayer().addCard(card);
-            infoLabel = createLabel(card.getDescription(),"chance-info", 5.0, 5.0, 110.0, null);
-            Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "chance-tile-close-button", "close-button", 20., 20., 160., null);
+            infoLabel = createLabel(card.getDescription(),"chance-info", 5.0, 5.0, 120.0, null);
+            Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "chance-tile-close-button", "close-button", 20., 20., 160., null);
             tileInfoPane.getChildren().add(cancelButton);
         } else {
             String desc = PropertyReader.getInstance().getTileDescription(chanceTile.getId());

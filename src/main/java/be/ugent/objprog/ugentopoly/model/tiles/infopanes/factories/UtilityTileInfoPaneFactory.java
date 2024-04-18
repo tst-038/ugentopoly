@@ -35,7 +35,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             tileInfoPane.getChildren().add(forSaleLabel);
             if (onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "utility-tile-buy-button", "buy-button", 10., null, 160., null);
-                Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "utility-tile-close-button", "close-button", null, 10., 160., null);
+                Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "utility-tile-close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
             ownerLabel = createLabel(Settings.getMoneyUnit() + utilityTile.getPrice(), "utility-tile-owner", 0.0, 0.0, 130., null);
