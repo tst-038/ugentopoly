@@ -3,14 +3,17 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class ChestTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
     public ChestTile(String id, int position) {
@@ -39,6 +42,12 @@ public class ChestTile extends Tile implements UIUpdatable, LabelUpdatable, Imag
 
     @Override
     public void onVisit(Player player) {
+        TileInfoPaneManager.getInstance().showTileInfo(this, true);
+        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
+        pane.lookup("#close-button").setOnMouseClicked(event -> { // Makes sure that the previous tile info pane is closed and hidden
+            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+            IntStream.range(0, player.getCards().size()).forEachOrdered(i -> player.getCards().get(i).execute(player));
+        });
     }
 }

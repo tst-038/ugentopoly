@@ -5,6 +5,7 @@ import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
 import be.ugent.objprog.ugentopoly.model.cards.Card;
 import be.ugent.objprog.ugentopoly.model.cards.CardType;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
+import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -65,11 +66,17 @@ public class Player {
     }
 
     public void setPosition(int position) {
+        int m = GameState.getInstance().getBoard().getTiles().size();
+        // True modulo operator from python in java...
+        position = ((position % m) + m) % m;
         Board board = GameState.getInstance().getBoard();
         Visitable current = board.getTileByPosition(position);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, current));
         this.position = position;
         pion.updatePosition(position);
+        // Trigger the onLand event for the landed tile
+        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(position);
+        landedTile.onVisit(this);
     }
 
     public IntegerProperty balanceProperty() {

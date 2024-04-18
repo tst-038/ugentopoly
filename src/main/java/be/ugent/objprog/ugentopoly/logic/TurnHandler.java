@@ -82,9 +82,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             player.setPosition(newPosition);
         }
 
-        // Trigger the onLand event for the landed tile
-        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(newPosition);
-        landedTile.onVisit(player);
+
 
         // Check if the player rolled a double if not disable the current player and enable the next player
         if (!rolls.getFirst().equals(rolls.get(1))) {

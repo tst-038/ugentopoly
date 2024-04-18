@@ -47,9 +47,9 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
         TileInfoPaneManager.getInstance().showTileInfo(this, true);
         AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
-        pane.lookup("#close-button").setOnMouseClicked(event -> {
-            IntStream.range(0, player.getCards().size()).forEachOrdered(i -> player.getCards().get(i).execute(player));
+        pane.lookup("#close-button").setOnMouseClicked(event -> { // Makes sure that the previous tile info pane is closed and hidden
             TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+            IntStream.range(0, player.getCards().size()).forEachOrdered(i -> player.getCards().get(i).execute(player));
         });
     }
 }

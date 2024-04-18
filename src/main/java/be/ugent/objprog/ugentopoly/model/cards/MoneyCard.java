@@ -5,6 +5,8 @@ import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 
+import java.util.Optional;
+
 public class MoneyCard extends Card {
     private int amount;
 
@@ -15,10 +17,15 @@ public class MoneyCard extends Card {
 
     @Override
     public void execute(Player player) {
-        try {
-            Bank.getInstance().subtractMoney(player, amount);
-        } catch (InsufficientFundsException ignored) {
+        //TODO fix this weird way of checking if the amount is positive or negative
+        if (amount > 0) {
+            Bank.getInstance().addMoney(player, amount);
+        } else {
+            try {
+                Bank.getInstance().subtractMoney(player, -amount);
+            } catch (InsufficientFundsException ignored) {}
         }
+
         player.removeCard(this);
     }
 }

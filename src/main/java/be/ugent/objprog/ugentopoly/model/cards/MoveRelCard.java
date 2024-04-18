@@ -2,6 +2,7 @@ package be.ugent.objprog.ugentopoly.model.cards;
 
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 
 public class MoveRelCard extends Card {
     private int relative;
