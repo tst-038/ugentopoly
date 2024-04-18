@@ -44,5 +44,8 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
     public void onVisit(Player player) {
         // No action needed just show infotile
         TileInfoPaneManager.getInstance().showTileInfo(this, true);
+
+        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        pane.lookup("#close-button").setOnMouseClicked(event -> TileInfoPaneManager.getInstance().setPaneClosableAndHide());
     }
 }
