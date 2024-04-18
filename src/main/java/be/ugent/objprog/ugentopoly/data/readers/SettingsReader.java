@@ -18,7 +18,7 @@ public class SettingsReader {
     }
 
     public static void readSettings() {
-        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();

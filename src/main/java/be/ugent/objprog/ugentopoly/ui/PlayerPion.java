@@ -30,12 +30,6 @@ public class PlayerPion extends ImageView {
         pionContainer.toFront();
     }
 
-    private void switchContainer(Pane newContainer) {
-        pionContainer.getChildren().remove(this);
-        newContainer.getChildren().add(this);
-        pionContainer = newContainer;
-    }
-
     public void updatePosition(int targetPosition) {
         // Get the current pionContainer
         Pane currentPionContainer = pionContainer;
@@ -47,7 +41,6 @@ public class PlayerPion extends ImageView {
         PlayerPion newPion = new PlayerPion(player);
         newPion.addToContainer(pionContainer);
         newPion.setVisible(false);
-
 
         // Calculate the start position coordinates in the scene
         Bounds startBounds = this.localToScene(this.getBoundsInLocal());
@@ -68,7 +61,6 @@ public class PlayerPion extends ImageView {
         double marginY = 10.0; // Adjust this value to change the vertical margin
 
         double imageX, imageY;
-
 
         if (targetPosition == 0 || targetPosition == 10 || targetPosition == 20 || targetPosition == 30) {
             // Corner tiles: always center the pion
@@ -92,7 +84,6 @@ public class PlayerPion extends ImageView {
             imageY = containerHeight - (pionContainer.getChildren().size() * (imageHeight + marginY));
         }
 
-
         // Set the initial position of the pion in the scene
         this.setLayoutX(startX);
         this.setLayoutY(startY);
@@ -113,7 +104,6 @@ public class PlayerPion extends ImageView {
             newPion.setLayoutY(imageY);
             player.setPion(newPion);
         });
-
 
         // Start the animation
         transition.play();

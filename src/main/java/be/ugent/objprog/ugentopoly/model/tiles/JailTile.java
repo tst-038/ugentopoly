@@ -10,16 +10,36 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-import java.util.Objects;
+import java.util.*;
 
 public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
+    private Map<Player, Integer> prisoners;
 
     public JailTile(String id, int position) {
         super(id, position, TileType.JAIL);
+        prisoners = new HashMap<>();
     }
+
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") +".png")));
     }
+
+    public void addPrisoner(Player player) {
+        prisoners.put(player, 3);
+    }
+
+    public void removePrisoner(Player player) {
+        prisoners.remove(player);
+    }
+
+    //TODO implement
+    public void reducePrisonerTurn(Player player) {
+        prisoners.put(player, prisoners.get(player) - 1);
+        if (prisoners.get(player) == 0) {
+            removePrisoner(player);
+        }
+    }
+
     @Override
     public void accept(TileVisitor visitor, boolean onVisit) {
         visitor.visit(this, onVisit);
@@ -38,6 +58,6 @@ public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, Image
 
     @Override
     public void onVisit(Player player) {
-        // Do nothing
+        //Do nothing
     }
 }

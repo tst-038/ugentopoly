@@ -68,7 +68,19 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             Bank.getInstance().addMoney(player, Settings.getInstance().getStartBonus());
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
         }
-        player.setPosition(newPosition);
+
+        player.useGetOutOfJailFreeCard();
+
+       if(player.getRemainingTurnsInPrison() > 0){
+            if (rolls.get(0).equals(rolls.get(1))) {
+                player.resetRemainingTurnsInPrison();
+                player.setPosition(newPosition);
+            } else {
+                player.decreaseRemainingTurnsInPrison();
+            }
+        } else {
+            player.setPosition(newPosition);
+        }
 
         // Trigger the onLand event for the landed tile
         Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(newPosition);

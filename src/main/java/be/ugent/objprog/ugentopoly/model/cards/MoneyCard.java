@@ -1,0 +1,24 @@
+package be.ugent.objprog.ugentopoly.model.cards;
+
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
+import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
+import be.ugent.objprog.ugentopoly.model.Bank;
+import be.ugent.objprog.ugentopoly.model.Player;
+
+public class MoneyCard extends Card {
+    private int amount;
+
+    public MoneyCard(String id, int amount) {
+        super(id, String.format(PropertyReader.getInstance().get("card.money_card"), amount), CardType.MONEY);
+        this.amount = amount;
+    }
+
+    @Override
+    public void execute(Player player) {
+        try {
+            Bank.getInstance().subtractMoney(player, amount);
+        } catch (InsufficientFundsException ignored) {
+        }
+        player.removeCard(this);
+    }
+}

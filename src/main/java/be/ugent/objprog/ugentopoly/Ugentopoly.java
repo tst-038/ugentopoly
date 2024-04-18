@@ -57,10 +57,10 @@ public class Ugentopoly extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
             Parent root = loader.load();
-            if (root instanceof Pane) {
+            if (root instanceof Pane rootPane) {
                 // Start the money animation
                 MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
-                moneyAnimation.play((Pane) root, 20);
+                moneyAnimation.play(rootPane, 20);
             }
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setTitle("Ugentopoly");

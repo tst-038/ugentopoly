@@ -23,7 +23,7 @@ public class BoardReader {
 
 
     public static List<Tile> readTiles(List<Area> areas) {
-        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();

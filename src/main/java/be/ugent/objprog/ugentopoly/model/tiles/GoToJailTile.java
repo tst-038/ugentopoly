@@ -1,16 +1,20 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
     public GoToJailTile(String id, int position) {
@@ -37,6 +41,17 @@ public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, I
 
     @Override
     public void onVisit(Player player) {
+        TileInfoPaneManager.getInstance().showTileInfo(this, true);
+        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
 
+        pane.lookup("#close-button").setOnMouseClicked(event -> {
+            Optional<Tile> jail = GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType()== TileType.JAIL).findFirst();
+            if(jail.isPresent()){
+                player.setPosition(jail.get().getPosition());
+                JailTile jailTile = (JailTile) jail.get();
+                jailTile.addPrisoner(player);
+            }
+            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+        });
     }
 }

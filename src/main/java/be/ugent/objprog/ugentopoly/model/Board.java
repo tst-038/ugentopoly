@@ -1,7 +1,9 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.data.readers.BoardReader;
+import be.ugent.objprog.ugentopoly.data.readers.CardsReader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
+import be.ugent.objprog.ugentopoly.model.cards.Deck;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class Board {
             String tileName = propertyReader.getTileName(tile.getId());
             tile.setName(tileName);
         }
+
+        new CardsReader().readCards();
     }
 
     public List<Area> getAreas() {

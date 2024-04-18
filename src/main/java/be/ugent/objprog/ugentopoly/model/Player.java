@@ -1,16 +1,16 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
-import be.ugent.objprog.ugentopoly.log.PassedStartLog;
 import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
-import be.ugent.objprog.ugentopoly.logic.DiceHandler;
+import be.ugent.objprog.ugentopoly.model.cards.Card;
+import be.ugent.objprog.ugentopoly.model.cards.CardType;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
-import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -24,6 +24,8 @@ public class Player {
     private int ownedRailways;
     private int ownedUtility;
     private PlayerPion pion;
+    private List<Card> cards;
+    private int remainingTurnsInPrison;
 
     public Player(String name, Color color) {
         this.id = idCounter++;
@@ -34,6 +36,8 @@ public class Player {
         this.networth = new SimpleIntegerProperty(0);
         this.ownedRailways = 0;
         this.ownedUtility = 0;
+        this.cards = new ArrayList<>();
+        this.remainingTurnsInPrison = 0;
     }
 
     public void setNetworth(int networth) {
@@ -92,10 +96,6 @@ public class Player {
         this.color = color;
     }
 
-    public PlayerPion getPion() {
-        return pion;
-    }
-
     public void setPion(PlayerPion pion) {
         this.pion = pion;
     }
@@ -116,30 +116,47 @@ public class Player {
         return ownedUtility;
     }
 
-    public void takeTurn() {
-        DiceHandler.getInstance().rollDice(this);
-        System.out.println(DiceHandler.getInstance().getLastRoll());
-        move(DiceHandler.getInstance().getLastRoll());
-        visitTile();
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
-    private void move(List<Integer> rolls) {
-        int diceResult = rolls.stream().mapToInt(Integer::intValue).sum();
-        int newPosition = (getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
-        if (newPosition < getPosition()) {
-            Bank.getInstance().addMoney(this, Settings.getInstance().getStartBonus());
-            GameLogBook.getInstance().addEntry(new PassedStartLog(this));
+    public void removeCard(Card card) {
+        cards.remove(card);
+    }
+
+    public List<Card> getCards(){
+        return cards;
+    }
+
+    public boolean hasCard(String cardId) {
+        return cards.stream().anyMatch(card -> card.getId().equals(cardId));
+    }
+
+    public int getRemainingTurnsInPrison() {
+        return remainingTurnsInPrison;
+    }
+
+    public void decreaseRemainingTurnsInPrison() {
+        this.remainingTurnsInPrison--;
+    }
+
+    public void resetRemainingTurnsInPrison() {
+        this.remainingTurnsInPrison = 0;
+    }
+
+    public void setRemainingTurnsInPrison(int remainingTurnsInPrison) {
+        this.remainingTurnsInPrison = remainingTurnsInPrison;
+    }
+
+    public void useGetOutOfJailFreeCard() {
+        Card getOutOfJailFreeCard = cards.stream()
+                .filter(card -> card.getType() == CardType.JAIL)
+                .findFirst()
+                .orElse(null);
+
+        if (getOutOfJailFreeCard != null) {
+            cards.remove(getOutOfJailFreeCard);
+            resetRemainingTurnsInPrison();
         }
-        setPosition(newPosition);
-    }
-
-    private void visitTile() {
-        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(getPosition());
-        landedTile.onVisit(this);
-    }
-
-    public boolean hasRolledDoubles() {
-        List<Integer> rolls = DiceHandler.getInstance().getLastRoll();
-        return rolls.getFirst().equals(rolls.get(1));
     }
 }
