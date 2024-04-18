@@ -550,8 +550,8 @@
                         <Image url="@../assets/gent_skyline.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane fx:id="dicePane" layoutX="150.0" layoutY="190.0" prefHeight="150.0" prefWidth="250.0" />
-                  <AnchorPane fx:id="tileInfoPane" layoutX="211.0" layoutY="165.0" maxHeight="200.0" maxWidth="150.0" minHeight="200.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #3B3B3B; -fx-border-color: black; -fx-border-radius: 10px; -fx-border-width: 3; -fx-background-radius: 15px;" visible="false">
+                  <AnchorPane fx:id="dicePane" layoutX="150.0" layoutY="200.0" prefHeight="150.0" prefWidth="250.0" />
+                  <AnchorPane fx:id="tileInfoPane" layoutX="200.0" layoutY="175.0" maxHeight="200.0" maxWidth="150.0" minHeight="200.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #3B3B3B; -fx-border-color: black; -fx-border-radius: 10px; -fx-border-width: 3; -fx-background-radius: 15px;" visible="false">
                      <children>
                         <Label layoutX="8.0" layoutY="71.0" prefHeight="15.0" prefWidth="33.0" text="Rent :" textFill="WHITE" AnchorPane.leftAnchor="5.0">
                            <font>
