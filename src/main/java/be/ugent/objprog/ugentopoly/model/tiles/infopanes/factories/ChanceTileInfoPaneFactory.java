@@ -12,43 +12,27 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
+        ChanceTile chanceTile = (ChanceTile) tile;
 
-        ImageView chanceTileImage  = createChanceImage();
-        Label title = createTitleLabel((ChanceTile) tile);
+        ImageView chanceTileImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/chance.png")), 10.0, 55., 55., null);
+        chanceTileImage.setPreserveRatio(true);
+        chanceTileImage.setFitHeight(75.0);
+        chanceTileImage.setFitWidth(75.0);
+        chanceTileImage.setScaleX(1.1);
+        chanceTileImage.setScaleY(1.1);
 
-        //TODO maybe chance this to be more efficient
-        Label info = createInfoLabel(tile);
-
-        if (onVisit){
-            info = createChanceLabel();
+        Label titleLabel = createLabel(chanceTile.getName(), "chance-title", 5.0, 5.0, 50.0, 35.0);
+        Label infoLabel;
+        if (onVisit) {
+            //TODO random chance card here
+            infoLabel = createLabel("random chance card here", "chance-info", 5.0, 5.0, 110.0, 5.0);
+        } else {
+            String desc = PropertyReader.getInstance().getTileDescription(chanceTile.getId());
+            infoLabel = createLabel(desc, "chance-info", 5.0, 5.0, 110.0, 5.0);
         }
 
-        tileInfoPane.getChildren().addAll(chanceTileImage, title, info);
+        tileInfoPane.getChildren().addAll(chanceTileImage, titleLabel, infoLabel);
 
         return tileInfoPane;
-    }
-
-    private ImageView createChanceImage() {
-        ImageView chanceImage = new ImageView(ResourceLoader.loadImage("assets/chance.png"));
-        chanceImage.setPreserveRatio(true);
-        chanceImage.setFitHeight(75.0);
-        chanceImage.setFitWidth(75.0);
-        chanceImage.setScaleX(1.1);
-        chanceImage.setScaleY(1.1);
-        return createImageView(chanceImage, 10.0, 55., 55., null);
-    }
-
-    private Label createTitleLabel(ChanceTile tile) {
-        return createLabel(tile.getName(), "chance-title", 5.0, 5.0, 50.0, 35.0);
-    }
-
-    private Label createInfoLabel(Tile tile) {
-        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
-        return createLabel(desc, "chance-info", 5.0, 5.0, 110.0, 5.0);
-    }
-
-    private Label createChanceLabel() {
-        //TODO Fix random chance card
-        return createLabel("random chance card here", "chance-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

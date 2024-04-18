@@ -4,9 +4,6 @@ import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
-import be.ugent.objprog.ugentopoly.model.interfaces.Ownable;
-import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.UtilityTile;
 import javafx.scene.control.Button;
@@ -21,58 +18,41 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         UtilityTile utilityTile = (UtilityTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
-        ImageView utilityTileImage  = createUtilityImage(tile);
-        Label title = createTitleLabel((UtilityTile) tile);
+        ImageView utilityTileImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/" + utilityTile.getId() + ".png")), 20.0, 37.5, 37.5, null);
+        utilityTileImage.setPreserveRatio(true);
+        utilityTileImage.setScaleX(1.5);
+        utilityTileImage.setScaleY(1.5);
+        utilityTileImage.setFitHeight(75.0);
+        utilityTileImage.setFitWidth(75.0);
 
-        tileInfoPane.getChildren().addAll(utilityTileImage, title);
+        Label titleLabel = createLabel(utilityTile.getName(), "utility-title", 5.0, 5.0, 0.0, 35.0);
+
+        tileInfoPane.getChildren().addAll(utilityTileImage, titleLabel);
+
+        Label ownerLabel;
         if (utilityTile.getOwner() == null) {
-            Label forSale = createForSaleLabel();
-            tileInfoPane.getChildren().add(forSale);
-            if(onVisit) {
+            Label forSaleLabel = createLabel(PropertyReader.getInstance().get("label.for_sale"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(forSaleLabel);
+            if (onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "utility-tile-buy-button", "buy-button", 10., null, 160., null);
                 Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "utility-tile-close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
-        }else {
-            Label ownerLabel = createOwnerLabel();
-            tileInfoPane.getChildren().add(ownerLabel);
-            // If the player is not the owner of the street, show the pay rent button
-            if(onVisit && utilityTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()){
-                Button payrentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "utility-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
-                tileInfoPane.getChildren().add(payrentButton);
+            ownerLabel = createLabel(Settings.getMoneyUnit() + utilityTile.getPrice(), "utility-tile-owner", 0.0, 0.0, 130., null);
+            ownerLabel.setTextFill(Color.WHITE);
+        } else {
+            Label ownerTitleLabel = createLabel(PropertyReader.getInstance().get("label.owner"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(ownerTitleLabel);
+            if (onVisit && utilityTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()) {
+                Button payRentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "utility-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
+                tileInfoPane.getChildren().add(payRentButton);
             }
+            ownerLabel = createLabel(utilityTile.getOwner().getName(), "utility-tile-owner", 0.0, 0.0, 130., null);
+            ownerLabel.setTextFill(utilityTile.getOwner().getColor());
         }
-        Label owner = createOwnerLabel(utilityTile);
 
-        tileInfoPane.getChildren().add(owner);
+        tileInfoPane.getChildren().add(ownerLabel);
+
         return tileInfoPane;
-    }
-
-    private Label createOwnerLabel() {
-        return createLabel(PropertyReader.getInstance().get("label.owner"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createForSaleLabel(){
-        return createLabel(PropertyReader.getInstance().get("label.for_sale"), "utility-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createOwnerLabel(Buyable tile) {
-        Label ownerLabel = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : Settings.getMoneyUnit()+tile.getPrice(), "utility-tile-owner", 0.0, 0.0, 130., null);
-        ownerLabel.setTextFill(tile.getOwner() != null ? tile.getOwner().getColor() : Color.WHITE);
-        return ownerLabel;
-    }
-
-    private ImageView createUtilityImage(Tile tile) {
-        ImageView image = new ImageView(ResourceLoader.loadImage("assets/"+tile.getId()+".png"));
-        image.setPreserveRatio(true);
-        image.setScaleX(1.5);
-        image.setScaleY(1.5);
-        image.setFitHeight(75.0);
-        image.setFitWidth(75.0);
-        return createImageView(image, 20.0, 37.5, 37.5, null);
-    }
-
-    private Label createTitleLabel(UtilityTile tile) {
-        return createLabel(tile.getName(), "utility-title", 5.0, 5.0, 0.0, 35.0);
     }
 }

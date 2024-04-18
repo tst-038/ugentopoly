@@ -15,33 +15,20 @@ public class JailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         JailTile jailTile = (JailTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
-        ImageView jailImage = createJailImage();
+        ImageView jailImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/jail.png")), null, 37.5, 37.5, null);
         jailImage.setFitHeight(75);
         jailImage.setFitWidth(75);
         jailImage.setPreserveRatio(true);
-        Label title = createTitleLabel(jailTile);
-        title.setGraphic(jailImage);
-        title.setContentDisplay(ContentDisplay.TOP);
-        Label info = createInfoLabel(tile);
 
-        tileInfoPane.getChildren().addAll(title, info);
+        Label titleLabel = createLabel(jailTile.getName(), "jail-title", 5.0, 5.0, 10.0, null);
+        titleLabel.setGraphic(jailImage);
+        titleLabel.setContentDisplay(ContentDisplay.TOP);
+
+        String desc = PropertyReader.getInstance().getTileDescription(jailTile.getId());
+        Label infoLabel = createLabel(desc, "jail-info", 5.0, 5.0, 110.0, 5.0);
+
+        tileInfoPane.getChildren().addAll(titleLabel, infoLabel);
 
         return tileInfoPane;
-    }
-
-    private ImageView createJailImage() {
-        ImageView startImage = new ImageView(ResourceLoader.loadImage("assets/jail.png"));
-        startImage.setFitHeight(75.0);
-        startImage.setFitWidth(75.0);
-        return createImageView(startImage, null, 37.5, 37.5, null);
-    }
-
-    private Label createTitleLabel(JailTile tile) {
-        return createLabel(tile.getName(), "jail-title", 5.0, 5.0, 10.0, null);
-    }
-
-    private Label createInfoLabel(Tile tile) {
-        String desc = PropertyReader.getInstance().getTileDescription(tile.getId());
-        return createLabel(desc,"jail-info", 5.0, 5.0, 110.0, 5.0);
     }
 }

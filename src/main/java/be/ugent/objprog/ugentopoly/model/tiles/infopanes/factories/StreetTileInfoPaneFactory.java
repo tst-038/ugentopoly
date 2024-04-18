@@ -16,72 +16,50 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         StreetTile streetTile = (StreetTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
-        AnchorPane infoColor = createInfoColor(streetTile);
-        Label infoTitle = createTitleLabel(streetTile);
-        infoColor.getChildren().add(infoTitle);
+        AnchorPane infoColor = new AnchorPane();
+        AnchorPane.setTopAnchor(infoColor, 3.0);
+        AnchorPane.setLeftAnchor(infoColor, 3.0);
+        AnchorPane.setRightAnchor(infoColor, 3.0);
+        infoColor.getStyleClass().add("street-tile-area");
+        infoColor.setStyle("-fx-background-color: " + streetTile.getArea().color() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
+        infoColor.setPrefHeight(50.0);
+        infoColor.setPrefWidth(150.0);
 
-        Label rentLabel = createLabel(PropertyReader.getInstance().get("label.rent") +": ", "street-tile-rent-title", 5.0, null, 80.0, null);
-        Label rent = createLabel(Settings.getMoneyUnit() + streetTile.getRent(), "street-tile-rent", null, 5.0, 80.0, null);
+        Label titleLabel = createLabel(streetTile.getName(), "street-tile-title", 0.0, 0.0, 5.0, 5.0);
+        titleLabel.getStyleClass().add(getTextColorClass(streetTile));
+        infoColor.getChildren().add(titleLabel);
 
-        Label priceLabel = createLabel(PropertyReader.getInstance().get("label.price")+": ",  "street-tile-price-title", 5.0, null, 60.0, null);
-        Label price = createPriceLabel(streetTile);
+        Label rentTitleLabel = createLabel(PropertyReader.getInstance().get("label.rent") + ": ", "street-tile-rent-title", 5.0, null, 80.0, null);
+        Label rentLabel = createLabel(Settings.getMoneyUnit() + streetTile.getRent(), "street-tile-rent", null, 5.0, 80.0, null);
 
+        Label priceTitleLabel = createLabel(PropertyReader.getInstance().get("label.price") + ": ",  "street-tile-price-title", 5.0, null, 60.0, null);
+        Label priceLabel = createLabel(Settings.getMoneyUnit() + streetTile.getPrice(), "street-tile-price", null, 5.0, 60.0, null);
+
+        Label ownerLabel;
         if (streetTile.getOwner() == null) {
-            Label forSale = createForSaleLabel();
-            tileInfoPane.getChildren().add(forSale);
+            Label forSaleLabel = createLabel(PropertyReader.getInstance().get("label.for_sale"), "street-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(forSaleLabel);
             if(onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "street-tile-buy-button", "buy-button", 10., null, 160., null);
                 Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "street-tile-close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
-        }else {
-            Label ownerLabel = createOwnerLabel();
-            tileInfoPane.getChildren().add(ownerLabel);
-            // If the player is not the owner of the street, show the pay rent button
-            if(onVisit && streetTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()){
-                Button payrentButton = createButton(PropertyReader.getInstance().get("button.rent"), "street-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
-                tileInfoPane.getChildren().add(payrentButton);
+            ownerLabel = createLabel(Settings.getMoneyUnit() + streetTile.getPrice(), "street-tile-owner", 0.0, 0.0, 130., null);
+            ownerLabel.setTextFill(Color.WHITE);
+        } else {
+            Label ownerTitleLabel = createLabel(PropertyReader.getInstance().get("label.owner"), "street-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(ownerTitleLabel);
+            if(onVisit && streetTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()) {
+                Button payRentButton = createButton(PropertyReader.getInstance().get("button.rent"), "street-pay-rent-button", "pay-rent-button", 20., 20., 160., null);
+                tileInfoPane.getChildren().add(payRentButton);
             }
+            ownerLabel = createLabel(streetTile.getOwner().getName(), "street-tile-owner", 0.0, 0.0, 130., null);
+            ownerLabel.setTextFill(streetTile.getOwner().getColor());
         }
-        Label owner = createOwnerLabel(streetTile);
 
-        tileInfoPane.getChildren().addAll(infoColor, rentLabel, priceLabel, price, owner);
-        tileInfoPane.getChildren().add(rent);
+        tileInfoPane.getChildren().addAll(infoColor, rentTitleLabel, priceTitleLabel, priceLabel, ownerLabel, rentLabel);
 
         return tileInfoPane;
-    }
-
-    private AnchorPane createInfoColor(StreetTile tile) {
-        AnchorPane infoColor = new AnchorPane();
-        infoColor.getStyleClass().add("street-tile-area");
-        infoColor.setStyle("-fx-background-color: " + tile.getArea().color() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
-        infoColor.setPrefHeight(50.0);
-        infoColor.setPrefWidth(150.0);
-        return createAnchorPane(infoColor, 0.0, 0.0, 3.0, 3.0, 3.0, null);
-    }
-
-    private Label createTitleLabel(StreetTile tile) {
-        Label infoTitle = createLabel(tile.getName(), "street-tile-title", 0.0, 0.0, 5.0, 5.0);
-        infoTitle.getStyleClass().add(getTextColorClass(tile));
-        return infoTitle;
-    }
-
-    private Label createPriceLabel(StreetTile tile) {
-        return createLabel(Settings.getMoneyUnit() + tile.getPrice(), "street-tile-price", null, 5.0, 60.0, null);
-    }
-
-    private Label createOwnerLabel() {
-        return createLabel(PropertyReader.getInstance().get("label.owner"), "street-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createForSaleLabel(){
-        return createLabel(PropertyReader.getInstance().get("label.for_sale"), "street-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createOwnerLabel(StreetTile tile) {
-        Label ownerLabel = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : Settings.getMoneyUnit()+tile.getPrice(), "street-tile-owner", 0.0, 0.0, 130., null);
-        ownerLabel.setTextFill(tile.getOwner() != null ? tile.getOwner().getColor() : Color.WHITE);
-        return ownerLabel;
     }
 
     private String getTextColorClass(StreetTile tile) {

@@ -14,10 +14,16 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
     public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
+        TaxTile taxTile = (TaxTile) tile;
 
-        ImageView taxImage = createTileImage();
-        Label titleLabel = createTitleLabel(tile);
-        Label infoLabel = createInfoLabel((TaxTile) tile);
+        ImageView taxImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/tax.png")), 10.0, 37.5, 37.5, null);
+        taxImage.setFitHeight(75.0);
+        taxImage.setFitWidth(75.0);
+
+        Label titleLabel = createLabel(taxTile.getName(), "tax-title", 5.0, 5.0, 50.0, 35.0);
+        String desc = PropertyReader.getInstance().getTileDescription(taxTile.getId().replaceAll("\\d","")).formatted(Settings.getMoneyUnit() + taxTile.getAmount());
+        Label infoLabel = createLabel(desc, "tax-info", 5.0, 5.0,130., null);
+
         tileInfoPane.getChildren().addAll(taxImage, titleLabel, infoLabel);
 
         if(onVisit){
@@ -26,22 +32,5 @@ public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         }
 
         return tileInfoPane;
-    }
-
-    private ImageView createTileImage() {
-        ImageView taxImage = new ImageView(ResourceLoader.loadImage("assets/tax.png"));
-        taxImage.setFitHeight(75.0);
-        taxImage.setFitWidth(75.0);
-        return createImageView(taxImage, 10.0, 37.5, 37.5, null);
-    }
-
-    private Label createTitleLabel(Tile tile) {
-        TaxTile taxTile = (TaxTile) tile;
-        return createLabel(taxTile.getName(), "tax-title", 5.0, 5.0, 50.0, 35.0);
-    }
-
-    private Label createInfoLabel(TaxTile tile) {
-        String desc = PropertyReader.getInstance().getTileDescription(tile.getId().replaceAll("\\d","")).formatted(Settings.getMoneyUnit() + tile.getAmount());
-        return createLabel(desc, "tax-info", 5.0, 5.0,130., null);
     }
 }

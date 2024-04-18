@@ -4,9 +4,7 @@ import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.RailwayTile;
-import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,24 +18,27 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
         RailwayTile railwayTile = (RailwayTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
-        ImageView railwayImage = createTileImage();
-        Label titleLabel = createTitleLabel(tile);
-        Label owner = createOwnerLabel(railwayTile);
+        ImageView railwayImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/railway.png")), 10.0, 37.5, 37.5, null);
+        railwayImage.setFitHeight(75.0);
+        railwayImage.setFitWidth(75.0);
 
-        tileInfoPane.getChildren().addAll(railwayImage, titleLabel, owner);
+        Label titleLabel = createLabel(railwayTile.getName(), "railway-title", 5.0, 5.0, 45.0, 35.0);
+        Label ownerLabel = createLabel(railwayTile.getOwner() != null ? railwayTile.getOwner().getName() : Settings.getMoneyUnit()+railwayTile.getPrice(), "tax-tile-owner", 0.0, 0.0, 130., null);
+        ownerLabel.setTextFill(railwayTile.getOwner() != null ? railwayTile.getOwner().getColor() : Color.WHITE);
+
+        tileInfoPane.getChildren().addAll(railwayImage, titleLabel, ownerLabel);
 
         if (railwayTile.getOwner() == null) {
-            Label forSale = createForSaleLabel();
-            tileInfoPane.getChildren().add(forSale);
+            Label forSaleLabel = createLabel(PropertyReader.getInstance().get("label.for_sale"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(forSaleLabel);
             if(onVisit) {
                 Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "buy-button", "buy-button", 10., null, 160., null);
                 Button cancelButton = createButton(PropertyReader.getInstance().get("button.cancel"), "close-button", "close-button", null, 10., 160., null);
                 tileInfoPane.getChildren().addAll(buyButton, cancelButton);
             }
-        }else {
-            Label ownerLabel = createOwnerLabel();
-            tileInfoPane.getChildren().add(ownerLabel);
-            // If the player is not the owner of the street, show the pay rent button
+        } else {
+            Label ownerTitleLabel = createLabel(PropertyReader.getInstance().get("label.owner"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
+            tileInfoPane.getChildren().add(ownerTitleLabel);
             if(onVisit && railwayTile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()){
                 Button payrentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "pay-rent-button", "pay-rent-button", 20., 20., 160., null);
                 tileInfoPane.getChildren().add(payrentButton);
@@ -45,30 +46,5 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
         }
 
         return tileInfoPane;
-    }
-
-    private Label createOwnerLabel() {
-        return createLabel(PropertyReader.getInstance().get("label.owner"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createForSaleLabel(){
-        return createLabel(PropertyReader.getInstance().get("label.for_sale"), "tax-tile-owner-title", 0.0, 0.0, 115., null);
-    }
-
-    private Label createOwnerLabel(RailwayTile tile) {
-        Label ownerLabel = createLabel(tile.getOwner() != null ? tile.getOwner().getName() : Settings.getMoneyUnit()+tile.getPrice(), "tax-tile-owner", 0.0, 0.0, 130., null);
-        ownerLabel.setTextFill(tile.getOwner() != null ? tile.getOwner().getColor() : Color.WHITE);
-        return ownerLabel;
-    }
-
-    private ImageView createTileImage() {
-        ImageView railwayImage = new ImageView(ResourceLoader.loadImage("assets/railway.png"));
-        railwayImage.setFitHeight(75.0);
-        railwayImage.setFitWidth(75.0);
-        return createImageView(railwayImage, 10.0, 37.5, 37.5, null);
-    }
-
-    private Label createTitleLabel(Tile tile) {
-        return createLabel(tile.getName(), "railway-title", 5.0, 5.0, 45.0, 35.0);
     }
 }

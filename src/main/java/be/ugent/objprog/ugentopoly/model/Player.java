@@ -1,12 +1,17 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.PassedStartLog;
 import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
+import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
+import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 public class Player {
     private static int idCounter = 0;
@@ -109,5 +114,32 @@ public class Player {
 
     public int getOwnedUtility() {
         return ownedUtility;
+    }
+
+    public void takeTurn() {
+        DiceHandler.getInstance().rollDice(this);
+        System.out.println(DiceHandler.getInstance().getLastRoll());
+        move(DiceHandler.getInstance().getLastRoll());
+        visitTile();
+    }
+
+    private void move(List<Integer> rolls) {
+        int diceResult = rolls.stream().mapToInt(Integer::intValue).sum();
+        int newPosition = (getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
+        if (newPosition < getPosition()) {
+            Bank.getInstance().addMoney(this, Settings.getInstance().getStartBonus());
+            GameLogBook.getInstance().addEntry(new PassedStartLog(this));
+        }
+        setPosition(newPosition);
+    }
+
+    private void visitTile() {
+        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(getPosition());
+        landedTile.onVisit(this);
+    }
+
+    public boolean hasRolledDoubles() {
+        List<Integer> rolls = DiceHandler.getInstance().getLastRoll();
+        return rolls.getFirst().equals(rolls.get(1));
     }
 }
