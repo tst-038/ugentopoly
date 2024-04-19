@@ -2,7 +2,9 @@ package be.ugent.objprog.ugentopoly.data.readers;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.data.AreaReadException;
-import be.ugent.objprog.ugentopoly.model.cards.*;
+import be.ugent.objprog.ugentopoly.model.cards.Card;
+import be.ugent.objprog.ugentopoly.model.cards.CardType;
+import be.ugent.objprog.ugentopoly.model.cards.Deck;
 import be.ugent.objprog.ugentopoly.model.cards.factories.*;
 import org.jdom2.Document;
 import org.jdom2.Element;

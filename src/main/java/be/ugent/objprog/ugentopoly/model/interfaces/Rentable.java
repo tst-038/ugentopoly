@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.model.interfaces;
 
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
-import be.ugent.objprog.ugentopoly.log.PropertyBoughtLog;
 import be.ugent.objprog.ugentopoly.log.RentPaidLog;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;

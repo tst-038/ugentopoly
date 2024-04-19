@@ -3,7 +3,6 @@ package be.ugent.objprog.ugentopoly.model;
 import be.ugent.objprog.ugentopoly.data.readers.BoardReader;
 import be.ugent.objprog.ugentopoly.data.readers.CardsReader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.model.cards.Deck;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
 import java.util.List;

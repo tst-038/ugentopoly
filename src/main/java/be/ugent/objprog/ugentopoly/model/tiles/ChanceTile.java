@@ -2,8 +2,6 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.cards.Card;
-import be.ugent.objprog.ugentopoly.model.cards.CardType;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
@@ -15,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 

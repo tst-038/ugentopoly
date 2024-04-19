@@ -7,7 +7,6 @@ import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
 import java.util.List;
 

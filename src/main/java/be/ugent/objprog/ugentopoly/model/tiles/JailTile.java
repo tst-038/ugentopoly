@@ -10,7 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
     private Map<Player, Integer> prisoners;

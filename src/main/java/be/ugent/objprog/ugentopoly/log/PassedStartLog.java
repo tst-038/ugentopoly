@@ -3,9 +3,6 @@ package be.ugent.objprog.ugentopoly.log;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
-
-import java.util.Set;
 
 public class PassedStartLog extends Log {
 

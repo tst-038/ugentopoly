@@ -5,8 +5,6 @@ import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 
-import java.util.Optional;
-
 public class MoneyCard extends Card {
     private int amount;
 

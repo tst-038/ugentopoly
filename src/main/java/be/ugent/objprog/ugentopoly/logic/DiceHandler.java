@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.logic;
 
-import be.ugent.objprog.dice.DiceDialog;
 import be.ugent.objprog.dice.DicePanel;
 import be.ugent.objprog.ugentopoly.log.DiceRolledLog;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;

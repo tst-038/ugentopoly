@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.ui;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
