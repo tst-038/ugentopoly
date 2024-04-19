@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<DialogPane fx:id="rootPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="345.0" prefWidth="600.0" style="-fx-background-color: #3e4057;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.GameOverController">
+   <content>
+      <AnchorPane fx:id="background" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3e4057;">
+         <children>
+            <ImageView fx:id="podium" fitHeight="312.0" fitWidth="336.0" layoutX="144.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/podium.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="pos1" alignment="CENTER" contentDisplay="BOTTOM" layoutX="253.0" layoutY="40.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="pion1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="pos2" alignment="CENTER" contentDisplay="BOTTOM" layoutX="165.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="pion2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="pos3" alignment="CENTER" contentDisplay="BOTTOM" layoutX="338.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="pion3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>

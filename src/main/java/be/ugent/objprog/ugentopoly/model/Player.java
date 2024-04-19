@@ -107,6 +107,10 @@ public class Player {
         this.pion = pion;
     }
 
+    public PlayerPion getPion() {
+        return pion;
+    }
+
     public void addRailway() {
         ownedRailways++;
     }

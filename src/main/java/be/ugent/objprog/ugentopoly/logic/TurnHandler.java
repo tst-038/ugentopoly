@@ -1,5 +1,7 @@
 package be.ugent.objprog.ugentopoly.logic;
 
+import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PassedStartLog;
@@ -8,7 +10,9 @@ import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
 
@@ -52,8 +56,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
     @Override
     public void onGameOver(Player player) {
         gameOver = true;
-        System.out.println("Game over! Player " + player.getName() + " has run out of money.");
-        // Handle game over logic, such as displaying a message or ending the game
+        GameOverController.showGameOverAlert();
     }
 
     @Override
