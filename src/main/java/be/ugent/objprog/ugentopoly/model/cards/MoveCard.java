@@ -9,8 +9,8 @@ public class MoveCard extends Card {
     private int position;
     private boolean collect;
 
-    public MoveCard(String id, int position, boolean collect) {
-        super(id, String.format(PropertyReader.getInstance().get("card.move_card"), position, collect), CardType.MOVE);
+    public MoveCard(String id, int position, boolean collect, Deck deck) {
+        super(id, String.format(PropertyReader.getInstance().get("card.move_card"), position, collect), CardType.MOVE, deck);
         this.position = position;
         this.collect = collect;
     }
@@ -23,5 +23,6 @@ public class MoveCard extends Card {
             Bank.getInstance().addMoney(player, Settings.getInstance().getStartBonus());
         }
         player.removeCard(this);
+        returnToDeck();
     }
 }

@@ -10,10 +10,10 @@ import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 import java.util.Optional;
 
 public class PlayersMoneyCard extends Card {
-    private int amount;
+    private final int amount;
 
-    public PlayersMoneyCard(String id, int amount) {
-        super(id, String.format(PropertyReader.getInstance().get("card.players_money_card"), amount), CardType.PLAYERS_MONEY);
+    public PlayersMoneyCard(String id, int amount, Deck deck) {
+        super(id, String.format(PropertyReader.getInstance().get("card.players_money_card"), amount), CardType.PLAYERS_MONEY, deck);
         this.amount = amount;
     }
 
@@ -27,5 +27,6 @@ public class PlayersMoneyCard extends Card {
             }
         });
         player.removeCard(this);
+        returnToDeck();
     }
 }

@@ -5,6 +5,8 @@ import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 public class Settings {
 
     private static final char MONEY_UNIT = PropertyReader.getInstance().get("money_symbol").charAt(0);
+    private static final int DOUBLE_ROLLS_TO_JAIL = 3;
+
     // Singleton instance
     private static Settings instance = null;
     private int startingBalance;
@@ -30,6 +32,10 @@ public class Settings {
 
     public static String getMoneyUnit() {
         return String.valueOf(MONEY_UNIT);
+    }
+
+    public static int getDoubleRollsToJail() {
+        return DOUBLE_ROLLS_TO_JAIL;
     }
 
     public int getStartingBalance() {

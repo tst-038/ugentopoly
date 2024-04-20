@@ -37,7 +37,7 @@ public class CardsReader {
                         throw new IllegalArgumentException("Unknown card type: " + cardType);
                     }
 
-                    Card card = cardFactory.createCard(cardElement);
+                    Card card = cardFactory.createCard(cardElement, deck);
                     deck.addCard(card);
                 }
 

@@ -33,7 +33,6 @@ public class Player {
         this.id = idCounter++;
         this.name = name.strip();
         this.color = color;
-        //TODO set startposition to position of start tile
         this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.networth = new SimpleIntegerProperty(0);

@@ -6,8 +6,8 @@ import be.ugent.objprog.ugentopoly.model.Player;
 public class MoveRelCard extends Card {
     private int relative;
 
-    public MoveRelCard(String id, int relative) {
-        super(id, String.format(PropertyReader.getInstance().get("card.move_rel_card"), relative), CardType.MOVEREL);
+    public MoveRelCard(String id, int relative, Deck deck) {
+        super(id, String.format(PropertyReader.getInstance().get("card.move_rel_card"), relative), CardType.MOVEREL, deck);
         this.relative = relative;
     }
 
@@ -15,5 +15,6 @@ public class MoveRelCard extends Card {
     public void execute(Player player) {
         player.setPosition(player.getPosition() + relative);
         player.removeCard(this);
+        returnToDeck();
     }
 }

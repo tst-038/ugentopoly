@@ -8,8 +8,8 @@ import be.ugent.objprog.ugentopoly.model.Player;
 public class MoneyCard extends Card {
     private int amount;
 
-    public MoneyCard(String id, int amount) {
-        super(id, String.format(PropertyReader.getInstance().get("card.money_card"), amount), CardType.MONEY);
+    public MoneyCard(String id, int amount, Deck deck) {
+        super(id, String.format(PropertyReader.getInstance().get("card.money_card"), amount), CardType.MONEY, deck);
         this.amount = amount;
     }
 
@@ -25,5 +25,6 @@ public class MoneyCard extends Card {
         }
 
         player.removeCard(this);
+        returnToDeck();
     }
 }

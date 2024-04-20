@@ -8,7 +8,7 @@ import java.util.List;
 public class GameState {
     private static GameState instance;
     private final Board board;
-    private List<GameOverListener> gameOverListeners = new ArrayList<>();
+    private final List<GameOverListener> gameOverListeners = new ArrayList<>();
 
     private GameState() {
         this.board = new Board();
