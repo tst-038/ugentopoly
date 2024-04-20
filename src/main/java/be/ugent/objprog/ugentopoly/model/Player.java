@@ -22,23 +22,34 @@ public class Player {
     private int position;
     private final IntegerProperty balance;
     private final IntegerProperty networth;
-    private int ownedRailways;
-    private int ownedUtility;
+    private int ownedRailways = 0;
+    private int ownedUtility = 0;
     private PlayerPion pion;
     private List<Card> cards;
-    private int remainingTurnsInPrison;
+    private int remainingTurnsInPrison = 0;
+    private int doubleRolls = 0;
 
     public Player(String name, Color color) {
         this.id = idCounter++;
         this.name = name.strip();
         this.color = color;
+        //TODO set startposition to position of start tile
         this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.networth = new SimpleIntegerProperty(0);
-        this.ownedRailways = 0;
-        this.ownedUtility = 0;
         this.cards = new ArrayList<>();
-        this.remainingTurnsInPrison = 0;
+    }
+
+    public void addDoubleRoll() {
+        doubleRolls++;
+    }
+
+    public void resetDoubleRolls() {
+        doubleRolls = 0;
+    }
+
+    public int getDoubleRolls() {
+        return doubleRolls;
     }
 
     public void setNetworth(int networth) {

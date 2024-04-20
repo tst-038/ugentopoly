@@ -15,6 +15,7 @@ import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
@@ -65,6 +66,31 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
     @Override
     public void onDiceRolled(Player player, List<Integer> rolls) {
         int diceResult = rolls.stream().mapToInt(Integer::intValue).sum();
+        boolean hasRolledDouble = rolls.get(0).equals(rolls.get(1));
+
+        // If the player rolled a double, increment their double rolls count
+        if (hasRolledDouble) {
+            player.addDoubleRoll();
+            // If the player has rolled doubles three times, send them to jail
+            //TODO put remainingTurnsInPrison in settings
+            if (player.getDoubleRolls() == 3) {
+                player.setRemainingTurnsInPrison(3);
+                player.resetDoubleRolls();
+                Optional<Tile> jailTile = GameState.getInstance().getBoard().getTiles().stream()
+                        .filter(tile -> tile.getType() == TileType.JAIL)
+                        .findFirst();
+                jailTile.ifPresent(tile -> player.setPosition(tile.getPosition()));
+
+                playerManager.setPlayerPanelToInactive(getCurrentPlayer());
+                currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
+                playerManager.setPlayerPanelToActive(getCurrentPlayer());
+                //skip rest of the turn
+                return;
+            }
+        } else {
+            // If the player didn't roll a double, reset their double rolls count
+            player.resetDoubleRolls();
+        }
 
         // Move the player's position
         int newPosition = (player.getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
@@ -77,12 +103,13 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         Tile landedTile = GameState.getInstance().getBoard().getTiles().stream()
                 .filter(tile -> tile.getPosition() == newPosition)
                 .findFirst().get();
-        if (landedTile.getType() == TileType.JAIL) {
+
+        if (landedTile.getType() == TileType.JAIL && player.getRemainingTurnsInPrison() > 0) {
             player.useGetOutOfJailFreeCard();
         }
 
        if(player.getRemainingTurnsInPrison() > 0){
-            if (rolls.get(0).equals(rolls.get(1))) {
+            if (hasRolledDouble) {
                 player.resetRemainingTurnsInPrison();
                 player.setPosition(newPosition);
             } else {
@@ -98,7 +125,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         // Check if the player landed on the go to jail tile
         // if so go on to next player without letting throw second time
         boolean landedTileIsGoToJail = GameState.getInstance().getBoard().getTiles().stream().anyMatch(tile -> tile.getPosition() == newPosition && tile.getType() == TileType.GO_TO_JAIL);
-        if (!rolls.getFirst().equals(rolls.get(1)) || landedTileIsGoToJail){
+        if (!hasRolledDouble || landedTileIsGoToJail){
             playerManager.setPlayerPanelToInactive(getCurrentPlayer());
             currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
             playerManager.setPlayerPanelToActive(getCurrentPlayer());
