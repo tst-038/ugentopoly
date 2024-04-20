@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.tiles.GoToJailTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,11 @@ public class GoToJailTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label infoLabel = createLabel(desc, "go-to-jail-info", 5.0, 5.0, 110.0, 5.0);
 
         tileInfoPane.getChildren().addAll(goToJailImage, titleLabel, infoLabel);
+
+        if(onVisit) {
+            Button claimButton = createButton(PropertyReader.getInstance().get("button.close"), "close-button", "close-button", 20.0, 20.0, 160.0, null);
+            tileInfoPane.getChildren().add(claimButton);
+        }
 
         return tileInfoPane;
     }

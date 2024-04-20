@@ -160,6 +160,7 @@ public class Player {
     }
 
     public void useGetOutOfJailFreeCard() {
+        System.out.println("usegetout of");;
         Card getOutOfJailFreeCard = cards.stream()
                 .filter(card -> card.getType() == CardType.JAIL)
                 .findFirst()

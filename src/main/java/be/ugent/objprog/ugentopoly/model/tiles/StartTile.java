@@ -1,7 +1,9 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
@@ -44,6 +46,9 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
         TileInfoPaneManager.getInstance().showTileInfo(this, true);
 
         AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
-        pane.lookup("#close-button").setOnMouseClicked(event -> TileInfoPaneManager.getInstance().setPaneClosableAndHide());
+        pane.lookup("#close-button").setOnMouseClicked(event -> {
+            Bank.getInstance().addMoney(player, Settings.getInstance().getStartBonus());
+            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+        });
     }
 }

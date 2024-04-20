@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.BoardManager;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
@@ -9,6 +10,8 @@ import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.tiles.Tile;
+import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
 import java.util.Comparator;
 import java.util.List;
@@ -71,7 +74,12 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
         }
 
-        player.useGetOutOfJailFreeCard();
+        Tile landedTile = GameState.getInstance().getBoard().getTiles().stream()
+                .filter(tile -> tile.getPosition() == newPosition)
+                .findFirst().get();
+        if (landedTile.getType() == TileType.JAIL) {
+            player.useGetOutOfJailFreeCard();
+        }
 
        if(player.getRemainingTurnsInPrison() > 0){
             if (rolls.get(0).equals(rolls.get(1))) {
@@ -87,13 +95,15 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
 
         // Check if the player rolled a double if not disable the current player and enable the next player
-        if (!rolls.getFirst().equals(rolls.get(1))) {
+        // Check if the player landed on the go to jail tile
+        // if so go on to next player without letting throw second time
+        boolean landedTileIsGoToJail = GameState.getInstance().getBoard().getTiles().stream().anyMatch(tile -> tile.getPosition() == newPosition && tile.getType() == TileType.GO_TO_JAIL);
+        if (!rolls.getFirst().equals(rolls.get(1)) || landedTileIsGoToJail){
             playerManager.setPlayerPanelToInactive(getCurrentPlayer());
             currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
             playerManager.setPlayerPanelToActive(getCurrentPlayer());
         }
 
-        // Player has rolled double reenable roll button
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }
 }

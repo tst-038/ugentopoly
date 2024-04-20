@@ -15,31 +15,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
-    private Map<Player, Integer> prisoners;
 
     public JailTile(String id, int position) {
         super(id, position, TileType.JAIL);
-        prisoners = new HashMap<>();
     }
 
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") +".png")));
-    }
-
-    public void addPrisoner(Player player) {
-        prisoners.put(player, 3);
-    }
-
-    public void removePrisoner(Player player) {
-        prisoners.remove(player);
-    }
-
-    //TODO implement
-    public void reducePrisonerTurn(Player player) {
-        prisoners.put(player, prisoners.get(player) - 1);
-        if (prisoners.get(player) == 0) {
-            removePrisoner(player);
-        }
     }
 
     @Override
