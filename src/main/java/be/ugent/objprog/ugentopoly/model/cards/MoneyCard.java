@@ -15,13 +15,10 @@ public class MoneyCard extends Card {
 
     @Override
     public void execute(Player player) {
-        //TODO fix this weird way of checking if the amount is positive or negative
         if (amount > 0) {
             Bank.getInstance().deposit(player, amount);
         } else {
-            try {
-                Bank.getInstance().withdraw(player, -amount);
-            } catch (InsufficientFundsException ignored) {}
+            Bank.getInstance().transferToJackpot(player, -amount);
         }
 
         player.removeCard(this);

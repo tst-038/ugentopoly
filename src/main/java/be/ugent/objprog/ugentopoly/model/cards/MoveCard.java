@@ -18,7 +18,6 @@ public class MoveCard extends Card {
     @Override
     public void execute(Player player) {
         player.setPosition(position);
-        //TODO check if this introduces bug with the collecting of startbonus happening twice
         if (collect && position < player.getPosition()) {
             Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
         }
