@@ -13,7 +13,7 @@ public class MoveRelCard extends Card {
 
     @Override
     public void execute(Player player) {
-        player.setPosition(player.getPosition() + relative);
+        player.updatePositionDuringGame(player.getPosition() + relative);
         player.removeCard(this);
         returnToDeck();
     }

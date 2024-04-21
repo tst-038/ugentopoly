@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.tiles.JailTile;
 import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
@@ -14,7 +13,6 @@ import javafx.scene.layout.Pane;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class PlayerManager {
     private static PlayerManager instance;
@@ -44,6 +42,9 @@ public class PlayerManager {
     public void initializePlayers(AnchorPane rootPane) {
         uiUpdater.updatePlayers(players);
         players.forEach(player -> {
+            // Makes sure the players start at the start tile.
+            GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
+                    .ifPresent(startTile -> players.forEach(p -> p.setInitialPosition(startTile.getPosition())));
             Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition()).lookup("#pionContainer");
             PlayerPion pion = new PlayerPion(player);
             player.setPion(pion);

@@ -75,18 +75,25 @@ public class Player {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void updatePositionDuringGame(int position) {
         int m = GameState.getInstance().getBoard().getTiles().size();
         // True modulo operator from python in java...
+
         position = ((position % m) + m) % m;
         Board board = GameState.getInstance().getBoard();
         Visitable current = board.getTileByPosition(position);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this, current));
         this.position = position;
         pion.updatePosition(position);
+
         // Trigger the onLand event for the landed tile
         Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(position);
         landedTile.onVisit(this);
+    }
+
+    // Sets the start position, only used once at start of game
+    public void setInitialPosition(int position){
+        this.position = position;
     }
 
     public IntegerProperty balanceProperty() {

@@ -1,7 +1,5 @@
 package be.ugent.objprog.ugentopoly.logic;
 
-import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.controller.BoardManager;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
@@ -13,10 +11,8 @@ import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
 
@@ -79,7 +75,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
                 Optional<Tile> jailTile = GameState.getInstance().getBoard().getTiles().stream()
                         .filter(tile -> tile.getType() == TileType.JAIL)
                         .findFirst();
-                jailTile.ifPresent(tile -> player.setPosition(tile.getPosition()));
+                jailTile.ifPresent(tile -> player.updatePositionDuringGame(tile.getPosition()));
 
                 playerManager.setPlayerPanelToInactive(getCurrentPlayer());
                 currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
@@ -94,7 +90,12 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
         // Move the player's position
         int newPosition = (player.getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
-        if (newPosition < player.getPosition()) {
+        int startPosition = GameState.getInstance().getBoard().getTiles().stream()
+                .filter(tile -> tile.getType() == TileType.START)
+                .map(Tile::getPosition)
+                .findFirst()
+                .orElse(0);
+        if (player.getPosition() < startPosition && startPosition <= newPosition) {
             // Player has passed the start tile, give them the start bonus
             Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
@@ -111,12 +112,12 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
        if(player.getRemainingTurnsInPrison() > 0){
             if (hasRolledDouble) {
                 player.resetRemainingTurnsInPrison();
-                player.setPosition(newPosition);
+                player.updatePositionDuringGame(newPosition);
             } else {
                 player.decreaseRemainingTurnsInPrison();
             }
         } else {
-            player.setPosition(newPosition);
+            player.updatePositionDuringGame(newPosition);
         }
 
 
