@@ -40,7 +40,6 @@ public class PlayerManager {
     }
 
     public void initializePlayers(AnchorPane rootPane) {
-        uiUpdater.updatePlayers(players);
         players.forEach(player -> {
             // Makes sure the players start at the start tile.
             GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
@@ -50,6 +49,7 @@ public class PlayerManager {
             player.setPion(pion);
             pion.addToContainer(pionContainer);
         });
+        uiUpdater.updatePlayers(players);
     }
 
     public List<Player> getPlayers() {

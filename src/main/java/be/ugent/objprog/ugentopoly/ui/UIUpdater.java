@@ -17,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -113,14 +114,15 @@ public class UIUpdater {
                     DiceHandler.getInstance().rollDice(player);
                 });
 
+                ImageView pionImage = (ImageView) playerNode.lookup("#pion");
+                pionImage.setImage(player.getPion().getImage());
+
                 if (panelIndex % 2 == 0) {
                     playerPanel1.getChildren().addLast(playerNode);
                 } else {
                     playerNode.setRotate(180);
                     playerPanel2.getChildren().addLast(playerNode);
                 }
-
-
 
                 panelIndex++;
             } catch (Exception e) {
