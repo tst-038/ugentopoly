@@ -20,7 +20,7 @@ public class Player {
     private int id;
     private String name;
     private Color color;
-    private int position;
+    private int position = 0;
     private final IntegerProperty balance;
     private final IntegerProperty networth;
     private int ownedRailways = 0;
@@ -34,7 +34,6 @@ public class Player {
         this.id = idCounter++;
         this.name = name.strip();
         this.color = color;
-        this.position = 0;
         this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
         this.networth = new SimpleIntegerProperty(0);
         this.cards = new ArrayList<>();
@@ -122,7 +121,7 @@ public class Player {
         return pion;
     }
 
-    public void addRailway() {
+    public void addOwnedRailway() {
         ownedRailways++;
     }
 

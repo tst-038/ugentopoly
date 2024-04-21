@@ -2,6 +2,8 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
+import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.RentPaidLog;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -93,7 +95,8 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getRent() {
-        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum()*owner.getOwnedUtility() == 1 ? 4 :10;
+        System.out.println(DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() +" * "+(owner.getOwnedUtility() == 1 ? 4 :10));
+        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getOwnedUtility() == 1 ? 4 :10);
     }
 
     @Override
@@ -110,6 +113,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     public void payRent(Player player) {
             try {
                 Bank.getInstance().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
+                GameLogBook.getInstance().addEntry(new RentPaidLog(player, this));
             } catch (InsufficientFundsException ignored) {
             }
         }

@@ -604,13 +604,13 @@
                         <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="381.0" onMouseClicked="#handleLogbookButtonClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="381.0" onMouseClicked="#handleLogbookButtonClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="10.0">
                      <image>
                         <Image url="@../assets/logbook.png" />
                      </image>
                   </ImageView>
                   <fx:include fx:id="logbookRoot" source="ui/logbook.fxml" />
-                  <Label fx:id="jackpot" alignment="CENTER" contentDisplay="TOP" layoutX="486.0" layoutY="365.0" prefHeight="17.0" prefWidth="43.0" text="\$100" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0">
+                  <Label fx:id="jackpot" alignment="CENTER" contentDisplay="BOTTOM" layoutX="486.0" layoutY="346.0" prefHeight="17.0" prefWidth="43.0" text="\$100" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="10.0">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
