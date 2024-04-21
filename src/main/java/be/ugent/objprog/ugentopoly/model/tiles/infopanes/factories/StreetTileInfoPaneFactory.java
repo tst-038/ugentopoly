@@ -64,6 +64,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private String getTextColorClass(StreetTile tile) {
         Color areaColor = Color.web(tile.getArea().getColor());
-        return areaColor.getBrightness() > 0.7 ? "street-tile-title-black" : "street-tile-title-white";
+        double luminance = 0.299*areaColor.getRed() + 0.587*areaColor.getGreen() + 0.114*areaColor.getBlue();
+        return luminance > 0.5 ? "street-tile-title-black" : "street-tile-title-white";
     }
 }
