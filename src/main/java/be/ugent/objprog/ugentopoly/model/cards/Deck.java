@@ -1,5 +1,9 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
+import be.ugent.objprog.ugentopoly.log.CardDrawnLog;
+import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.model.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,9 +40,10 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public Card drawCard() {
+    public Card drawCard(Player p) {
         if (!cards.isEmpty()) {
-            return cards.remove(0);
+            GameLogBook.getInstance().addEntry(new CardDrawnLog(p.getName(), cards.getFirst()));
+            return cards.removeFirst();
         }
         return null;
     }

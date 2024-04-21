@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.GoToJailLog;
 import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
 import be.ugent.objprog.ugentopoly.model.cards.Card;
 import be.ugent.objprog.ugentopoly.model.cards.CardType;
@@ -167,6 +168,7 @@ public class Player {
 
     public void setRemainingTurnsInPrison(int remainingTurnsInPrison) {
         this.remainingTurnsInPrison = remainingTurnsInPrison;
+        GameLogBook.getInstance().addEntry(new GoToJailLog(this.getName()));
     }
 
     public void useGetOutOfJailFreeCard() {

@@ -6,6 +6,7 @@ import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Area;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
@@ -148,5 +149,10 @@ public class UIUpdater {
         }
         tileName.setTextFill(player.getColor());
         tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize()+2));
+    }
+
+    public void bindJackpot(){
+        Label jackpotLabel = (Label) rootPane.lookup("#jackpot");
+        jackpotLabel.textProperty().bind(Bank.getInstance().getJackpotBalanceProperty().asString(Settings.getMoneyUnit() + "%d"));
     }
 }

@@ -26,6 +26,4 @@ public class GameLogBook {
     public void addEntry(Log entry){
         entries.add(entry);
     }
-
-
 }

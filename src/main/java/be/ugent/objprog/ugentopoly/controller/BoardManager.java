@@ -41,6 +41,7 @@ public class BoardManager {
     public void initializeBoard(AnchorPane rootPane) {
         uiUpdater.colorAreaPanes(board.getAreas());
         uiUpdater.updateTiles(board.getTiles());
+        uiUpdater.bindJackpot();
         attachTileClickHandlers(rootPane);
     }
 

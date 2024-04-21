@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="rootPane" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/game-board.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.GameController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -595,12 +604,21 @@
                         <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
                   </HBox>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="400.0" onMouseClicked="#handleLogbookButtonClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="381.0" onMouseClicked="#handleLogbookButtonClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0">
                      <image>
                         <Image url="@../assets/logbook.png" />
                      </image>
                   </ImageView>
                   <fx:include fx:id="logbookRoot" source="ui/logbook.fxml" />
+                  <Label fx:id="jackpot" alignment="CENTER" contentDisplay="TOP" layoutX="486.0" layoutY="365.0" prefHeight="17.0" prefWidth="43.0" text="\$100" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/jackpot.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
                </children>
             </AnchorPane>
          </center>

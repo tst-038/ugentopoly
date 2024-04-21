@@ -3,6 +3,7 @@ package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.cards.Card;
 import be.ugent.objprog.ugentopoly.model.cards.Deck;
 import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
@@ -25,8 +26,9 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         Label infoLabel;
 
         if (onVisit) {
-            Card card = Deck.getCommunityChestDeck().drawCard();
-            TurnHandler.getInstance().getCurrentPlayer().addCard(card);
+            Player currentPlayer = TurnHandler.getInstance().getCurrentPlayer();
+            Card card = Deck.getCommunityChestDeck().drawCard(currentPlayer);
+            currentPlayer.addCard(card);
             infoLabel = createLabel(card.getDescription(), "chance-info", 5.0, 5.0, 120.0, null);
             Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "chance-tile-close-button", "close-button", 20., 20., 160., null);
             tileInfoPane.getChildren().add(cancelButton);
