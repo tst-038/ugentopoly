@@ -28,29 +28,21 @@ public enum Orientation {
     }
 
     public static Orientation getOrientation(int position) {
-        switch (position) {
-            case 0:
-                return CORNER_1;
-            case 10:
-                return CORNER_2;
-            case 20:
-                return CORNER_3;
-            case 30:
-                return CORNER_4;
-            default:
+        return switch (position) {
+            case 0 -> CORNER_1;
+            case 10 -> CORNER_2;
+            case 20 -> CORNER_3;
+            case 30 -> CORNER_4;
+            default -> {
                 int row = position / 10;
-                switch (row) {
-                    case 0:
-                        return HORIZONTAL_LEFT;
-                    case 1:
-                        return VERTICAL_TOP;
-                    case 2:
-                        return HORIZONTAL_RIGHT;
-                    case 3:
-                        return VERTICAL_BOTTOM;
-                    default:
-                        throw new IllegalArgumentException("Invalid position: " + position);
-                }
-        }
+                yield switch (row) {
+                    case 0 -> HORIZONTAL_LEFT;
+                    case 1 -> VERTICAL_TOP;
+                    case 2 -> HORIZONTAL_RIGHT;
+                    case 3 -> VERTICAL_BOTTOM;
+                    default -> throw new IllegalArgumentException("Invalid position: " + position);
+                };
+            }
+        };
     }
 }
