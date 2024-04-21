@@ -10,7 +10,7 @@ import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 public interface Buyable extends Ownable {
     default void buy(Player player) {
         try {
-            Bank.getInstance().subtractMoney(player, getPrice());
+            Bank.getInstance().withdraw(player, getPrice());
             setOwner(player);
             player.setNetworth(player.getNetworth() + getPrice());
             UIUpdater.getInstance().playerBoughtTile(player, this);

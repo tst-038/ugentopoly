@@ -10,6 +10,7 @@ import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -83,7 +84,8 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
         } else {
-            pane.lookup("#buy-button").setOnMouseClicked(event -> {
+            Button buy = (Button) pane.lookup("#buy-button");
+            buy.setOnMouseClicked(event -> {
                 buy(player);
                 player.addRailway();
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();

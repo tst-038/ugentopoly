@@ -22,7 +22,7 @@ public class PlayersMoneyCard extends Card {
         PlayerManager.getInstance().getPlayers().forEach(p -> {
             if (!p.equals(player)) {
                 try{
-                    Bank.getInstance().transferMoney(p, Optional.of(player), amount, TransactionPriority.HIGH);
+                    Bank.getInstance().transfer(p, player, amount, TransactionPriority.HIGH);
                 } catch (InsufficientFundsException ignored) {}
             }
         });

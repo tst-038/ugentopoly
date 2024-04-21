@@ -12,10 +12,7 @@ import java.util.Optional;
 public interface Taxable {
     int getAmount();
     default void payTax(Player player) {
-        try {
-            Bank.getInstance().transferMoney(player, Optional.empty(), getAmount(), TransactionPriority.HIGH);
-            GameLogBook.getInstance().addEntry(new TaxPaidLog(player.getName(), getAmount()));
-        } catch (InsufficientFundsException ignored) {
-        }
+        Bank.getInstance().transferToJackpot(player, getAmount());
+        GameLogBook.getInstance().addEntry(new TaxPaidLog(player.getName(), getAmount()));
     }
 }

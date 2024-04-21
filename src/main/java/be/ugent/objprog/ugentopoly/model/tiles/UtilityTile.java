@@ -14,11 +14,13 @@ import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -71,11 +73,13 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
         } else {
-            pane.lookup("#buy-button").setOnMouseClicked(event -> {
+            Button buy = (Button) pane.lookup("#buy-button");
+            buy.setOnMouseClicked(event -> {
                 buy(player);
                 player.addOwnedUtility();
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
+            buy.setDisable(!Bank.getInstance().hasSufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> {
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
@@ -105,7 +109,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     @Override
     public void payRent(Player player) {
             try {
-                Bank.getInstance().transferMoney(player, Optional.of(getOwner()), getRent(), TransactionPriority.HIGH);
+                Bank.getInstance().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
             } catch (InsufficientFundsException ignored) {
             }
         }

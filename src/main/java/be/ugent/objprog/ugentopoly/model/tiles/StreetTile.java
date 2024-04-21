@@ -2,6 +2,7 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.Area;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
@@ -11,6 +12,7 @@ import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -87,10 +89,12 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
         } else {
-            pane.lookup("#buy-button").setOnMouseClicked(event -> {
+            Button buy = (Button) pane.lookup("#buy-button");
+            buy.setOnMouseClicked(event -> {
                 buy(player);
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
+            buy.setDisable(!Bank.getInstance().hasSufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> {
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });

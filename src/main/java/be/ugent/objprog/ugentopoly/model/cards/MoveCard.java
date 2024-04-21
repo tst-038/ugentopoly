@@ -20,7 +20,7 @@ public class MoveCard extends Card {
         player.setPosition(position);
         //TODO check if this introduces bug with the collecting of startbonus happening twice
         if (collect && position < player.getPosition()) {
-            Bank.getInstance().addMoney(player, Settings.getInstance().getStartBonus());
+            Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
         }
         player.removeCard(this);
         returnToDeck();

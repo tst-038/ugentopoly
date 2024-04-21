@@ -17,10 +17,10 @@ public class MoneyCard extends Card {
     public void execute(Player player) {
         //TODO fix this weird way of checking if the amount is positive or negative
         if (amount > 0) {
-            Bank.getInstance().addMoney(player, amount);
+            Bank.getInstance().deposit(player, amount);
         } else {
             try {
-                Bank.getInstance().subtractMoney(player, -amount);
+                Bank.getInstance().withdraw(player, -amount);
             } catch (InsufficientFundsException ignored) {}
         }
 
