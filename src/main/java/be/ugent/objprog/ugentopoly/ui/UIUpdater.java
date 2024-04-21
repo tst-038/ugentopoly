@@ -45,11 +45,11 @@ public class UIUpdater {
 
     public void colorAreaPanes(List<Area> areas) {
         for (Area area : areas) {
-            String areaId = area.id();
+            String areaId = area.getId();
             String areaClass = "area-" + areaId.substring(4);
             rootPane.lookupAll("." + areaClass).forEach(node -> {
                 Pane areaPane = (Pane) node;
-                areaPane.setStyle("-fx-background-color: " + area.color());
+                areaPane.setStyle("-fx-background-color: " + area.getColor());
             });
         }
     }

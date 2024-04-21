@@ -65,7 +65,7 @@ public class BoardReader {
     }
 
     public List<Area> readAreas() {
-        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.deel1.xml")) {
+        try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
             Element root = document.getRootElement();
@@ -75,9 +75,8 @@ public class BoardReader {
             for (Element areaElement : areasElement.getChildren("area")) {
                 String id = areaElement.getAttributeValue("id");
                 String color = areaElement.getAttributeValue("color");
-                int house = Integer.parseInt(areaElement.getAttributeValue("house"));
 
-                areas.add(new Area(id, color, house));
+                areas.add(new Area(id, color));
             }
 
             return areas;

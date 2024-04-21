@@ -17,9 +17,12 @@ public class StreetTileFactory implements TileFactory {
     @Override
     public Tile createTile(Element element) {
         int streetCost = Integer.parseInt(element.getAttributeValue("cost"));
-        String area = element.getAttributeValue("area");
+        String areaString = element.getAttributeValue("area");
         int rent = Integer.parseInt(element.getAttributeValue("rent0"));
-        return new StreetTile(element.getAttributeValue("id"), Integer.parseInt(element.getAttributeValue("position")),
-                streetCost, areas.stream().filter(ar -> ar.id().equals(area)).findFirst().orElse(null), rent);
+        Area area = areas.stream().filter(ar -> ar.getId().equals(areaString)).findFirst().orElse(null);
+        StreetTile streetTile = new StreetTile(element.getAttributeValue("id"), Integer.parseInt(element.getAttributeValue("position")),
+                streetCost, area, rent);
+        area.addTile(streetTile);
+        return streetTile;
     }
 }

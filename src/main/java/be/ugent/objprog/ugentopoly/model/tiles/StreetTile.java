@@ -43,7 +43,7 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
     }
 
     public int getRent() {
-        return rent;
+        return rent * (area.allTilesOwnedBySamePlayer() ? 2 : 1);
     }
 
     public Player getOwner() {
@@ -71,7 +71,7 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
     @Override
     public void updateUI(Node tileNode, Pane rootPane) {
-        tileNode.lookup("#area").setStyle("-fx-background-color: " + getArea().color());
+        tileNode.lookup("#area").setStyle("-fx-background-color: " + getArea().getColor());
         updateLabel(tileNode);
     }
 

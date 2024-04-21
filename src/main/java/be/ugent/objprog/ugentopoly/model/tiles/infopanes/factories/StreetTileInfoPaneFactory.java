@@ -21,7 +21,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         AnchorPane.setLeftAnchor(infoColor, 3.0);
         AnchorPane.setRightAnchor(infoColor, 3.0);
         infoColor.getStyleClass().add("street-tile-area");
-        infoColor.setStyle("-fx-background-color: " + streetTile.getArea().color() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
+        infoColor.setStyle("-fx-background-color: " + streetTile.getArea().getColor() + "; -fx-border-width: 0 0 3 0; -fx-border-color: black;");
         infoColor.setPrefHeight(50.0);
         infoColor.setPrefWidth(150.0);
 
@@ -63,7 +63,7 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private String getTextColorClass(StreetTile tile) {
-        Color areaColor = Color.web(tile.getArea().color());
+        Color areaColor = Color.web(tile.getArea().getColor());
         return areaColor.getBrightness() > 0.7 ? "street-tile-title-black" : "street-tile-title-white";
     }
 }
