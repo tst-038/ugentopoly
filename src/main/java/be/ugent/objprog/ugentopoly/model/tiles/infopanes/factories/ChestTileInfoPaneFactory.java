@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -8,9 +7,6 @@ import be.ugent.objprog.ugentopoly.model.cards.Card;
 import be.ugent.objprog.ugentopoly.model.cards.Deck;
 import be.ugent.objprog.ugentopoly.model.tiles.ChestTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
@@ -19,28 +15,21 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
         ChestTile chestTile = (ChestTile) tile;
 
-        ImageView chestTileImage = createImageView(new ImageView(ResourceLoader.loadImage("assets/chest.png")), 10.0, 37.5, 37.5, null);
-        chestTileImage.setFitHeight(75.0);
-        chestTileImage.setFitWidth(75.0);
+        addTitleLabelWithImage(tileInfoPane, chestTile.getName(), "chest-title", 10.0, getTileImageView("assets/chest.png"));
+        addDescriptionLabel(tileInfoPane, getChestDescription(chestTile, onVisit), "chest-info", 30.0);
+        addButton(tileInfoPane, PropertyReader.getInstance().get("button.close"), "chest-tile-close-button", "close-button", onVisit);
 
-        Label infoLabel;
+        return tileInfoPane;
+    }
 
+    private String getChestDescription(ChestTile chestTile, boolean onVisit) {
         if (onVisit) {
             Player currentPlayer = TurnHandler.getInstance().getCurrentPlayer();
             Card card = Deck.getCommunityChestDeck().drawCard(currentPlayer);
             currentPlayer.addCard(card);
-            infoLabel = createLabel(card.getDescription(), "chance-info", 5.0, 5.0, 120.0, null);
-            Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "chance-tile-close-button", "close-button", 20., 20., 160., null);
-            tileInfoPane.getChildren().add(cancelButton);
-        }else {
-            String desc = PropertyReader.getInstance().getTileDescription(chestTile.getId());
-            infoLabel = createLabel(desc, "chance-info", 5.0, 5.0, 110.0, 5.0);
+            return card.getDescription();
+        } else {
+            return PropertyReader.getInstance().getTileDescription(chestTile.getId());
         }
-
-        Label titleLabel = createLabel(chestTile.getName(), "chest-title", 5.0, 5.0, 50.0, 35.0);
-
-        tileInfoPane.getChildren().addAll(chestTileImage, titleLabel, infoLabel);
-
-        return tileInfoPane;
     }
 }

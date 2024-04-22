@@ -4,7 +4,6 @@ import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.JackpotClaimedLog;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.ui;
 
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.Player;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
@@ -8,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-
-import java.util.Objects;
 
 public class PlayerPion extends ImageView {
     private final Player player;

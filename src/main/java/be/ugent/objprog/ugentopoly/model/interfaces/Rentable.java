@@ -7,8 +7,6 @@ import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 
-import java.util.Optional;
-
 public interface Rentable extends Ownable {
     default void payRent(Player player) {
         try {

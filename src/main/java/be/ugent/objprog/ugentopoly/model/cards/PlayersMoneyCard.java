@@ -7,8 +7,6 @@ import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 
-import java.util.Optional;
-
 public class PlayersMoneyCard extends Card {
     private final int amount;
 

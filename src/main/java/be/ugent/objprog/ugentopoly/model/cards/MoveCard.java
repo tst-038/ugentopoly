@@ -9,8 +9,6 @@ import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
-import java.util.Optional;
-
 public class MoveCard extends Card {
     private int position;
     private boolean collect;

@@ -2,6 +2,7 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.interfaces.Taxable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;

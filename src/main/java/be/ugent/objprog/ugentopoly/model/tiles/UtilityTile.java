@@ -22,9 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
 import java.util.Objects;
-import java.util.Optional;
 
 public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Buyable, Rentable  {
 

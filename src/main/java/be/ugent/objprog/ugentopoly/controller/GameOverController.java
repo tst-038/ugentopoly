@@ -1,11 +1,9 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.Comparator;

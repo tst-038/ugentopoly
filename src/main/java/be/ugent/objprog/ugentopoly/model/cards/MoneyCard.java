@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 

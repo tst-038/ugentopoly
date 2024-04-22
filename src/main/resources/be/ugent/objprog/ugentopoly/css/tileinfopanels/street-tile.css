@@ -8,13 +8,7 @@
     -fx-alignment: center;
 }
 
-.street-tile-title-black {
-    -fx-text-fill: black;
-}
 
-.street-tile-title-white {
-    -fx-text-fill: white;
-}
 
 .street-tile-rent-title {
     -fx-font-weight: bold;
@@ -51,17 +45,4 @@
     -fx-font-size: 1em;
     -fx-text-fill: white;
     -fx-alignment: center-right;
-}
-
-.street-tile-owner-title {
-    -fx-font-weight: bold;
-    -fx-font-size: 1em;
-    -fx-text-fill: white;
-    -fx-alignment: center;
-}
-
-.street-tile-owner {
-    -fx-font-weight: normal;
-    -fx-font-size: 1em;
-    -fx-alignment: center;
 }

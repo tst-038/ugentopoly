@@ -20,11 +20,31 @@
     -fx-background-color: #62b4b6;
 }
 
+.tile-title-black {
+    -fx-text-fill: black;
+}
+
+.tile-title-white {
+    -fx-text-fill: white;
+}
+
 .label {
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
 
+.tile-owner-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+.tile-owner {
+    -fx-font-weight: normal;
+    -fx-font-size: 1em;
+    -fx-alignment: center;
+}
 
 .button {
     -fx-background-color: #4a4a4a;
