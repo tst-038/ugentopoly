@@ -37,6 +37,8 @@ public class PlayerPion extends ImageView implements PositionListener {
             return;
         }
 
+        player.getPosition().removeListener(this);
+
         // Get the target pionContainer based on the position
         String tileId = "#_" + newPosition;
         pionContainer = (Pane) pionContainer.getScene().lookup(tileId).lookup("#pionContainer");

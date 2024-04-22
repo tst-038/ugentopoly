@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
 import be.ugent.objprog.ugentopoly.logic.PositionListener;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
+import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,8 @@ public class PlayerPosition {
         Visitable current = board.getTileByPosition(newPosition);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this.player, current));
         this.position = newPosition;
+        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(position);
+        landedTile.onVisit(player);
         notifyListeners();
     }
 
