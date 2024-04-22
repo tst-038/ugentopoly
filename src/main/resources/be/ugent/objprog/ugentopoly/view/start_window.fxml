@@ -1,89 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #3e4057;"
-            stylesheets="@../css/start_window.css" xmlns="http://javafx.com/javafx/21"
-            fx:controller="be.ugent.objprog.ugentopoly.controller.StartController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/start_window.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.StartController">
     <children>
         <AnchorPane layoutX="175.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.topAnchor="30.0">
             <children>
-                <ImageView fitHeight="450.0" fitWidth="450.0" layoutX="25.0" layoutY="56.0" pickOnBounds="true"
-                           preserveRatio="true" rotate="180.0">
+                <ImageView fitHeight="450.0" fitWidth="450.0" layoutX="25.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                     <image>
-                        <Image url="@../assets/sydney_skyline.png"/>
+                        <Image url="@../assets/sydney_skyline.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="500.0" fitWidth="500.0" layoutY="-102.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../assets/gent_skyline.png"/>
+                        <Image url="@../assets/gent_skyline.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.topAnchor="80.0">
+                <ImageView fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="80.0">
                     <image>
-                        <Image url="@../assets/logo.png"/>
+                        <Image url="@../assets/logo.png" />
                     </image>
                 </ImageView>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="175.0" layoutY="336.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="30.0">
             <children>
-                <Slider fx:id="playerSlider" blockIncrement="1.0" layoutX="180.0" layoutY="169.0" majorTickUnit="1.0"
-                        max="4.0" min="2.0" minorTickCount="0" snapToTicks="true" value="2.0"/>
-                <Label alignment="CENTER" layoutX="180.0" layoutY="107.0" prefHeight="27.0" prefWidth="140.0"
-                       fx:id="playerAmountTitle" textAlignment="CENTER" textFill="WHITE">
+                <Slider fx:id="playerSlider" blockIncrement="1.0" layoutX="180.0" layoutY="169.0" majorTickUnit="1.0" max="4.0" min="2.0" minorTickCount="0" snapToTicks="true" value="2.0" />
+                <Label fx:id="playerAmountTitle" alignment="CENTER" layoutX="180.0" layoutY="107.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font size="15.0"/>
+                        <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="playerAmount" alignment="CENTER" layoutX="190.0" layoutY="134.0" prefHeight="21.0"
-                       prefWidth="121.0" text="2 spelers" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="playerAmount" alignment="CENTER" layoutX="190.0" layoutY="134.0" prefHeight="21.0" prefWidth="121.0" text="2 spelers" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font size="17.0"/>
+                        <Font size="17.0" />
                     </font>
                 </Label>
-                <AnchorPane layoutX="125.0" layoutY="207.0" prefHeight="275.0" prefWidth="250.0">
+                <AnchorPane layoutX="130.0" layoutY="220.0" prefHeight="280.0" prefWidth="250.0">
                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <AnchorPane prefHeight="40.0" prefWidth="250.0">
+                                <AnchorPane prefHeight="45.0" prefWidth="250.0">
                                     <children>
-                                        <Label layoutX="14.0" layoutY="13.0" fx:id="playerName" textFill="WHITE"
-                                               AnchorPane.leftAnchor="10.0"/>
-                                        <Label layoutX="175.0" layoutY="13.0" fx:id="playerColor" textFill="WHITE"/>
-                                        <Label fx:id="playerNamesNotUnique" layoutX="43.0" layoutY="25.0"
-                                               styleClass="error" text="Niet uniek!" textFill="RED" visible="false">
+                                        <Label fx:id="playerName" layoutX="14.0" layoutY="13.0" text="naam" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="13.0" />
+                                        <Label fx:id="playerColor" layoutX="139.0" layoutY="13.0" text="kleur" textFill="WHITE" AnchorPane.topAnchor="13.0" />
+                                        <Label fx:id="playerNamesNotUnique" layoutX="43.0" layoutY="25.0" styleClass="error" text="Niet uniek!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="35.0">
                                             <font>
-                                                <Font size="10.0"/>
+                                                <Font size="10.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="playerColorsNotUnique" layoutX="175.0" layoutY="25.0"
-                                               styleClass="error" text="Niet uniek!" textFill="RED" visible="false">
+                                        <Label fx:id="playerColorsNotUnique" layoutX="175.0" layoutY="25.0" styleClass="error" text="Niet uniek!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="125.0">
                                             <font>
-                                                <Font size="10.0"/>
+                                                <Font size="10.0" />
                                             </font>
                                         </Label>
+                              <Label fx:id="playerColor1" alignment="CENTER" layoutX="182.0" layoutY="14.0" prefHeight="16.0" prefWidth="52.0" text="Pion" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0" />
+                              <Label fx:id="playerPionNotUnique" layoutX="185.0" layoutY="35.0" styleClass="error" text="Niet uniek!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="8.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="50.0" prefWidth="250.0">
                                     <children>
-                                        <VBox fx:id="playerFieldsContainer" prefHeight="200.0" prefWidth="100.0"
-                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                        <VBox fx:id="playerFieldsContainer" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="50.0" prefWidth="250.0">
                                     <children>
-                                        <Button fx:id="playButton" layoutX="87.0" layoutY="6.0" mnemonicParsing="false"
-                                                onAction="#handlePlayButtonAction" text="Play!"
-                                                AnchorPane.topAnchor="6.0">
+                                        <Button fx:id="playButton" layoutX="82.0" layoutY="6.0" mnemonicParsing="false" onAction="#handlePlayButtonAction" text="Play!" AnchorPane.topAnchor="6.0">
                                             <font>
-                                                <Font size="20.0"/>
+                                                <Font size="20.0" />
                                             </font>
                                         </Button>
                                     </children>

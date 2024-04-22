@@ -50,6 +50,16 @@
     -fx-padding: -15px;
 }
 
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+.combo-box {
+    -fx-color-label-visible: false;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
 .color-picker .arrow {
     -fx-background-color: white;
 }

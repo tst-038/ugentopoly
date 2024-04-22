@@ -15,11 +15,11 @@ public class PlayerPion extends ImageView {
     private final Player player;
     private Pane pionContainer;
 
-    public PlayerPion(Player player) {
+    public PlayerPion(Player player, Image pionImage) {
         this.player = player;
-        Image pionImage = new Image(Objects.requireNonNull(ResourceLoader.loadResource("assets/token" + (player.getId() + 1) + ".png")));
         setImage(pionImage);
-        setFitWidth(25);
+        setFitWidth(35);
+        setFitHeight(35);
         setPreserveRatio(true);
     }
 
@@ -37,7 +37,7 @@ public class PlayerPion extends ImageView {
         String tileId = "#_" + targetPosition;
         pionContainer = (Pane) pionContainer.getScene().lookup(tileId).lookup("#pionContainer");
 
-        PlayerPion newPion = new PlayerPion(player);
+        PlayerPion newPion = new PlayerPion(player, player.getPion().getImage());
         newPion.addToContainer(pionContainer);
         newPion.setVisible(false);
 
