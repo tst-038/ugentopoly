@@ -104,6 +104,7 @@ public class Player {
     }
 
     public void setPion(PlayerPion pion) {
+        getPosition().removeListener(this.pion);
         this.pion = pion;
     }
 

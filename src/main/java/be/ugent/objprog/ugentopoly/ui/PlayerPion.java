@@ -32,11 +32,6 @@ public class PlayerPion extends ImageView implements PositionListener {
     public void onPositionChanged(int newPosition) {
         Pane currentPionContainer = pionContainer;
 
-        if (currentPionContainer == null) {
-            System.out.println("Pion container not set for player " + player.getName() + " (" + player.getId() + ")");
-            return;
-        }
-
         player.getPosition().removeListener(this);
 
         // Get the target pionContainer based on the position
