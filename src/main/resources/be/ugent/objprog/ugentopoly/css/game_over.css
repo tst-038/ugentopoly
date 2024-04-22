@@ -1,0 +1,13 @@
+/* start_window.css */
+
+/* Set font family and size for the entire window */
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+/* Style labels */
+.label {
+    -fx-font-style: bold;
+    -fx-text-fill: white;
+}

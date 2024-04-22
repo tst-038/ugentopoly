@@ -84,6 +84,9 @@ public class StartController {
         playerAmountTitle.setText(PropertyReader.getInstance().get("label.player_amount_title"));
         playerColor.setText(PropertyReader.getInstance().get("label.color"));
         playerName.setText(PropertyReader.getInstance().get("label.username"));
+        playerColorsNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
+        playerPionNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
+        playerNamesNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
     }
 
     private boolean areAllFieldsUnique() {
