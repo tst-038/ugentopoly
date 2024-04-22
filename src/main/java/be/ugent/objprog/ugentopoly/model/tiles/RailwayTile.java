@@ -73,7 +73,7 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     @Override
     public void buy(Player player) {
         Buyable.super.buy(player);
-        player.addOwnedRailway();
+        player.getInventory().addOwnedRailway();
     }
 
     @Override

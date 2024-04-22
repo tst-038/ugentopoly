@@ -20,7 +20,7 @@ public class MoneyCard extends Card {
             Bank.getInstance().transferToJackpot(player, -amount);
         }
 
-        player.removeCard(this);
+        player.getInventory().removeCard(this);
         returnToDeck();
     }
 }

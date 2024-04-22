@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.ui;
 
+import be.ugent.objprog.ugentopoly.logic.PositionListener;
 import be.ugent.objprog.ugentopoly.model.Player;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
@@ -8,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class PlayerPion extends ImageView {
+public class PlayerPion extends ImageView implements PositionListener {
     private final Player player;
     private Pane pionContainer;
 
@@ -18,6 +19,7 @@ public class PlayerPion extends ImageView {
         setFitWidth(35);
         setFitHeight(35);
         setPreserveRatio(true);
+        player.getPosition().addListener(this);
     }
 
     public void addToContainer(Pane pionContainer) {
@@ -26,12 +28,17 @@ public class PlayerPion extends ImageView {
         pionContainer.toFront();
     }
 
-    public void updatePosition(int targetPosition) {
-        // Get the current pionContainer
+    @Override
+    public void onPositionChanged(int newPosition) {
         Pane currentPionContainer = pionContainer;
 
+        if (currentPionContainer == null) {
+            System.out.println("Pion container not set for player " + player.getName() + " (" + player.getId() + ")");
+            return;
+        }
+
         // Get the target pionContainer based on the position
-        String tileId = "#_" + targetPosition;
+        String tileId = "#_" + newPosition;
         pionContainer = (Pane) pionContainer.getScene().lookup(tileId).lookup("#pionContainer");
 
         PlayerPion newPion = new PlayerPion(player, player.getPion().getImage());
@@ -58,19 +65,19 @@ public class PlayerPion extends ImageView {
 
         double imageX, imageY;
 
-        if (targetPosition == 0 || targetPosition == 10 || targetPosition == 20 || targetPosition == 30) {
+        if (newPosition == 0 || newPosition == 10 || newPosition == 20 || newPosition == 30) {
             // Corner tiles: always center the pion
             imageX = (containerWidth - imageWidth) / 2;
             imageY = (containerHeight - imageHeight) / 2;
-        } else if (targetPosition >= 1 && targetPosition <= 9) {
+        } else if (newPosition >= 1 && newPosition <= 9) {
             // Tiles 1-9: horizontal positioning (HBox)
             imageX = (pionContainer.getChildren().size() - 1) * (imageWidth + marginX) + marginX;
             imageY = (containerHeight - imageHeight) / 2;
-        } else if (targetPosition >= 11 && targetPosition <= 19) {
+        } else if (newPosition >= 11 && newPosition <= 19) {
             // Tiles 11-19: vertical positioning (VBox)
             imageX = (containerWidth - imageWidth) / 2;
             imageY = (pionContainer.getChildren().size() - 1) * (imageHeight + marginY) + marginY;
-        } else if (targetPosition >= 21 && targetPosition <= 29) {
+        } else if (newPosition >= 21 && newPosition <= 29) {
             // Tiles 21-29: horizontal positioning (HBox) from right to left
             imageX = containerWidth - (pionContainer.getChildren().size() * (imageWidth + marginX));
             imageY = (containerHeight - imageHeight) / 2;

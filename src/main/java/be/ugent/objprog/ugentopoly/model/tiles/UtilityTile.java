@@ -76,7 +76,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
                 buy(player);
-                player.addOwnedUtility();
+                player.getInventory().addOwnedUtility();
                 TileInfoPaneManager.getInstance().setPaneClosableAndHide();
             });
             buy.setDisable(!Bank.getInstance().hasSufficientBalance(player, getPrice()));
@@ -93,8 +93,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getRent() {
-        System.out.println(DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() +" * "+(owner.getOwnedUtility() == 1 ? 4 :10));
-        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getOwnedUtility() == 1 ? 4 :10);
+        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 :10);
     }
 
     @Override

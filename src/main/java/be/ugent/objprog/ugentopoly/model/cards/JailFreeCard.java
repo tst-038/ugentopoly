@@ -11,7 +11,7 @@ public class JailFreeCard extends Card {
     @Override
     public void execute(Player player) {
         player.resetRemainingTurnsInPrison();
-        player.removeCard(this);
+        player.getInventory().removeCard(this);
         returnToDeck();
     }
 }

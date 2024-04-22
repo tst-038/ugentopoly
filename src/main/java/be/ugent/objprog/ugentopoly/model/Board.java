@@ -42,16 +42,4 @@ public class Board {
     public Tile getTileByPosition(int position) {
         return tiles.stream().filter(tile -> tile.getPosition() == position).findFirst().orElse(null);
     }
-
-    public boolean ownsAllInArea(Player player, Area area) {
-        for (Tile tile : tiles) {
-            if (tile.getType() == TileType.STREET) {
-                StreetTile streetTile = (StreetTile) tile;
-                if (streetTile.getArea().equals(area) && !streetTile.getOwner().equals(player)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

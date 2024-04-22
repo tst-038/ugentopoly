@@ -12,7 +12,7 @@ public interface Buyable extends Ownable {
         try {
             Bank.getInstance().withdraw(player, getPrice());
             setOwner(player);
-            player.setNetworth(player.getNetworth() + getPrice());
+            player.networthProperty().set(player.networthProperty().get() + getPrice());
             UIUpdater.getInstance().playerBoughtTile(player, this);
             GameLogBook.getInstance().addEntry(new PropertyBoughtLog(player, this));
         } catch (InsufficientFundsException ignored) {

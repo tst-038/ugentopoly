@@ -28,7 +28,7 @@ public class PlayersMoneyCard extends Card {
                 } catch (InsufficientFundsException ignored) {}
             }
         });
-        player.removeCard(this);
+        player.getInventory().removeCard(this);
         returnToDeck();
     }
 }

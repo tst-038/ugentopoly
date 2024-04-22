@@ -46,7 +46,7 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
 
         pane.lookup("#close-button").setOnMouseClicked(event -> { // Makes sure that the previous tile info pane is closed and hidden
             TileInfoPaneManager.getInstance().setPaneClosableAndHide();
-            IntStream.range(0, player.getCards().size()).forEachOrdered(i -> player.getCards().get(i).execute(player));
+            IntStream.range(0, player.getInventory().getCards().size()).forEachOrdered(i -> player.getInventory().getCards().get(i).execute(player));
         });
     }
 }

@@ -43,8 +43,8 @@ public class PlayerManager {
         players.forEach(player -> {
             // Makes sure the players start at the start tile.
             GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
-                    .ifPresent(startTile -> players.forEach(p -> p.setInitialPosition(startTile.getPosition())));
-            Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition()).lookup("#pionContainer");
+                    .ifPresent(startTile -> players.forEach(p -> p.getPosition().setInitialPosition(startTile.getPosition())));
+            Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pionContainer");
             player.getPion().addToContainer(pionContainer);
         });
         uiUpdater.updatePlayers(players);

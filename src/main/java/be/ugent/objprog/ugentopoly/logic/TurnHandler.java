@@ -75,7 +75,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
                 Optional<Tile> jailTile = GameState.getInstance().getBoard().getTiles().stream()
                         .filter(tile -> tile.getType() == TileType.JAIL)
                         .findFirst();
-                jailTile.ifPresent(tile -> player.updatePositionDuringGame(tile.getPosition()));
+                jailTile.ifPresent(tile -> player.getPosition().updatePosition(tile.getPosition()));
 
                 playerManager.setPlayerPanelToInactive(getCurrentPlayer());
                 currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
@@ -89,13 +89,13 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         }
 
         // Move the player's position
-        int newPosition = (player.getPosition() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
+        int newPosition = (player.getPosition().getPos() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
         int startPosition = GameState.getInstance().getBoard().getTiles().stream()
                 .filter(tile -> tile.getType() == TileType.START)
                 .map(Tile::getPosition)
                 .findFirst()
                 .orElse(0);
-        if (player.getPosition() < startPosition && startPosition <= newPosition) {
+        if (player.getPosition().getPos() < startPosition && startPosition <= newPosition) {
             // Player has passed the start tile, give them the start bonus
             Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
@@ -106,18 +106,18 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
                 .findFirst().get();
 
         if (landedTile.getType() == TileType.JAIL && player.getRemainingTurnsInPrison() > 0) {
-            player.useGetOutOfJailFreeCard();
+            player.getInventory().useGetOutOfJailFreeCard();
         }
 
        if(player.getRemainingTurnsInPrison() > 0){
             if (hasRolledDouble) {
                 player.resetRemainingTurnsInPrison();
-                player.updatePositionDuringGame(newPosition);
+                player.getPosition().updatePosition(newPosition);
             } else {
                 player.decreaseRemainingTurnsInPrison();
             }
         } else {
-            player.updatePositionDuringGame(newPosition);
+            player.getPosition().updatePosition(newPosition);
         }
 
 
