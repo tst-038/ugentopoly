@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.logic.TurnHandler;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.cards.Card;
 import be.ugent.objprog.ugentopoly.model.cards.Deck;

@@ -5,7 +5,6 @@ import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.RentPaidLog;
-import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
@@ -25,7 +24,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Buyable, Rentable  {
+public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Buyable, Rentable {
 
     private final int price;
     private Player owner;
@@ -62,7 +61,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public void onVisit(Player player) {
-        if(owner == player){
+        if (owner == player) {
             return;
         }
 
@@ -96,7 +95,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getRent() {
-        return game.getDiceHandler().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 :10);
+        return game.getDiceHandler().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 : 10);
     }
 
     @Override
@@ -111,10 +110,10 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public void payRent(Player player, Bank bank) {
-            try {
-                bank.transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
-                GameLogBook.getInstance().addEntry(new RentPaidLog(player, this));
-            } catch (InsufficientFundsException ignored) {
-            }
+        try {
+            bank.transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
+            GameLogBook.getInstance().addEntry(new RentPaidLog(player, this));
+        } catch (InsufficientFundsException ignored) {
         }
+    }
 }

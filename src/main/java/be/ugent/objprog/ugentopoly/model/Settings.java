@@ -24,18 +24,18 @@ public class Settings {
         return instance;
     }
 
-    // Method to initialize the settings
-    public void initialize(int startingBalance, int startBonus) {
-        this.startingBalance = startingBalance;
-        this.startBonus = startBonus;
-    }
-
     public static String getMoneyUnit() {
         return String.valueOf(MONEY_UNIT);
     }
 
     public static int getDoubleRollsToJail() {
         return DOUBLE_ROLLS_TO_JAIL;
+    }
+
+    // Method to initialize the settings
+    public void initialize(int startingBalance, int startBonus) {
+        this.startingBalance = startingBalance;
+        this.startBonus = startBonus;
     }
 
     public int getStartingBalance() {

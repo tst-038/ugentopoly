@@ -15,10 +15,19 @@ public class MoneyAnimation {
     private static final String MONEY_IMAGE_URL = "assets/money.png"; // URL of the money image
     private static final int SCREEN_WIDTH = 850; // width of the screen
     private static final int SCREEN_HEIGHT = 850; // height of the screen
-    private int cycleCount;
+    private final int cycleCount;
 
-    public MoneyAnimation(int cycleCount){
-        this.cycleCount =   cycleCount;
+    public MoneyAnimation(int cycleCount) {
+        this.cycleCount = cycleCount;
+    }
+
+    private static double getRandomFactor(Random random) {
+        double factor = random.nextDouble() * 2 - 1; // generates a number between -1 and 1
+        if (factor == 0) {
+            return getRandomFactor(random); // if the factor is 0, recursively call the method until a non-zero value is generated
+        } else {
+            return factor;
+        }
     }
 
     public void play(Pane pane, int numBills) {
@@ -30,13 +39,13 @@ public class MoneyAnimation {
             moneyBill.setFitHeight(size);
             moneyBill.setPreserveRatio(true);
             moneyBill.setX(random.nextInt(SCREEN_WIDTH));
-            int y = -size - random.nextInt(SCREEN_HEIGHT)*2;
+            int y = -size - random.nextInt(SCREEN_HEIGHT) * 2;
             moneyBill.setY(y); // start offscreen at the top
             moneyBill.setRotate(random.nextInt(360));
 
             TranslateTransition transition = new TranslateTransition(Duration.seconds(10 + random.nextDouble() * 3), moneyBill);
-            transition.setToY(SCREEN_HEIGHT  - y  + 100); // end offscreen at the bottom
-            transition.setToX((random.nextInt(SCREEN_WIDTH))* getRandomFactor(random));
+            transition.setToY(SCREEN_HEIGHT - y + 100); // end offscreen at the bottom
+            transition.setToX((random.nextInt(SCREEN_WIDTH)) * getRandomFactor(random));
             transition.setCycleCount(cycleCount);
 
             // Add a pause before the transition
@@ -45,15 +54,6 @@ public class MoneyAnimation {
 
             pane.getChildren().addFirst(moneyBill); // Make sure the money is below the other nodes
             seqTransition.play();
-        }
-    }
-
-    private static double getRandomFactor(Random random) {
-        double factor = random.nextDouble() * 2 - 1; // generates a number between -1 and 1
-        if (factor == 0) {
-            return getRandomFactor(random); // if the factor is 0, recursively call the method until a non-zero value is generated
-        } else {
-            return factor;
         }
     }
 }

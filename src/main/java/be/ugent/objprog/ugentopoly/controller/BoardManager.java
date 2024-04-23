@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.model.Board;
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
@@ -14,9 +13,9 @@ import javafx.scene.layout.Pane;
 import java.util.Objects;
 
 public class BoardManager {
-    private Board board;
-    private UIUpdater uiUpdater;
-    private TileInfoPaneManager tileInfoPaneManager;
+    private final Board board;
+    private final UIUpdater uiUpdater;
+    private final TileInfoPaneManager tileInfoPaneManager;
     private Pane currentlySelectedTile;
 
     public BoardManager(Board board, UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
@@ -84,7 +83,7 @@ public class BoardManager {
             currentlySelectedTile.getStyleClass().remove("tile-selected");
         }
 
-        if(tileInfoPaneManager.isClosable()){
+        if (tileInfoPaneManager.isClosable()) {
             tilePane.getStyleClass().add("tile-selected");
             currentlySelectedTile = tilePane;
         }

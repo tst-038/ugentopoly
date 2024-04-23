@@ -27,9 +27,11 @@ public class TaxTile extends Tile implements UIUpdatable, LabelUpdatable, ImageU
     public int getAmount() {
         return amount;
     }
+
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("(tile.)|\\d", "") + ".png")));
     }
+
     @Override
     public void accept(TileVisitor visitor, boolean onVisit) {
         visitor.visit(this, onVisit);
@@ -53,8 +55,8 @@ public class TaxTile extends Tile implements UIUpdatable, LabelUpdatable, ImageU
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#tax-pay-button").setOnMouseClicked(event -> {
-                payTax(player, game.getBank());
-                tileInfoPaneManager.setPaneClosableAndHide();
+            payTax(player, game.getBank());
+            tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
 }

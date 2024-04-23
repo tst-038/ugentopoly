@@ -2,29 +2,21 @@ package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.GoToJailLog;
-import be.ugent.objprog.ugentopoly.log.PlayerMoveLog;
-import be.ugent.objprog.ugentopoly.model.cards.Card;
-import be.ugent.objprog.ugentopoly.model.cards.CardType;
-import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
-import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player {
     private static int idCounter = 0;
-    private int id;
-    private String name;
-    private Color color;
     private final IntegerProperty balance;
     private final IntegerProperty networth;
+    private final int id;
+    private String name;
+    private Color color;
     private PlayerPion pion;
-    private PlayerInventory inventory;
-    private PlayerPosition position;
+    private final PlayerInventory inventory;
+    private final PlayerPosition position;
     private int doubleRolls = 0;
     private int remainingTurnsInPrison = 0;
 
@@ -42,17 +34,17 @@ public class Player {
         return remainingTurnsInPrison;
     }
 
+    public void setRemainingTurnsInPrison(int remainingTurnsInPrison) {
+        this.remainingTurnsInPrison = remainingTurnsInPrison;
+        GameLogBook.getInstance().addEntry(new GoToJailLog(this.getName()));
+    }
+
     public void decreaseRemainingTurnsInPrison() {
         this.remainingTurnsInPrison--;
     }
 
     public void resetRemainingTurnsInPrison() {
         this.remainingTurnsInPrison = 0;
-    }
-
-    public void setRemainingTurnsInPrison(int remainingTurnsInPrison) {
-        this.remainingTurnsInPrison = remainingTurnsInPrison;
-        GameLogBook.getInstance().addEntry(new GoToJailLog(this.getName()));
     }
 
     public void addDoubleRoll() {
@@ -67,16 +59,16 @@ public class Player {
         return doubleRolls;
     }
 
-   public int getId() {
+    public int getId() {
         return id;
-    }
-
-    public void setName(String name) {
-        this.name = name.strip();
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name.strip();
     }
 
     public IntegerProperty balanceProperty() {
@@ -103,13 +95,13 @@ public class Player {
         this.color = color;
     }
 
+    public PlayerPion getPion() {
+        return pion;
+    }
+
     public void setPion(PlayerPion pion) {
         getPosition().removeListener(this.pion);
         this.pion = pion;
-    }
-
-    public PlayerPion getPion() {
-        return pion;
     }
 
     public PlayerInventory getInventory() {

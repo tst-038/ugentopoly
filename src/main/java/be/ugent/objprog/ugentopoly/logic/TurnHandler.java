@@ -5,8 +5,6 @@ import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PassedStartLog;
-import be.ugent.objprog.ugentopoly.model.Bank;
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
@@ -16,11 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
-    private Game game;
+    private final Game game;
     private int currentPlayerIndex;
     private boolean gameOver;
-    private PlayerManager playerManager;
-    private GameOverController gameOverController;
+    private final PlayerManager playerManager;
+    private final GameOverController gameOverController;
 
     public TurnHandler(Game game, PlayerManager playerManager, GameOverController gameOverController) {
         this.game = game;
@@ -41,7 +39,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
     }
 
     private boolean isGameOver() {
-       return gameOver;
+        return gameOver;
     }
 
     @Override
@@ -101,7 +99,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             player.getInventory().useGetOutOfJailFreeCard();
         }
 
-       if(player.getRemainingTurnsInPrison() > 0){
+        if (player.getRemainingTurnsInPrison() > 0) {
             if (hasRolledDouble) {
                 player.resetRemainingTurnsInPrison();
                 player.getPosition().updatePosition(newPosition);
@@ -113,12 +111,11 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         }
 
 
-
         // Check if the player rolled a double if not disable the current player and enable the next player
         // Check if the player landed on the go to jail tile
         // if so go on to next player without letting throw second time
         boolean landedTileIsGoToJail = game.getGameState().getBoard().getTiles().stream().anyMatch(tile -> tile.getPosition() == newPosition && tile.getType() == TileType.GO_TO_JAIL);
-        if (!hasRolledDouble || landedTileIsGoToJail){
+        if (!hasRolledDouble || landedTileIsGoToJail) {
             playerManager.setPlayerPanelToInactive(getCurrentPlayer());
             currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
             playerManager.setPlayerPanelToActive(getCurrentPlayer());

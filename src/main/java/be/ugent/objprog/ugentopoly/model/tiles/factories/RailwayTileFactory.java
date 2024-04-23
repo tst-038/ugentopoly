@@ -5,7 +5,7 @@ import be.ugent.objprog.ugentopoly.model.tiles.RailwayTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import org.jdom2.Element;
 
-public class RailwayTileFactory  implements TileFactory {
+public class RailwayTileFactory implements TileFactory {
     @Override
     public Tile createTile(Element element, Game game) {
         return new RailwayTile(element.getAttributeValue("id"), Integer.parseInt(element.getAttributeValue("position")),

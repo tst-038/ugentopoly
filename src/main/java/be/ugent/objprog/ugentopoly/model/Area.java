@@ -9,7 +9,7 @@ import java.util.ListIterator;
 public class Area {
     private final String id;
     private final String color;
-    private List<StreetTile> tiles;
+    private final List<StreetTile> tiles;
 
     public Area(String id, String color) {
         this.id = id;
@@ -40,7 +40,7 @@ public class Area {
         Player player = tiles.getFirst().getOwner();
         ListIterator<StreetTile> iterator = tiles.listIterator();
         boolean allOwnedBySamePlayer = true;
-        while(iterator.hasNext() && allOwnedBySamePlayer) {
+        while (iterator.hasNext() && allOwnedBySamePlayer) {
             Player nextPlayer = iterator.next().getOwner();
             if (nextPlayer == null || !nextPlayer.equals(player)) {
                 allOwnedBySamePlayer = false;

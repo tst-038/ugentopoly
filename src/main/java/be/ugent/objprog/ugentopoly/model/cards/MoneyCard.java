@@ -2,13 +2,10 @@ package be.ugent.objprog.ugentopoly.model.cards;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 
-import java.util.List;
-
 public class MoneyCard extends Card {
-    private int amount;
+    private final int amount;
 
     public MoneyCard(String id, int amount, Deck deck) {
         super(id, String.format(PropertyReader.getInstance().get("card.money_card"), amount), CardType.MONEY, deck);

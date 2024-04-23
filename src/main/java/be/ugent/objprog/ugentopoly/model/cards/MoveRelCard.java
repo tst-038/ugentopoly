@@ -4,10 +4,8 @@ import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 
-import java.util.List;
-
 public class MoveRelCard extends Card {
-    private int relative;
+    private final int relative;
 
     public MoveRelCard(String id, int relative, Deck deck) {
         super(id, String.format(PropertyReader.getInstance().get("card.move_rel_card"), relative), CardType.MOVEREL, deck);

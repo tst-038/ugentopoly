@@ -8,11 +8,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
-import java.util.Optional;
 
 public class Bank {
-    private Game game;
-    private SimpleIntegerProperty jackpotBalance;
+    private final Game game;
+    private final SimpleIntegerProperty jackpotBalance;
 
     public Bank(Game game) {
         this.game = game;
@@ -94,7 +93,7 @@ public class Bank {
         } catch (InsufficientFundsException e) {
             // This should never happen
             throw new RuntimeException("Player has insufficient funds, but should have enough to withdraw remaining balance");
-        }finally {
+        } finally {
             game.getGameState().notifyGameOverListeners(player);
         }
     }

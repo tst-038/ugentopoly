@@ -48,6 +48,7 @@ public class StartController {
 
     private List<Player> players;
     private ObservableList<Image> availablePions;
+
     @FXML
     private void initialize() {
         players = new ArrayList<>();
@@ -78,7 +79,7 @@ public class StartController {
         }
     }
 
-    private void updateText(){
+    private void updateText() {
         updatePlayerFields(2);
         playButton.setText(PropertyReader.getInstance().get("button.play"));
         playerAmountTitle.setText(PropertyReader.getInstance().get("label.player_amount_title"));
@@ -114,8 +115,7 @@ public class StartController {
 
     private void initializePionComboBoxes() {
         for (Node node : playerFieldsContainer.getChildren()) {
-            if (node instanceof AnchorPane) {
-                AnchorPane playerFieldPane = (AnchorPane) node;
+            if (node instanceof AnchorPane playerFieldPane) {
                 ComboBox<Image> pionComboBox = (ComboBox<Image>) playerFieldPane.getChildren().get(2);
                 initializePionComboBox(pionComboBox);
             }
@@ -208,8 +208,6 @@ public class StartController {
                 initializePionComboBox(pionComboBox);
 
 
-
-
                 Player player;
                 if (i < players.size()) {
                     player = players.get(i);
@@ -231,7 +229,7 @@ public class StartController {
                 });
 
                 pionComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                    player.setPion(new PlayerPion(player,newValue));
+                    player.setPion(new PlayerPion(player, newValue));
                     updateNotUniqueLabels();
                 });
 

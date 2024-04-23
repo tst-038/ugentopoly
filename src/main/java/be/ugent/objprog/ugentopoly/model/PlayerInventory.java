@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerInventory {
-    private List<Card> cards;
+    private final List<Card> cards;
     private int ownedRailways;
     private int ownedUtilities;
 

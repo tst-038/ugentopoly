@@ -4,9 +4,7 @@ import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.BoardReader;
 import be.ugent.objprog.ugentopoly.data.readers.CardsReader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
 import java.util.List;
 

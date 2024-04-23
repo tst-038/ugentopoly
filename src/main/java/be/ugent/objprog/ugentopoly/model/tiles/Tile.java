@@ -4,7 +4,6 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -14,12 +13,12 @@ import java.net.URL;
 
 public abstract class Tile implements Visitable {
 
+    protected final Game game;
     private final String id;
     private final int position;
     private final TileType type;
-    private String name;
     private final Orientation orientation;
-    protected final Game game;
+    private String name;
 
     protected Tile(String id, int position, TileType type, Game game) {
         this.id = id.replace("tile.", "");

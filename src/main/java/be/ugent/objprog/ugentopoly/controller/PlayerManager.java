@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.controller;
 
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
@@ -15,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 public class PlayerManager {
-    private Game game;
-    private List<Player> players;
-    private UIUpdater uiUpdater;
-    private Map<Player, PlayerPion> playerPionMap;
-    private AnchorPane rootPane;
+    private final Game game;
+    private final List<Player> players;
+    private final UIUpdater uiUpdater;
+    private final Map<Player, PlayerPion> playerPionMap;
+    private final AnchorPane rootPane;
 
     public PlayerManager(Game game, UIUpdater uiUpdater, AnchorPane rootPane) {
         this.game = game;

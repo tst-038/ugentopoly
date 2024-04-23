@@ -3,8 +3,6 @@ package be.ugent.objprog.ugentopoly.model.cards;
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Player;
 
-import java.util.List;
-
 public abstract class Card {
     protected String id;
     protected String description;

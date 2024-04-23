@@ -23,7 +23,7 @@ public class GameLogBook {
         return entries;
     }
 
-    public void addEntry(Log entry){
+    public void addEntry(Log entry) {
         entries.add(entry);
     }
 }

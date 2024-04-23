@@ -1,10 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 
@@ -23,13 +21,14 @@ public class PlayersMoneyCard extends Card {
         List<Player> players = game.getPlayers();
         players.forEach(p -> {
             if (!p.equals(player)) {
-                try{
-                    if(amount > 0) {
+                try {
+                    if (amount > 0) {
                         game.getBank().transfer(p, player, amount, TransactionPriority.HIGH);
                     } else {
                         game.getBank().transfer(player, p, amount, TransactionPriority.HIGH);
                     }
-                } catch (InsufficientFundsException ignored) {}
+                } catch (InsufficientFundsException ignored) {
+                }
             }
         });
         player.getInventory().removeCard(this);

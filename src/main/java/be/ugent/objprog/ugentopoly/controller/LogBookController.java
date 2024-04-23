@@ -34,7 +34,7 @@ public class LogBookController {
 
         logTableView.setItems(logBook.getEntries());
         logTableView.getChildrenUnmodifiable().forEach(node -> {
-            if (node instanceof ScrollPane scrollPane){
+            if (node instanceof ScrollPane scrollPane) {
                 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             }
         });

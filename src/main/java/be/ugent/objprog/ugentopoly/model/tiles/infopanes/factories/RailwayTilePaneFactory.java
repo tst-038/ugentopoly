@@ -1,13 +1,9 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.RailwayTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 
 public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
     @Override

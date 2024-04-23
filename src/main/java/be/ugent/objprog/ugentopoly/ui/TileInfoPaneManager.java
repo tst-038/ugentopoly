@@ -6,8 +6,8 @@ import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneManager {
-    private AnchorPane tileInfoPane;
-    private TileInfoPaneVisitor tileInfoPaneUpdater;
+    private final AnchorPane tileInfoPane;
+    private final TileInfoPaneVisitor tileInfoPaneUpdater;
     private boolean isClosable;
 
     public TileInfoPaneManager(AnchorPane tileInfoPane, Game game) {
@@ -17,7 +17,7 @@ public class TileInfoPaneManager {
     }
 
     public void showTileInfo(Tile tile, boolean onVisit) {
-        if (tile != null && !isClosable){
+        if (tile != null && !isClosable) {
             return;
         }
         tile.accept(tileInfoPaneUpdater, onVisit);
@@ -35,12 +35,12 @@ public class TileInfoPaneManager {
         }
     }
 
-    public void setPaneClosableAndHide(){
+    public void setPaneClosableAndHide() {
         isClosable = true;
         hideTileInfoPane();
     }
 
-    public boolean isClosable(){
+    public boolean isClosable() {
         return isClosable;
     }
 }

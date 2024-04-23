@@ -20,7 +20,7 @@ public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, Image
     }
 
     public Image getImage() {
-        return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") +".png")));
+        return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") + ".png")));
     }
 
     @Override

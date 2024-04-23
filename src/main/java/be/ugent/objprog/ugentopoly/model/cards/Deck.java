@@ -12,7 +12,7 @@ public class Deck {
     private static Deck chanceDeck;
     private static Deck communityChestDeck;
 
-    private List<Card> cards;
+    private final List<Card> cards;
 
     private Deck() {
         this.cards = new ArrayList<>();

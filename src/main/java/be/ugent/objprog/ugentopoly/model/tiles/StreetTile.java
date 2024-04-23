@@ -3,7 +3,6 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Area;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
@@ -78,7 +77,7 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
     @Override
     public void onVisit(Player player) {
-        if(owner == player){
+        if (owner == player) {
             return;
         }
         TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();

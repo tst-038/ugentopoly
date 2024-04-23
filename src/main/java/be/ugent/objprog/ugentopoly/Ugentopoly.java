@@ -46,13 +46,6 @@ public class Ugentopoly extends Application {
         Ugentopoly.primaryStage = primaryStage;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        SettingsReader.readSettings();
-        Ugentopoly.setPrimaryStage(primaryStage);
-        showStartWindow();
-    }
-
     public static void showStartWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
@@ -81,5 +74,12 @@ public class Ugentopoly extends Application {
         } catch (IOException e) {
             throw new UIInitializationException("Failed to set the icon", e);
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        SettingsReader.readSettings();
+        Ugentopoly.setPrimaryStage(primaryStage);
+        showStartWindow();
     }
 }

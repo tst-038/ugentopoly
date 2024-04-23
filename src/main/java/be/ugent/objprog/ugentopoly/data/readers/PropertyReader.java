@@ -12,7 +12,6 @@ import java.util.Properties;
 public class PropertyReader {
 
     private static final PropertyReader instance;
-    private final Properties properties;
 
     static {
         try {
@@ -22,6 +21,8 @@ public class PropertyReader {
             throw new PropertyReadException("Failed to read properties file", e);
         }
     }
+
+    private final Properties properties;
 
     private PropertyReader(InputStream input) throws IOException {
         properties = new Properties();
@@ -36,8 +37,11 @@ public class PropertyReader {
         return properties.getProperty("tile." + id);
     }
 
-    public String getTileDescription(String id){
+    public String getTileDescription(String id) {
         return properties.getProperty("tile." + id + ".description");
     }
-    public String get(String id) { return properties.getProperty(id);}
+
+    public String get(String id) {
+        return properties.getProperty(id);
+    }
 }

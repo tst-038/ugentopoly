@@ -22,9 +22,9 @@ import java.util.Objects;
 
 public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable, Buyable, Rentable {
 
-    private Player owner;
     private final int price;
     private final int rent;
+    private Player owner;
 
     public RailwayTile(String id, int position, int cost, int rent, Game game) {
         super(id, position, TileType.RAILWAY, game);
@@ -36,7 +36,9 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
         return price;
     }
 
-    public int getRent() { return rent;}
+    public int getRent() {
+        return rent;
+    }
 
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("(tile.)|\\d", "") + ".png")));
@@ -74,14 +76,14 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     }
 
     @Override
-    public void buy(Player player, Bank bank, UIUpdater uiUpdater){
+    public void buy(Player player, Bank bank, UIUpdater uiUpdater) {
         Buyable.super.buy(player, bank, uiUpdater);
         player.getInventory().addOwnedRailway();
     }
 
     @Override
     public void onVisit(Player player) {
-        if (owner == player){
+        if (owner == player) {
             return;
         }
         TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();

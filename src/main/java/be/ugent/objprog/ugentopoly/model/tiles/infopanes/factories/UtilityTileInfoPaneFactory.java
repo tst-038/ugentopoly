@@ -13,7 +13,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         UtilityTile utilityTile = (UtilityTile) tile;
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
 
-        addTitleLabelWithImage(tileInfoPane, utilityTile.getName(), "utility-title", 20.0, getTileImageView("assets/"+utilityTile.getId()+".png"));
+        addTitleLabelWithImage(tileInfoPane, utilityTile.getName(), "utility-title", 20.0, getTileImageView("assets/" + utilityTile.getId() + ".png"));
         addOwnerInfo(tileInfoPane, utilityTile, onVisit, game);
 
         return tileInfoPane;

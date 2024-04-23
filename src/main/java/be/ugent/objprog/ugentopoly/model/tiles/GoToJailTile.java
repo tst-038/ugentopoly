@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
@@ -21,9 +20,11 @@ public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, I
     public GoToJailTile(String id, int position, Game game) {
         super(id, position, TileType.GO_TO_JAIL, game);
     }
+
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/go_to_jail.png")));
     }
+
     @Override
     public void accept(TileVisitor visitor, boolean onVisit) {
         visitor.visit(this, onVisit);
@@ -47,8 +48,8 @@ public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, I
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            Optional<Tile> jail = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType()== TileType.JAIL).findFirst();
-            if(jail.isPresent()){
+            Optional<Tile> jail = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.JAIL).findFirst();
+            if (jail.isPresent()) {
                 player.getPosition().updatePosition(jail.get().getPosition());
                 player.setRemainingTurnsInPrison(3);
             }

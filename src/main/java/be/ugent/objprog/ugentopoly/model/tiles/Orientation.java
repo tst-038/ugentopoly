@@ -19,14 +19,6 @@ public enum Orientation {
         this.defaultRotation = defaultRotation;
     }
 
-    public int getRotation() {
-        return defaultRotation;
-    }
-
-    public String getDirectoryName() {
-        return directoryName;
-    }
-
     public static Orientation getOrientation(int position) {
         return switch (position) {
             case 0 -> CORNER_1;
@@ -44,5 +36,13 @@ public enum Orientation {
                 };
             }
         };
+    }
+
+    public int getRotation() {
+        return defaultRotation;
+    }
+
+    public String getDirectoryName() {
+        return directoryName;
     }
 }

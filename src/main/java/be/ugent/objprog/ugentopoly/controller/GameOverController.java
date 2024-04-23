@@ -5,8 +5,6 @@ import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -30,7 +28,7 @@ public class GameOverController {
 
     //TODO move stuff to properties file
 
-    private void init(Node rootPane){
+    private void init(Node rootPane) {
         List<Player> playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
@@ -39,7 +37,7 @@ public class GameOverController {
             pion.setImage(p.getPion().getImage());
             pos.setGraphic(pion);
             pos.setTextFill(p.getColor());
-            pos.setText(p.getName()+ "\n" + p.getBalance());
+            pos.setText(p.getName() + "\n" + p.getBalance());
         }
     }
 
@@ -88,11 +86,11 @@ public class GameOverController {
         }
     }
 
-    private void playAgain(){
+    private void playAgain() {
         Ugentopoly.showStartWindow();
     }
 
-    private void closeApplication(){
+    private void closeApplication() {
         Platform.exit();
     }
 }

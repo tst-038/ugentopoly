@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PlayerPosition {
-    private Player player;
+    private final Player player;
     private int position;
-    private List<PositionListener> listeners;
+    private final List<PositionListener> listeners;
     private Board board;
 
     public PlayerPosition(Player player) {

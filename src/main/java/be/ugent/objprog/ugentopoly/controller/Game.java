@@ -14,16 +14,16 @@ import javafx.scene.layout.AnchorPane;
 import java.util.List;
 
 public class Game {
-    private List<Player> players;
-    private UIUpdater uiUpdater;
-    private PlayerManager playerManager;
-    private BoardManager boardManager;
-    private TurnHandler turnHandler;
-    private DiceHandler diceHandler;
-    private LogbookManager logbookManager;
-    private TileInfoPaneManager tileInfoPaneManager;
-    private GameState gameState;
-    private Bank bank;
+    private final List<Player> players;
+    private final UIUpdater uiUpdater;
+    private final PlayerManager playerManager;
+    private final BoardManager boardManager;
+    private final TurnHandler turnHandler;
+    private final DiceHandler diceHandler;
+    private final LogbookManager logbookManager;
+    private final TileInfoPaneManager tileInfoPaneManager;
+    private final GameState gameState;
+    private final Bank bank;
 
     public Game(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Group logbookRoot) {
         this.players = players;
@@ -46,7 +46,7 @@ public class Game {
         uiUpdater.initializeDices(diceHandler.getDiceDialog());
     }
 
-    public void startGame(AnchorPane rootPane){
+    public void startGame(AnchorPane rootPane) {
         boardManager.initializeBoard(rootPane);
         playerManager.initializePlayers(rootPane);
         bank.initializeBalances(playerManager.getPlayers());

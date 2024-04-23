@@ -7,7 +7,6 @@ import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.model.tiles.factories.*;
-import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 public class BoardReader {
-
 
 
     public static List<Tile> readTiles(List<Area> areas, Game game) {

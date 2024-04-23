@@ -43,7 +43,7 @@ public class TileInfoPaneVisitor implements TileVisitor {
 
     @Override
     public void visit(ChanceTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new ChanceTileInfoPaneFactory(),  onVisit);
+        updateTileInfoPane(tile, new ChanceTileInfoPaneFactory(), onVisit);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TileInfoPaneVisitor implements TileVisitor {
     }
 
     @Override
-    public void visit(StartTile tile, boolean onVisit){
+    public void visit(StartTile tile, boolean onVisit) {
         updateTileInfoPane(tile, new StartTileInfoPaneFactory(), onVisit);
     }
 }

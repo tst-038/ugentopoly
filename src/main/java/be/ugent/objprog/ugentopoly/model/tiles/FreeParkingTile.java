@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
@@ -21,9 +20,11 @@ public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable
     public FreeParkingTile(String id, int position, Game game) {
         super(id, position, TileType.FREE_PARKING, game);
     }
+
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/free_parking.png")));
     }
+
     @Override
     public void accept(TileVisitor visitor, boolean onVisit) {
         visitor.visit(this, onVisit);
