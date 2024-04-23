@@ -11,25 +11,36 @@ import org.jdom2.input.SAXBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SettingsReader {
+public class SettingsReader implements XmlReader{
+    private static SettingsReader instance;
 
     private SettingsReader() {
-        throw new IllegalStateException("Utility class");
+        // Private constructor to hide the implicit one
     }
 
-    public static void readSettings() {
+    public static SettingsReader getInstance() {
+        if (instance == null) {
+            instance = new SettingsReader();
+        }
+        return instance;
+    }
+
+    public void readSettings() {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
-            SAXBuilder builder = new SAXBuilder();
-            Document document = builder.build(xmlInputStream);
-            Element root = document.getRootElement();
-            Element settingsElement = root.getChild("settings");
+            Document document = parseXml(xmlInputStream);
+            Element root = getRootElement(document);
+            Element settingsElement = getChildElement(root, "settings");
 
-            int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
-            int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
-
-            Settings.getInstance().initialize(balance, start);
+            parseSettings(settingsElement);
         } catch (IOException | JDOMException e) {
             throw new SettingReadException("Failed to read settings information from XML file", e);
         }
+    }
+
+    private void parseSettings(Element settingsElement) {
+        int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
+        int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
+
+        Settings.getInstance().initialize(balance, start);
     }
 }

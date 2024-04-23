@@ -78,7 +78,7 @@ public class Ugentopoly extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SettingsReader.readSettings();
+        SettingsReader.getInstance().readSettings();
         Ugentopoly.setPrimaryStage(primaryStage);
         showStartWindow();
     }

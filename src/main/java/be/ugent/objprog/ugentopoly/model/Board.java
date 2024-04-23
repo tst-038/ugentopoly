@@ -17,9 +17,8 @@ public class Board {
     // Reads the areas, tiles and settings from the XML files
     // Reads and sets the names of the tiles from the properties file
     public void init(Game game) {
-        BoardReader boardReader = new BoardReader();
-        areas = boardReader.readAreas();
-        tiles = BoardReader.readTiles(areas, game);
+        areas = BoardReader.getInstance().readAreas();
+        tiles = BoardReader.getInstance().readTiles(areas, game);
 
         PropertyReader propertyReader = PropertyReader.getInstance();
         for (Tile tile : tiles) {
@@ -27,7 +26,7 @@ public class Board {
             tile.setName(tileName);
         }
 
-        new CardsReader().readCards();
+        CardsReader.getInstance().readCards();
     }
 
     public List<Area> getAreas() {
