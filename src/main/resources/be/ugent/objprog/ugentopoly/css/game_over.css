@@ -8,6 +8,23 @@
 
 /* Style labels */
 .label {
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 4px 8px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+.button:pressed {
+    -fx-background-color: #1a1a1a;
 }

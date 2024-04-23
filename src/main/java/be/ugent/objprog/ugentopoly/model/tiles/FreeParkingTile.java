@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
@@ -17,8 +18,8 @@ import javafx.scene.layout.Pane;
 import java.util.Objects;
 
 public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
-    public FreeParkingTile(String id, int position) {
-        super(id, position, TileType.FREE_PARKING);
+    public FreeParkingTile(String id, int position, Game game) {
+        super(id, position, TileType.FREE_PARKING, game);
     }
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/free_parking.png")));
@@ -41,13 +42,14 @@ public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable
 
     @Override
     public void onVisit(Player player) {
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         Button claim = (Button) pane.lookup("#claim-button");
         claim.setOnMouseClicked(event -> {
-            Bank.getInstance().claimJackpot(player);
-            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+            game.getBank().claimJackpot(player);
+            tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
 }

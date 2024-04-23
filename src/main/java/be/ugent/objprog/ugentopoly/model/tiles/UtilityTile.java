@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.RentPaidLog;
@@ -29,8 +30,8 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     private final int price;
     private Player owner;
 
-    public UtilityTile(String id, int position, int cost) {
-        super(id, position, TileType.UTILITY);
+    public UtilityTile(String id, int position, int cost, Game game) {
+        super(id, position, TileType.UTILITY, game);
         this.price = cost;
     }
 
@@ -64,24 +65,26 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
         if(owner == player){
             return;
         }
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                payRent(player, game.getBank());
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player);
+                buy(player, game.getBank(), game.getUIUpdater());
                 player.getInventory().addOwnedUtility();
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
-            buy.setDisable(!Bank.getInstance().hasSufficientBalance(player, getPrice()));
+            buy.setDisable(!game.getBank().hasSufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> {
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         }
     }
@@ -93,7 +96,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
     @Override
     public int getRent() {
-        return DiceHandler.getInstance().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 :10);
+        return game.getDiceHandler().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 :10);
     }
 
     @Override
@@ -107,9 +110,9 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     }
 
     @Override
-    public void payRent(Player player) {
+    public void payRent(Player player, Bank bank) {
             try {
-                Bank.getInstance().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
+                bank.transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
                 GameLogBook.getInstance().addEntry(new RentPaidLog(player, this));
             } catch (InsufficientFundsException ignored) {
             }

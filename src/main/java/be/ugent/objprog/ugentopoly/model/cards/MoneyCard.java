@@ -1,8 +1,11 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
+
+import java.util.List;
 
 public class MoneyCard extends Card {
     private int amount;
@@ -13,11 +16,11 @@ public class MoneyCard extends Card {
     }
 
     @Override
-    public void execute(Player player) {
+    public void execute(Player player, Game game) {
         if (amount > 0) {
-            Bank.getInstance().deposit(player, amount);
+            game.getBank().deposit(player, amount);
         } else {
-            Bank.getInstance().transferToJackpot(player, -amount);
+            game.getBank().transferToJackpot(player, -amount);
         }
 
         player.getInventory().removeCard(this);

@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -26,8 +27,8 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
     private final int rent;
     private Player owner;
 
-    public StreetTile(String id, int position, int cost, Area area, int rent) {
-        super(id, position, TileType.STREET);
+    public StreetTile(String id, int position, int cost, Area area, int rent, Game game) {
+        super(id, position, TileType.STREET, game);
         this.cost = cost;
         this.area = area;
         this.rent = rent;
@@ -80,23 +81,24 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
         if(owner == player){
             return;
         }
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                payRent(player, game.getBank());
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                buy(player, game.getBank(), game.getUIUpdater());
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
-            buy.setDisable(!Bank.getInstance().hasSufficientBalance(player, getPrice()));
+            buy.setDisable(!game.getBank().hasSufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> {
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         }
     }

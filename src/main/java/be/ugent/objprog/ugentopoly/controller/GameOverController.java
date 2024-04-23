@@ -4,24 +4,34 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class GameOverController {
+    private Game game;
+
+    public GameOverController() {
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     //TODO move stuff to properties file
 
-    private static void initialize(Node rootPane){
-        List<Player> playersByMoney = PlayerManager.getInstance().getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
+    private void init(Node rootPane){
+        List<Player> playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));
@@ -33,10 +43,12 @@ public class GameOverController {
         }
     }
 
-    public static void showGameOverAlert() {
+    public void showGameOverAlert() {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/game_over.fxml"));
             Parent root = loader.load();
+            GameOverController controller = loader.getController();
+            controller.setGame(game);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game Over");
@@ -51,10 +63,36 @@ public class GameOverController {
             MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
             moneyAnimation.play((Pane) content, 20);
 
-           initialize(content);
-           alert.showAndWait();
+            Button playAgainButton = (Button) root.lookup("#playAgainButton");
+            playAgainButton.setOnAction(e -> {
+                alert.setResult(ButtonType.OK);
+                alert.close();
+            });
+
+            Button closeButton = (Button) root.lookup("#closeButton");
+            closeButton.setOnAction(e -> {
+                alert.setResult(ButtonType.CANCEL);
+                alert.close();
+            });
+
+            init(content);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                playAgain();
+            } else {
+                closeApplication();
+            }
         } catch (Exception e) {
-            throw new UIInitializationException("Failed to initialize the start window", e);
+            throw new UIInitializationException("Failed to initialize the game over window", e);
         }
+    }
+
+    private void playAgain(){
+        Ugentopoly.showStartWindow();
+    }
+
+    private void closeApplication(){
+        Platform.exit();
     }
 }

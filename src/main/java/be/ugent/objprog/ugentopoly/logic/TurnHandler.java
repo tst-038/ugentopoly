@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.logic;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
@@ -15,32 +16,23 @@ import java.util.List;
 import java.util.Optional;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
-
-    private static TurnHandler instance;
+    private Game game;
     private int currentPlayerIndex;
     private boolean gameOver;
     private PlayerManager playerManager;
+    private GameOverController gameOverController;
 
-    private TurnHandler(PlayerManager playerManager) {
+    public TurnHandler(Game game, PlayerManager playerManager, GameOverController gameOverController) {
+        this.game = game;
         currentPlayerIndex = 0;
         this.playerManager = playerManager;
-    }
-
-    public static TurnHandler getInstance(PlayerManager playerManager) {
-        if (instance == null) {
-            instance = new TurnHandler(playerManager);
-        }
-        return instance;
-    }
-
-    public static TurnHandler getInstance() {
-        return instance;
+        this.gameOverController = gameOverController;
     }
 
     public void startGame() {
         // Initialize the game state and start the game loop
-        GameState.getInstance().addGameOverListener(this);
-        DiceHandler.getInstance().addDiceRolledListener(this);
+        game.getGameState().addGameOverListener(this);
+        game.getDiceHandler().addDiceRolledListener(this);
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }
 
@@ -52,15 +44,15 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
        return gameOver;
     }
 
-
     @Override
     public void onGameOver(Player player) {
         gameOver = true;
-        GameOverController.showGameOverAlert();
+        gameOverController.showGameOverAlert();
     }
 
     @Override
     public void onDiceRolled(Player player, List<Integer> rolls) {
+        System.out.println("has rolled " + player.getName());
         int diceResult = rolls.stream().mapToInt(Integer::intValue).sum();
         boolean hasRolledDouble = rolls.get(0).equals(rolls.get(1));
 
@@ -72,7 +64,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             if (player.getDoubleRolls() == Settings.getDoubleRollsToJail()) {
                 player.setRemainingTurnsInPrison(Settings.getDoubleRollsToJail());
                 player.resetDoubleRolls();
-                Optional<Tile> jailTile = GameState.getInstance().getBoard().getTiles().stream()
+                Optional<Tile> jailTile = game.getGameState().getBoard().getTiles().stream()
                         .filter(tile -> tile.getType() == TileType.JAIL)
                         .findFirst();
                 jailTile.ifPresent(tile -> player.getPosition().updatePosition(tile.getPosition()));
@@ -89,19 +81,19 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         }
 
         // Move the player's position
-        int newPosition = (player.getPosition().getPos() + diceResult) % GameState.getInstance().getBoard().getTiles().size();
-        int startPosition = GameState.getInstance().getBoard().getTiles().stream()
+        int newPosition = (player.getPosition().getPos() + diceResult) % game.getGameState().getBoard().getTiles().size();
+        int startPosition = game.getGameState().getBoard().getTiles().stream()
                 .filter(tile -> tile.getType() == TileType.START)
                 .map(Tile::getPosition)
                 .findFirst()
                 .orElse(0);
         if (player.getPosition().getPos() < startPosition && startPosition <= newPosition) {
             // Player has passed the start tile, give them the start bonus
-            Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
+            game.getBank().deposit(player, Settings.getInstance().getStartBonus());
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
         }
 
-        Tile landedTile = GameState.getInstance().getBoard().getTiles().stream()
+        Tile landedTile = game.getGameState().getBoard().getTiles().stream()
                 .filter(tile -> tile.getPosition() == newPosition)
                 .findFirst().get();
 
@@ -125,7 +117,7 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         // Check if the player rolled a double if not disable the current player and enable the next player
         // Check if the player landed on the go to jail tile
         // if so go on to next player without letting throw second time
-        boolean landedTileIsGoToJail = GameState.getInstance().getBoard().getTiles().stream().anyMatch(tile -> tile.getPosition() == newPosition && tile.getType() == TileType.GO_TO_JAIL);
+        boolean landedTileIsGoToJail = game.getGameState().getBoard().getTiles().stream().anyMatch(tile -> tile.getPosition() == newPosition && tile.getType() == TileType.GO_TO_JAIL);
         if (!hasRolledDouble || landedTileIsGoToJail){
             playerManager.setPlayerPanelToInactive(getCurrentPlayer());
             currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();

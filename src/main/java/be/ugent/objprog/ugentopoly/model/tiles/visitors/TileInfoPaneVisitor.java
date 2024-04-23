@@ -1,20 +1,23 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.tiles.*;
 import be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories.*;
 import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneVisitor implements TileVisitor {
     private final AnchorPane tileInfoPane;
+    private final Game game;
 
-    public TileInfoPaneVisitor(AnchorPane tileInfoPane) {
+    public TileInfoPaneVisitor(AnchorPane tileInfoPane, Game game) {
         this.tileInfoPane = tileInfoPane;
+        this.game = game;
     }
 
     private void updateTileInfoPane(Tile tile, TileInfoPaneFactory factory, boolean onVisit) {
         tileInfoPane.setVisible(false);
         tileInfoPane.getChildren().clear();
-        AnchorPane infoPane = factory.createTileInfoPane(tile, onVisit);
+        AnchorPane infoPane = factory.createTileInfoPane(tile, onVisit, game);
         this.tileInfoPane.getChildren().add(infoPane);
     }
 

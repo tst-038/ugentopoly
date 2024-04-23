@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.JackpotClaimedLog;
@@ -10,19 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class Bank {
-
-    private static Optional<Bank> instance = Optional.empty();
+    private Game game;
     private SimpleIntegerProperty jackpotBalance;
 
-    private Bank() {
+    public Bank(Game game) {
+        this.game = game;
         this.jackpotBalance = new SimpleIntegerProperty(0);
-    }
-
-    public static Bank getInstance() {
-        return instance.orElseGet(() -> {
-            instance = Optional.of(new Bank());
-            return instance.get();
-        });
     }
 
     public void initializeBalances(List<Player> players) {
@@ -65,7 +59,7 @@ public class Bank {
             deposit(toPlayer, amount);
         } catch (InsufficientFundsException e) {
             handleInsufficientFunds(fromPlayer);
-            GameState.getInstance().notifyGameOverListeners(fromPlayer);
+            game.getGameState().notifyGameOverListeners(fromPlayer);
         }
     }
 
@@ -101,7 +95,7 @@ public class Bank {
             // This should never happen
             throw new RuntimeException("Player has insufficient funds, but should have enough to withdraw remaining balance");
         }finally {
-            GameState.getInstance().notifyGameOverListeners(player);
+            game.getGameState().notifyGameOverListeners(player);
         }
     }
 }

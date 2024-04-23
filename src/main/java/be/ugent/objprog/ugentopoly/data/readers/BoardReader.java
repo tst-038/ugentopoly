@@ -1,11 +1,13 @@
 package be.ugent.objprog.ugentopoly.data.readers;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.data.AreaReadException;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.model.tiles.factories.*;
+import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -22,7 +24,7 @@ public class BoardReader {
 
 
 
-    public static List<Tile> readTiles(List<Area> areas) {
+    public static List<Tile> readTiles(List<Area> areas, Game game) {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(xmlInputStream);
@@ -40,7 +42,7 @@ public class BoardReader {
                     throw new IllegalArgumentException("Unknown tile type: " + type);
                 }
 
-                Tile tile = tileFactory.createTile(tileElement);
+                Tile tile = tileFactory.createTile(tileElement, game);
                 tiles.add(tile);
             }
             return tiles;

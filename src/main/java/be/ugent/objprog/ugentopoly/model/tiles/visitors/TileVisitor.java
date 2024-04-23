@@ -1,10 +1,10 @@
 package be.ugent.objprog.ugentopoly.model.tiles.visitors;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.tiles.*;
 
 public interface TileVisitor {
     void visit(StreetTile tile, boolean onVisit);
-
     void visit(TaxTile tile, boolean onVisit);
     void visit(RailwayTile tile, boolean onVisit);
     void visit(ChestTile tile, boolean onVisit);

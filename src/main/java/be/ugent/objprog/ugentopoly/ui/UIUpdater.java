@@ -2,6 +2,7 @@
 package be.ugent.objprog.ugentopoly.ui;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
@@ -26,22 +27,14 @@ import java.net.URL;
 import java.util.List;
 
 public class UIUpdater {
-    private static UIUpdater instance;
+    private Game game;
     private AnchorPane rootPane;
+    private DiceHandler diceHandler;
 
-    private UIUpdater(AnchorPane rootPane) {
+    public UIUpdater(AnchorPane rootPane, Game game) {
+        this.game = game;
         this.rootPane = rootPane;
-    }
-
-    public static UIUpdater getInstance(AnchorPane rootPane) {
-        if (instance == null) {
-            instance = new UIUpdater(rootPane);
-        }
-        return instance;
-    }
-
-    public static UIUpdater getInstance() {
-        return instance;
+        this.diceHandler = game.getDiceHandler();
     }
 
     public void colorAreaPanes(List<Area> areas) {
@@ -111,7 +104,7 @@ public class UIUpdater {
                 rollDiceButton.setText(PropertyReader.getInstance().get("button.roll_dice"));
                 rollDiceButton.setOnAction(event -> {
                     rollDiceButton.setDisable(true);
-                    DiceHandler.getInstance().rollDice(player);
+                    diceHandler.rollDice(player);
                 });
 
                 ImageView pionImage = (ImageView) playerNode.lookup("#pion");
@@ -131,30 +124,29 @@ public class UIUpdater {
         }
     }
 
-    public void initializeDices(){
+    public void initializeDices(Node diceDialog) {
         AnchorPane dicePane = (AnchorPane) rootPane.lookup("#dicePane");
-        dicePane.getChildren().add(DiceHandler.getInstance().getDiceDialog());
-        AnchorPane.setTopAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
-        AnchorPane.setLeftAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
-        AnchorPane.setRightAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
-        AnchorPane.setBottomAnchor(DiceHandler.getInstance().getDiceDialog(), 0.0);
+        dicePane.getChildren().add(diceDialog);
+        AnchorPane.setTopAnchor(diceDialog, 0.0);
+        AnchorPane.setLeftAnchor(diceDialog, 0.0);
+        AnchorPane.setRightAnchor(diceDialog, 0.0);
+        AnchorPane.setBottomAnchor(diceDialog, 0.0);
     }
 
-
-    public void playerBoughtTile(Player player, Buyable tile){
+    public void playerBoughtTile(Player player, Buyable tile) {
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
         // Only utility tiles dont have a label
-        if(tileName == null){
-            ((AnchorPane)tilePane.lookup("#ownerColor")).setBackground(new Background(new BackgroundFill(player.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        if (tileName == null) {
+            ((AnchorPane) tilePane.lookup("#ownerColor")).setBackground(new Background(new BackgroundFill(player.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
             return;
         }
         tileName.setTextFill(player.getColor());
-        tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize()+2));
+        tileName.setFont(Font.font(tileName.getFont().getFamily(), FontWeight.EXTRA_BOLD, tileName.getFont().getSize() + 2));
     }
 
     public void bindJackpot(){
         Label jackpotLabel = (Label) rootPane.lookup("#jackpot");
-        jackpotLabel.textProperty().bind(Bank.getInstance().getJackpotBalanceProperty().asString(Settings.getMoneyUnit() + "%d"));
+        jackpotLabel.textProperty().bind(game.getBank().getJackpotBalanceProperty().asString(Settings.getMoneyUnit() + "%d"));
     }
 }

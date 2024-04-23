@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
@@ -10,15 +11,15 @@ import javafx.scene.paint.Color;
 
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
         StreetTile streetTile = (StreetTile) tile;
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
 
         addStreetArea(tileInfoPane, streetTile);
         addTitleLabel(tileInfoPane, streetTile);
         addRentInfo(tileInfoPane, streetTile);
         addPriceInfo(tileInfoPane, streetTile);
-        addOwnerInfo(tileInfoPane, streetTile, onVisit);
+        addOwnerInfo(tileInfoPane, streetTile, onVisit, game);
 
         return tileInfoPane;
     }

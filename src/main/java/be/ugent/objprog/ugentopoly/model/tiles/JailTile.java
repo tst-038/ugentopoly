@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
@@ -14,8 +15,8 @@ import java.util.Objects;
 
 public class JailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
 
-    public JailTile(String id, int position) {
-        super(id, position, TileType.JAIL);
+    public JailTile(String id, int position, Game game) {
+        super(id, position, TileType.JAIL, game);
     }
 
     public Image getImage() {

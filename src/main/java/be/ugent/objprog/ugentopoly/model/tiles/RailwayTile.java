@@ -1,11 +1,14 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
+import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.interfaces.Rentable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
+import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import be.ugent.objprog.ugentopoly.ui.interfaces.ImageUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.LabelUpdatable;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
@@ -23,8 +26,8 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     private final int price;
     private final int rent;
 
-    public RailwayTile(String id, int position, int cost, int rent) {
-        super(id, position, TileType.RAILWAY);
+    public RailwayTile(String id, int position, int cost, int rent, Game game) {
+        super(id, position, TileType.RAILWAY, game);
         this.price = cost;
         this.rent = rent;
     }
@@ -71,8 +74,8 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     }
 
     @Override
-    public void buy(Player player) {
-        Buyable.super.buy(player);
+    public void buy(Player player, Bank bank, UIUpdater uiUpdater){
+        Buyable.super.buy(player, bank, uiUpdater);
         player.getInventory().addOwnedRailway();
     }
 
@@ -81,22 +84,23 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
         if (owner == player){
             return;
         }
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                payRent(player, game.getBank());
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                buy(player, game.getBank(), game.getUIUpdater());
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
             pane.lookup("#close-button").setOnMouseClicked(event -> {
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                tileInfoPaneManager.setPaneClosableAndHide();
             });
         }
     }

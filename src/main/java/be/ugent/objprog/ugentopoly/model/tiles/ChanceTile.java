@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
@@ -17,8 +18,8 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable, Visitable {
-    public ChanceTile(String id, int position) {
-        super(id, position, TileType.CHANCE);
+    public ChanceTile(String id, int position, Game game) {
+        super(id, position, TileType.CHANCE, game);
     }
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/" + getId().replaceAll("tile.", "") + ".png")));
@@ -41,12 +42,13 @@ public class ChanceTile extends Tile implements UIUpdatable, LabelUpdatable, Ima
 
     @Override
     public void onVisit(Player player) {
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#close-button").setOnMouseClicked(event -> { // Makes sure that the previous tile info pane is closed and hidden
-            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
-            IntStream.range(0, player.getInventory().getCards().size()).forEachOrdered(i -> player.getInventory().getCards().get(i).execute(player));
+            tileInfoPaneManager.setPaneClosableAndHide();
+            IntStream.range(0, player.getInventory().getCards().size()).forEachOrdered(i -> player.getInventory().getCards().get(i).execute(player, game));
         });
     }
 }

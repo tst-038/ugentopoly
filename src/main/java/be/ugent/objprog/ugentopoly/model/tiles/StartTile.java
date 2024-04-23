@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
@@ -17,8 +18,8 @@ import javafx.scene.layout.Pane;
 import java.util.Objects;
 
 public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
-    public StartTile(String id, int position) {
-        super(id, position, TileType.START);
+    public StartTile(String id, int position, Game game) {
+        super(id, position, TileType.START, game);
     }
 
     public Image getImage() {
@@ -43,12 +44,13 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
     @Override
     public void onVisit(Player player) {
         // No action needed just show infotile
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
 
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            Bank.getInstance().deposit(player, Settings.getInstance().getStartBonus());
-            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+            game.getBank().deposit(player, Settings.getInstance().getStartBonus());
+            tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
 }

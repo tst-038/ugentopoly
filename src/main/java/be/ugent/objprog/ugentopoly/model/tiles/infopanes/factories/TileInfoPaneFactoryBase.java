@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
@@ -22,7 +23,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     protected static final double BUTTON_MARGIN = 10.0;
 
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
         AnchorPane tileInfoPane = new AnchorPane();
         tileInfoPane.setPrefSize(PANE_WIDTH, PANE_HEIGHT);
         return tileInfoPane;
@@ -60,12 +61,12 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         return button;
     }
 
-    protected void addOwnerInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
+    protected void addOwnerInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, Game game) {
         if (tile.getOwner() == null) {
             addForSaleInfo(tileInfoPane, tile, onVisit);
         } else {
             addOwnerLabel(tileInfoPane, tile);
-            addPayRentButton(tileInfoPane, tile, onVisit);
+            addPayRentButton(tileInfoPane, tile, onVisit, game);
         }
     }
 
@@ -93,8 +94,8 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         tileInfoPane.getChildren().add(ownerLabel);
     }
 
-    private void addPayRentButton(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
-        if (onVisit && tile.getOwner() != TurnHandler.getInstance().getCurrentPlayer()) {
+    private void addPayRentButton(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, Game game) {
+        if (onVisit && tile.getOwner() != game.getTurnHandler().getCurrentPlayer()) {
             Button payRentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN, 160.0, null);
             tileInfoPane.getChildren().add(payRentButton);
         }

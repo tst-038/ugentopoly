@@ -22,23 +22,15 @@ public class GameController {
     @FXML
     private AnchorPane tileInfoPane;
 
+    private Game game;
+
     public void initializeGame(List<Player> players) {
-        UIUpdater uiUpdater = UIUpdater.getInstance(rootPane);
-        TileInfoPaneManager tileInfoPaneManager = TileInfoPaneManager.getInstance(tileInfoPane);
-        BoardManager boardManager = BoardManager.getInstance(uiUpdater, tileInfoPaneManager);
-        PlayerManager playerManager = PlayerManager.getInstance(players, uiUpdater, rootPane);
-        LogbookManager logbookManager = LogbookManager.getInstance(logbookRoot);
-
-        uiUpdater.initializeDices();
-        boardManager.initializeBoard(rootPane);
-        playerManager.initializePlayers(rootPane);
-        Bank.getInstance().initializeBalances(players);
-
-        TurnHandler.getInstance(playerManager).startGame();
+        game = new Game(players, rootPane, tileInfoPane, logbookRoot);
+        game.startGame(rootPane);
     }
 
     @FXML
     private void handleLogbookButtonClicked() {
-        LogbookManager.getInstance(logbookRoot).toggleLogbookVisibility();
+        game.toggleLogbookVisibility();
     }
 }

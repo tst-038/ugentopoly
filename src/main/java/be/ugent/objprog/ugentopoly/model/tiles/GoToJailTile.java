@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
@@ -17,8 +18,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable {
-    public GoToJailTile(String id, int position) {
-        super(id, position, TileType.GO_TO_JAIL);
+    public GoToJailTile(String id, int position, Game game) {
+        super(id, position, TileType.GO_TO_JAIL, game);
     }
     public Image getImage() {
         return new Image(Objects.requireNonNull(Ugentopoly.class.getResourceAsStream("assets/go_to_jail.png")));
@@ -41,16 +42,17 @@ public class GoToJailTile extends Tile implements UIUpdatable, LabelUpdatable, I
 
     @Override
     public void onVisit(Player player) {
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            Optional<Tile> jail = GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType()== TileType.JAIL).findFirst();
+            Optional<Tile> jail = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType()== TileType.JAIL).findFirst();
             if(jail.isPresent()){
                 player.getPosition().updatePosition(jail.get().getPosition());
                 player.setRemainingTurnsInPrison(3);
             }
-            TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+            tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
 }

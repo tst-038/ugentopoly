@@ -1,30 +1,19 @@
 package be.ugent.objprog.ugentopoly.ui;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileInfoPaneVisitor;
 import javafx.scene.layout.AnchorPane;
 
 public class TileInfoPaneManager {
-    private static TileInfoPaneManager instance;
     private AnchorPane tileInfoPane;
     private TileInfoPaneVisitor tileInfoPaneUpdater;
     private boolean isClosable;
 
-    private TileInfoPaneManager(AnchorPane tileInfoPane) {
+    public TileInfoPaneManager(AnchorPane tileInfoPane, Game game) {
         this.tileInfoPane = tileInfoPane;
-        this.tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane);
+        this.tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane, game);
         this.isClosable = true;
-    }
-
-    public static TileInfoPaneManager getInstance(AnchorPane tileInfoPane) {
-        if (instance == null) {
-            instance = new TileInfoPaneManager(tileInfoPane);
-        }
-        return instance;
-    }
-
-    public static TileInfoPaneManager getInstance() {
-        return instance;
     }
 
     public void showTileInfo(Tile tile, boolean onVisit) {

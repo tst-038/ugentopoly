@@ -10,26 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiceHandler {
-
-    private static DiceHandler instance;
     private final DicePanel dice;
     private final List<DiceRolledListener> listeners;
     private List<Integer> lastRoll;
 
-    private DiceHandler() {
-        System.setProperty("dice.testing", "false");
+    public DiceHandler() {
+        System.setProperty("dice.testing", "true");
         this.dice = new DicePanel();
         this.listeners = new ArrayList<>();
     }
 
-    public static DiceHandler getInstance() {
-        if (instance == null) {
-            instance = new DiceHandler();
-        }
-        return instance;
-    }
-
-    public Node getDiceDialog(){
+    public Node getDiceDialog() {
         return dice;
     }
 
@@ -46,17 +37,13 @@ public class DiceHandler {
     }
 
     private void notifyDiceRolledListeners(Player player, List<Integer> rolls) {
+        System.out.println("DiceHandler: Notifying listeners" + listeners);
         for (DiceRolledListener listener : listeners) {
             listener.onDiceRolled(player, rolls);
         }
     }
 
-    //TODO see if this can work without.
-    public List<Integer> getLastRoll(){
+    public List<Integer> getLastRoll() {
         return lastRoll;
     }
-
-
-    // I wanted to add a method bringToFront to bring the diceStage to the front, but I couldn't find a way to do it
-    // I used reflections to acces the stage object, but I just couldn't work around the dice module not being open to the ugentopoly module
 }

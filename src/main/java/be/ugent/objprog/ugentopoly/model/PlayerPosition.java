@@ -6,7 +6,6 @@ import be.ugent.objprog.ugentopoly.logic.PositionListener;
 import be.ugent.objprog.ugentopoly.model.interfaces.Visitable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -14,11 +13,16 @@ public class PlayerPosition {
     private Player player;
     private int position;
     private List<PositionListener> listeners;
+    private Board board;
 
     public PlayerPosition(Player player) {
         this.player = player;
         this.position = 0;
         this.listeners = new CopyOnWriteArrayList<>();
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public void addListener(PositionListener listener) {
@@ -34,13 +38,12 @@ public class PlayerPosition {
     }
 
     public void updatePosition(int newPosition) {
-        int m = GameState.getInstance().getBoard().getTiles().size();
+        int m = board.getTiles().size();
         newPosition = ((newPosition % m) + m) % m;
-        Board board = GameState.getInstance().getBoard();
         Visitable current = board.getTileByPosition(newPosition);
         GameLogBook.getInstance().addEntry(new PlayerMoveLog(this.player, current));
         this.position = newPosition;
-        Tile landedTile = GameState.getInstance().getBoard().getTileByPosition(position);
+        Tile landedTile = board.getTileByPosition(position);
         landedTile.onVisit(player);
         notifyListeners();
     }

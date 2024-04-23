@@ -1,7 +1,10 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
+
+import java.util.List;
 
 public class MoveRelCard extends Card {
     private int relative;
@@ -12,7 +15,7 @@ public class MoveRelCard extends Card {
     }
 
     @Override
-    public void execute(Player player) {
+    public void execute(Player player, Game game) {
         player.getPosition().updatePosition(player.getPosition().getPos() + relative);
         player.getInventory().removeCard(this);
         returnToDeck();

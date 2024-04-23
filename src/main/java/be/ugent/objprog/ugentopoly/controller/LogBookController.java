@@ -25,7 +25,8 @@ public class LogBookController {
 
     private GameLogBook logBook;
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
         logBook = GameLogBook.getInstance();
 
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));

@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.BoardReader;
 import be.ugent.objprog.ugentopoly.data.readers.CardsReader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
@@ -17,10 +18,10 @@ public class Board {
     // Initialize the board
     // Reads the areas, tiles and settings from the XML files
     // Reads and sets the names of the tiles from the properties file
-    public void init() {
+    public void init(Game game) {
         BoardReader boardReader = new BoardReader();
         areas = boardReader.readAreas();
-        tiles = BoardReader.readTiles(areas);
+        tiles = BoardReader.readTiles(areas, game);
 
         PropertyReader propertyReader = PropertyReader.getInstance();
         for (Tile tile : tiles) {

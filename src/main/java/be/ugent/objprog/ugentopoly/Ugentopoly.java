@@ -53,7 +53,7 @@ public class Ugentopoly extends Application {
         showStartWindow();
     }
 
-    private void showStartWindow() {
+    public static void showStartWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
             Parent root = loader.load();
@@ -73,7 +73,7 @@ public class Ugentopoly extends Application {
         }
     }
 
-    private void setIcon(Stage stage) {
+    private static void setIcon(Stage stage) {
         Path iconPath = Path.of("assets/logo.png");
         try (InputStream iconStream = ResourceLoader.loadResource(iconPath.toString())) {
             Image icon = new Image(iconStream);

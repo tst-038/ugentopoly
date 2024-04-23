@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.tiles.TaxTile;
@@ -8,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class TaxTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
         TaxTile taxTile = (TaxTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, taxTile.getName(), "tax-title", 10.0, getTileImageView("assets/tax.png"));

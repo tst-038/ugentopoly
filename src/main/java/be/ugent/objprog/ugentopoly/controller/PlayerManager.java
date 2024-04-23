@@ -15,34 +15,24 @@ import java.util.List;
 import java.util.Map;
 
 public class PlayerManager {
-    private static PlayerManager instance;
+    private Game game;
     private List<Player> players;
     private UIUpdater uiUpdater;
     private Map<Player, PlayerPion> playerPionMap;
     private AnchorPane rootPane;
 
-    private PlayerManager(List<Player> players, UIUpdater uiUpdater, AnchorPane rootPane) {
-        this.players = players;
+    public PlayerManager(Game game, UIUpdater uiUpdater, AnchorPane rootPane) {
+        this.game = game;
+        this.players = game.getPlayers();
         this.uiUpdater = uiUpdater;
         this.playerPionMap = new HashMap<>();
         this.rootPane = rootPane;
     }
 
-    public static PlayerManager getInstance(List<Player> players, UIUpdater uiUpdater, AnchorPane rootPane) {
-        if (instance == null) {
-            instance = new PlayerManager(players, uiUpdater, rootPane);
-        }
-        return instance;
-    }
-
-    public static PlayerManager getInstance() {
-        return instance;
-    }
-
     public void initializePlayers(AnchorPane rootPane) {
         players.forEach(player -> {
             // Makes sure the players start at the start tile.
-            GameState.getInstance().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
+            game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
                     .ifPresent(startTile -> players.forEach(p -> p.getPosition().setInitialPosition(startTile.getPosition())));
             Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pionContainer");
             player.getPion().addToContainer(pionContainer);
@@ -54,12 +44,9 @@ public class PlayerManager {
         return players;
     }
 
-    private PlayerPion getPlayerPion(Player player) {
-        return playerPionMap.get(player);
-    }
-
     public void setPlayerPanelToActive(Player player) {
-        Node playerPane = BoardManager.getInstance().findPlayerNode(player, rootPane);
+        System.out.println("Setting player panel to Active for player: " + player.getName());
+        Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             if (!playerPane.getStyleClass().contains("activePlayerPanel")) {
                 playerPane.getStyleClass().add("activePlayerPanel");
@@ -72,7 +59,8 @@ public class PlayerManager {
     }
 
     public void setPlayerPanelToInactive(Player player) {
-        Node playerPane = BoardManager.getInstance().findPlayerNode(player, rootPane);
+        System.out.println("Setting player panel to inactive for player: " + player.getName());
+        Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             playerPane.getStyleClass().remove("activePlayerPanel");
         }

@@ -1,6 +1,9 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Player;
+
+import java.util.List;
 
 public abstract class Card {
     protected String id;
@@ -31,5 +34,5 @@ public abstract class Card {
         deck.addCardToBottom(this);
     }
 
-    public abstract void execute(Player player);
+    public abstract void execute(Player player, Game game);
 }

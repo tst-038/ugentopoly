@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tiles;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Taxable;
 import be.ugent.objprog.ugentopoly.model.tiles.visitors.TileVisitor;
@@ -18,8 +19,8 @@ import java.util.Objects;
 public class TaxTile extends Tile implements UIUpdatable, LabelUpdatable, ImageUpdatable, Taxable {
     private final int amount;
 
-    public TaxTile(String id, int position, int amount) {
-        super(id, position, TileType.TAX);
+    public TaxTile(String id, int position, int amount, Game game) {
+        super(id, position, TileType.TAX, game);
         this.amount = amount;
     }
 
@@ -47,12 +48,13 @@ public class TaxTile extends Tile implements UIUpdatable, LabelUpdatable, ImageU
 
     @Override
     public void onVisit(Player player) {
-        TileInfoPaneManager.getInstance().showTileInfo(this, true);
-        AnchorPane pane = TileInfoPaneManager.getInstance().getTileInfoPane();
+        TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
+        tileInfoPaneManager.showTileInfo(this, true);
+        AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#tax-pay-button").setOnMouseClicked(event -> {
-                payTax(player);
-                TileInfoPaneManager.getInstance().setPaneClosableAndHide();
+                payTax(player, game.getBank());
+                tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
 }

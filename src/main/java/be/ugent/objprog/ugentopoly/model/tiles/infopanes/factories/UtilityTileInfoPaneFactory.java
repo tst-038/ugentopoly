@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.UtilityTile;
@@ -8,12 +9,12 @@ import javafx.scene.layout.AnchorPane;
 
 public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
         UtilityTile utilityTile = (UtilityTile) tile;
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
 
         addTitleLabelWithImage(tileInfoPane, utilityTile.getName(), "utility-title", 20.0, getTileImageView("assets/"+utilityTile.getId()+".png"));
-        addOwnerInfo(tileInfoPane, utilityTile, onVisit);
+        addOwnerInfo(tileInfoPane, utilityTile, onVisit, game);
 
         return tileInfoPane;
     }

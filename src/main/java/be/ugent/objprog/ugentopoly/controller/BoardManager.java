@@ -14,28 +14,16 @@ import javafx.scene.layout.Pane;
 import java.util.Objects;
 
 public class BoardManager {
-    private static BoardManager instance;
     private Board board;
     private UIUpdater uiUpdater;
     private TileInfoPaneManager tileInfoPaneManager;
     private Pane currentlySelectedTile;
 
-    private BoardManager(UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
-        this.board = GameState.getInstance().getBoard();
+    public BoardManager(Board board, UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
+        this.board = board;
         this.uiUpdater = uiUpdater;
         this.tileInfoPaneManager = tileInfoPaneManager;
         this.currentlySelectedTile = null;
-    }
-
-    public static BoardManager getInstance(UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
-        if (instance == null) {
-            instance = new BoardManager(uiUpdater, tileInfoPaneManager);
-        }
-        return instance;
-    }
-
-    public static BoardManager getInstance() {
-        return instance;
     }
 
     public void initializeBoard(AnchorPane rootPane) {
