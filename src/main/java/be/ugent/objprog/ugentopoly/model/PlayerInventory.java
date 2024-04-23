@@ -29,8 +29,8 @@ public class PlayerInventory {
         return cards;
     }
 
-    public boolean hasCard(String cardId) {
-        return cards.stream().anyMatch(card -> card.getId().equals(cardId));
+    public boolean hasCard(CardType cardType) {
+        return cards.stream().anyMatch(card -> card.getType() == cardType);
     }
 
     public void addOwnedRailway() {
