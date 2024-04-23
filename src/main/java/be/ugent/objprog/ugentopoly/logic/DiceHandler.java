@@ -37,7 +37,6 @@ public class DiceHandler {
     }
 
     private void notifyDiceRolledListeners(Player player, List<Integer> rolls) {
-        System.out.println("DiceHandler: Notifying listeners" + listeners);
         for (DiceRolledListener listener : listeners) {
             listener.onDiceRolled(player, rolls);
         }

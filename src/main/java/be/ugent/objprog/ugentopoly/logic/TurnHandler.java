@@ -50,7 +50,6 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
     @Override
     public void onDiceRolled(Player player, List<Integer> rolls) {
-        System.out.println("has rolled " + player.getName());
         int diceResult = rolls.stream().mapToInt(Integer::intValue).sum();
         boolean hasRolledDouble = rolls.get(0).equals(rolls.get(1));
 

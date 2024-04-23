@@ -44,7 +44,6 @@ public class PlayerManager {
     }
 
     public void setPlayerPanelToActive(Player player) {
-        System.out.println("Setting player panel to Active for player: " + player.getName());
         Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             if (!playerPane.getStyleClass().contains("activePlayerPanel")) {
@@ -58,7 +57,6 @@ public class PlayerManager {
     }
 
     public void setPlayerPanelToInactive(Player player) {
-        System.out.println("Setting player panel to inactive for player: " + player.getName());
         Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             playerPane.getStyleClass().remove("activePlayerPanel");

@@ -19,18 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 public class BoardReader implements XmlReader {
-    private static BoardReader instance;
-
-    private BoardReader() {
-        // Private constructor to hide the implicit one
-    }
-
-    public static BoardReader getInstance() {
-        if (instance == null) {
-            instance = new BoardReader();
-        }
-        return instance;
-    }
 
     public List<Tile> readTiles(List<Area> areas, Game game) {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
@@ -87,7 +75,7 @@ public class BoardReader implements XmlReader {
         return areas;
     }
 
-    private static Map<TileType, TileFactory> createTileFactories(List<Area> areas) {
+    private Map<TileType, TileFactory> createTileFactories(List<Area> areas) {
         Map<TileType, TileFactory> tileFactories = new EnumMap<>(TileType.class);
         tileFactories.put(TileType.START, new StartTileFactory());
         tileFactories.put(TileType.JAIL, new JailTileFactory());

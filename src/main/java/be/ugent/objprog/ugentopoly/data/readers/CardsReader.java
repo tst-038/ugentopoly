@@ -17,18 +17,6 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class CardsReader implements XmlReader {
-    private static CardsReader instance;
-
-    private CardsReader() {
-        // Private constructor to hide the implicit one
-    }
-
-    public static CardsReader getInstance() {
-        if (instance == null) {
-            instance = new CardsReader();
-        }
-        return instance;
-    }
 
     public void readCards() {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
