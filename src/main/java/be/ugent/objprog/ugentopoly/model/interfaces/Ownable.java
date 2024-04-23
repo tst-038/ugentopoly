@@ -7,13 +7,7 @@ public interface Ownable {
 
     void setOwner(Player owner);
 
-    default boolean isOwned() {
-        return getOwner() != null;
-    }
-
     String getName();
-
-    void setName(String name);
 
     int getPosition();
 }

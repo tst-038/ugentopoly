@@ -17,20 +17,17 @@ public class PlayerManager {
     private final Game game;
     private final List<Player> players;
     private final UIUpdater uiUpdater;
-    private final Map<Player, PlayerPion> playerPionMap;
     private final AnchorPane rootPane;
 
     public PlayerManager(Game game, UIUpdater uiUpdater, AnchorPane rootPane) {
         this.game = game;
         this.players = game.getPlayers();
         this.uiUpdater = uiUpdater;
-        this.playerPionMap = new HashMap<>();
         this.rootPane = rootPane;
     }
 
     public void initializePlayers(AnchorPane rootPane) {
         players.forEach(player -> {
-            // Makes sure the players start at the start tile.
             game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
                     .ifPresent(startTile -> players.forEach(p -> p.getPosition().setInitialPosition(startTile.getPosition())));
             Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pionContainer");

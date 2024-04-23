@@ -20,6 +20,7 @@ public class GameOverController {
     private Game game;
 
     public GameOverController() {
+        // Empty constructor for javaFX
     }
 
     public void setGame(Game game) {

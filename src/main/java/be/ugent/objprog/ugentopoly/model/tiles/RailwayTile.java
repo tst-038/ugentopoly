@@ -71,11 +71,6 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     }
 
     @Override
-    public boolean isOwned() {
-        return false;
-    }
-
-    @Override
     public void buy(Player player, Bank bank, UIUpdater uiUpdater) {
         Buyable.super.buy(player, bank, uiUpdater);
         player.getInventory().addOwnedRailway();

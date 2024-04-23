@@ -21,7 +21,6 @@ public class MoveCard extends Card {
     @Override
     public void execute(Player player, Game game) {
         player.getPosition().updatePosition(position);
-        // if the startposition isnt the default 0, we need to add the offset
         int startPosition = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
         if (collect && position < player.getPosition().getPos()) {
             game.getBank().deposit(player, Settings.getInstance().getStartBonus());

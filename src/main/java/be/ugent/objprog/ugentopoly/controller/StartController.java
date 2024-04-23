@@ -74,7 +74,6 @@ public class StartController {
     @FXML
     private void handlePlayButtonAction() {
         if (areAllFieldsUnique()) {
-            // Pass the list of players to the main class to start the game
             Ugentopoly.startGame(players);
         }
     }
@@ -164,7 +163,6 @@ public class StartController {
     }
 
     private boolean isImageInUseByOtherPlayer(Image image, Player currentPlayer) {
-        // Check if the image is in use by any other player except the current player
         for (Player player : players) {
             if (player != currentPlayer && player.getPion() != null && player.getPion().getImage().equals(image)) {
                 return true;
@@ -183,7 +181,6 @@ public class StartController {
 
 
         if (numPlayers > currentNumPlayers) {
-            // Add new player fields
             for (int i = currentNumPlayers; i < numPlayers; i++) {
                 AnchorPane playerFieldPane = new AnchorPane();
                 playerFieldPane.setPrefSize(200, 25);
@@ -236,10 +233,8 @@ public class StartController {
                 pionComboBox.addEventFilter(ComboBox.ON_HIDING, event -> {
                     Image newImage = pionComboBox.getSelectionModel().getSelectedItem();
                     if (isImageInUseByOtherPlayer(newImage, player)) {
-                        // If the new selection is already in use by another player, revert back to the old selection
                         pionComboBox.getSelectionModel().selectPrevious();
                     } else {
-                        // Update the player's pion with the new selection
                         player.setPion(new PlayerPion(player, newImage));
                     }
                 });
@@ -250,7 +245,6 @@ public class StartController {
                 playerFieldsContainer.getChildren().add(playerFieldPane);
             }
         } else if (numPlayers < currentNumPlayers) {
-            // Remove excess player fields
             while (playerFieldsContainer.getChildren().size() > numPlayers) {
                 playerFieldsContainer.getChildren().removeLast();
                 players.removeLast();

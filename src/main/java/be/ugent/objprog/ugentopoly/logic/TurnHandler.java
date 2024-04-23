@@ -22,13 +22,12 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
     public TurnHandler(Game game, PlayerManager playerManager, GameOverController gameOverController) {
         this.game = game;
-        currentPlayerIndex = 0;
+        this.currentPlayerIndex = 0;
         this.playerManager = playerManager;
         this.gameOverController = gameOverController;
     }
 
     public void startGame() {
-        // Initialize the game state and start the game loop
         game.getGameState().addGameOverListener(this);
         game.getDiceHandler().addDiceRolledListener(this);
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
@@ -36,10 +35,6 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
     public Player getCurrentPlayer() {
         return playerManager.getPlayers().get(currentPlayerIndex);
-    }
-
-    private boolean isGameOver() {
-        return gameOver;
     }
 
     @Override
