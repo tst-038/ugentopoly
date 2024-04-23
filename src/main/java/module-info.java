@@ -12,13 +12,4 @@ module be.ugent.objprog.ugentopoly {
 
     // Export the main package
     exports be.ugent.objprog.ugentopoly;
-
-    // Export the model package
-    exports be.ugent.objprog.ugentopoly.model;
-
-    // Export the exceptions packages
-    exports be.ugent.objprog.ugentopoly.exceptions.bank;
-    exports be.ugent.objprog.ugentopoly.exceptions.data;
-    exports be.ugent.objprog.ugentopoly.exceptions.model;
-    exports be.ugent.objprog.ugentopoly.exceptions.ui;
 }
