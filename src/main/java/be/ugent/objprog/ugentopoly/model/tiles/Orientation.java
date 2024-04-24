@@ -2,10 +2,10 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 
 
 public enum Orientation {
-    VERTICAL_TOP("vertical", 90),
-    VERTICAL_BOTTOM("vertical", 270),
-    HORIZONTAL_LEFT("horizontal", 0),
-    HORIZONTAL_RIGHT("horizontal", 180),
+    VERTICAL_TOP("rectangular", 90),
+    VERTICAL_BOTTOM("rectangular", 270),
+    HORIZONTAL_LEFT("rectangular", 0),
+    HORIZONTAL_RIGHT("rectangular", 180),
     CORNER_1("corner", 0),
     CORNER_2("corner", 90),
     CORNER_3("corner", 180),

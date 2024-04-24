@@ -24,7 +24,7 @@
                   <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="4.0" layoutY="22.0" prefHeight="17.0" prefWidth="116.0" text="Label" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="area" prefHeight="200.0" prefWidth="200.0" styleClass="area" GridPane.columnIndex="1">
+            <AnchorPane fx:id="area" minHeight="61.5" minWidth="25.5" prefHeight="200.0" prefWidth="200.0" styleClass="area" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

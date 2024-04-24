@@ -62,7 +62,6 @@ public class UIUpdater {
                     tileGroup.getChildren().getFirst().setRotate(tile.getOrientation().getRotation());
                 }
 
-
                 tile.acceptUIUpdate(visitor, tileNode, rootPane);
 
                 rootPane.getChildren().add(tileNode);
