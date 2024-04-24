@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -56,11 +57,9 @@ public class UIUpdater {
                 Node node = rootPane.lookup("#_" + tile.getPosition());
                 URL fxmlFileURL = tile.getFxmlURL();
                 FXMLLoader loader = new FXMLLoader(fxmlFileURL);
-                Node tileNode = loader.load();
+                Parent tileNode = loader.load();
 
-                if (tileNode instanceof Group tileGroup){
-                    tileGroup.getChildren().getFirst().setRotate(tile.getOrientation().getRotation());
-                }
+                tileNode.getChildrenUnmodifiable().getFirst().setRotate(tile.getOrientation().getRotation());
 
                 tile.acceptUIUpdate(visitor, tileNode, rootPane);
 

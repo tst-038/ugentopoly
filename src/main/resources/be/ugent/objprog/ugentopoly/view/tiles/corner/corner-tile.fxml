@@ -3,13 +3,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="150.0" prefWidth="150.0">
-    <children>
-        <Label alignment="CENTER" contentDisplay="TOP" layoutX="29.0" layoutY="5.0" prefHeight="130.0" prefWidth="100.0" rotate="45.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-            <graphic>
-                <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+
+<AnchorPane maxHeight="150.0" maxWidth="150.0" minHeight="150.0" minWidth="150.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="150.0" prefWidth="150.0">
+          <children>
+              <Label alignment="CENTER" contentDisplay="TOP" layoutX="29.0" layoutY="5.0" prefHeight="130.0" prefWidth="100.0" rotate="45.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <graphic>
+                      <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
                 </ImageView>
-            </graphic>
-        </Label>
-    </children>
+                  </graphic>
+              </Label>
+          </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
