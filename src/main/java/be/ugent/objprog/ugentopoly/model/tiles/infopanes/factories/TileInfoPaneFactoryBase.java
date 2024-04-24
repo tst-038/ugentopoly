@@ -54,14 +54,14 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         return imageView;
     }
 
-    protected Button createButton(String text, String styleClass, String id, Double leftAnchor, Double rightAnchor, Double topAnchor, Double bottomAnchor) {
+    protected Button createButton(String text, String styleClass, String id, Double leftAnchor, Double rightAnchor) {
         Button button = new Button(text);
         button.getStyleClass().add(styleClass);
         button.setId(id);
         AnchorPane.setLeftAnchor(button, leftAnchor);
         AnchorPane.setRightAnchor(button, rightAnchor);
-        AnchorPane.setTopAnchor(button, topAnchor);
-        AnchorPane.setBottomAnchor(button, bottomAnchor);
+        AnchorPane.setTopAnchor(button, 160.0);
+        AnchorPane.setBottomAnchor(button, null);
         return button;
     }
 
@@ -79,8 +79,8 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         tileInfoPane.getChildren().add(forSaleLabel);
 
         if (onVisit) {
-            Button buyButton = createButton(propertyReader.get("button.buy"), "tile-buy-button", "buy-button", BUTTON_MARGIN, null, 160.0, null);
-            Button cancelButton = createButton(propertyReader.get("button.close"), "tile-close-button", "close-button", null, BUTTON_MARGIN, 160.0, null);
+            Button buyButton = createButton(propertyReader.get("button.buy"), "tile-buy-button", "buy-button", BUTTON_MARGIN, null);
+            Button cancelButton = createButton(propertyReader.get("button.close"), "tile-close-button", "close-button", null, BUTTON_MARGIN);
             tileInfoPane.getChildren().addAll(buyButton, cancelButton);
         }
 
@@ -100,7 +100,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
 
     private void addPayRentButton(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, Game game) {
         if (onVisit && tile.getOwner() != game.getTurnHandler().getCurrentPlayer()) {
-            Button payRentButton = createButton(propertyReader.get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN, 160.0, null);
+            Button payRentButton = createButton(propertyReader.get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN);
             tileInfoPane.getChildren().add(payRentButton);
         }
     }
@@ -133,7 +133,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
 
     protected void addButton(AnchorPane tileInfoPane, String buttonText, String buttonStyleClass, String buttonId, boolean onVisit) {
         if (onVisit) {
-            Button button = createButton(buttonText, buttonStyleClass, buttonId, 20.0, 20.0, 160.0, null);
+            Button button = createButton(buttonText, buttonStyleClass, buttonId, 20.0, 20.0);
             tileInfoPane.getChildren().add(button);
         }
     }

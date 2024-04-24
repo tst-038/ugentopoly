@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.controller;
 
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.Log;
 import javafx.fxml.FXML;
 import javafx.scene.Group;

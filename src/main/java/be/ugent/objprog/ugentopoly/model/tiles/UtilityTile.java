@@ -80,9 +80,7 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
             buy.setDisable(game.getBank().hasInsufficientBalance(player, getPrice()));
-            pane.lookup("#close-button").setOnMouseClicked(event -> {
-                tileInfoPaneManager.setPaneClosableAndHide();
-            });
+            pane.lookup("#close-button").setOnMouseClicked(event -> tileInfoPaneManager.setPaneClosableAndHide());
         }
     }
 

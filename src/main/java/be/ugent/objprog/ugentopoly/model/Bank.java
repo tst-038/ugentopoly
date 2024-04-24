@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
+import be.ugent.objprog.ugentopoly.exceptions.UgentopolyException;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
 import be.ugent.objprog.ugentopoly.log.JackpotClaimedLog;
 import javafx.beans.property.IntegerProperty;
@@ -87,7 +88,7 @@ public class Bank {
             withdraw(player, remainingBalance);
         } catch (InsufficientFundsException e) {
             // This should never happen
-            throw new RuntimeException("Player has insufficient funds, but should have enough to withdraw remaining balance");
+            throw new UgentopolyException("Player has insufficient funds, but should have enough to withdraw remaining balance");
         } finally {
             game.getGameState().notifyGameOverListeners(player);
         }

@@ -8,7 +8,6 @@ import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
