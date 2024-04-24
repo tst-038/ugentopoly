@@ -29,11 +29,13 @@ public class UIUpdater {
     private final Game game;
     private final AnchorPane rootPane;
     private final DiceHandler diceHandler;
+    private final PropertyReader propertyReader;
 
     public UIUpdater(AnchorPane rootPane, Game game) {
         this.game = game;
         this.rootPane = rootPane;
         this.diceHandler = game.getDiceHandler();
+        this.propertyReader = game.getPropertyreader();
     }
 
     public void colorAreaPanes(List<Area> areas) {
@@ -89,18 +91,18 @@ public class UIUpdater {
                 playerName.setTextFill(player.getColor());
 
                 Label playerBalanceLabel = (Label) playerNode.lookup("#playerBalanceLabel");
-                playerBalanceLabel.setText(PropertyReader.getInstance().get("label.balance"));
+                playerBalanceLabel.setText(propertyReader.get("label.balance"));
 
                 Label playerBalance = (Label) playerNode.lookup("#playerBalance");
-                playerBalance.textProperty().bind(player.balanceProperty().asString(Settings.getMoneyUnit() + "%d"));
+                playerBalance.textProperty().bind(player.balanceProperty().asString(game.getSettings().getMoneyUnit() + "%d"));
 
                 Label playerNetworthLabel = (Label) playerNode.lookup("#playerNetworthLabel");
-                playerNetworthLabel.setText(PropertyReader.getInstance().get("label.networth"));
+                playerNetworthLabel.setText(propertyReader.get("label.networth"));
                 Label playerNetworth = (Label) playerNode.lookup("#playerNetworth");
-                playerNetworth.textProperty().bind(player.networthProperty().asString(Settings.getMoneyUnit() + "%d"));
+                playerNetworth.textProperty().bind(player.networthProperty().asString(game.getSettings().getMoneyUnit() + "%d"));
 
                 Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
-                rollDiceButton.setText(PropertyReader.getInstance().get("button.roll_dice"));
+                rollDiceButton.setText(propertyReader.get("button.roll_dice"));
                 rollDiceButton.setOnAction(event -> {
                     rollDiceButton.setDisable(true);
                     diceHandler.rollDice(player);
@@ -146,6 +148,6 @@ public class UIUpdater {
 
     public void bindJackpot() {
         Label jackpotLabel = (Label) rootPane.lookup("#jackpot");
-        jackpotLabel.textProperty().bind(game.getBank().getJackpotBalanceProperty().asString(Settings.getMoneyUnit() + "%d"));
+        jackpotLabel.textProperty().bind(game.getBank().getJackpotBalanceProperty().asString(game.getSettings().getMoneyUnit() + "%d"));
     }
 }

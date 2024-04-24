@@ -1,10 +1,11 @@
 package be.ugent.objprog.ugentopoly.log;
 
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
+import be.ugent.objprog.ugentopoly.model.Player;
 
 public class JackpotClaimedLog extends Log {
 
-    public JackpotClaimedLog(String playerName, int amount) {
-        super(String.format(PropertyReader.getInstance().get("log.jackpot_claimed"), playerName, amount));
+    public JackpotClaimedLog(Player player, int amount) {
+        super(String.format(player.getGame().getPropertyreader().get("log.jackpot_claimed"), player.getName(), amount));
     }
 }

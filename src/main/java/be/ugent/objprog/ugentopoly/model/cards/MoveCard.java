@@ -13,7 +13,7 @@ public class MoveCard extends Card {
     private final boolean collect;
 
     public MoveCard(String id, int position, boolean collect, Deck deck) {
-        super(id, String.format(PropertyReader.getInstance().get("card.move_card"), position, collect), CardType.MOVE, deck);
+        super(id, String.format(deck.getGame().getPropertyreader().get("card.move_card"), position, collect), CardType.MOVE, deck);
         this.position = position;
         this.collect = collect;
     }
@@ -25,7 +25,7 @@ public class MoveCard extends Card {
         player.getPosition().updatePosition(position);
         int startPosition = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
         if (collect && position + startPosition < previousPosition) {
-            game.getBank().deposit(player, Settings.getInstance().getStartBonus());
+            game.getBank().deposit(player, game.getSettings().getStartBonus());
         }
         player.getInventory().removeCard(this);
         returnToDeck();

@@ -1,15 +1,14 @@
 package be.ugent.objprog.ugentopoly.model.interfaces;
 
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.log.TaxPaidLog;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 
 public interface Taxable {
     int getAmount();
 
-    default void payTax(Player player, Bank bank) {
-        bank.transferToJackpot(player, getAmount());
-        GameLogBook.getInstance().addEntry(new TaxPaidLog(player.getName(), getAmount()));
+    default void payTax(Player player, Game game) {
+        game.getBank().transferToJackpot(player, getAmount());
+        game.getLogBook().addEntry(new TaxPaidLog(player, getAmount()));
     }
 }

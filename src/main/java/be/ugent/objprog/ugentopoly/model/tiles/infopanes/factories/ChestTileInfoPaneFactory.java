@@ -10,14 +10,18 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.layout.AnchorPane;
 
 public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
+    public ChestTileInfoPaneFactory(Game game) {
+        super(game);
+    }
+
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
         ChestTile chestTile = (ChestTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, chestTile.getName(), "chest-title", 10.0, getTileImageView("assets/chest.png"));
         addDescriptionLabel(tileInfoPane, getChestDescription(chestTile, onVisit, game), "chest-info", 30.0);
-        addButton(tileInfoPane, PropertyReader.getInstance().get("button.close"), "chest-tile-close-button", "close-button", onVisit);
+        addButton(tileInfoPane, game.getPropertyreader().get("button.close"), "chest-tile-close-button", "close-button", onVisit);
 
         return tileInfoPane;
     }
@@ -25,11 +29,11 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     private String getChestDescription(ChestTile chestTile, boolean onVisit, Game game) {
         if (onVisit) {
             Player currentPlayer = game.getTurnHandler().getCurrentPlayer();
-            Card card = Deck.getCommunityChestDeck().drawCard(currentPlayer);
+            Card card = game.getDeckManager().getCommunityDeck().drawCard(currentPlayer);
             currentPlayer.getInventory().addCard(card);
             return card.getDescription();
         } else {
-            return PropertyReader.getInstance().getTileDescription(chestTile.getId());
+            return game.getPropertyreader().getTileDescription(chestTile.getId());
         }
     }
 }

@@ -10,16 +10,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
+    public StreetTileInfoPaneFactory(Game game) {
+        super(game);
+    }
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         StreetTile streetTile = (StreetTile) tile;
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         addStreetArea(tileInfoPane, streetTile);
         addTitleLabel(tileInfoPane, streetTile);
         addRentInfo(tileInfoPane, streetTile);
         addPriceInfo(tileInfoPane, streetTile);
-        addOwnerInfo(tileInfoPane, streetTile, onVisit, game);
+        addOwnerInfo(tileInfoPane, streetTile, onVisit);
 
         return tileInfoPane;
     }
@@ -43,14 +46,14 @@ public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     }
 
     private void addRentInfo(AnchorPane tileInfoPane, StreetTile streetTile) {
-        Label rentTitleLabel = createLabel(PropertyReader.getInstance().get("label.rent") + ": ", "street-tile-rent-title", LABEL_MARGIN, null, 80.0, null);
-        Label rentLabel = createLabel(Settings.getMoneyUnit() + streetTile.getRent(), "street-tile-rent", null, LABEL_MARGIN, 80.0, null);
+        Label rentTitleLabel = createLabel(propertyReader.get("label.rent") + ": ", "street-tile-rent-title", LABEL_MARGIN, null, 80.0, null);
+        Label rentLabel = createLabel(game.getSettings().getMoneyUnit() + streetTile.getRent(), "street-tile-rent", null, LABEL_MARGIN, 80.0, null);
         tileInfoPane.getChildren().addAll(rentTitleLabel, rentLabel);
     }
 
     private void addPriceInfo(AnchorPane tileInfoPane, StreetTile streetTile) {
-        Label priceTitleLabel = createLabel(PropertyReader.getInstance().get("label.price") + ": ", "street-tile-price-title", LABEL_MARGIN, null, 60.0, null);
-        Label priceLabel = createLabel(Settings.getMoneyUnit() + streetTile.getPrice(), "street-tile-price", null, LABEL_MARGIN, 60.0, null);
+        Label priceTitleLabel = createLabel(propertyReader.get("label.price") + ": ", "street-tile-price-title", LABEL_MARGIN, null, 60.0, null);
+        Label priceLabel = createLabel(game.getSettings().getMoneyUnit() + streetTile.getPrice(), "street-tile-price", null, LABEL_MARGIN, 60.0, null);
         tileInfoPane.getChildren().addAll(priceTitleLabel, priceLabel);
     }
 }

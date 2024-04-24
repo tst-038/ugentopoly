@@ -7,6 +7,6 @@ import be.ugent.objprog.ugentopoly.model.Settings;
 public class PassedStartLog extends Log {
 
     public PassedStartLog(Player player) {
-        super(String.format(PropertyReader.getInstance().get("log.passed_start"), player.getName(), Settings.getMoneyUnit() + Settings.getInstance().getStartBonus()));
+        super(String.format(player.getGame().getPropertyreader().get("log.passed_start"), player.getName(), player.getGame().getSettings().getMoneyUnit() + player.getGame().getSettings().getStartBonus()));
     }
 }

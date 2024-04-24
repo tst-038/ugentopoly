@@ -17,57 +17,57 @@ public class TileInfoPaneVisitor implements TileVisitor {
     private void updateTileInfoPane(Tile tile, TileInfoPaneFactory factory, boolean onVisit) {
         tileInfoPane.setVisible(false);
         tileInfoPane.getChildren().clear();
-        AnchorPane infoPane = factory.createTileInfoPane(tile, onVisit, game);
+        AnchorPane infoPane = factory.createTileInfoPane(tile, onVisit);
         this.tileInfoPane.getChildren().add(infoPane);
     }
 
     @Override
     public void visit(StreetTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new StreetTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new StreetTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(TaxTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new TaxTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new TaxTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(RailwayTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new RailwayTilePaneFactory(), onVisit);
+        updateTileInfoPane(tile, new RailwayTilePaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(ChestTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new ChestTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new ChestTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(ChanceTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new ChanceTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new ChanceTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(UtilityTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new UtilityTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new UtilityTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(GoToJailTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new GoToJailTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new GoToJailTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(JailTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new JailTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new JailTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(FreeParkingTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new FreeParkingTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new FreeParkingTileInfoPaneFactory(game), onVisit);
     }
 
     @Override
     public void visit(StartTile tile, boolean onVisit) {
-        updateTileInfoPane(tile, new StartTileInfoPaneFactory(), onVisit);
+        updateTileInfoPane(tile, new StartTileInfoPaneFactory(game), onVisit);
     }
 }

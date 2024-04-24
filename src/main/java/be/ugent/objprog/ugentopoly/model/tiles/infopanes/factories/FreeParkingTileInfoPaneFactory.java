@@ -7,14 +7,18 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.layout.AnchorPane;
 
 public class FreeParkingTileInfoPaneFactory extends TileInfoPaneFactoryBase {
+    public FreeParkingTileInfoPaneFactory(Game game) {
+        super(game);
+    }
+
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
         FreeParkingTile freeParkingTile = (FreeParkingTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, freeParkingTile.getName(), "free-parking-title", 10.0, getTileImageView("assets/free_parking.png"));
-        addDescriptionLabel(tileInfoPane, PropertyReader.getInstance().getTileDescription(freeParkingTile.getId()), "free-parking-info", 70.0);
-        addButton(tileInfoPane, PropertyReader.getInstance().get("button.claim"), "claim-button", "claim-button", onVisit);
+        addDescriptionLabel(tileInfoPane, game.getPropertyreader().getTileDescription(freeParkingTile.getId()), "free-parking-info", 70.0);
+        addButton(tileInfoPane, game.getPropertyreader().get("button.claim"), "claim-button", "claim-button", onVisit);
 
         return tileInfoPane;
     }

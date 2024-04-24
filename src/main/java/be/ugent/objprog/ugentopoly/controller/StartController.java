@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,9 @@ public class StartController {
     private Label playerName;
     @FXML
     private Button playButton;
+    
+    private PropertyReader propertyReader;
+    private Settings settings;
 
     private List<Player> players;
     private ObservableList<Image> availablePions;
@@ -65,12 +69,22 @@ public class StartController {
         initializePionComboBoxes();
         playerSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int numPlayers = newValue.intValue();
-            playerAmount.setText(String.format(PropertyReader.getInstance().get("label.player_amount"), numPlayers));
+            playerAmount.setText(String.format(propertyReader.get("label.player_amount"), numPlayers));
             updatePlayerFields(numPlayers);
         });
-        updateText();
+    }
+    
+    public void setPropertyReader(PropertyReader propertyReader) {
+        this.propertyReader = propertyReader;
+    }
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
+    public void updateFields() {
+        updateText();
+    }
+    
     @FXML
     private void handlePlayButtonAction() {
         if (areAllFieldsUnique()) {
@@ -80,13 +94,13 @@ public class StartController {
 
     private void updateText() {
         updatePlayerFields(2);
-        playButton.setText(PropertyReader.getInstance().get("button.play"));
-        playerAmountTitle.setText(PropertyReader.getInstance().get("label.player_amount_title"));
-        playerColor.setText(PropertyReader.getInstance().get("label.color"));
-        playerName.setText(PropertyReader.getInstance().get("label.username"));
-        playerColorsNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
-        playerPionNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
-        playerNamesNotUnique.setText(PropertyReader.getInstance().get("label.not_unique"));
+        playButton.setText(propertyReader.get("button.play"));
+        playerAmountTitle.setText(propertyReader.get("label.player_amount_title"));
+        playerColor.setText(propertyReader.get("label.color"));
+        playerName.setText(propertyReader.get("label.username"));
+        playerColorsNotUnique.setText(propertyReader.get("label.not_unique"));
+        playerPionNotUnique.setText(propertyReader.get("label.not_unique"));
+        playerNamesNotUnique.setText(propertyReader.get("label.not_unique"));
     }
 
     private boolean areAllFieldsUnique() {
@@ -187,7 +201,7 @@ public class StartController {
                 TextField usernameField = new TextField();
                 usernameField.setPrefWidth(125);
                 usernameField.setText("Speler " + (i + 1));
-                usernameField.setText(String.format(PropertyReader.getInstance().get("label.default_player_name"), (i + 1)));
+                usernameField.setText(String.format(propertyReader.get("label.default_player_name"), (i + 1)));
                 AnchorPane.setLeftAnchor(usernameField, 0.0);
                 AnchorPane.setTopAnchor(usernameField, 2.0);
 
@@ -211,7 +225,7 @@ public class StartController {
                     usernameField.setText(player.getName());
                     colorPicker.setValue(player.getColor());
                 } else {
-                    player = new Player(usernameField.getText(), colorPicker.getValue());
+                    player = new Player(i, usernameField.getText(), colorPicker.getValue(), settings.getStartingBalance());
                     players.add(player);
                 }
 

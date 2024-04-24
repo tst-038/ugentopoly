@@ -3,9 +3,7 @@ package be.ugent.objprog.ugentopoly.model.tiles;
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.RentPaidLog;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
@@ -71,13 +69,13 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player, game.getBank());
+                payRent(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player, game.getBank(), game.getUIUpdater());
+                buy(player, game);
                 player.getInventory().addOwnedUtility();
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
@@ -109,10 +107,10 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     }
 
     @Override
-    public void payRent(Player player, Bank bank) {
+    public void payRent(Player player, Game game) {
         try {
-            bank.transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
-            GameLogBook.getInstance().addEntry(new RentPaidLog(player, this));
+            game.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
+            game.getLogBook().addEntry(new RentPaidLog(player, this));
         } catch (InsufficientFundsException ignored) {
         }
     }

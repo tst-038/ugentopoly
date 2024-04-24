@@ -23,21 +23,24 @@ public class LogBookController {
     @FXML
     private TableColumn<Log, String> timestampColumn;
 
-    private GameLogBook logBook;
-
     @FXML
     private void initialize() {
-        logBook = GameLogBook.getInstance();
-
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
         timestampColumn.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
 
-        logTableView.setItems(logBook.getEntries());
         logTableView.getChildrenUnmodifiable().forEach(node -> {
             if (node instanceof ScrollPane scrollPane) {
                 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             }
         });
+    }
+
+    public Group getLogBookRoot(){
+        return logbookRoot;
+    }
+
+    public void setLogBook(GameLogBook logBook){
+        logTableView.setItems(logBook.getEntries());
     }
 
     @FXML

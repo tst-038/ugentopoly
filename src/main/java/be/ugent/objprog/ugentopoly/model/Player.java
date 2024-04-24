@@ -1,6 +1,6 @@
 package be.ugent.objprog.ugentopoly.model;
 
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.log.GoToJailLog;
 import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import javafx.beans.property.IntegerProperty;
@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 
 public class Player {
-    private static int idCounter = 0;
     private final IntegerProperty balance;
     private final IntegerProperty networth;
     private final int id;
@@ -17,17 +16,26 @@ public class Player {
     private PlayerPion pion;
     private final PlayerInventory inventory;
     private final PlayerPosition position;
+    private Game game;
     private int doubleRolls = 0;
     private int remainingTurnsInPrison = 0;
 
-    public Player(String name, Color color) {
-        this.id = idCounter++;
+    public Player(int id, String name, Color color, int startBalance) {
+        this.id = id;
         this.name = name.strip();
         this.color = color;
-        this.balance = new SimpleIntegerProperty(Settings.getInstance().getStartingBalance());
+        this.balance = new SimpleIntegerProperty(startBalance);
         this.networth = new SimpleIntegerProperty(0);
         this.inventory = new PlayerInventory();
         this.position = new PlayerPosition(this);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public int getRemainingTurnsInPrison() {
@@ -36,7 +44,7 @@ public class Player {
 
     public void setRemainingTurnsInPrison(int remainingTurnsInPrison) {
         this.remainingTurnsInPrison = remainingTurnsInPrison;
-        GameLogBook.getInstance().addEntry(new GoToJailLog(this.getName()));
+        game.getLogBook().addEntry(new GoToJailLog(this));
     }
 
     public void decreaseRemainingTurnsInPrison() {

@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.data.readers;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.exceptions.UgentopolyException;
 import be.ugent.objprog.ugentopoly.exceptions.data.PropertyReadException;
 
 import java.io.IOException;
@@ -11,26 +12,15 @@ import java.util.Properties;
 
 public class PropertyReader {
 
-    private static final PropertyReader instance;
-
-    static {
-        try {
-            InputStream input = ResourceLoader.loadResource("ugentopoly.properties");
-            instance = new PropertyReader(input);
-        } catch (IOException e) {
-            throw new PropertyReadException("Failed to read properties file", e);
-        }
-    }
-
     private final Properties properties;
 
-    private PropertyReader(InputStream input) throws IOException {
-        properties = new Properties();
-        properties.load(new InputStreamReader(input, StandardCharsets.UTF_8));
-    }
-
-    public static PropertyReader getInstance() {
-        return instance;
+    public PropertyReader(String resourceName) {
+        try (InputStream input = ResourceLoader.loadResource(resourceName)) {
+            properties = new Properties();
+            properties.load(new InputStreamReader(input, StandardCharsets.UTF_8));
+        }catch (IOException e) {
+            throw new PropertyReadException("Failed to read properties file", e);
+        }
     }
 
     public String getTileName(String id) {

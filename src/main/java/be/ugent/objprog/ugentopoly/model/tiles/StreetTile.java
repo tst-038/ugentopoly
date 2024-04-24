@@ -86,13 +86,13 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player, game.getBank());
+                payRent(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player, game.getBank(), game.getUIUpdater());
+                buy(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
             buy.setDisable(!game.getBank().hasSufficientBalance(player, getPrice()));

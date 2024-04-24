@@ -20,9 +20,16 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     protected static final double LABEL_MARGIN = 5.0;
     protected static final double IMAGE_SIZE = 75.0;
     protected static final double BUTTON_MARGIN = 10.0;
+    protected Game game;
+    protected PropertyReader propertyReader;
+
+    protected TileInfoPaneFactoryBase(Game game) {
+        this.game = game;
+        this.propertyReader = game.getPropertyreader();
+    }
 
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
         AnchorPane tileInfoPane = new AnchorPane();
         tileInfoPane.setPrefSize(PANE_WIDTH, PANE_HEIGHT);
         return tileInfoPane;
@@ -60,7 +67,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         return button;
     }
 
-    protected void addOwnerInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, Game game) {
+    protected void addOwnerInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
         if (tile.getOwner() == null) {
             addForSaleInfo(tileInfoPane, tile, onVisit);
         } else {
@@ -70,22 +77,22 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     }
 
     private void addForSaleInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
-        Label forSaleLabel = createLabel(PropertyReader.getInstance().get("label.for_sale"), "tile-owner-title", 0.0, 0.0, 115.0, null);
+        Label forSaleLabel = createLabel(propertyReader.get("label.for_sale"), "tile-owner-title", 0.0, 0.0, 115.0, null);
         tileInfoPane.getChildren().add(forSaleLabel);
 
         if (onVisit) {
-            Button buyButton = createButton(PropertyReader.getInstance().get("button.buy"), "tile-buy-button", "buy-button", BUTTON_MARGIN, null, 160.0, null);
-            Button cancelButton = createButton(PropertyReader.getInstance().get("button.close"), "tile-close-button", "close-button", null, BUTTON_MARGIN, 160.0, null);
+            Button buyButton = createButton(propertyReader.get("button.buy"), "tile-buy-button", "buy-button", BUTTON_MARGIN, null, 160.0, null);
+            Button cancelButton = createButton(propertyReader.get("button.close"), "tile-close-button", "close-button", null, BUTTON_MARGIN, 160.0, null);
             tileInfoPane.getChildren().addAll(buyButton, cancelButton);
         }
 
-        Label priceLabel = createLabel(Settings.getMoneyUnit() + tile.getPrice(), "tile-owner", 0.0, 0.0, 130.0, null);
+        Label priceLabel = createLabel(game.getSettings().getMoneyUnit() + tile.getPrice(), "tile-owner", 0.0, 0.0, 130.0, null);
         priceLabel.setTextFill(Color.WHITE);
         tileInfoPane.getChildren().add(priceLabel);
     }
 
     private void addOwnerLabel(AnchorPane tileInfoPane, Ownable tile) {
-        Label ownerTitleLabel = createLabel(PropertyReader.getInstance().get("label.owner"), "tile-owner-title", 0.0, 0.0, 115.0, null);
+        Label ownerTitleLabel = createLabel(propertyReader.get("label.owner"), "tile-owner-title", 0.0, 0.0, 115.0, null);
         tileInfoPane.getChildren().add(ownerTitleLabel);
 
         Label ownerLabel = createLabel(tile.getOwner().getName(), "tile-owner", 0.0, 0.0, 130.0, null);
@@ -95,7 +102,7 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
 
     private void addPayRentButton(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, Game game) {
         if (onVisit && tile.getOwner() != game.getTurnHandler().getCurrentPlayer()) {
-            Button payRentButton = createButton(PropertyReader.getInstance().get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN, 160.0, null);
+            Button payRentButton = createButton(propertyReader.get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN, 160.0, null);
             tileInfoPane.getChildren().add(payRentButton);
         }
     }

@@ -8,7 +8,7 @@ public class MoveRelCard extends Card {
     private final int relative;
 
     public MoveRelCard(String id, int relative, Deck deck) {
-        super(id, String.format(PropertyReader.getInstance().get("card.move_rel_card"), relative), CardType.MOVEREL, deck);
+        super(id, String.format(deck.getGame().getPropertyreader().get("card.move_rel_card"), relative), CardType.MOVEREL, deck);
         this.relative = relative;
     }
 

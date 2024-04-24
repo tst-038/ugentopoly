@@ -8,7 +8,7 @@ public class MoneyCard extends Card {
     private final int amount;
 
     public MoneyCard(String id, int amount, Deck deck) {
-        super(id, String.format(PropertyReader.getInstance().get("card.money_card"), amount), CardType.MONEY, deck);
+        super(id, String.format(deck.getGame().getPropertyreader().get("card.money_card"), amount), CardType.MONEY, deck);
         this.amount = amount;
     }
 

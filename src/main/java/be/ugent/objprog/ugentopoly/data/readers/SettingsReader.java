@@ -12,35 +12,23 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SettingsReader implements XmlReader{
-    private static SettingsReader instance;
-
-    private SettingsReader() {
-        // Private constructor to hide the implicit one
-    }
-
-    public static SettingsReader getInstance() {
-        if (instance == null) {
-            instance = new SettingsReader();
-        }
-        return instance;
-    }
-
-    public void readSettings() {
+    public Settings readSettings(PropertyReader propertyReader) {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
             Document document = parseXml(xmlInputStream);
             Element root = getRootElement(document);
             Element settingsElement = getChildElement(root, "settings");
 
-            parseSettings(settingsElement);
+            return parseSettings(settingsElement, propertyReader);
         } catch (IOException | JDOMException e) {
             throw new SettingReadException("Failed to read settings information from XML file", e);
         }
     }
 
-    private void parseSettings(Element settingsElement) {
+    private Settings parseSettings(Element settingsElement , PropertyReader propertyReader) {
         int balance = Integer.parseInt(settingsElement.getAttributeValue("balance"));
         int start = Integer.parseInt(settingsElement.getAttributeValue("start"));
-
-        Settings.getInstance().initialize(balance, start);
+        Settings settings = new Settings(propertyReader);
+        settings.initialize(balance, start);
+        return settings;
     }
 }

@@ -1,20 +1,18 @@
 package be.ugent.objprog.ugentopoly.model.interfaces;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PropertyBoughtLog;
-import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 
 public interface Buyable extends Ownable {
-    default void buy(Player player, Bank bank, UIUpdater uiUpdater) {
+    default void buy(Player player, Game game) {
         try {
-            bank.withdraw(player, getPrice());
+            game.getBank().withdraw(player, getPrice());
             setOwner(player);
             player.networthProperty().set(player.networthProperty().get() + getPrice());
-            uiUpdater.playerBoughtTile(player, this);
-            GameLogBook.getInstance().addEntry(new PropertyBoughtLog(player, this));
+            game.getUIUpdater().playerBoughtTile(player, this);
+            game.getLogBook().addEntry(new PropertyBoughtLog(player, this));
         } catch (InsufficientFundsException ignored) {
         }
     }

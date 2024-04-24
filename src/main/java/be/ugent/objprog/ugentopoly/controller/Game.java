@@ -1,14 +1,13 @@
 package be.ugent.objprog.ugentopoly.controller;
 
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
+import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.logic.TurnHandler;
-import be.ugent.objprog.ugentopoly.model.Bank;
-import be.ugent.objprog.ugentopoly.model.GameState;
-import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.ui.LogbookManager;
+import be.ugent.objprog.ugentopoly.model.*;
 import be.ugent.objprog.ugentopoly.ui.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.UIUpdater;
-import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
@@ -20,15 +19,21 @@ public class Game {
     private final BoardManager boardManager;
     private final TurnHandler turnHandler;
     private final DiceHandler diceHandler;
-    private final LogbookManager logbookManager;
+    private final GameLogBook logBook;
     private final TileInfoPaneManager tileInfoPaneManager;
     private final GameState gameState;
     private final Bank bank;
+    private final Settings settings;
+    private final PropertyReader propertyReader;
+    private final DeckManager deckManager;
 
-    public Game(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Group logbookRoot) {
+    public Game(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, PropertyReader propertyReader, Settings settings){
+        this.settings = settings;
+        this.propertyReader = propertyReader;
         this.players = players;
+        this.deckManager = new DeckManager(this);
         this.tileInfoPaneManager = new TileInfoPaneManager(tileInfoPane, this);
-        this.diceHandler = new DiceHandler();
+        this.diceHandler = new DiceHandler(this);
         this.uiUpdater = new UIUpdater(rootPane, this);
         this.gameState = new GameState(this);
         this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
@@ -36,11 +41,11 @@ public class Game {
         GameOverController gameOverController = new GameOverController();
         gameOverController.setGame(this);
         this.turnHandler = new TurnHandler(this, playerManager, gameOverController);
-        this.logbookManager = new LogbookManager(logbookRoot);
+        logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
 
         for (Player player : players) {
-            player.getPosition().setBoard(gameState.getBoard());
+            player.setGame(this);
         }
 
         uiUpdater.initializeDices(diceHandler.getDiceDialog());
@@ -54,7 +59,7 @@ public class Game {
     }
 
     public void toggleLogbookVisibility() {
-        logbookManager.toggleLogbookVisibility();
+        logBook.toggleLogbookVisibility();
     }
 
     public TileInfoPaneManager getTileInfoPaneManager() {
@@ -87,5 +92,21 @@ public class Game {
 
     public UIUpdater getUIUpdater() {
         return uiUpdater;
+    }
+
+    public GameLogBook getLogBook() {
+        return logBook;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public PropertyReader getPropertyreader() {
+        return propertyReader;
+    }
+
+    public DeckManager getDeckManager() {
+        return deckManager;
     }
 }

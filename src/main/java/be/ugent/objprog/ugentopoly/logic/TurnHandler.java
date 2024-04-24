@@ -3,7 +3,6 @@ package be.ugent.objprog.ugentopoly.logic;
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.controller.PlayerManager;
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.PassedStartLog;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
@@ -53,8 +52,8 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             player.addDoubleRoll();
             // If the player has rolled doubles x times, send them to jail
             //TODO put remainingTurnsInPrison in settings
-            if (player.getDoubleRolls() == Settings.getDoubleRollsToJail()) {
-                player.setRemainingTurnsInPrison(Settings.getDoubleRollsToJail());
+            if (player.getDoubleRolls() == game.getSettings().getDoubleRollsToJail()) {
+                player.setRemainingTurnsInPrison(game.getSettings().getDoubleRollsToJail());
                 player.resetDoubleRolls();
                 Optional<Tile> jailTile = game.getGameState().getBoard().getTiles().stream()
                         .filter(tile -> tile.getType() == TileType.JAIL)
@@ -83,8 +82,8 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         //TODO fix passed start tile caculation.
         if (player.getPosition().getPos() - newPosition > startPosition) {
             System.out.println("turnhandler bonus");
-            game.getBank().deposit(player, Settings.getInstance().getStartBonus());
-            GameLogBook.getInstance().addEntry(new PassedStartLog(player));
+            game.getBank().deposit(player, game.getSettings().getStartBonus());
+            game.getLogBook().addEntry(new PassedStartLog(player));
         }
 
         Tile landedTile = game.getGameState().getBoard().getTiles().stream()

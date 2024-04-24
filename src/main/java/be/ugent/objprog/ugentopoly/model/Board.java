@@ -18,13 +18,13 @@ public class Board {
         areas = boardReader.readAreas();
         tiles = boardReader.readTiles(areas, game);
 
-        PropertyReader propertyReader = PropertyReader.getInstance();
+        PropertyReader propertyReader = game.getPropertyreader();
         for (Tile tile : tiles) {
             String tileName = propertyReader.getTileName(tile.getId());
             tile.setName(tileName);
         }
 
-        new CardsReader().readCards();
+        new CardsReader(game).readCards();
     }
 
     public List<Area> getAreas() {

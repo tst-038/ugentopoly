@@ -10,14 +10,18 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.layout.AnchorPane;
 
 public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
+    public ChanceTileInfoPaneFactory(Game game) {
+        super(game);
+    }
+
     @Override
-    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit, Game game) {
-        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit, game);
+    public AnchorPane createTileInfoPane(Tile tile, boolean onVisit) {
+        AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
         ChanceTile chanceTile = (ChanceTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, chanceTile.getName(), "chance-title", 10.0, getTileImageView("assets/chance.png"));
         addDescriptionLabel(tileInfoPane, getChanceDescription(chanceTile, onVisit, game), "chance-info", 30.0);
-        addButton(tileInfoPane, PropertyReader.getInstance().get("button.close"), "chance-tile-close-button", "close-button", onVisit);
+        addButton(tileInfoPane, game.getPropertyreader().get("button.close"), "chance-tile-close-button", "close-button", onVisit);
 
         return tileInfoPane;
     }
@@ -25,11 +29,11 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     private String getChanceDescription(ChanceTile chanceTile, boolean onVisit, Game game) {
         if (onVisit) {
             Player currentPlayer = game.getTurnHandler().getCurrentPlayer();
-            Card card = Deck.getChanceDeck().drawCard(currentPlayer);
+            Card card = game.getDeckManager().getChanceDeck().drawCard(currentPlayer);
             currentPlayer.getInventory().addCard(card);
             return card.getDescription();
         } else {
-            return PropertyReader.getInstance().getTileDescription(chanceTile.getId());
+            return game.getPropertyreader().getTileDescription(chanceTile.getId());
         }
     }
 }

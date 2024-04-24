@@ -4,31 +4,21 @@ import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 
 public class Settings {
 
-    private static final char MONEY_UNIT = PropertyReader.getInstance().get("money_symbol").charAt(0);
-    private static final int DOUBLE_ROLLS_TO_JAIL = 3;
-
-    // Singleton instance
-    private static Settings instance = null;
     private int startingBalance;
     private int startBonus;
+    private final char MONEY_UNIT;
+    private final int DOUBLE_ROLLS_TO_JAIL;
 
-    // Private constructor
-    private Settings() {
+    public Settings(PropertyReader propertyReader) {
+        MONEY_UNIT = propertyReader.get("money_symbol").charAt(0);
+        DOUBLE_ROLLS_TO_JAIL = 3;
     }
 
-    // Static method to get the singleton instance
-    public static Settings getInstance() {
-        if (instance == null) {
-            instance = new Settings();
-        }
-        return instance;
-    }
-
-    public static String getMoneyUnit() {
+    public String getMoneyUnit() {
         return String.valueOf(MONEY_UNIT);
     }
 
-    public static int getDoubleRollsToJail() {
+    public int getDoubleRollsToJail() {
         return DOUBLE_ROLLS_TO_JAIL;
     }
 

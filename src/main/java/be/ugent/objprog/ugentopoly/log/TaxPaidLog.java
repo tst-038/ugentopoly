@@ -1,11 +1,12 @@
 package be.ugent.objprog.ugentopoly.log;
 
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
+import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
 
 public class TaxPaidLog extends Log {
 
-    public TaxPaidLog(String player, int amount) {
-        super(String.format(PropertyReader.getInstance().get("log.tax_paid"), player, Settings.getMoneyUnit() + amount));
+    public TaxPaidLog(Player player, int amount) {
+        super(String.format(player.getGame().getPropertyreader().get("log.tax_paid"), player, player.getGame().getSettings().getMoneyUnit() + amount));
     }
 }

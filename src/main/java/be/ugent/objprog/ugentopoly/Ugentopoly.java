@@ -1,10 +1,13 @@
 package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.controller.GameController;
+import be.ugent.objprog.ugentopoly.controller.StartController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.readers.SettingsReader;
 import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,8 @@ import java.util.List;
 
 public class Ugentopoly extends Application {
     private static Stage primaryStage;
+    private static final PropertyReader propertyReader = new PropertyReader("ugentopoly.properties");
+    private static final Settings settings = new SettingsReader().readSettings(propertyReader);
 
     public static void main(String[] args) {
         launch(args);
@@ -32,7 +37,7 @@ public class Ugentopoly extends Application {
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            gameController.initializeGame(players);
+            gameController.initializeGame(players, propertyReader, settings);
 
             Scene scene = new Scene(root, 845, 845);
             primaryStage.setScene(scene);
@@ -50,6 +55,10 @@ public class Ugentopoly extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
             Parent root = loader.load();
+            StartController controller = loader.getController();
+            controller.setPropertyReader(propertyReader);
+            controller.setSettings(settings);
+            controller.updateFields();
             if (root instanceof Pane rootPane) {
                 // Start the money animation
                 MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
@@ -78,7 +87,6 @@ public class Ugentopoly extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SettingsReader.getInstance().readSettings();
         Ugentopoly.setPrimaryStage(primaryStage);
         showStartWindow();
     }

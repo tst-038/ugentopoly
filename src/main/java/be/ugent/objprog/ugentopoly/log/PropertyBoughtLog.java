@@ -8,6 +8,6 @@ import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 public class PropertyBoughtLog extends Log {
 
     public PropertyBoughtLog(Player buyer, Buyable buyableProperty) {
-        super(String.format(PropertyReader.getInstance().get("log.property_bought"), buyer.getName(), buyableProperty.getName(), Settings.getMoneyUnit() + buyableProperty.getPrice()));
+        super(String.format(buyer.getGame().getPropertyreader().get("log.property_bought"), buyer.getName(), buyableProperty.getName(), buyer.getGame().getSettings().getMoneyUnit() + buyableProperty.getPrice()));
     }
 }

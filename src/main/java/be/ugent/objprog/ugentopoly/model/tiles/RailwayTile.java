@@ -71,8 +71,8 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     }
 
     @Override
-    public void buy(Player player, Bank bank, UIUpdater uiUpdater) {
-        Buyable.super.buy(player, bank, uiUpdater);
+    public void buy(Player player, Game game) {
+        Buyable.super.buy(player, game);
         player.getInventory().addOwnedRailway();
     }
 
@@ -87,13 +87,13 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
 
         if (owner != null) {
             pane.lookup("#pay-rent-button").setOnMouseClicked(event -> {
-                payRent(player, game.getBank());
+                payRent(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
         } else {
             Button buy = (Button) pane.lookup("#buy-button");
             buy.setOnMouseClicked(event -> {
-                buy(player, game.getBank(), game.getUIUpdater());
+                buy(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
             pane.lookup("#close-button").setOnMouseClicked(event -> {

@@ -12,7 +12,7 @@ public class PlayersMoneyCard extends Card {
     private final int amount;
 
     public PlayersMoneyCard(String id, int amount, Deck deck) {
-        super(id, String.format(PropertyReader.getInstance().get("card.players_money_card"), amount), CardType.PLAYERS_MONEY, deck);
+        super(id, String.format(deck.getGame().getPropertyreader().get("card.players_money_card"), amount), CardType.PLAYERS_MONEY, deck);
         this.amount = amount;
     }
 

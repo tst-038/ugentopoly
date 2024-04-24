@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.data.readers;
 
+import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exceptions.data.AreaReadException;
 import be.ugent.objprog.ugentopoly.model.cards.Card;
@@ -17,6 +18,11 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class CardsReader implements XmlReader {
+    private final Game game;
+
+    public CardsReader(Game game) {
+        this.game = game;
+    }
 
     public void readCards() {
         try (InputStream xmlInputStream = ResourceLoader.loadResource("ugentopoly.xml")) {
@@ -35,7 +41,7 @@ public class CardsReader implements XmlReader {
 
     private Deck getDeckFromElement(Element deckElement) {
         String deckType = deckElement.getAttributeValue("type");
-        return deckType.equals("CHANCE") ? Deck.getChanceDeck() : Deck.getCommunityChestDeck();
+        return deckType.equals("CHANCE") ? game.getDeckManager().getChanceDeck() : game.getDeckManager().getCommunityDeck();
     }
 
     private void parseCardsForDeck(Element deckElement, Deck deck) {

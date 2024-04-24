@@ -2,7 +2,6 @@ package be.ugent.objprog.ugentopoly.model;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
 import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.JackpotClaimedLog;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,7 +18,7 @@ public class Bank {
     }
 
     public void initializeBalances(List<Player> players) {
-        int startingBalance = Settings.getInstance().getStartingBalance();
+        int startingBalance = game.getSettings().getStartingBalance();
         players.forEach(player -> player.setBalance(startingBalance));
     }
 
@@ -73,7 +72,7 @@ public class Bank {
 
 
     public void claimJackpot(Player player) {
-        GameLogBook.getInstance().addEntry(new JackpotClaimedLog(player.getName(), jackpotBalance.get()));
+        game.getLogBook().addEntry(new JackpotClaimedLog(player, jackpotBalance.get()));
         deposit(player, jackpotBalance.get());
         jackpotBalance.set(0);
     }

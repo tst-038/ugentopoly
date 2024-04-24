@@ -48,7 +48,7 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
 
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            game.getBank().deposit(player, Settings.getInstance().getStartBonus());
+            game.getBank().deposit(player, game.getSettings().getStartBonus());
             tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
