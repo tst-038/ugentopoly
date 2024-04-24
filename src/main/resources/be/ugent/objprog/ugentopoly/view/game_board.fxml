@@ -122,7 +122,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <VBox fx:id="pionContainer2" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" styleClass="pionContainer">
+                              <VBox fx:id="pionContainer" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" styleClass="pionContainer">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
