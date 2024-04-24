@@ -79,8 +79,10 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
                 .map(Tile::getPosition)
                 .findFirst()
                 .orElse(0);
-        if (player.getPosition().getPos() < startPosition && startPosition <= newPosition) {
-            // Player has passed the start tile, give them the start bonus
+
+        //TODO fix passed start tile caculation.
+        if (player.getPosition().getPos() - newPosition > startPosition) {
+            System.out.println("turnhandler bonus");
             game.getBank().deposit(player, Settings.getInstance().getStartBonus());
             GameLogBook.getInstance().addEntry(new PassedStartLog(player));
         }
