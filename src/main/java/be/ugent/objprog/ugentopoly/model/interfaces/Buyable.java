@@ -7,13 +7,11 @@ import be.ugent.objprog.ugentopoly.model.Player;
 
 public interface Buyable extends Ownable {
     default void buy(Player player, Game game) {
-        try {
-            game.getBank().withdraw(player, getPrice());
+        if(game.getBank().withdraw(player, getPrice())) {
             setOwner(player);
             player.networthProperty().set(player.networthProperty().get() + getPrice());
             game.getUIUpdater().playerBoughtTile(player, this);
             game.getLogBook().addEntry(new PropertyBoughtLog(player, this));
-        } catch (InsufficientFundsException ignored) {
         }
     }
 

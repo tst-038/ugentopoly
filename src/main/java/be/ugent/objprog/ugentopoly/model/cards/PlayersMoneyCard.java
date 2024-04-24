@@ -20,13 +20,10 @@ public class PlayersMoneyCard extends Card {
         List<Player> players = game.getPlayers();
         players.forEach(p -> {
             if (!p.equals(player)) {
-                try {
-                    if (amount > 0) {
-                        game.getBank().transfer(p, player, amount, TransactionPriority.HIGH);
-                    } else {
-                        game.getBank().transfer(player, p, amount, TransactionPriority.HIGH);
-                    }
-                } catch (InsufficientFundsException ignored) {
+                if (amount > 0) {
+                    game.getBank().transfer(p, player, amount, TransactionPriority.HIGH);
+                } else {
+                    game.getBank().transfer(player, p, amount, TransactionPriority.HIGH);
                 }
             }
         });

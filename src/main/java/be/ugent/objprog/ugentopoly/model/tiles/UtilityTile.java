@@ -103,13 +103,4 @@ public class UtilityTile extends Tile implements UIUpdatable, ImageUpdatable, Bu
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
-    @Override
-    public void payRent(Player player, Game game) {
-        try {
-            game.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH);
-            game.getLogBook().addEntry(new RentPaidLog(player, this));
-        } catch (InsufficientFundsException ignored) {
-        }
-    }
 }

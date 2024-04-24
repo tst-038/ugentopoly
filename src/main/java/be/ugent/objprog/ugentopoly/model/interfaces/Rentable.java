@@ -8,10 +8,8 @@ import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 
 public interface Rentable extends Ownable {
     default void payRent(Player player, Game game) {
-        try {
-            game.getBank().transfer(player, getOwner(), (int) (getRent() * Math.pow(2, getOwner().getInventory().getOwnedRailways() - 1)), TransactionPriority.HIGH);
+        if(game.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH)) {
             game.getLogBook().addEntry(new RentPaidLog(player, this));
-        } catch (InsufficientFundsException ignored) {
         }
     }
 

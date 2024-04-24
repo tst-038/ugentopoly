@@ -35,7 +35,7 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
     }
 
     public int getRent() {
-        return rent;
+        return (int) (rent * Math.pow(2, getOwner().getInventory().getOwnedRailways() - 1.));
     }
 
     public Image getImage() {

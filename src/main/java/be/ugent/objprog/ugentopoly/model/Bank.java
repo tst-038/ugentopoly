@@ -27,44 +27,31 @@ public class Bank {
         player.setBalance(player.getBalance() + amount);
     }
 
-    public void withdraw(Player player, int amount) throws InsufficientFundsException {
+    public boolean withdraw(Player player, int amount) {
         int currentBalance = player.getBalance();
         if (currentBalance < amount) {
-            throw new InsufficientFundsException("Insufficient funds for player " + player.getName());
+            return false;
         }
         player.setBalance(currentBalance - amount);
+        return true;
     }
 
-    public void transfer(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) throws InsufficientFundsException {
-        if (priority == TransactionPriority.HIGH) {
-            handleHighPriorityTransaction(fromPlayer, toPlayer, amount);
+    public boolean transfer(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) {
+        if (withdraw(fromPlayer, amount)) {
+            deposit(toPlayer, amount);
+            return true;
         } else {
-            handleLowPriorityTransaction(fromPlayer, toPlayer, amount);
+            if (priority == TransactionPriority.HIGH) {
+                handleInsufficientFunds(fromPlayer);
+            }
+            return false;
         }
     }
 
     public void transferToJackpot(Player player, int amount) {
-        try {
-            withdraw(player, amount);
-            jackpotBalance.set(jackpotBalance.get() + amount);
-        } catch (InsufficientFundsException e) {
-            handleInsufficientFunds(player);
-        }
-    }
-
-    private void handleHighPriorityTransaction(Player fromPlayer, Player toPlayer, int amount) {
-        try {
-            withdraw(fromPlayer, amount);
-            deposit(toPlayer, amount);
-        } catch (InsufficientFundsException e) {
-            handleInsufficientFunds(fromPlayer);
-            game.getGameState().notifyGameOverListeners(fromPlayer);
-        }
-    }
-
-    private void handleLowPriorityTransaction(Player fromPlayer, Player toPlayer, int amount) throws InsufficientFundsException {
-        withdraw(fromPlayer, amount);
-        deposit(toPlayer, amount);
+            if(withdraw(player, amount)) {
+                jackpotBalance.set(jackpotBalance.get() + amount);
+            }
     }
 
     public boolean hasInsufficientBalance(Player player, int amount) {
@@ -84,12 +71,7 @@ public class Bank {
 
     private void handleInsufficientFunds(Player player) {
         int remainingBalance = player.getBalance();
-        try {
-            withdraw(player, remainingBalance);
-        } catch (InsufficientFundsException e) {
-            // This should never happen
-            throw new UgentopolyException("Player has insufficient funds, but should have enough to withdraw remaining balance");
-        } finally {
+        if(!withdraw(player, remainingBalance)){
             game.getGameState().notifyGameOverListeners(player);
         }
     }
