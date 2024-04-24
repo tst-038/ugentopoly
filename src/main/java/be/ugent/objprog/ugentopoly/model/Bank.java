@@ -66,8 +66,8 @@ public class Bank {
         deposit(toPlayer, amount);
     }
 
-    public boolean hasSufficientBalance(Player player, int amount) {
-        return player.getBalance() >= amount;
+    public boolean hasInsufficientBalance(Player player, int amount) {
+        return player.getBalance() < amount;
     }
 
 
@@ -79,10 +79,6 @@ public class Bank {
 
     public IntegerProperty getJackpotBalanceProperty() {
         return jackpotBalance;
-    }
-
-    public int getJackpotBalance() {
-        return jackpotBalance.get();
     }
 
     private void handleInsufficientFunds(Player player) {

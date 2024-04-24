@@ -35,14 +35,6 @@ public class LogBookController {
         });
     }
 
-    public Group getLogBookRoot(){
-        return logbookRoot;
-    }
-
-    public void setLogBook(GameLogBook logBook){
-        logTableView.setItems(logBook.getEntries());
-    }
-
     @FXML
     private void hideLogbook() {
         logbookRoot.setVisible(false);

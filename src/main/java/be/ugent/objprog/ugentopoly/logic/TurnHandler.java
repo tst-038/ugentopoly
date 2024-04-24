@@ -8,13 +8,13 @@ import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 public class TurnHandler implements GameOverListener, DiceRolledListener {
     private final Game game;
     private int currentPlayerIndex;
-    private boolean gameOver;
     private final PlayerManager playerManager;
     private final GameOverController gameOverController;
 
@@ -37,7 +37,6 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
 
     @Override
     public void onGameOver(Player player) {
-        gameOver = true;
         gameOverController.showGameOverAlert();
     }
 
@@ -85,11 +84,11 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
             game.getLogBook().addEntry(new PassedStartLog(player));
         }
 
-        Tile landedTile = game.getGameState().getBoard().getTiles().stream()
+        Optional<Tile> landedTile = game.getGameState().getBoard().getTiles().stream()
                 .filter(tile -> tile.getPosition() == newPosition)
-                .findFirst().get();
+                .findFirst();
 
-        if (landedTile.getType() == TileType.JAIL && player.getRemainingTurnsInPrison() > 0) {
+        if (landedTile.isPresent() && landedTile.get().getType() == TileType.JAIL && player.getRemainingTurnsInPrison() > 0) {
             player.getInventory().useGetOutOfJailFreeCard();
         }
 

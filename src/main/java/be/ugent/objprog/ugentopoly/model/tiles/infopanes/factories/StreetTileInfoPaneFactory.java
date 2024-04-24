@@ -5,7 +5,6 @@ import be.ugent.objprog.ugentopoly.model.tiles.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 
 public class StreetTileInfoPaneFactory extends TileInfoPaneFactoryBase {
     public StreetTileInfoPaneFactory(Game game) {

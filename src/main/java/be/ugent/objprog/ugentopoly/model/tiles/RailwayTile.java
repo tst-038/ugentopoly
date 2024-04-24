@@ -94,9 +94,7 @@ public class RailwayTile extends Tile implements UIUpdatable, LabelUpdatable, Im
                 buy(player, game);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
-            pane.lookup("#close-button").setOnMouseClicked(event -> {
-                tileInfoPaneManager.setPaneClosableAndHide();
-            });
+            pane.lookup("#close-button").setOnMouseClicked(event -> tileInfoPaneManager.setPaneClosableAndHide());
         }
     }
 }

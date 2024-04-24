@@ -6,7 +6,6 @@ import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.ui.AreaPaneUpdater;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 

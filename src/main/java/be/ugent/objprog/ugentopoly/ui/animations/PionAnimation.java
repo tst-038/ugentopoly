@@ -8,9 +8,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class PionAnimation {
-    private Player player;
+    private final Player player;
     private Pane pionContainer;
-    private PlayerPion currentPion;
+    private final PlayerPion currentPion;
 
     public PionAnimation(Player player, Pane pionContainer, PlayerPion currentPion) {
         this.player = player;

@@ -25,7 +25,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     @Override
     protected ImageView getTileImageView(String imagePath) {
-        ImageView utilityTileImage = createImageView(new ImageView(ResourceLoader.loadImage(imagePath)), 20.0, 37.5, 37.5, null);
+        ImageView utilityTileImage = createImageView(new ImageView(ResourceLoader.loadImage(imagePath)), 20.0);
         utilityTileImage.setPreserveRatio(true);
         utilityTileImage.setScaleX(1.5);
         utilityTileImage.setScaleY(1.5);

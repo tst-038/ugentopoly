@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 
 public class PlayerManager {
+    private static final String ACTIVE_PLAYER_PANEL = "activePlayerPanel";
     private final Game game;
     private final List<Player> players;
     private final UIUpdater uiUpdater;
@@ -40,8 +41,8 @@ public class PlayerManager {
     public void setPlayerPanelToActive(Player player) {
         Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
-            if (!playerPane.getStyleClass().contains("activePlayerPanel")) {
-                playerPane.getStyleClass().add("activePlayerPanel");
+            if (!playerPane.getStyleClass().contains(ACTIVE_PLAYER_PANEL)) {
+                playerPane.getStyleClass().add(ACTIVE_PLAYER_PANEL);
             }
             Node rollDiceButton = playerPane.lookup("#rollDiceButton");
             if (rollDiceButton != null) {
@@ -53,7 +54,7 @@ public class PlayerManager {
     public void setPlayerPanelToInactive(Player player) {
         Node playerPane = game.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
-            playerPane.getStyleClass().remove("activePlayerPanel");
+            playerPane.getStyleClass().remove(ACTIVE_PLAYER_PANEL);
         }
     }
 }

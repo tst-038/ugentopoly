@@ -3,12 +3,9 @@ package be.ugent.objprog.ugentopoly.ui;
 import be.ugent.objprog.ugentopoly.logic.PositionListener;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.ui.animations.PionAnimation;
-import javafx.animation.TranslateTransition;
-import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
 public class PlayerPion extends ImageView implements PositionListener {
     private final Player player;

@@ -45,11 +45,10 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
         return label;
     }
 
-    protected ImageView createImageView(ImageView imageView, Double topAnchor, Double leftAnchor, Double rightAnchor, Double bottomAnchor) {
+    protected ImageView createImageView(ImageView imageView, Double topAnchor) {
         AnchorPane.setTopAnchor(imageView, topAnchor);
-        AnchorPane.setLeftAnchor(imageView, leftAnchor);
-        AnchorPane.setRightAnchor(imageView, rightAnchor);
-        AnchorPane.setBottomAnchor(imageView, bottomAnchor);
+        AnchorPane.setLeftAnchor(imageView, 37.5);
+        AnchorPane.setRightAnchor(imageView, 37.5);
         imageView.setFitHeight(IMAGE_SIZE);
         imageView.setFitWidth(IMAGE_SIZE);
         return imageView;
@@ -112,16 +111,11 @@ public abstract class TileInfoPaneFactoryBase implements TileInfoPaneFactory {
     }
 
     protected ImageView getTileImageView(String imagePath) {
-        ImageView tileImage = createImageView(new ImageView(ResourceLoader.loadImage(imagePath)), 10.0, 37.5, 37.5, null);
+        ImageView tileImage = createImageView(new ImageView(ResourceLoader.loadImage(imagePath)), 10.0);
         tileImage.setFitHeight(60.0);
         tileImage.setFitWidth(60.0);
         tileImage.setPreserveRatio(true);
         return tileImage;
-    }
-
-    protected void addTitleLabel(AnchorPane tileInfoPane, String title, String styleClass, double topAnchor) {
-        Label titleLabel = createLabel(title, styleClass, 5.0, 5.0, topAnchor, 35.0);
-        tileInfoPane.getChildren().add(titleLabel);
     }
 
     protected void addTitleLabelWithImage(AnchorPane tileInfoPane, String title, String styleClass, double topAnchor, ImageView image) {
