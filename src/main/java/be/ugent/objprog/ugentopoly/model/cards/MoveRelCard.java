@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.cards;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 
 public class MoveRelCard extends Card {

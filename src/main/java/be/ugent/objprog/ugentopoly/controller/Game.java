@@ -41,7 +41,7 @@ public class Game {
         GameOverController gameOverController = new GameOverController();
         gameOverController.setGame(this);
         this.turnHandler = new TurnHandler(this, playerManager, gameOverController);
-        logBook = new GameLogBook(logBookRoot);
+        this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
 
         for (Player player : players) {

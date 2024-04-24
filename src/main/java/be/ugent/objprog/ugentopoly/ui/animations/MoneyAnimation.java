@@ -21,7 +21,7 @@ public class MoneyAnimation {
         this.cycleCount = cycleCount;
     }
 
-    private static double getRandomFactor(Random random) {
+    private double getRandomFactor(Random random) {
         double factor = random.nextDouble() * 2 - 1; // generates a number between -1 and 1
         if (factor == 0) {
             return getRandomFactor(random); // if the factor is 0, recursively call the method until a non-zero value is generated

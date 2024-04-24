@@ -1,6 +1,5 @@
 package be.ugent.objprog.ugentopoly.log;
 
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Player;
 
 public class JackpotClaimedLog extends Log {

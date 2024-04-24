@@ -8,7 +8,6 @@ import be.ugent.objprog.ugentopoly.exceptions.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
 import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.interfaces.Buyable;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
@@ -137,7 +136,7 @@ public class UIUpdater {
     public void playerBoughtTile(Player player, Buyable tile) {
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
-        // Only utility tiles dont have a label
+
         if (tileName == null) {
             ((AnchorPane) tilePane.lookup("#ownerColor")).setBackground(new Background(new BackgroundFill(player.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
             return;

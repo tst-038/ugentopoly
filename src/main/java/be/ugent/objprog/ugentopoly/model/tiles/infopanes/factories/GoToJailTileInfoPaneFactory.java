@@ -1,7 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.tiles.infopanes.factories;
 
 import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.tiles.GoToJailTile;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import javafx.scene.layout.AnchorPane;

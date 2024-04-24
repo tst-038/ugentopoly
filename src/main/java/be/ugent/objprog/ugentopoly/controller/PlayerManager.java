@@ -3,15 +3,12 @@ package be.ugent.objprog.ugentopoly.controller;
 import be.ugent.objprog.ugentopoly.model.Player;
 import be.ugent.objprog.ugentopoly.model.tiles.StartTile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
-import be.ugent.objprog.ugentopoly.ui.PlayerPion;
 import be.ugent.objprog.ugentopoly.ui.UIUpdater;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PlayerManager {
     private final Game game;
