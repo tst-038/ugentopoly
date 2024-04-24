@@ -78,11 +78,11 @@ public class PionAnimation {
             imageX = (containerWidth - imageWidth) / 2;
             imageY = (pionContainer.getChildren().size() - 1) * (imageHeight + marginY) + marginY;
         } else if (newPosition >= 21 && newPosition <= 29) {
-            imageX = containerWidth - (pionContainer.getChildren().size() * (imageWidth + marginX));
+            imageX = (pionContainer.getChildren().size()-1) * (imageWidth + marginX) - (containerWidth - imageWidth)/2;
             imageY = (containerHeight - imageHeight) / 2;
         } else {
-            imageX = (containerWidth - imageWidth) / 2;
-            imageY = containerHeight - (pionContainer.getChildren().size() * (imageHeight + marginY));
+            imageX = (containerWidth - imageWidth) / 2 - (pionContainer.getChildren().size() * (imageWidth + marginX));
+            imageY = containerHeight - (pionContainer.getChildren().size() * (imageHeight + marginY) + marginY);
         }
 
         return new double[]{imageX, imageY};
