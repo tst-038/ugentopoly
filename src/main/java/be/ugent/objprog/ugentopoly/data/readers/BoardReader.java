@@ -7,6 +7,7 @@ import be.ugent.objprog.ugentopoly.model.Area;
 import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.model.tiles.TileType;
 import be.ugent.objprog.ugentopoly.model.tiles.factories.*;
+import javafx.scene.paint.Color;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -68,7 +69,7 @@ public class BoardReader implements XmlReader {
 
         for (Element areaElement : areasElement.getChildren("area")) {
             String id = areaElement.getAttributeValue("id");
-            String color = areaElement.getAttributeValue("color");
+            Color color = Color.web(areaElement.getAttributeValue("color"));
             areas.add(new Area(id, color));
         }
 

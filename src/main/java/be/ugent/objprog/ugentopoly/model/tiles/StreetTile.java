@@ -71,7 +71,7 @@ public class StreetTile extends Tile implements UIUpdatable, LabelUpdatable, Buy
 
     @Override
     public void updateUI(Node tileNode, Pane rootPane) {
-        tileNode.lookup("#area").setStyle("-fx-background-color: " + getArea().getColor());
+        tileNode.lookup("#area").setStyle("-fx-background-color: " + getArea().getHexColorString());
         updateLabel(tileNode);
     }
 
