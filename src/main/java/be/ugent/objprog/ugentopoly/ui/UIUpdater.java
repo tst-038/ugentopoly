@@ -13,6 +13,7 @@ import be.ugent.objprog.ugentopoly.model.tiles.Tile;
 import be.ugent.objprog.ugentopoly.ui.interfaces.UIUpdateVisitor;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -57,7 +58,10 @@ public class UIUpdater {
                 FXMLLoader loader = new FXMLLoader(fxmlFileURL);
                 Node tileNode = loader.load();
 
-                tileNode.setRotate(tile.getOrientation().getRotation());
+                if (tileNode instanceof Group tileGroup){
+                    tileGroup.getChildren().getFirst().setRotate(tile.getOrientation().getRotation());
+                }
+
 
                 tile.acceptUIUpdate(visitor, tileNode, rootPane);
 

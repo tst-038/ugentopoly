@@ -53,6 +53,9 @@ public abstract class Tile implements Visitable {
     }
 
     public URL getFxmlURL() {
+        if (type == TileType.STREET) {
+            return Ugentopoly.class.getResource("view/tiles/" + "horizontal" + "/" + type.getFXMLFileName());
+        }
         return Ugentopoly.class.getResource("view/tiles/" + orientation.getDirectoryName() + "/" + type.getFXMLFileName());
     }
 
