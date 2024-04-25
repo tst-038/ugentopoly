@@ -57,7 +57,7 @@ public class PlayerManager {
             playerPane.getStyleClass().remove(ACTIVE_PLAYER_PANEL);
             Node rollDiceButton = playerPane.lookup("#rollDiceButton");
             if (rollDiceButton != null) {
-                rollDiceButton.setDisable(false);
+                rollDiceButton.setDisable(true);
             }
         }
     }
