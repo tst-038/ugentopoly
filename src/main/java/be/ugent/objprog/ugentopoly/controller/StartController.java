@@ -48,6 +48,11 @@ public class StartController {
     private List<Player> players;
     private ObservableList<Image> availablePions;
 
+    public StartController(PropertyReader propertyReader, Settings settings) {
+        this.propertyReader = propertyReader;
+        this.settings = settings;
+    }
+
     @FXML
     private void initialize() {
         players = new ArrayList<>();
@@ -55,14 +60,6 @@ public class StartController {
         initializePionComboBoxes();
         playerSlider.valueProperty().addListener((observable, oldValue, newValue) -> updatePlayerAmount(newValue.intValue()));
         playerSlider.setMax(MAX_PLAYERS);
-    }
-
-    public void setPropertyReader(PropertyReader propertyReader) {
-        this.propertyReader = propertyReader;
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
     }
 
     public void updateFields() {

@@ -23,9 +23,9 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class Ugentopoly extends Application {
-    private static Stage primaryStage;
     private static final PropertyReader propertyReader = new PropertyReader("ugentopoly.properties");
     private static final Settings settings = new SettingsReader().readSettings(propertyReader);
+    private static Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -54,13 +54,11 @@ public class Ugentopoly extends Application {
     public static void showStartWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
+            StartController controller = new StartController(propertyReader, settings);
+            loader.setController(controller);
             Parent root = loader.load();
-            StartController controller = loader.getController();
-            controller.setPropertyReader(propertyReader);
-            controller.setSettings(settings);
             controller.updateFields();
             if (root instanceof Pane rootPane) {
-                // Start the money animation
                 MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
                 moneyAnimation.play(rootPane, 20);
             }

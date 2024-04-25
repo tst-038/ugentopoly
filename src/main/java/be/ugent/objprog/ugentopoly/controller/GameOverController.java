@@ -88,7 +88,7 @@ public class GameOverController {
     }
 
     private void playAgain() {
-        Ugentopoly.showStartWindow();
+        new Ugentopoly().showStartWindow();
     }
 
     private void closeApplication() {
