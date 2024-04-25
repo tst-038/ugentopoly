@@ -40,7 +40,7 @@ public class Game {
         this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
         GameOverController gameOverController = new GameOverController(ugentopoly, this);
-        this.turnHandler = new TurnHandler(this, playerManager, gameOverController);
+        this.turnHandler = new TurnHandler(this, gameOverController);
         this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
 
@@ -55,7 +55,7 @@ public class Game {
         boardManager.initializeBoard(rootPane);
         playerManager.initializePlayers(rootPane);
         bank.initializeBalances(playerManager.getPlayers());
-        turnHandler.startGame();
+        turnHandler.initialize();
     }
 
     public void toggleLogbookVisibility() {
@@ -108,5 +108,9 @@ public class Game {
 
     public DeckManager getDeckManager() {
         return deckManager;
+    }
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
     }
 }

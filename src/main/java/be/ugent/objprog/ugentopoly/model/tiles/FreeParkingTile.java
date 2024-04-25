@@ -51,6 +51,7 @@ public class FreeParkingTile extends Tile implements UIUpdatable, LabelUpdatable
         claim.setOnMouseClicked(event -> {
             game.getBank().claimJackpot(player);
             tileInfoPaneManager.setPaneClosableAndHide();
+            //TODO next player and make it hide
         });
     }
 }
