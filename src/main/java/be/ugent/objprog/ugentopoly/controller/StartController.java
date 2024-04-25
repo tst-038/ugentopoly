@@ -137,7 +137,8 @@ public class StartController {
                     setGraphic(null);
                 } else {
                     imageView.setImage(item);
-                    imageView.setFitHeight(25);
+                    imageView.setFitHeight(30);
+                    imageView.setFitWidth(30);
                     imageView.setPreserveRatio(true);
                     setGraphic(imageView);
                 }
@@ -196,7 +197,8 @@ public class StartController {
 
     private AnchorPane createPlayerField(int index) {
         AnchorPane playerFieldPane = new AnchorPane();
-        playerFieldPane.setPrefSize(200, 25);
+        playerFieldPane.setMinHeight(50);
+        playerFieldPane.setPrefSize(200, 50);
 
         TextField usernameField = createUsernameField(index);
         ColorPicker colorPicker = createColorPicker(index);
@@ -209,7 +211,7 @@ public class StartController {
         pionComboBox.valueProperty().addListener(createPionListener(player));
 
         playerFieldPane.getChildren().addAll(usernameField, colorPicker, pionComboBox);
-        VBox.setMargin(playerFieldPane, new Insets(5, 10, 5, 10));
+        VBox.setMargin(playerFieldPane, new Insets(0, 10, 0, 10));
 
         return playerFieldPane;
     }
@@ -219,25 +221,26 @@ public class StartController {
         usernameField.setPrefWidth(125);
         usernameField.setText(String.format(propertyReader.get("label.default_player_name"), (index + 1)));
         AnchorPane.setLeftAnchor(usernameField, 0.0);
-        AnchorPane.setTopAnchor(usernameField, 2.0);
+        AnchorPane.setTopAnchor(usernameField, 10.0);
         return usernameField;
     }
 
     private ColorPicker createColorPicker(int index) {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setValue(DEFAULT_COLORS[index]);
-        colorPicker.setPrefSize(31, 25);
+        colorPicker.setPrefSize(25, 25);
         colorPicker.setStyle("");
         AnchorPane.setRightAnchor(colorPicker, 60.0);
-        AnchorPane.setTopAnchor(colorPicker, 2.0);
+        AnchorPane.setTopAnchor(colorPicker, 10.0);
         return colorPicker;
     }
 
     private ComboBox<Image> createPionComboBox() {
         ComboBox<Image> pionComboBox = new ComboBox<>();
-        pionComboBox.setPrefSize(25, 25);
+        pionComboBox.setMinHeight(40);
+        pionComboBox.setPrefSize(30, 40);
         AnchorPane.setRightAnchor(pionComboBox, 0.0);
-        AnchorPane.setTopAnchor(pionComboBox, 2.0);
+        AnchorPane.setTopAnchor(pionComboBox, 3.0);
         initializePionComboBox(pionComboBox);
         return pionComboBox;
     }
