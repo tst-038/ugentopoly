@@ -25,6 +25,5 @@ public class MoveCard extends Card {
             gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus());
         }
         player.getInventory().removeCard(this);
-        returnToDeck();
     }
 }
