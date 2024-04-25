@@ -43,7 +43,96 @@ public class MoneyTransferAnimation {
                 PathTransition pathTransition = createPathTransition(moneyImage, path);
 
                 pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
-                pathTransition.setDelay(Duration.millis(i * 100)); // Delay each image by 100ms
+                pathTransition.setDelay(Duration.millis(i * 50));
+                pathTransition.play();
+            }
+        }
+    }
+
+    public void animateToJackpot(Player player, Pane gameBoard, int amount) {
+        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region jackpot = (Region) gameBoard.lookup("#jackpot");
+
+        if (playerNode != null && jackpot != null) {
+            Bounds fromNodeBounds = playerNode.localToScene(playerNode.getBoundsInLocal());
+            Bounds toNodeBounds = jackpot.localToScene(jackpot.getBoundsInLocal());
+
+            double startX = fromNodeBounds.getMinX() + fromNodeBounds.getWidth() / 2;
+            double startY = fromNodeBounds.getMinY() + fromNodeBounds.getHeight() / 2;
+            double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
+            double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
+
+            int numImages = amount / DOLLARS_PER_IMAGE + 1;
+            for (int i = 0; i < numImages; i++) {
+                ImageView moneyImage = createMoneyImage();
+                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
+                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
+                gameBoard.getChildren().add(moneyImage);
+
+                Path path = createAnimationPath(startX, startY, endX, endY);
+                PathTransition pathTransition = createPathTransition(moneyImage, path);
+
+                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
+                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
+                pathTransition.play();
+            }
+        }
+    }
+
+    public void animateClaimJackpot(Player player, Pane gameBoard, int amount) {
+        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region jackpot = (Region) gameBoard.lookup("#jackpot");
+
+        if (playerNode != null && jackpot != null) {
+            Bounds fromNodeBounds = jackpot.localToScene(jackpot.getBoundsInLocal());
+            Bounds toNodeBounds = playerNode.localToScene(playerNode.getBoundsInLocal());
+
+            double startX = fromNodeBounds.getMinX() + fromNodeBounds.getWidth() / 2;
+            double startY = fromNodeBounds.getMinY() + fromNodeBounds.getHeight() / 2;
+            double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
+            double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
+
+            int numImages = amount / DOLLARS_PER_IMAGE + 1;
+            for (int i = 0; i < numImages; i++) {
+                ImageView moneyImage = createMoneyImage();
+                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
+                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
+                gameBoard.getChildren().add(moneyImage);
+
+                Path path = createAnimationPath(startX, startY, endX, endY);
+                PathTransition pathTransition = createPathTransition(moneyImage, path);
+
+                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
+                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
+                pathTransition.play();
+            }
+        }
+    }
+
+    public void animateDepositFromBank(Player player, Pane gameBoard, int amount) {
+        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+
+        if (playerNode != null) {
+            Bounds fromNodeBounds = gameBoard.localToScene(gameBoard.getBoundsInLocal());
+            Bounds toNodeBounds = playerNode.localToScene(playerNode.getBoundsInLocal());
+
+            double startX = fromNodeBounds.getMinX() + fromNodeBounds.getWidth() / 2;
+            double startY = fromNodeBounds.getMinY() + fromNodeBounds.getHeight() / 2;
+            double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
+            double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
+
+            int numImages = amount / DOLLARS_PER_IMAGE + 1;
+            for (int i = 0; i < numImages; i++) {
+                ImageView moneyImage = createMoneyImage();
+                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
+                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
+                gameBoard.getChildren().add(moneyImage);
+
+                Path path = createAnimationPath(startX, startY, endX, endY);
+                PathTransition pathTransition = createPathTransition(moneyImage, path);
+
+                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
+                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
                 pathTransition.play();
             }
         }

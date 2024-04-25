@@ -14,7 +14,7 @@ public class MoneyCard extends Card {
     @Override
     public void execute(Player player, GameManager gameManager) {
         if (amount > 0) {
-            gameManager.getBank().deposit(player, amount);
+            gameManager.getBank().deposit(player, amount, true);
         } else {
             gameManager.getBank().transferToJackpot(player, -amount);
         }

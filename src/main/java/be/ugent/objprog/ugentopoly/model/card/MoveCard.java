@@ -22,7 +22,7 @@ public class MoveCard extends Card {
         player.getPosition().updatePosition(position);
         int startPosition = gameManager.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
         if(oldPos < startPosition &&  startPosition < position && collect){
-            gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus());
+            gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus(), true);
         }
         player.getInventory().removeCard(this);
     }

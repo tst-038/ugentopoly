@@ -29,7 +29,7 @@ public class PlayerPositionUpdater {
 
         int oldPos = player.getPosition().getPos();
         if (oldPos < startPosition && startPosition <= newPosition) {
-            bank.deposit(player, settings.getStartBonus());
+            bank.deposit(player, settings.getStartBonus(), false);
             gameLogBook.addEntry(new PassedStartEvent(player));
         }
 

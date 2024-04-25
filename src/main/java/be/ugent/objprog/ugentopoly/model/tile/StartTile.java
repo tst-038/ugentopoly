@@ -46,7 +46,7 @@ public class StartTile extends Tile implements IUIChangeListener, ILabelChangeLi
 
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus());
+            gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus(), true);
             tileInfoPaneManager.setPaneClosableAndHide();
         });
     }
