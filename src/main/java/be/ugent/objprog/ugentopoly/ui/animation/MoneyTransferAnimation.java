@@ -35,6 +35,8 @@ public class MoneyTransferAnimation {
             int numImages = amount / DOLLARS_PER_IMAGE;
             for (int i = 0; i < numImages; i++) {
                 ImageView moneyImage = createMoneyImage();
+                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
+                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
                 gameBoard.getChildren().add(moneyImage);
 
                 Path path = createAnimationPath(startX, startY, endX, endY);
