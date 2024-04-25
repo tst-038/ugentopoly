@@ -1,12 +1,12 @@
 package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
-import be.ugent.objprog.ugentopoly.log.PassedStartLog;
+import be.ugent.objprog.ugentopoly.log.event.PassedStartEvent;
 import be.ugent.objprog.ugentopoly.model.Bank;
-import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.model.tiles.Tile;
-import be.ugent.objprog.ugentopoly.model.tiles.TileType;
+import be.ugent.objprog.ugentopoly.model.tile.Tile;
+import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
 public class PlayerPositionUpdater {
     private final GameLogBook gameLogBook;
@@ -20,8 +20,8 @@ public class PlayerPositionUpdater {
     }
 
     public void update(Player player, int diceResult) {
-        int newPosition = (player.getPosition().getPos() + diceResult) % player.getGame().getGameState().getBoard().getTiles().size();
-        int startPosition = player.getGame().getGameState().getBoard().getTiles().stream()
+        int newPosition = (player.getPosition().getPos() + diceResult) % player.getGameManager().getGameState().getBoard().getTiles().size();
+        int startPosition = player.getGameManager().getGameState().getBoard().getTiles().stream()
                 .filter(tile -> tile.getType() == TileType.START)
                 .map(Tile::getPosition)
                 .findFirst()
@@ -30,10 +30,10 @@ public class PlayerPositionUpdater {
         int oldPos = player.getPosition().getPos();
         if (oldPos < startPosition && startPosition <= newPosition) {
             bank.deposit(player, settings.getStartBonus());
-            gameLogBook.addEntry(new PassedStartLog(player));
+            gameLogBook.addEntry(new PassedStartEvent(player));
         }
 
-        player.getGame().getTileInfoPaneManager().setPaneClosableAndHide();
+        player.getGameManager().getTileInfoPaneManager().setPaneClosableAndHide();
         player.getPosition().updatePosition(newPosition);
     }
 }

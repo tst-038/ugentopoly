@@ -1,25 +1,24 @@
 package be.ugent.objprog.ugentopoly.model;
 
-import be.ugent.objprog.ugentopoly.controller.Game;
-import be.ugent.objprog.ugentopoly.exceptions.UgentopolyException;
-import be.ugent.objprog.ugentopoly.exceptions.bank.InsufficientFundsException;
-import be.ugent.objprog.ugentopoly.log.JackpotClaimedLog;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
+import be.ugent.objprog.ugentopoly.log.event.JackpotClaimedEvent;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 
 public class Bank {
-    private final Game game;
+    private final GameManager gameManager;
     private final SimpleIntegerProperty jackpotBalance;
 
-    public Bank(Game game) {
-        this.game = game;
+    public Bank(GameManager gameManager) {
+        this.gameManager = gameManager;
         this.jackpotBalance = new SimpleIntegerProperty(0);
     }
 
     public void initializeBalances(List<Player> players) {
-        int startingBalance = game.getSettings().getStartingBalance();
+        int startingBalance = gameManager.getSettings().getStartingBalance();
         players.forEach(player -> player.setBalance(startingBalance));
     }
 
@@ -62,7 +61,7 @@ public class Bank {
 
 
     public void claimJackpot(Player player) {
-        game.getLogBook().addEntry(new JackpotClaimedLog(player, jackpotBalance.get()));
+        gameManager.getLogBook().addEntry(new JackpotClaimedEvent(player, jackpotBalance.get()));
         deposit(player, jackpotBalance.get());
         jackpotBalance.set(0);
     }
@@ -74,6 +73,6 @@ public class Bank {
     private void handleInsufficientFunds(Player player) {
         int remainingBalance = player.getBalance();
         withdraw(player, remainingBalance);
-        game.getGameState().notifyGameOverListeners(player);
+        gameManager.getGameState().notifyGameOverListeners(player);
     }
 }

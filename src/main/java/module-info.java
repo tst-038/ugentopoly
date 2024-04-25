@@ -12,4 +12,10 @@ module be.ugent.objprog.ugentopoly {
 
     // Export the main package
     exports be.ugent.objprog.ugentopoly;
+    opens be.ugent.objprog.ugentopoly.log.event to javafx.base;
+    opens be.ugent.objprog.ugentopoly.model.board to javafx.fxml;
+    opens be.ugent.objprog.ugentopoly.model.player to javafx.fxml;
+    opens be.ugent.objprog.ugentopoly.ui.element to javafx.fxml;
+    opens be.ugent.objprog.ugentopoly.logic to javafx.fxml;
+    opens be.ugent.objprog.ugentopoly.ui.manager to javafx.fxml;
 }

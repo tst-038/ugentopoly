@@ -2,10 +2,10 @@ package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.model.Player;
+import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
-import be.ugent.objprog.ugentopoly.ui.PlayerPion;
+import be.ugent.objprog.ugentopoly.ui.element.PlayerPion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;

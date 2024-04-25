@@ -1,6 +1,6 @@
 package be.ugent.objprog.ugentopoly.controller;
 
-import be.ugent.objprog.ugentopoly.log.Log;
+import be.ugent.objprog.ugentopoly.log.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
@@ -14,13 +14,13 @@ public class LogBookController {
     private Group logbookRoot;
 
     @FXML
-    private TableView<Log> logTableView;
+    private TableView<Event> logTableView;
 
     @FXML
-    private TableColumn<Log, String> messageColumn;
+    private TableColumn<Event, String> messageColumn;
 
     @FXML
-    private TableColumn<Log, String> timestampColumn;
+    private TableColumn<Event, String> timestampColumn;
 
     @FXML
     private void initialize() {

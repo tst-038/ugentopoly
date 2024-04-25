@@ -1,10 +1,9 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
-import be.ugent.objprog.ugentopoly.log.Log;
-import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.log.event.Event;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
@@ -20,13 +19,13 @@ public class GameController {
     private Group logbookRoot;
 
     @FXML
-    private TableView<Log> logTableView;
+    private TableView<Event> logTableView;
 
     @FXML
-    private TableColumn<Log, String> messageColumn;
+    private TableColumn<Event, String> messageColumn;
 
     @FXML
-    private TableColumn<Log, String> timestampColumn;
+    private TableColumn<Event, String> timestampColumn;
 
     @FXML
     private AnchorPane rootPane;
@@ -34,12 +33,12 @@ public class GameController {
     @FXML
     private AnchorPane tileInfoPane;
 
-    private Game game;
+    private GameManager gameManager;
 
     public void initializeGame(List<Player> players, Ugentopoly ugentopoly){
-        game = new Game(players, rootPane, tileInfoPane, logbookRoot, ugentopoly);
-        logTableView.setItems(game.getLogBook().getEntries());
-        game.startGame(rootPane);
+        gameManager = new GameManager(players, rootPane, tileInfoPane, logbookRoot, ugentopoly);
+        logTableView.setItems(gameManager.getLogBook().getEntries());
+        gameManager.startGame(rootPane);
     }
 
     @FXML
@@ -61,6 +60,6 @@ public class GameController {
 
     @FXML
     private void handleLogbookButtonClicked() {
-        game.toggleLogbookVisibility();
+        gameManager.toggleLogbookVisibility();
     }
 }

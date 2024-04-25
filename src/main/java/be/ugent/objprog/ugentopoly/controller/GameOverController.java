@@ -1,9 +1,10 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.exceptions.ui.UIInitializationException;
-import be.ugent.objprog.ugentopoly.model.Player;
-import be.ugent.objprog.ugentopoly.ui.animations.MoneyAnimation;
+import be.ugent.objprog.ugentopoly.exception.ui.UIInitializationException;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
+import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.ui.animation.MoneyAnimation;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,15 +19,15 @@ import java.util.Optional;
 
 public class GameOverController {
     private final Ugentopoly ugentopoly;
-    private final Game game;
+    private final GameManager gameManager;
 
-    public GameOverController(Ugentopoly ugentopoly, Game game) {
+    public GameOverController(Ugentopoly ugentopoly, GameManager gameManager) {
         this.ugentopoly = ugentopoly;
-        this.game = game;
+        this.gameManager = gameManager;
     }
 
     private void init(Node rootPane) {
-        List<Player> playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
+        List<Player> playersByMoney = gameManager.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));
@@ -45,7 +46,7 @@ public class GameOverController {
             Parent root = loader.load();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(game.getPropertyreader().get("game_over"));
+            alert.setTitle(gameManager.getPropertyreader().get("game_over"));
             alert.setHeaderText(null);
 
             assert root instanceof DialogPane;
@@ -57,14 +58,14 @@ public class GameOverController {
             moneyAnimation.play((Pane) content, 20);
 
             Button playAgainButton = (Button) root.lookup("#playAgainButton");
-            playAgainButton.setText(game.getPropertyreader().get("button.play_again"));
+            playAgainButton.setText(gameManager.getPropertyreader().get("button.play_again"));
             playAgainButton.setOnAction(e -> {
                 alert.setResult(ButtonType.OK);
                 alert.close();
             });
 
             Button closeButton = (Button) root.lookup("#closeButton");
-            closeButton.setText(game.getPropertyreader().get("button.quit"));
+            closeButton.setText(gameManager.getPropertyreader().get("button.quit"));
             closeButton.setOnAction(e -> {
                 alert.setResult(ButtonType.CANCEL);
                 alert.close();
@@ -79,7 +80,7 @@ public class GameOverController {
                 closeApplication();
             }
         } catch (Exception e) {
-            throw new UIInitializationException("Failed to initialize the game over window", e);
+            throw new UIInitializationException("Failed to initialize the gameManager over window", e);
         }
     }
 
