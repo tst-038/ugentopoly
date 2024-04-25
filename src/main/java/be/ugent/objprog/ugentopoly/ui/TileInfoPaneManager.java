@@ -19,10 +19,12 @@ public class TileInfoPaneManager {
     }
 
     public void showTileInfo(Tile tile, boolean onVisit) {
-        if (tile != null && !isClosable) {
-            return;
+        if (tile != null) {
+            if (!isClosable){
+                return;
+            }
+            tile.accept(tileInfoPaneUpdater, onVisit);
         }
-        tile.accept(tileInfoPaneUpdater, onVisit);
         isClosable = !onVisit;
         tileInfoPane.setVisible(true);
     }
