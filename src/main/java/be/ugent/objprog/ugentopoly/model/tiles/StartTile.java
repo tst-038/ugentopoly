@@ -41,7 +41,6 @@ public class StartTile extends Tile implements UIUpdatable, LabelUpdatable {
 
     @Override
     public void onVisit(Player player) {
-        // No action needed just show infotile
         TileInfoPaneManager tileInfoPaneManager = game.getTileInfoPaneManager();
         tileInfoPaneManager.showTileInfo(this, true);
 

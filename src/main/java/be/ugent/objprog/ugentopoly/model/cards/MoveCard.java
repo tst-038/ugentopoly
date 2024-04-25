@@ -18,11 +18,10 @@ public class MoveCard extends Card {
 
     @Override
     public void execute(Player player, Game game) {
-        //TODO fix passed start tile check
-        int previousPosition = player.getPosition().getPos();
+        int oldPos = player.getPosition().getPos();
         player.getPosition().updatePosition(position);
         int startPosition = game.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
-        if (collect && position + startPosition < previousPosition) {
+        if(oldPos < startPosition &&  startPosition < position && collect){
             game.getBank().deposit(player, game.getSettings().getStartBonus());
         }
         player.getInventory().removeCard(this);
