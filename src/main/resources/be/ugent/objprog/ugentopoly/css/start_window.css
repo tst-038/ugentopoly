@@ -82,3 +82,15 @@
     -fx-text-fill: red;
     -fx-font-size: 12px;
 }
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #5a5a5a;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #bebebe;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #8c8c8c;
+}
