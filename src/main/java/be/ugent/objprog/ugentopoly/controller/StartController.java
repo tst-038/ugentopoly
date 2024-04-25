@@ -151,7 +151,7 @@ public class StartController {
         if (player != null) {
             Image selectedImage = pionComboBox.getSelectionModel().getSelectedItem();
             if (isImageInUseByOtherPlayer(selectedImage, player)) {
-                pionComboBox.getSelectionModel().selectPrevious();
+                pionComboBox.getSelectionModel().clearSelection();
             } else {
                 player.setPion(new PlayerPion(player, selectedImage));
             }
