@@ -14,7 +14,7 @@ public class Ugentopoly extends Application {
     private Stage primaryStage;
     private final PropertyReader propertyReader = new PropertyReader("ugentopoly.properties");
     private final Settings settings = new SettingsReader().readSettings(propertyReader);
-    private final UILoader uiLoader = new UILoader(this);
+    private UILoader uiLoader;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +23,7 @@ public class Ugentopoly extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        uiLoader = new UILoader(this);
         showStartWindow();
     }
 

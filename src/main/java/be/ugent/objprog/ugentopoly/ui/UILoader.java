@@ -35,7 +35,7 @@ public class UILoader {
 
     public void loadGameBoard(List<Player> players) {
         try {
-            FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("/view/ui/game_board.fxml"));
+            FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/game_board.fxml"));
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
@@ -51,7 +51,7 @@ public class UILoader {
 
     public void loadStartWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("/view/ui/start_window.fxml"));
+            FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/start_window.fxml"));
             StartController controller = new StartController(ugentopoly, propertyReader, settings);
             loader.setController(controller);
             Parent root = loader.load();
