@@ -3,6 +3,7 @@ package be.ugent.objprog.ugentopoly.model;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.JackpotClaimedEvent;
 import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.ui.animation.MoneyTransferAnimation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -38,6 +39,7 @@ public class Bank {
     public boolean transfer(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) {
         if (withdraw(fromPlayer, amount)) {
             deposit(toPlayer, amount);
+            new MoneyTransferAnimation().animateMoneyTransfer(fromPlayer, toPlayer, amount, gameManager.getRootPane());
             return true;
         } else {
             if (priority == TransactionPriority.HIGH) {

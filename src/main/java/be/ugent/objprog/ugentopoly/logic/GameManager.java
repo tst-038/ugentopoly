@@ -30,8 +30,10 @@ public class GameManager {
     private final Settings settings;
     private final PropertyReader propertyReader;
     private final CardDeckManager cardDeckManager;
+    private final AnchorPane rootPane;
 
     public GameManager(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, Ugentopoly ugentopoly){
+        this.rootPane = rootPane;
         this.settings = ugentopoly.getSettings();
         this.propertyReader = ugentopoly.getPropertyReader();
         this.players = players;
@@ -115,5 +117,9 @@ public class GameManager {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public AnchorPane getRootPane() {
+        return rootPane;
     }
 }

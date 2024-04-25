@@ -47,7 +47,6 @@ public class DiceRolledHandler {
 
         GoToJailHandler goToJailHandler = new GoToJailHandler();
         boolean landedOnGoToJail = goToJailHandler.handle(player);
-        System.out.println("before setoninfopanecloselistener");
 
         player.getGameManager().getTileInfoPaneManager().setOnInfoPaneClosedListener(() -> {
             if (!hasRolledDouble || landedOnGoToJail) {
