@@ -169,7 +169,7 @@ public class StartController {
     private boolean isImageInUseByOtherPlayer(Image image, Player currentPlayer) {
         return players.stream()
                 .filter(player -> player != currentPlayer)
-                .anyMatch(player -> player.getPion() != null && player.getPion().getImage().equals(image));
+                .anyMatch(player -> player.getPion() != null && player.getPion().getImage() != null && player.getPion().getImage().equals(image));
     }
 
     private void updatePlayerAmount(int numPlayers) {
