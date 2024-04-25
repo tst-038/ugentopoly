@@ -37,12 +37,9 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
     }
 
     public void nextPlayer() {
-        System.out.println("\n");
         playerManager.setPlayerPanelToInactive(getCurrentPlayer());
-        System.out.println("Next player"+ getCurrentPlayer().getName());
         currentPlayerIndex = (currentPlayerIndex + 1) % playerManager.getPlayers().size();
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
-        System.out.println("new active player"+ getCurrentPlayer().getName());
     }
 
     public void continueTurn() {
