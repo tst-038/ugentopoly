@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="rootPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="345.0" prefWidth="600.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/game_over.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.ugent.objprog.ugentopoly.controller.GameOverController">
+<DialogPane fx:id="rootPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="345.0" prefWidth="600.0" style="-fx-background-color: #3e4057;" stylesheets="@../css/game_over.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane fx:id="background" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3e4057;">
          <children>

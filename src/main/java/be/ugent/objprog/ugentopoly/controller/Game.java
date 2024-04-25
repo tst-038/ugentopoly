@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.controller;
 
+import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.logic.DiceHandler;
@@ -27,9 +28,9 @@ public class Game {
     private final PropertyReader propertyReader;
     private final DeckManager deckManager;
 
-    public Game(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, PropertyReader propertyReader, Settings settings){
-        this.settings = settings;
-        this.propertyReader = propertyReader;
+    public Game(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, Ugentopoly ugentopoly){
+        this.settings = ugentopoly.getSettings();
+        this.propertyReader = ugentopoly.getPropertyReader();
         this.players = players;
         this.deckManager = new DeckManager(this);
         this.tileInfoPaneManager = new TileInfoPaneManager(tileInfoPane, this);
@@ -38,8 +39,7 @@ public class Game {
         this.gameState = new GameState(this);
         this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
-        GameOverController gameOverController = new GameOverController();
-        gameOverController.setGame(this);
+        GameOverController gameOverController = new GameOverController(ugentopoly, this);
         this.turnHandler = new TurnHandler(this, playerManager, gameOverController);
         this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);

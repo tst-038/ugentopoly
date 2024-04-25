@@ -43,12 +43,14 @@ public class StartController {
     @FXML private Label playerName;
     @FXML private Button playButton;
 
+    private Ugentopoly ugentopoly;
     private PropertyReader propertyReader;
     private Settings settings;
     private List<Player> players;
     private ObservableList<Image> availablePions;
 
-    public StartController(PropertyReader propertyReader, Settings settings) {
+    public StartController(Ugentopoly ugentopoly, PropertyReader propertyReader, Settings settings) {
+        this.ugentopoly = ugentopoly;
         this.propertyReader = propertyReader;
         this.settings = settings;
     }
@@ -69,7 +71,7 @@ public class StartController {
     @FXML
     private void handlePlayButtonAction() {
         if (areAllFieldsUnique()) {
-            Ugentopoly.startGame(players);
+            ugentopoly.startGame(players);
         }
     }
 

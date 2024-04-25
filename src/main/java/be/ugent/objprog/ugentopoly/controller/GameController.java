@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.controller;
 
+import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.data.readers.PropertyReader;
 import be.ugent.objprog.ugentopoly.log.Log;
 import be.ugent.objprog.ugentopoly.model.Player;
@@ -35,8 +36,8 @@ public class GameController {
 
     private Game game;
 
-    public void initializeGame(List<Player> players, PropertyReader propertyReader, Settings settings) {
-        game = new Game(players, rootPane, tileInfoPane, logbookRoot, propertyReader, settings);
+    public void initializeGame(List<Player> players, Ugentopoly ugentopoly){
+        game = new Game(players, rootPane, tileInfoPane, logbookRoot, ugentopoly);
         logTableView.setItems(game.getLogBook().getEntries());
         game.startGame(rootPane);
     }

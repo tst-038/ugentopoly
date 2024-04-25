@@ -17,13 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class GameOverController {
-    private Game game;
+    private final Ugentopoly ugentopoly;
+    private final Game game;
 
-    public GameOverController() {
-        // Empty constructor for javaFX
-    }
-
-    public void setGame(Game game) {
+    public GameOverController(Ugentopoly ugentopoly, Game game) {
+        this.ugentopoly = ugentopoly;
         this.game = game;
     }
 
@@ -45,9 +43,8 @@ public class GameOverController {
     public void showGameOverAlert() {
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/game_over.fxml"));
+            loader.setController(this);
             Parent root = loader.load();
-            GameOverController controller = loader.getController();
-            controller.setGame(game);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game Over");
@@ -88,7 +85,7 @@ public class GameOverController {
     }
 
     private void playAgain() {
-        new Ugentopoly().showStartWindow();
+        ugentopoly.showStartWindow();
     }
 
     private void closeApplication() {
