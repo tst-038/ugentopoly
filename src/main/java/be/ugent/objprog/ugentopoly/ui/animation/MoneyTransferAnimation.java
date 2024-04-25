@@ -32,7 +32,7 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = amount / DOLLARS_PER_IMAGE;
+            int numImages = amount / DOLLARS_PER_IMAGE + 1;
             for (int i = 0; i < numImages; i++) {
                 ImageView moneyImage = createMoneyImage();
                 moneyImage.setX(startX - moneyImage.getFitWidth()/2);
