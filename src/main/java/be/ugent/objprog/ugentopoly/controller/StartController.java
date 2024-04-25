@@ -152,9 +152,11 @@ public class StartController {
             Image selectedImage = pionComboBox.getSelectionModel().getSelectedItem();
             if (isImageInUseByOtherPlayer(selectedImage, player)) {
                 pionComboBox.getSelectionModel().clearSelection();
+                player.setPion(null);
             } else {
                 player.setPion(new PlayerPion(player, selectedImage));
             }
+            updateNotUniqueLabels();
         }
     }
 
@@ -169,7 +171,7 @@ public class StartController {
     private boolean isImageInUseByOtherPlayer(Image image, Player currentPlayer) {
         return players.stream()
                 .filter(player -> player != currentPlayer)
-                .anyMatch(player -> player.getPion() != null && player.getPion().getImage() != null && player.getPion().getImage().equals(image));
+                .anyMatch(player -> player.getPion() != null && image.equals(player.getPion().getImage()));
     }
 
     private void updatePlayerAmount(int numPlayers) {
