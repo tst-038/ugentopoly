@@ -32,7 +32,6 @@ public class DiceRolledEventHandler {
         DoubleRollHandler doubleRollHandler = new DoubleRollHandler(settings);
         boolean shouldGoToJail = doubleRollHandler.handleDoubleRoll(player, hasRolledDouble);
         if (shouldGoToJail) {
-            playerManager.setPlayerPanelToInactive(player);
             turnHandler.nextPlayer();
             return;
         }
@@ -40,25 +39,23 @@ public class DiceRolledEventHandler {
         JailHandler jailHandler = new JailHandler();
         boolean canContinueTurn = jailHandler.handle(player, hasRolledDouble);
         if (!canContinueTurn) {
-            nextPlayer(player);
+            turnHandler.nextPlayer();
             return;
         }
 
         GoToJailHandler goToJailHandler = new GoToJailHandler();
         boolean landedOnGoToJail = goToJailHandler.handle(player);
-        if (!hasRolledDouble || landedOnGoToJail) {
-            playerManager.setPlayerPanelToInactive(player);
-            turnHandler.nextPlayer();
-        } else {
-            playerManager.setPlayerPanelToActive(player);
-        }
+        System.out.println("before setoninfopanecloselistener");
+
+        player.getGame().getTileInfoPaneManager().setOnInfoPaneClosedListener(() -> {
+            if (!hasRolledDouble || landedOnGoToJail) {
+                turnHandler.nextPlayer();
+            } else {
+                turnHandler.continueTurn();
+            }
+        });
 
         PlayerPositionUpdater playerPositionUpdater = new PlayerPositionUpdater(gameLogBook, bank, settings);
         playerPositionUpdater.update(player, diceResult);
-    }
-
-    private void nextPlayer(Player player) {
-        playerManager.setPlayerPanelToInactive(player);
-        turnHandler.nextPlayer();
     }
 }
