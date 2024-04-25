@@ -48,7 +48,6 @@ public class TurnHandler implements GameOverListener, DiceRolledListener {
         if (hasRolledDouble) {
             player.addDoubleRoll();
             // If the player has rolled doubles x times, send them to jail
-            //TODO put remainingTurnsInPrison in settings
             if (player.getDoubleRolls() == game.getSettings().getDoubleRollsToJail()) {
                 player.setRemainingTurnsInPrison(game.getSettings().getDoubleRollsToJail());
                 player.resetDoubleRolls();

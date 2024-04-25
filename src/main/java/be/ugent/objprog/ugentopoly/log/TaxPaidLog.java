@@ -5,6 +5,6 @@ import be.ugent.objprog.ugentopoly.model.Player;
 public class TaxPaidLog extends Log {
 
     public TaxPaidLog(Player player, int amount) {
-        super(String.format(player.getGame().getPropertyreader().get("log.tax_paid"), player, player.getGame().getSettings().getMoneyUnit() + amount));
+        super(String.format(player.getGame().getPropertyreader().get("log.tax_paid"), player.getName(), player.getGame().getSettings().getMoneyUnit() + amount));
     }
 }

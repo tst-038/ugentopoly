@@ -51,6 +51,8 @@ public class Bank {
     public void transferToJackpot(Player player, int amount) {
             if(withdraw(player, amount)) {
                 jackpotBalance.set(jackpotBalance.get() + amount);
+            }else {
+                handleInsufficientFunds(player);
             }
     }
 
@@ -71,8 +73,7 @@ public class Bank {
 
     private void handleInsufficientFunds(Player player) {
         int remainingBalance = player.getBalance();
-        if(!withdraw(player, remainingBalance)){
-            game.getGameState().notifyGameOverListeners(player);
-        }
+        withdraw(player, remainingBalance);
+        game.getGameState().notifyGameOverListeners(player);
     }
 }

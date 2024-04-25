@@ -19,16 +19,18 @@ import java.util.Optional;
 public class GameOverController {
     private final Ugentopoly ugentopoly;
     private final Game game;
+    private List<Player> playersByMoney;
 
     public GameOverController(Ugentopoly ugentopoly, Game game) {
         this.ugentopoly = ugentopoly;
         this.game = game;
     }
 
-    //TODO move stuff to properties file
+    private void initPlayersByMoney() {
+        playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
+    }
 
-    private void init(Node rootPane) {
-        List<Player> playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
+    private void initPodium(Node rootPane) {
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));
@@ -41,15 +43,16 @@ public class GameOverController {
     }
 
     public void showGameOverAlert() {
+        initPlayersByMoney();
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/game_over.fxml"));
             loader.setController(this);
             Parent root = loader.load();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Game Over");
+            alert.setTitle(game.getPropertyreader().get("game_over"));
             alert.setHeaderText(null);
-            alert.setContentText("The game has ended!");
+            alert.setContentText(String.format(game.getPropertyreader().get("game_over_message"), playersByMoney.getLast().getName()));
 
             assert root instanceof DialogPane;
             alert.setDialogPane((DialogPane) root);
@@ -71,7 +74,7 @@ public class GameOverController {
                 alert.close();
             });
 
-            init(content);
+            initPodium(content);
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
