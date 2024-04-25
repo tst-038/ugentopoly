@@ -19,18 +19,14 @@ import java.util.Optional;
 public class GameOverController {
     private final Ugentopoly ugentopoly;
     private final Game game;
-    private List<Player> playersByMoney;
 
     public GameOverController(Ugentopoly ugentopoly, Game game) {
         this.ugentopoly = ugentopoly;
         this.game = game;
     }
 
-    private void initPlayersByMoney() {
-        playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
-    }
-
-    private void initPodium(Node rootPane) {
+    private void init(Node rootPane) {
+        List<Player> playersByMoney = game.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));
@@ -43,7 +39,6 @@ public class GameOverController {
     }
 
     public void showGameOverAlert() {
-        initPlayersByMoney();
         try {
             FXMLLoader loader = new FXMLLoader(Ugentopoly.class.getResource("view/game_over.fxml"));
             loader.setController(this);
@@ -52,7 +47,6 @@ public class GameOverController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(game.getPropertyreader().get("game_over"));
             alert.setHeaderText(null);
-            alert.setContentText(String.format(game.getPropertyreader().get("game_over_message"), playersByMoney.getLast().getName()));
 
             assert root instanceof DialogPane;
             alert.setDialogPane((DialogPane) root);
@@ -63,18 +57,20 @@ public class GameOverController {
             moneyAnimation.play((Pane) content, 20);
 
             Button playAgainButton = (Button) root.lookup("#playAgainButton");
+            playAgainButton.setText(game.getPropertyreader().get("button.play_again"));
             playAgainButton.setOnAction(e -> {
                 alert.setResult(ButtonType.OK);
                 alert.close();
             });
 
             Button closeButton = (Button) root.lookup("#closeButton");
+            closeButton.setText(game.getPropertyreader().get("button.quit"));
             closeButton.setOnAction(e -> {
                 alert.setResult(ButtonType.CANCEL);
                 alert.close();
             });
 
-            initPodium(content);
+            init(content);
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
