@@ -26,7 +26,7 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
 
     private String getChestDescription(ChestTile chestTile, boolean onVisit, GameManager gameManager) {
         if (onVisit) {
-            Player currentPlayer = gameManager.getTurnHandler().getCurrentPlayer();
+            Player currentPlayer = gameManager.getTurnManager().getCurrentPlayer();
             Card card = gameManager.getDeckManager().getCommunityDeck().drawCard(currentPlayer);
             currentPlayer.getInventory().addCard(card);
             card.returnToDeck();

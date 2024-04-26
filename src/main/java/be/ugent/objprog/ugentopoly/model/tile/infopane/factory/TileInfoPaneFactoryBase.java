@@ -99,7 +99,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
     }
 
     private void addPayRentButton(AnchorPane tileInfoPane, IBuyable tile, boolean onVisit, GameManager gameManager) {
-        if (onVisit && tile.getOwner() != gameManager.getTurnHandler().getCurrentPlayer()) {
+        if (onVisit && tile.getOwner() != gameManager.getTurnManager().getCurrentPlayer()) {
             Button payRentButton = createButton(propertyReader.get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN);
             tileInfoPane.getChildren().add(payRentButton);
         }

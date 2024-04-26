@@ -75,7 +75,7 @@ public class GameManager {
         return diceHandler;
     }
 
-    public TurnManager getTurnHandler() {
+    public TurnManager getTurnManager() {
         return turnManager;
     }
 

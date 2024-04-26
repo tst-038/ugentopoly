@@ -3,8 +3,9 @@ package be.ugent.objprog.ugentopoly.ui.animation;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import javafx.animation.PathTransition;
+import javafx.animation.*;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,10 +22,48 @@ public class MoneyTransferAnimation {
     private static final String MONEY_IMAGE_PATH = "assets/money.png";
     private static final int ANIMATION_DURATION = 1000; // Duration in milliseconds
     private static final int DOLLARS_PER_IMAGE = 10;
+    private static final double SCALE_FACTOR = 1.2;
+
+    private void animateMoneyTransfer(Pane gameBoard, double startX, double startY, double endX, double endY, int amount,
+                                  Label fromLabel, Label toLabel, Runnable onFinished) {
+    int numImages = amount / DOLLARS_PER_IMAGE + 1;
+    AtomicInteger completedAnimations = new AtomicInteger();
+
+    for (int i = 0; i < numImages; i++) {
+        ImageView moneyImage = createMoneyImage();
+        moneyImage.setX(startX - moneyImage.getFitWidth() / 2);
+        moneyImage.setY(startY - moneyImage.getFitHeight() / 2);
+        gameBoard.getChildren().add(moneyImage);
+
+        Path path = createAnimationPath(startX, startY, endX, endY);
+        PathTransition pathTransition = createPathTransition(moneyImage, path);
+
+        Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
+        Timeline toFontSizeTimeline = createFontSizeTimeline(toLabel, SCALE_FACTOR);
+
+        fromFontSizeTimeline.setOnFinished(e -> {
+            pathTransition.play();
+        });
+
+        pathTransition.setOnFinished(event -> {
+            gameBoard.getChildren().remove(moneyImage);
+            toFontSizeTimeline.setOnFinished(e -> {
+                completedAnimations.getAndIncrement();
+                if (completedAnimations.get() == numImages) {
+                    onFinished.run();
+                }
+            });
+            toFontSizeTimeline.play();
+        });
+
+        fromFontSizeTimeline.play();
+        pathTransition.setDelay(Duration.millis(i * 50));
+    }
+}
 
     public void animateMoneyTransfer(Player fromPlayer, Player toPlayer, int amount, Pane gameBoard) {
-        Region fromPlayerNode = (Region) gameBoard.lookup("#player_" + fromPlayer.getId()).lookup("#playerBalance");
-        Region toPlayerNode = (Region) gameBoard.lookup("#player_" + toPlayer.getId()).lookup("#playerBalance");
+        Region fromPlayerNode = getPlayerBalanceNode(gameBoard, fromPlayer);
+        Region toPlayerNode = getPlayerBalanceNode(gameBoard, toPlayer);
 
         if (fromPlayerNode != null && toPlayerNode != null) {
             Bounds fromNodeBounds = fromPlayerNode.localToScene(fromPlayerNode.getBoundsInLocal());
@@ -34,25 +74,14 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = amount / DOLLARS_PER_IMAGE + 1;
-            for (int i = 0; i < numImages; i++) {
-                ImageView moneyImage = createMoneyImage();
-                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
-                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
-                gameBoard.getChildren().add(moneyImage);
-
-                Path path = createAnimationPath(startX, startY, endX, endY);
-                PathTransition pathTransition = createPathTransition(moneyImage, path);
-
-                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
-                pathTransition.setDelay(Duration.millis(i * 50));
-                pathTransition.play();
-            }
+            Label fromLabel = (Label) fromPlayerNode.lookup("#playerBalance");
+            Label toLabel = (Label) toPlayerNode.lookup("#playerBalance");
+            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
     }
 
     public void animateToJackpot(Player player, Pane gameBoard, int amount) {
-        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region playerNode = getPlayerBalanceNode(gameBoard, player);
         Region jackpot = (Region) gameBoard.lookup("#jackpot");
 
         if (playerNode != null && jackpot != null) {
@@ -64,25 +93,14 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = amount / DOLLARS_PER_IMAGE + 1;
-            for (int i = 0; i < numImages; i++) {
-                ImageView moneyImage = createMoneyImage();
-                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
-                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
-                gameBoard.getChildren().add(moneyImage);
-
-                Path path = createAnimationPath(startX, startY, endX, endY);
-                PathTransition pathTransition = createPathTransition(moneyImage, path);
-
-                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
-                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
-                pathTransition.play();
-            }
+            Label fromLabel = (Label) playerNode.lookup("#playerBalance");
+            Label toLabel = (Label) jackpot;
+            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
     }
 
     public void animateClaimJackpot(Player player, Pane gameBoard, int amount) {
-        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region playerNode = getPlayerBalanceNode(gameBoard, player);
         Region jackpot = (Region) gameBoard.lookup("#jackpot");
 
         if (playerNode != null && jackpot != null) {
@@ -94,25 +112,14 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = amount / DOLLARS_PER_IMAGE + 1;
-            for (int i = 0; i < numImages; i++) {
-                ImageView moneyImage = createMoneyImage();
-                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
-                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
-                gameBoard.getChildren().add(moneyImage);
-
-                Path path = createAnimationPath(startX, startY, endX, endY);
-                PathTransition pathTransition = createPathTransition(moneyImage, path);
-
-                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
-                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
-                pathTransition.play();
-            }
+            Label fromLabel = (Label) jackpot;
+            Label toLabel = (Label) playerNode.lookup("#playerBalance");
+            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
     }
 
     public void animateDepositFromBank(Player player, Pane gameBoard, int amount) {
-        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region playerNode = getPlayerBalanceNode(gameBoard, player);
 
         if (playerNode != null) {
             Bounds fromNodeBounds = gameBoard.localToScene(gameBoard.getBoundsInLocal());
@@ -123,25 +130,13 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = amount / DOLLARS_PER_IMAGE + 1;
-            for (int i = 0; i < numImages; i++) {
-                ImageView moneyImage = createMoneyImage();
-                moneyImage.setX(startX - moneyImage.getFitWidth()/2);
-                moneyImage.setY(startY - moneyImage.getFitHeight()/2);
-                gameBoard.getChildren().add(moneyImage);
-
-                Path path = createAnimationPath(startX, startY, endX, endY);
-                PathTransition pathTransition = createPathTransition(moneyImage, path);
-
-                pathTransition.setOnFinished(event -> gameBoard.getChildren().remove(moneyImage));
-                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 100ms
-                pathTransition.play();
-            }
+            Label toLabel = (Label) playerNode.lookup("#playerBalance");
+            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, null, toLabel, () -> {});
         }
     }
 
     public void animatePropertyBought(Player player, Pane gameBoard, IBuyable tile, Runnable onFinished) {
-        Region playerNode = (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        Region playerNode = getPlayerBalanceNode(gameBoard, player);
         Region tileNode = (Region) gameBoard.lookup("#_" + tile.getPosition());
 
         if (playerNode != null && tileNode != null) {
@@ -153,31 +148,14 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            int numImages = tile.getPrice() / DOLLARS_PER_IMAGE + 1;
-            //Thread safe
-            AtomicInteger completedAnimations = new AtomicInteger();
-
-            for (int i = 0; i < numImages; i++) {
-                ImageView moneyImage = createMoneyImage();
-                moneyImage.setX(startX - moneyImage.getFitWidth() / 2);
-                moneyImage.setY(startY - moneyImage.getFitHeight() / 2);
-                gameBoard.getChildren().add(moneyImage);
-
-                Path path = createAnimationPath(startX, startY, endX, endY);
-                PathTransition pathTransition = createPathTransition(moneyImage, path);
-
-                pathTransition.setOnFinished(event -> {
-                    gameBoard.getChildren().remove(moneyImage);
-                    completedAnimations.getAndIncrement();
-
-                    if (completedAnimations.get() == numImages) {
-                        onFinished.run();
-                    }
-                });
-                pathTransition.setDelay(Duration.millis(i * 50)); // Delay each image by 50ms
-                pathTransition.play();
-            }
+            Label fromLabel = (Label) playerNode.lookup("#playerBalance");
+            Label toLabel = (Label) gameBoard.lookup("#_" + tile.getPosition()).lookup("Label");
+            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, tile.getPrice(), fromLabel, toLabel, onFinished);
         }
+    }
+
+    private Region getPlayerBalanceNode(Pane gameBoard, Player player) {
+        return (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
     }
 
     private ImageView createMoneyImage() {
@@ -199,5 +177,19 @@ public class MoneyTransferAnimation {
         PathTransition pathTransition = new PathTransition(Duration.millis(ANIMATION_DURATION), path, moneyImage);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         return pathTransition;
+    }
+
+    private Timeline createFontSizeTimeline(Label label, double scaleFactor) {
+        if (label != null) {
+            double initialFontSize = label.getFont().getSize();
+            double scaledFontSize = initialFontSize * scaleFactor;
+
+            return new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(label.fontProperty(), Font.font(initialFontSize))),
+                    new KeyFrame(Duration.millis(25), new KeyValue(label.fontProperty(), Font.font(scaledFontSize))),
+                    new KeyFrame(Duration.millis(50), new KeyValue(label.fontProperty(), Font.font(initialFontSize)))
+            );
+        }
+        return null;
     }
 }

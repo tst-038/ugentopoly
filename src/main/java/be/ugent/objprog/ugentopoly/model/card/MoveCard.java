@@ -20,6 +20,7 @@ public class MoveCard extends Card {
     public void execute(Player player, GameManager gameManager) {
         int oldPos = player.getPosition().getPos();
         player.getPosition().updatePosition(position);
+        gameManager.getTurnManager().previousPlayer();
         int startPosition = gameManager.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
         if(oldPos < startPosition &&  startPosition < position && collect){
             gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus(), true);
