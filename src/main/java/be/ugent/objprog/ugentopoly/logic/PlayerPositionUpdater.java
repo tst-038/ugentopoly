@@ -19,8 +19,9 @@ public class PlayerPositionUpdater {
         this.settings = settings;
     }
 
-    public void update(Player player, int diceResult) {
-        int newPosition = (player.getPosition().getPos() + diceResult) % player.getGameManager().getGameState().getBoard().getTiles().size();
+    public void update(Player player, int amount) {
+        int boardSize = player.getGameManager().getGameState().getBoard().getTiles().size();
+        int newPosition = (player.getPosition().getPos() + amount) % boardSize;
         int startPosition = player.getGameManager().getGameState().getBoard().getTiles().stream()
                 .filter(tile -> tile.getType() == TileType.START)
                 .map(Tile::getPosition)
@@ -28,12 +29,28 @@ public class PlayerPositionUpdater {
                 .orElse(0);
 
         int oldPos = player.getPosition().getPos();
-        if (oldPos < startPosition && startPosition <= newPosition) {
-            bank.deposit(player, settings.getStartBonus(), false);
+
+        if (hasPassedStart(oldPos, newPosition, startPosition, boardSize, amount >= 0)){
+            System.out.println("Player " + player.getName() + " has passed start");
+            bank.deposit(player, settings.getStartBonus(), true);
             gameLogBook.addEntry(new PassedStartEvent(player));
         }
 
         player.getGameManager().getTileInfoPaneManager().setPaneClosableAndHide();
         player.getPosition().updatePosition(newPosition);
+    }
+
+    public boolean hasPassedStart(int oldPosition, int newPosition, int startTile, int totalTiles, boolean isMovingForward){
+        if (oldPosition == startTile && newPosition != startTile) {
+            return false;
+        }
+
+        if (isMovingForward) {
+            int distance = (newPosition - oldPosition + totalTiles) % totalTiles;
+            int distanceToStart = (startTile - oldPosition + totalTiles) % totalTiles;
+            return distance >= distanceToStart;
+        } else {
+            return false;
+        }
     }
 }

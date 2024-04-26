@@ -13,18 +13,14 @@ import java.util.List;
 
 public class DiceRolledHandler {
 
-    private final GameLogBook gameLogBook;
-    private final Bank bank;
     private final Settings settings;
-    private final PlayerManager playerManager;
     private final TurnManager turnManager;
+    private final PlayerPositionUpdater playerPositionUpdater;
 
     public DiceRolledHandler(GameManager gameManager, TurnManager turnManager) {
-        this.gameLogBook = gameManager.getLogBook();
-        this.bank = gameManager.getBank();
         this.settings = gameManager.getSettings();
-        this.playerManager = gameManager.getPlayerManager();
         this.turnManager = turnManager;
+        this.playerPositionUpdater = gameManager.getPlayerPositionUpdater();
     }
 
     public void onDiceRolled(Player player, List<Integer> rolls) {
@@ -56,7 +52,6 @@ public class DiceRolledHandler {
             }
         });
 
-        PlayerPositionUpdater playerPositionUpdater = new PlayerPositionUpdater(gameLogBook, bank, settings);
         playerPositionUpdater.update(player, diceResult);
     }
 }

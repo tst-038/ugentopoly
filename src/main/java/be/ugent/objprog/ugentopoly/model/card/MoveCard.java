@@ -6,6 +6,8 @@ import be.ugent.objprog.ugentopoly.model.tile.StartTile;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
+import java.util.List;
+
 public class MoveCard extends Card {
     private final int position;
     private final boolean collect;
@@ -19,12 +21,18 @@ public class MoveCard extends Card {
     @Override
     public void execute(Player player, GameManager gameManager) {
         int oldPos = player.getPosition().getPos();
-        player.getPosition().updatePosition(position);
-        gameManager.getTurnManager().previousPlayer();
-        int startPosition = gameManager.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst().map(Tile::getPosition).orElse(0);
-        if(oldPos < startPosition &&  startPosition < position && collect){
-            gameManager.getBank().deposit(player, gameManager.getSettings().getStartBonus(), true);
+        int totalTiles = gameManager.getGameState().getBoard().getTiles().size();
+        int relativeMovement;
+
+        if (collect) {
+            relativeMovement = (position - oldPos + totalTiles) % totalTiles;
+        } else {
+            relativeMovement = (oldPos - position + totalTiles) % totalTiles;
+            relativeMovement = -relativeMovement;
         }
+
+        gameManager.getPlayerPositionUpdater().update(player, relativeMovement);
+        gameManager.getTurnManager().previousPlayer();
         player.getInventory().removeCard(this);
     }
 }

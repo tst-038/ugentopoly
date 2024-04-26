@@ -31,6 +31,7 @@ public class GameManager {
     private final PropertyReader propertyReader;
     private final CardDeckManager cardDeckManager;
     private final AnchorPane rootPane;
+    private final PlayerPositionUpdater playerPositionUpdater;
 
     public GameManager(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, Ugentopoly ugentopoly){
         this.rootPane = rootPane;
@@ -45,9 +46,10 @@ public class GameManager {
         this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
         GameOverController gameOverController = new GameOverController(ugentopoly, this);
-        this.turnManager = new TurnManager(this, gameOverController);
         this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
+        this.playerPositionUpdater = new PlayerPositionUpdater(logBook, bank, settings);
+        this.turnManager = new TurnManager(this, gameOverController);
 
         for (Player player : players) {
             player.setGame(this);
@@ -121,5 +123,9 @@ public class GameManager {
 
     public AnchorPane getRootPane() {
         return rootPane;
+    }
+
+    public PlayerPositionUpdater getPlayerPositionUpdater() {
+        return playerPositionUpdater;
     }
 }
