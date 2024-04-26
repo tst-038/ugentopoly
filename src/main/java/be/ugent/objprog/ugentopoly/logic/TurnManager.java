@@ -41,7 +41,6 @@ public class TurnManager implements GameOverListener, DiceRolledListener {
     }
 
     public void previousPlayer() {
-        System.out.println("previous player !");
         playerManager.setPlayerPanelToInactive(getCurrentPlayer());
         int m = playerManager.getPlayers().size();
         currentPlayerIndex = (((currentPlayerIndex - 1) % m) + m ) % m;

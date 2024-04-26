@@ -60,7 +60,6 @@ public class MoneyTransferAnimation {
             });
             fromFontSizeTimeline.play();
         }else{
-
             pathTransition.play();
         }
     }
