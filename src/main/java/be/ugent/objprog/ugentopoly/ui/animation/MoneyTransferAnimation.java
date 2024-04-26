@@ -41,10 +41,6 @@ public class MoneyTransferAnimation {
         Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
         Timeline toFontSizeTimeline = createFontSizeTimeline(toLabel, SCALE_FACTOR);
 
-        fromFontSizeTimeline.setOnFinished(e -> {
-            pathTransition.play();
-        });
-
         pathTransition.setOnFinished(event -> {
             gameBoard.getChildren().remove(moneyImage);
             toFontSizeTimeline.setOnFinished(e -> {
@@ -56,8 +52,17 @@ public class MoneyTransferAnimation {
             toFontSizeTimeline.play();
         });
 
-        fromFontSizeTimeline.play();
         pathTransition.setDelay(Duration.millis(i * 50));
+
+        if (fromFontSizeTimeline != null) {
+            fromFontSizeTimeline.setOnFinished(e -> {
+                pathTransition.play();
+            });
+            fromFontSizeTimeline.play();
+        }else{
+
+            pathTransition.play();
+        }
     }
 }
 
@@ -149,9 +154,71 @@ public class MoneyTransferAnimation {
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
             Label fromLabel = (Label) playerNode.lookup("#playerBalance");
+
+            // Check if the tile has a Label or an ImageView
             Label toLabel = (Label) gameBoard.lookup("#_" + tile.getPosition()).lookup("Label");
-            animateMoneyTransfer(gameBoard, startX, startY, endX, endY, tile.getPrice(), fromLabel, toLabel, onFinished);
+            ImageView utilityImage = (ImageView) gameBoard.lookup("#_" + tile.getPosition()).lookup("#utilityImage");
+
+            if (toLabel != null) {
+                // If the tile has a Label, animate the money transfer with the Label
+                animateMoneyTransfer(gameBoard, startX, startY, endX, endY, tile.getPrice(), fromLabel, toLabel, onFinished);
+            } else if (utilityImage != null) {
+                // If the tile has an ImageView, animate the money transfer with the ImageView
+                animateMoneyTransferToImageView(gameBoard, startX, startY, endX, endY, tile.getPrice(), fromLabel, utilityImage, onFinished);
+            }
         }
+    }
+
+    private void animateMoneyTransferToImageView(Pane gameBoard, double startX, double startY, double endX, double endY, int amount,
+                                                 Label fromLabel, ImageView toImageView, Runnable onFinished) {
+        int numImages = amount / DOLLARS_PER_IMAGE + 1;
+        AtomicInteger completedAnimations = new AtomicInteger();
+
+        for (int i = 0; i < numImages; i++) {
+            ImageView moneyImage = createMoneyImage();
+            moneyImage.setX(startX - moneyImage.getFitWidth() / 2);
+            moneyImage.setY(startY - moneyImage.getFitHeight() / 2);
+            gameBoard.getChildren().add(moneyImage);
+
+            Path path = createAnimationPath(startX, startY, endX, endY);
+            PathTransition pathTransition = createPathTransition(moneyImage, path);
+
+            Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
+            ScaleTransition scaleTransition = createScaleTransition(toImageView, SCALE_FACTOR);
+
+            pathTransition.setOnFinished(event -> {
+                gameBoard.getChildren().remove(moneyImage);
+                scaleTransition.setOnFinished(e -> {
+                    completedAnimations.getAndIncrement();
+                    if (completedAnimations.get() == numImages) {
+                        onFinished.run();
+                    }
+                });
+                scaleTransition.play();
+            });
+
+            pathTransition.setDelay(Duration.millis(i * 50));
+
+            if (fromFontSizeTimeline != null) {
+                fromFontSizeTimeline.setOnFinished(e -> {
+                    pathTransition.play();
+                });
+                fromFontSizeTimeline.play();
+            } else {
+                pathTransition.play();
+            }
+        }
+    }
+
+    private ScaleTransition createScaleTransition(ImageView imageView, double scaleFactor) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), imageView);
+        scaleTransition.setFromX(1.0);
+        scaleTransition.setFromY(1.0);
+        scaleTransition.setToX(scaleFactor);
+        scaleTransition.setToY(scaleFactor);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(2);
+        return scaleTransition;
     }
 
     private Region getPlayerBalanceNode(Pane gameBoard, Player player) {

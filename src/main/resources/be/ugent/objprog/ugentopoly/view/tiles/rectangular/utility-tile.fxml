@@ -10,7 +10,7 @@
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.5" prefWidth="150.0">
           <center>
-              <ImageView fitHeight="51.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+              <ImageView fx:id="utilityImage" fitHeight="51.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
           </center>
          <right>
             <AnchorPane fx:id="ownerColor" prefHeight="61.0" prefWidth="4.0" BorderPane.alignment="CENTER" />
