@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.tile.infopane.factory;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import be.ugent.objprog.ugentopoly.model.tile.UtilityTile;
 import javafx.scene.image.ImageView;

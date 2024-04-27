@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.behaviour;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.TaxPaidEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 
 public interface ITaxable {

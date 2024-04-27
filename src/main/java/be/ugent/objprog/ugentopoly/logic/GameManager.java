@@ -1,14 +1,17 @@
 package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.ui.manager.BoardManager;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
-import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.logic.handler.DiceHandler;
-import be.ugent.objprog.ugentopoly.model.*;
+import be.ugent.objprog.ugentopoly.model.Bank;
+import be.ugent.objprog.ugentopoly.model.CardDeckManager;
+import be.ugent.objprog.ugentopoly.model.GameState;
+import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.ui.manager.BoardManager;
+import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.manager.UIUpdater;
 import javafx.scene.Node;

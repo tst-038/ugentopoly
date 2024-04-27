@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.player;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.GoToJailEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.ui.element.PlayerPion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

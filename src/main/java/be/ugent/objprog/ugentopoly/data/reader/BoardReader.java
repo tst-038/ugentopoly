@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.data.reader;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exception.data.AreaReadException;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.board.Area;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import be.ugent.objprog.ugentopoly.model.tile.TileType;

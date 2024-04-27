@@ -2,8 +2,8 @@ package be.ugent.objprog.ugentopoly;
 
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.data.reader.SettingsReader;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.manager.UILoader;
 import javafx.application.Application;
 import javafx.stage.Stage;

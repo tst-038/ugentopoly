@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.data.reader;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.exception.data.AreaReadException;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.card.Card;
 import be.ugent.objprog.ugentopoly.model.card.CardType;
 import be.ugent.objprog.ugentopoly.model.card.Deck;

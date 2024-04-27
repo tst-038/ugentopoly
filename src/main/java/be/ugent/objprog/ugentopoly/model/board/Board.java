@@ -1,9 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.board;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.reader.BoardReader;
-import be.ugent.objprog.ugentopoly.data.reader.CardsReader;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 
 import java.util.List;

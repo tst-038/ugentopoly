@@ -1,9 +1,9 @@
 package be.ugent.objprog.ugentopoly.ui.updater;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.exception.ui.UIUpdateException;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

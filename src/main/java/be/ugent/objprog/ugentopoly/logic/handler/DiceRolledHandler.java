@@ -1,13 +1,10 @@
 package be.ugent.objprog.ugentopoly.logic.handler;
 
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
-import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.logic.PlayerPositionUpdater;
 import be.ugent.objprog.ugentopoly.logic.TurnManager;
-import be.ugent.objprog.ugentopoly.model.Bank;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 
 import java.util.List;
 

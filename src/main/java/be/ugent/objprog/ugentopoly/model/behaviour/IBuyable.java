@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.behaviour;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.PropertyBoughtEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.animation.MoneyTransferAnimation;
 

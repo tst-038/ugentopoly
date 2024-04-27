@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.card;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.CardDrawnEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 
 import java.util.ArrayList;

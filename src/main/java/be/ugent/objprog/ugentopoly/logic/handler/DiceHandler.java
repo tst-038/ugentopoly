@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.logic.handler;
 
 import be.ugent.objprog.dice.DicePanel;
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.DiceRolledEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.logic.listener.DiceRolledListener;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.scene.Node;

@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.tile.infopane.factory;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.behaviour.IOwnable;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;

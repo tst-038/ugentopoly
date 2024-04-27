@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.logic.handler;
 
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import be.ugent.objprog.ugentopoly.model.tile.TileType;
 

@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.ui.updater;
 
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;

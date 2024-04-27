@@ -2,13 +2,13 @@ package be.ugent.objprog.ugentopoly.model.tile;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.behaviour.IVisitable;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.listener.IImageChangeListener;
 import be.ugent.objprog.ugentopoly.ui.listener.ILabelChangeListener;
 import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;

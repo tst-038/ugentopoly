@@ -1,11 +1,11 @@
 package be.ugent.objprog.ugentopoly.logic;
 
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
-import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
 import be.ugent.objprog.ugentopoly.logic.handler.DiceRolledHandler;
 import be.ugent.objprog.ugentopoly.logic.listener.DiceRolledListener;
 import be.ugent.objprog.ugentopoly.logic.listener.GameOverListener;
 import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
 
 import java.util.List;
 

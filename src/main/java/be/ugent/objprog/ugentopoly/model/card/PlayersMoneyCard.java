@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.card;
 
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 
 import java.util.List;
 

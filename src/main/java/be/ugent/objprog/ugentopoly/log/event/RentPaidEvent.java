@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.log.event;
 
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.behaviour.IRentable;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 
 public class RentPaidEvent extends Event {
 

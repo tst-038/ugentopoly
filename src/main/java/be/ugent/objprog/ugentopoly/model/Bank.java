@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.model;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.log.event.JackpotClaimedEvent;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.animation.MoneyTransferAnimation;
 import javafx.beans.property.IntegerProperty;

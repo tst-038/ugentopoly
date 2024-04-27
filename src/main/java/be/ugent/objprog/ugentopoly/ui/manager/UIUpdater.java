@@ -1,17 +1,13 @@
 package be.ugent.objprog.ugentopoly.ui.manager;
 
-import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
+import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.board.Area;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
-import be.ugent.objprog.ugentopoly.ui.updater.JackpotLabelBinder;
-import be.ugent.objprog.ugentopoly.ui.updater.TileUpdater;
 import be.ugent.objprog.ugentopoly.ui.dialog.DiceRollDialog;
-import be.ugent.objprog.ugentopoly.ui.updater.AreaPaneUpdater;
-import be.ugent.objprog.ugentopoly.ui.updater.PlayerPanelUpdater;
-import be.ugent.objprog.ugentopoly.ui.updater.TileOwnershipUpdater;
+import be.ugent.objprog.ugentopoly.ui.updater.*;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 

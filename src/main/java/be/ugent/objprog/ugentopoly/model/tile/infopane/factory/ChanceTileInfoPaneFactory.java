@@ -1,8 +1,8 @@
 package be.ugent.objprog.ugentopoly.model.tile.infopane.factory;
 
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.card.Card;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.ChanceTile;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import javafx.scene.layout.AnchorPane;

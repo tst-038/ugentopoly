@@ -3,8 +3,8 @@ package be.ugent.objprog.ugentopoly.logic;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.log.event.PassedStartEvent;
 import be.ugent.objprog.ugentopoly.model.Bank;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import be.ugent.objprog.ugentopoly.model.tile.TileType;
 

@@ -1,14 +1,7 @@
 package be.ugent.objprog.ugentopoly.model.card;
 
-import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import be.ugent.objprog.ugentopoly.model.tile.StartTile;
-import be.ugent.objprog.ugentopoly.model.tile.Tile;
-import be.ugent.objprog.ugentopoly.model.tile.TileType;
-
-import java.util.List;
 
 public class MoveCard extends Card {
     private final int position;

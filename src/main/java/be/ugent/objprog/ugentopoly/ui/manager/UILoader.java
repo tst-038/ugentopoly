@@ -6,9 +6,10 @@ import be.ugent.objprog.ugentopoly.controller.StartController;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.exception.ui.UIInitializationException;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.Settings;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.animation.MoneyAnimation;
+import be.ugent.objprog.ugentopoly.ui.animation.SceneTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,8 +30,14 @@ public class UILoader {
     public UILoader(Ugentopoly ugentopoly) {
         this.ugentopoly = ugentopoly;
         this.primaryStage = ugentopoly.getPrimaryStage();
+        primaryStage.setMaxWidth(845);
         this.propertyReader = ugentopoly.getPropertyReader();
         this.settings = ugentopoly.getSettings();
+    }
+
+    private void transitionToScene(Scene newScene) {
+        SceneTransition sceneTransition = new SceneTransition(primaryStage);
+        sceneTransition.transitionToScene(newScene);
     }
 
     public void loadGameBoard(List<Player> players) {
@@ -42,8 +49,7 @@ public class UILoader {
             gameController.initializeGame(players, ugentopoly);
 
             Scene scene = new Scene(root, 845, 845);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            transitionToScene(scene);
         } catch (IOException e) {
             throw new UIInitializationException("Failed to load the gameManager board", e);
         }
@@ -64,8 +70,12 @@ public class UILoader {
             primaryStage.setTitle("Ugentopoly");
             primaryStage.setResizable(false);
             setIcon();
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            if(primaryStage.getScene() != null) {
+                transitionToScene(scene);
+            } else {
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            }
         } catch (IOException e) {
             throw new UIInitializationException("Failed to load the start window", e);
         }
