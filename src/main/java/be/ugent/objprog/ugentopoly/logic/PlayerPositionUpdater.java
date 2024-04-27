@@ -31,7 +31,6 @@ public class PlayerPositionUpdater {
         int oldPos = player.getPosition().getPos();
 
         if (hasPassedStart(oldPos, newPosition, startPosition, boardSize, amount >= 0)){
-            System.out.println("Player " + player.getName() + " has passed start");
             bank.deposit(player, settings.getStartBonus(), true);
             gameLogBook.addEntry(new PassedStartEvent(player));
         }
