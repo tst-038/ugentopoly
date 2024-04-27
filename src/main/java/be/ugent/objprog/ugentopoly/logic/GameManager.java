@@ -14,6 +14,7 @@ import be.ugent.objprog.ugentopoly.ui.manager.BoardManager;
 import be.ugent.objprog.ugentopoly.ui.manager.PlayerManager;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.manager.UIUpdater;
+import be.ugent.objprog.ugentopoly.ui.sound.SoundManager;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -35,6 +36,7 @@ public class GameManager {
     private final CardDeckManager cardDeckManager;
     private final AnchorPane rootPane;
     private final PlayerPositionUpdater playerPositionUpdater;
+    private final SoundManager soundManager;
 
     public GameManager(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, Ugentopoly ugentopoly){
         this.rootPane = rootPane;
@@ -53,6 +55,7 @@ public class GameManager {
         this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
         this.playerPositionUpdater = new PlayerPositionUpdater(logBook, bank, settings);
+        this.soundManager = new SoundManager();
         this.turnManager = new TurnManager(this, gameOverController);
 
         for (Player player : players) {
@@ -131,5 +134,9 @@ public class GameManager {
 
     public PlayerPositionUpdater getPlayerPositionUpdater() {
         return playerPositionUpdater;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 }

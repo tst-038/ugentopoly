@@ -43,6 +43,7 @@ public class PionMoveAnimation {
         TranslateTransition transition = createTranslateTransition(startBounds, targetBounds, imageX, imageY);
         transition.setOnFinished(event -> onAnimationFinished(currentPionContainer, newPion, imageX, imageY));
 
+        player.getGameManager().getSoundManager().playPionMoveSound();
         transition.play();
     }
 

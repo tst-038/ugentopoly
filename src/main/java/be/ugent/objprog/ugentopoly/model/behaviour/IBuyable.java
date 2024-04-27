@@ -10,7 +10,7 @@ public interface IBuyable extends IOwnable {
         if(gameManager.getBank().withdraw(player, getPrice())) {
             setOwner(player);
             player.networthProperty().set(player.networthProperty().get() + getPrice());
-            new MoneyTransferAnimation().animatePropertyBought(player, gameManager.getRootPane(), this, () ->
+            new MoneyTransferAnimation(gameManager).animatePropertyBought(player, gameManager.getRootPane(), this, () ->
                     gameManager.getUIUpdater().playerBoughtTile(player, this));
 
             gameManager.getLogBook().addEntry(new PropertyBoughtEvent(player, this));

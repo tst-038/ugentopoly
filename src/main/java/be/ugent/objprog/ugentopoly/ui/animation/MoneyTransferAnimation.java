@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.ui.animation;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.animation.*;
@@ -23,47 +24,53 @@ public class MoneyTransferAnimation {
     private static final int ANIMATION_DURATION = 1000; // Duration in milliseconds
     private static final int DOLLARS_PER_IMAGE = 10;
     private static final double SCALE_FACTOR = 1.2;
+    private final GameManager gameManager;
+
+    public MoneyTransferAnimation(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
 
     private void animateMoneyTransfer(Pane gameBoard, double startX, double startY, double endX, double endY, int amount,
                                   Label fromLabel, Label toLabel, Runnable onFinished) {
-    int numImages = amount / DOLLARS_PER_IMAGE + 1;
-    AtomicInteger completedAnimations = new AtomicInteger();
+        int numImages = amount / DOLLARS_PER_IMAGE + 1;
+        AtomicInteger completedAnimations = new AtomicInteger();
 
-    for (int i = 0; i < numImages; i++) {
-        ImageView moneyImage = createMoneyImage();
-        moneyImage.setX(startX - moneyImage.getFitWidth() / 2);
-        moneyImage.setY(startY - moneyImage.getFitHeight() / 2);
-        gameBoard.getChildren().add(moneyImage);
+        for (int i = 0; i < numImages; i++) {
+            ImageView moneyImage = createMoneyImage();
+            moneyImage.setX(startX - moneyImage.getFitWidth() / 2);
+            moneyImage.setY(startY - moneyImage.getFitHeight() / 2);
+            gameBoard.getChildren().add(moneyImage);
 
-        Path path = createAnimationPath(startX, startY, endX, endY);
-        PathTransition pathTransition = createPathTransition(moneyImage, path);
+            Path path = createAnimationPath(startX, startY, endX, endY);
+            PathTransition pathTransition = createPathTransition(moneyImage, path);
 
-        Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
-        Timeline toFontSizeTimeline = createFontSizeTimeline(toLabel, SCALE_FACTOR);
+            Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
+            Timeline toFontSizeTimeline = createFontSizeTimeline(toLabel, SCALE_FACTOR);
 
-        pathTransition.setOnFinished(event -> {
-            gameBoard.getChildren().remove(moneyImage);
-            toFontSizeTimeline.setOnFinished(e -> {
-                completedAnimations.getAndIncrement();
-                if (completedAnimations.get() == numImages) {
-                    onFinished.run();
-                }
+            pathTransition.setOnFinished(event -> {
+                gameBoard.getChildren().remove(moneyImage);
+                toFontSizeTimeline.setOnFinished(e -> {
+                    completedAnimations.getAndIncrement();
+                    if (completedAnimations.get() == numImages) {
+                        onFinished.run();
+                    }
+                });
+                toFontSizeTimeline.play();
             });
-            toFontSizeTimeline.play();
-        });
 
-        pathTransition.setDelay(Duration.millis(i * 50));
+            pathTransition.setDelay(Duration.millis(i * 50));
 
-        if (fromFontSizeTimeline != null) {
-            fromFontSizeTimeline.setOnFinished(e -> {
+            if (fromFontSizeTimeline != null) {
+                fromFontSizeTimeline.setOnFinished(e -> {
+                    pathTransition.play();
+                });
+                gameManager.getSoundManager().playCoinSound();
+                fromFontSizeTimeline.play();
+            }else{
                 pathTransition.play();
-            });
-            fromFontSizeTimeline.play();
-        }else{
-            pathTransition.play();
+            }
         }
     }
-}
 
     public void animateMoneyTransfer(Player fromPlayer, Player toPlayer, int amount, Pane gameBoard) {
         Region fromPlayerNode = getPlayerBalanceNode(gameBoard, fromPlayer);
