@@ -18,7 +18,7 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         ChanceTile chanceTile = (ChanceTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, chanceTile.getName(), "chance-title", 10.0, getTileImageView("assets/chance.png"));
-        addDescriptionLabel(tileInfoPane, getChanceDescription(chanceTile, onVisit, gameManager), "chance-info", 30.0);
+        addDescriptionLabel(tileInfoPane, getChanceDescription(chanceTile, onVisit, gameManager), "chance-info", 50.0);
         addButton(tileInfoPane, gameManager.getPropertyreader().get("button.close"), "chance-tile-close-button", "close-button", onVisit);
 
         return tileInfoPane;

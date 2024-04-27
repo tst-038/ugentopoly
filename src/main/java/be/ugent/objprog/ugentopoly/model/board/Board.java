@@ -23,8 +23,6 @@ public class Board {
             String tileName = propertyReader.getTileName(tile.getId());
             tile.setName(tileName);
         }
-
-        new CardsReader(gameManager).readCards();
     }
 
     public List<Area> getAreas() {

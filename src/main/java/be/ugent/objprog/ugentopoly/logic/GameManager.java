@@ -38,11 +38,12 @@ public class GameManager {
         this.settings = ugentopoly.getSettings();
         this.propertyReader = ugentopoly.getPropertyReader();
         this.players = players;
-        this.cardDeckManager = new CardDeckManager(this);
         this.tileInfoPaneManager = new TileInfoPaneManager(tileInfoPane, this);
         this.diceHandler = new DiceHandler(this);
         this.uiUpdater = new UIUpdater(rootPane, this);
         this.gameState = new GameState(this);
+        this.cardDeckManager = new CardDeckManager(this);
+        this.cardDeckManager.init();
         this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
         GameOverController gameOverController = new GameOverController(ugentopoly, this);

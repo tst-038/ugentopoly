@@ -18,7 +18,7 @@ public class ChestTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         ChestTile chestTile = (ChestTile) tile;
 
         addTitleLabelWithImage(tileInfoPane, chestTile.getName(), "chest-title", 10.0, getTileImageView("assets/chest.png"));
-        addDescriptionLabel(tileInfoPane, getChestDescription(chestTile, onVisit, gameManager), "chest-info", 30.0);
+        addDescriptionLabel(tileInfoPane, getChestDescription(chestTile, onVisit, gameManager), "chest-info", 50.0);
         addButton(tileInfoPane, gameManager.getPropertyreader().get("button.close"), "chest-tile-close-button", "close-button", onVisit);
 
         return tileInfoPane;
