@@ -19,7 +19,7 @@ public class MoveCard extends Card {
                 deck.getGameManager().getPropertyreader().get("card.move_card"),
                 deck.getGameManager().getGameState().getBoard().getTileByPosition(position).getName(),
                 collect ?
-                        String.format(deck.getGameManager().getPropertyreader().get("label.collect_true"), deck.getGameManager().getSettings().getStartBonus())
+                        String.format(deck.getGameManager().getPropertyreader().get("label.collect_true"), deck.getGameManager().getSettings().getMoneyUnit()+deck.getGameManager().getSettings().getStartBonus())
                         : deck.getGameManager().getPropertyreader().get("label.collect_false")
                 ), CardType.MOVE, deck);
         this.position = position;

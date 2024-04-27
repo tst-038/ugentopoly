@@ -7,7 +7,10 @@ public class MoneyCard extends Card {
     private final int amount;
 
     public MoneyCard(String id, int amount, Deck deck) {
-        super(id, String.format(deck.getGameManager().getPropertyreader().get("card.money_card"), amount), CardType.MONEY, deck);
+        super(id, String.format(
+                amount > 0 ?
+                deck.getGameManager().getPropertyreader().get("card.money_card_receive") : deck.getGameManager().getPropertyreader().get("card.money_card_pay"),
+                deck.getGameManager().getSettings().getMoneyUnit()+Math.abs(amount)), CardType.MONEY, deck);
         this.amount = amount;
     }
 
