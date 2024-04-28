@@ -46,12 +46,6 @@ public class TileInfoPaneManager {
         }
     }
 
-    public void moveOnToNextPlayer() {
-        if (onInfoPaneClosedListener != null) {
-            onInfoPaneClosedListener.onTileInfoPaneClosed();
-        }
-    }
-
     public void setPaneClosableAndHide() {
         isClosable = true;
         hideTileInfoPane();

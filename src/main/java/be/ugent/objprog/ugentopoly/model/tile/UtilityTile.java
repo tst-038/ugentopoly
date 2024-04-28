@@ -57,7 +57,6 @@ public class UtilityTile extends Tile implements IUIChangeListener, IImageChange
     @Override
     public void onVisit(Player player) {
         if (owner == player) {
-            player.getGameManager().getTileInfoPaneManager().moveOnToNextPlayer();
             return;
         }
 

@@ -77,7 +77,6 @@ public class RailwayTile extends Tile implements UIUpdatable, ILabelChangeListen
     @Override
     public void onVisit(Player player) {
         if (owner == player) {
-            player.getGameManager().getTileInfoPaneManager().moveOnToNextPlayer();
             return;
         }
         TileInfoPaneManager tileInfoPaneManager = gameManager.getTileInfoPaneManager();

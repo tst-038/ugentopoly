@@ -78,7 +78,6 @@ public class StreetTile extends Tile implements UIUpdatable, ILabelChangeListene
     @Override
     public void onVisit(Player player) {
         if (owner == player) {
-            player.getGameManager().getTileInfoPaneManager().moveOnToNextPlayer();
             return;
         }
         TileInfoPaneManager tileInfoPaneManager = gameManager.getTileInfoPaneManager();
