@@ -46,6 +46,12 @@ public class TileInfoPaneManager {
         }
     }
 
+    public void notifyInfoPaneClosed() {
+        if (onInfoPaneClosedListener != null) {
+            onInfoPaneClosedListener.onTileInfoPaneClosed();
+        }
+    }
+
     public void setPaneClosableAndHide() {
         isClosable = true;
         hideTileInfoPane();

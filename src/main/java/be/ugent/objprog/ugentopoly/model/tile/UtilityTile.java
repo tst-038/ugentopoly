@@ -56,11 +56,12 @@ public class UtilityTile extends Tile implements IUIChangeListener, IImageChange
 
     @Override
     public void onVisit(Player player) {
+        TileInfoPaneManager tileInfoPaneManager = gameManager.getTileInfoPaneManager();
         if (owner == player) {
+            tileInfoPaneManager.notifyInfoPaneClosed();
             return;
         }
 
-        TileInfoPaneManager tileInfoPaneManager = gameManager.getTileInfoPaneManager();
         tileInfoPaneManager.showTileInfo(this, true);
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 

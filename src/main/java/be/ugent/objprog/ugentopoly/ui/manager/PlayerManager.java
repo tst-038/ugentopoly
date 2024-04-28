@@ -47,6 +47,7 @@ public class PlayerManager {
             Node rollDiceButton = playerPane.lookup("#rollDiceButton");
             if (rollDiceButton != null) {
                 rollDiceButton.setDisable(false);
+                System.out.println("Player " + player.getName() + " is now active");
             }
         }
     }
