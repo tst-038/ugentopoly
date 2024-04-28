@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.Objects;
 
 public class SoundManager {
-    private MediaPlayer coinSoundPlayer;
+    private Media coinSound;
     private MediaPlayer diceRollSoundPlayer;
     private MediaPlayer pionMoveSoundPlayer;
 
@@ -20,18 +20,17 @@ public class SoundManager {
     }
 
     private void loadSounds() {
-        Media coinSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.mp3")).toString());
-        coinSoundPlayer = new MediaPlayer(coinSound);
+        coinSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.mp3")).toString());
 
         Media diceRollSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/diceRoll.mp3")).toString());
         diceRollSoundPlayer = new MediaPlayer(diceRollSound);
 
-        Media pionMoveSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/pionMove.mp3")).toString());
+        Media pionMoveSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/woosh.mp3")).toString());
         pionMoveSoundPlayer = new MediaPlayer(pionMoveSound);
     }
 
     public void playCoinSound() {
-        coinSoundPlayer.stop();
+        MediaPlayer coinSoundPlayer = new MediaPlayer(coinSound);
         coinSoundPlayer.play();
     }
 

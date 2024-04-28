@@ -91,7 +91,7 @@ public class PionMoveAnimation {
 
     private TranslateTransition createTranslateTransition(Bounds startBounds, Bounds targetBounds, double imageX, double imageY) {
         currentPion.toFront();
-        TranslateTransition transition = new TranslateTransition(Duration.millis(500), currentPion);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), currentPion);
         transition.setToX(targetBounds.getMinX() - startBounds.getMinX() + imageX);
         transition.setToY(targetBounds.getMinY() - startBounds.getMinY() + imageY);
         return transition;

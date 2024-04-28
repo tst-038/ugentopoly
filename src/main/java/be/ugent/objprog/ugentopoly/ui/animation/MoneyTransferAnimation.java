@@ -50,6 +50,7 @@ public class MoneyTransferAnimation {
             pathTransition.setOnFinished(event -> {
                 gameBoard.getChildren().remove(moneyImage);
                 toFontSizeTimeline.setOnFinished(e -> {
+                    gameManager.getSoundManager().playCoinSound();
                     completedAnimations.getAndIncrement();
                     if (completedAnimations.get() == numImages) {
                         onFinished.run();
@@ -64,7 +65,6 @@ public class MoneyTransferAnimation {
                 fromFontSizeTimeline.setOnFinished(e -> {
                     pathTransition.play();
                 });
-                gameManager.getSoundManager().playCoinSound();
                 fromFontSizeTimeline.play();
             }else{
                 pathTransition.play();
