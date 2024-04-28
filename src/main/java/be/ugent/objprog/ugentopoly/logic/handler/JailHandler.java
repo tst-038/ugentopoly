@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class JailHandler {
     public boolean handle(Player player, boolean hasRolledDouble) {
-        Optional<Tile> landedTile = player.getGameManager().getGameState().getBoard().getTiles().stream()
+        Optional<Tile> landedTile = player.getGameManager().getBoardManager().getBoard().getTiles().stream()
                 .filter(tile -> tile.getPosition() == player.getPosition().getPos())
                 .findFirst();
 

@@ -25,7 +25,7 @@ public class TurnManager implements GameOverListener, DiceRolledListener {
     }
 
     public void initialize() {
-        gameManager.getGameState().addGameOverListener(this);
+        gameManager.addGameOverListener(this);
         gameManager.getDiceHandler().addDiceRolledListener(this);
         playerManager.setPlayerPanelToActive(getCurrentPlayer());
     }

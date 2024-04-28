@@ -87,7 +87,7 @@ public class TileInfoPaneManager {
             clearTileSelection();
             return;
         }
-        Tile tile = gameManager.getGameState().getBoard().getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
+        Tile tile = gameManager.getBoardManager().getBoard().getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
         if (tile == null) {
             return;
         }

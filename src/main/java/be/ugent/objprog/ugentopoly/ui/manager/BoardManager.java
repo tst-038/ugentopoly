@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.ui.manager;
 
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.board.Board;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
@@ -15,8 +16,9 @@ public class BoardManager {
     private final UIUpdater uiUpdater;
     private final TileInfoPaneManager tileInfoPaneManager;
 
-    public BoardManager(Board board, UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
-        this.board = board;
+    public BoardManager(GameManager gameManager, UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
+        this.board = new Board();
+        this.board.init(gameManager);
         this.uiUpdater = uiUpdater;
         this.tileInfoPaneManager = tileInfoPaneManager;
     }
@@ -55,5 +57,9 @@ public class BoardManager {
 
     public Node findPlayerNode(Player player, AnchorPane rootPane) {
         return rootPane.lookup("#player_" + player.getId());
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

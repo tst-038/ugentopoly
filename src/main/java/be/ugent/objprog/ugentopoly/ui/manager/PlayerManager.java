@@ -26,7 +26,7 @@ public class PlayerManager {
 
     public void initializePlayers(AnchorPane rootPane) {
         players.forEach(player -> {
-            gameManager.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
+            gameManager.getBoardManager().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
                     .ifPresent(startTile -> players.forEach(p -> p.getPosition().setInitialPosition(startTile.getPosition())));
             Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pionContainer");
             player.getPion().addToContainer(pionContainer);

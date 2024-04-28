@@ -5,9 +5,9 @@ import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
 import be.ugent.objprog.ugentopoly.logic.handler.DiceHandler;
+import be.ugent.objprog.ugentopoly.logic.listener.GameOverListener;
 import be.ugent.objprog.ugentopoly.model.Bank;
 import be.ugent.objprog.ugentopoly.model.CardDeckManager;
-import be.ugent.objprog.ugentopoly.model.GameState;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.manager.BoardManager;
@@ -17,9 +17,11 @@ import be.ugent.objprog.ugentopoly.ui.manager.UIUpdater;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameManager {
+    private final List<GameOverListener> gameOverListeners = new ArrayList<>();
     private final List<Player> players;
     private final UIUpdater uiUpdater;
     private final PlayerManager playerManager;
@@ -28,7 +30,6 @@ public class GameManager {
     private final DiceHandler diceHandler;
     private final GameLogBook logBook;
     private final TileInfoPaneManager tileInfoPaneManager;
-    private final GameState gameState;
     private final Bank bank;
     private final Settings settings;
     private final PropertyReader propertyReader;
@@ -44,10 +45,9 @@ public class GameManager {
         this.tileInfoPaneManager = new TileInfoPaneManager(tileInfoPane, this);
         this.diceHandler = new DiceHandler(this);
         this.uiUpdater = new UIUpdater(rootPane, this);
-        this.gameState = new GameState(this);
+        this.boardManager = new BoardManager(this, uiUpdater, tileInfoPaneManager);
         this.cardDeckManager = new CardDeckManager(this);
         this.cardDeckManager.init();
-        this.boardManager = new BoardManager(gameState.getBoard(), uiUpdater, tileInfoPaneManager);
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
         GameOverController gameOverController = new GameOverController(ugentopoly, this);
         this.logBook = new GameLogBook(logBookRoot);
@@ -93,10 +93,6 @@ public class GameManager {
         return players;
     }
 
-    public GameState getGameState() {
-        return gameState;
-    }
-
     public BoardManager getBoardManager() {
         return boardManager;
     }
@@ -131,5 +127,15 @@ public class GameManager {
 
     public PlayerPositionUpdater getPlayerPositionUpdater() {
         return playerPositionUpdater;
+    }
+
+    public void addGameOverListener(GameOverListener listener) {
+        gameOverListeners.add(listener);
+    }
+
+    public void notifyGameOverListeners(Player player) {
+        for (GameOverListener listener : gameOverListeners) {
+            listener.onGameOver(player);
+        }
     }
 }

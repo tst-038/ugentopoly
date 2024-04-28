@@ -10,7 +10,7 @@ public class MoveCard extends Card {
     public MoveCard(String id, int position, boolean collect, Deck deck) {
         super(id, String.format(
                 deck.getGameManager().getPropertyreader().get("card.move_card"),
-                deck.getGameManager().getGameState().getBoard().getTileByPosition(position).getName(),
+                deck.getGameManager().getBoardManager().getBoard().getTileByPosition(position).getName(),
                 collect ?
                         String.format(deck.getGameManager().getPropertyreader().get("label.collect_true"), deck.getGameManager().getSettings().getMoneyUnit()+deck.getGameManager().getSettings().getStartBonus())
                         : deck.getGameManager().getPropertyreader().get("label.collect_false")
@@ -22,7 +22,7 @@ public class MoveCard extends Card {
     @Override
     public void execute(Player player, GameManager gameManager) {
         int oldPos = player.getPosition().getPos();
-        int totalTiles = gameManager.getGameState().getBoard().getTiles().size();
+        int totalTiles = gameManager.getBoardManager().getBoard().getTiles().size();
         int relativeMovement;
 
         if (collect) {

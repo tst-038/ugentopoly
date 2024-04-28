@@ -20,9 +20,9 @@ public class PlayerPositionUpdater {
     }
 
     public void update(Player player, int amount) {
-        int boardSize = player.getGameManager().getGameState().getBoard().getTiles().size();
+        int boardSize = player.getGameManager().getBoardManager().getBoard().getTiles().size();
         int newPosition = (player.getPosition().getPos() + amount) % boardSize;
-        int startPosition = player.getGameManager().getGameState().getBoard().getTiles().stream()
+        int startPosition = player.getGameManager().getBoardManager().getBoard().getTiles().stream()
                 .filter(tile -> tile.getType() == TileType.START)
                 .map(Tile::getPosition)
                 .findFirst()

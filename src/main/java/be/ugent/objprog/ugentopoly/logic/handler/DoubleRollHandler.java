@@ -20,7 +20,7 @@ public class DoubleRollHandler {
             if (player.getDoubleRolls() == settings.getDoubleRollsToJail()) {
                 player.setRemainingTurnsInPrison(settings.getDoubleRollsToJail());
                 player.resetDoubleRolls();
-                Optional<Tile> jailTile = player.getGameManager().getGameState().getBoard().getTiles().stream()
+                Optional<Tile> jailTile = player.getGameManager().getBoardManager().getBoard().getTiles().stream()
                         .filter(tile -> tile.getType() == TileType.JAIL)
                         .findFirst();
                 jailTile.ifPresent(tile -> player.getPosition().updatePosition(tile.getPosition()));

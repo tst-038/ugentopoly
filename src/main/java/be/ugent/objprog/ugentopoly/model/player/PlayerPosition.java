@@ -35,7 +35,7 @@ public class PlayerPosition {
 
     public void updatePosition(int newPosition) {
         GameManager gameManager = player.getGameManager();
-        Board board = gameManager.getGameState().getBoard();
+        Board board = gameManager.getBoardManager().getBoard();
         int m = board.getTiles().size();
         newPosition = ((newPosition % m) + m) % m;
         IVisitable current = board.getTileByPosition(newPosition);

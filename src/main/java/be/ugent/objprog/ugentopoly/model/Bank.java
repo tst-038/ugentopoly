@@ -80,6 +80,6 @@ public class Bank {
     private void handleInsufficientFunds(Player player) {
         int remainingBalance = player.getBalance();
         withdraw(player, remainingBalance);
-        gameManager.getGameState().notifyGameOverListeners(player);
+        gameManager.notifyGameOverListeners(player);
     }
 }

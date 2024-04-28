@@ -48,7 +48,7 @@ public class GoToJailTile extends Tile implements UIUpdatable, ILabelChangeListe
         AnchorPane pane = tileInfoPaneManager.getTileInfoPane();
 
         pane.lookup("#close-button").setOnMouseClicked(event -> {
-            Optional<Tile> jail = gameManager.getGameState().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.JAIL).findFirst();
+            Optional<Tile> jail = gameManager.getBoardManager().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.JAIL).findFirst();
             if (jail.isPresent()) {
                 player.getPosition().updatePosition(jail.get().getPosition());
                 player.setRemainingTurnsInPrison(3);
