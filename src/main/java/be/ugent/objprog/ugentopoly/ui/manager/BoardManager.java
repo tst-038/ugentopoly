@@ -38,7 +38,7 @@ public class BoardManager {
                 attachTileClickHandler(tilePane);
             }
         }
-        ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> hideTileInfoPane());
+        ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> clearTileSelection());
     }
 
     private Pane findTilePane(Pane parent, String tileId) {
@@ -67,7 +67,7 @@ public class BoardManager {
         String tileId = tilePane.getId();
 
         if (currentlySelectedTile != null && currentlySelectedTile.getId().equals(tileId)) {
-            hideTileInfoPane();
+            clearTileSelection();
             return;
         }
         Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
@@ -87,8 +87,7 @@ public class BoardManager {
         }
     }
 
-    private void hideTileInfoPane() {
-        tileInfoPaneManager.hideTileInfoPane();
+    public void clearTileSelection() {
         if (currentlySelectedTile == null) {
             return;
         }

@@ -11,11 +11,13 @@ public class TileInfoPaneManager {
     private final TileInfoPaneVisitor tileInfoPaneUpdater;
     private boolean isClosable;
     private TileInfoPaneClosedListener onInfoPaneClosedListener;
+    private GameManager gameManager;
 
     public TileInfoPaneManager(AnchorPane tileInfoPane, GameManager gameManager) {
         this.tileInfoPane = tileInfoPane;
         this.tileInfoPaneUpdater = new TileInfoPaneVisitor(tileInfoPane, gameManager);
         this.isClosable = true;
+        this.gameManager = gameManager;
     }
 
     public void showTileInfo(Tile tile, boolean onVisit) {
@@ -38,6 +40,12 @@ public class TileInfoPaneManager {
     }
 
     public void hideTileInfoPane() {
+        if (isClosable && tileInfoPane.isVisible()){
+            tileInfoPane.setVisible(false);
+        }
+    }
+
+    public void hideTileInfoPaneAndNotifyListeners() {
         if (isClosable && tileInfoPane.isVisible()) {
             tileInfoPane.setVisible(false);
             if (onInfoPaneClosedListener != null) {
@@ -54,7 +62,7 @@ public class TileInfoPaneManager {
 
     public void setPaneClosableAndHide() {
         isClosable = true;
-        hideTileInfoPane();
+        hideTileInfoPaneAndNotifyListeners();
     }
 
     public boolean isClosable() {

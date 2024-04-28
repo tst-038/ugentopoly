@@ -18,7 +18,7 @@ public class DiceHandler {
 
     public DiceHandler(GameManager gameManager) {
         this.gameManager = gameManager;
-        System.setProperty("dice.testing", "true");
+        System.setProperty("dice.testing", "false");
         this.dice = new DicePanel();
         this.listeners = new ArrayList<>();
     }
