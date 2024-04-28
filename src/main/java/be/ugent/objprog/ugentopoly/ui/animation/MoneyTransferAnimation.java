@@ -20,6 +20,8 @@ import javafx.util.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoneyTransferAnimation {
+    private static final String PLAYER_BALANCE_ID = "#playerBalance";
+    private static final String JACKPOT_ID = "#jackpot";
     private static final String MONEY_IMAGE_PATH = "assets/money.png";
     private static final int ANIMATION_DURATION = 1000; // Duration in milliseconds
     private static final int DOLLARS_PER_IMAGE = 10;
@@ -59,12 +61,10 @@ public class MoneyTransferAnimation {
                 toFontSizeTimeline.play();
             });
 
-            pathTransition.setDelay(Duration.millis(i * 50));
+            pathTransition.setDelay(Duration.millis(i * 50.));
 
             if (fromFontSizeTimeline != null) {
-                fromFontSizeTimeline.setOnFinished(e -> {
-                    pathTransition.play();
-                });
+                fromFontSizeTimeline.setOnFinished(e -> pathTransition.play());
                 fromFontSizeTimeline.play();
             }else{
                 pathTransition.play();
@@ -88,15 +88,15 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            Label fromLabel = (Label) fromPlayerNode.lookup("#playerBalance");
-            Label toLabel = (Label) toPlayerNode.lookup("#playerBalance");
+            Label fromLabel = (Label) fromPlayerNode.lookup(PLAYER_BALANCE_ID);
+            Label toLabel = (Label) toPlayerNode.lookup(PLAYER_BALANCE_ID);
             animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
     }
 
     public void animateToJackpot(Player player, Pane gameBoard, int amount) {
         Region playerNode = getPlayerBalanceNode(gameBoard, player);
-        Region jackpot = (Region) gameBoard.lookup("#jackpot");
+        Region jackpot = (Region) gameBoard.lookup(JACKPOT_ID);
 
         if (playerNode != null && jackpot != null) {
             Bounds fromNodeBounds = playerNode.localToScene(playerNode.getBoundsInLocal());
@@ -107,7 +107,7 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            Label fromLabel = (Label) playerNode.lookup("#playerBalance");
+            Label fromLabel = (Label) playerNode.lookup(PLAYER_BALANCE_ID);
             Label toLabel = (Label) jackpot;
             animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
@@ -115,7 +115,7 @@ public class MoneyTransferAnimation {
 
     public void animateClaimJackpot(Player player, Pane gameBoard, int amount) {
         Region playerNode = getPlayerBalanceNode(gameBoard, player);
-        Region jackpot = (Region) gameBoard.lookup("#jackpot");
+        Region jackpot = (Region) gameBoard.lookup(JACKPOT_ID);
 
         if (playerNode != null && jackpot != null) {
             Bounds fromNodeBounds = jackpot.localToScene(jackpot.getBoundsInLocal());
@@ -127,7 +127,7 @@ public class MoneyTransferAnimation {
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
             Label fromLabel = (Label) jackpot;
-            Label toLabel = (Label) playerNode.lookup("#playerBalance");
+            Label toLabel = (Label) playerNode.lookup(PLAYER_BALANCE_ID);
             animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, fromLabel, toLabel, () -> {});
         }
     }
@@ -144,7 +144,7 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            Label toLabel = (Label) playerNode.lookup("#playerBalance");
+            Label toLabel = (Label) playerNode.lookup(PLAYER_BALANCE_ID);
             animateMoneyTransfer(gameBoard, startX, startY, endX, endY, amount, null, toLabel, () -> {});
         }
     }
@@ -162,7 +162,7 @@ public class MoneyTransferAnimation {
             double endX = toNodeBounds.getMinX() + toNodeBounds.getWidth() / 2;
             double endY = toNodeBounds.getMinY() + toNodeBounds.getHeight() / 2;
 
-            Label fromLabel = (Label) playerNode.lookup("#playerBalance");
+            Label fromLabel = (Label) playerNode.lookup(PLAYER_BALANCE_ID);
 
             // Check if the tile has a Label or an ImageView
             Label toLabel = (Label) gameBoard.lookup("#_" + tile.getPosition()).lookup("Label");
@@ -193,7 +193,7 @@ public class MoneyTransferAnimation {
             PathTransition pathTransition = createPathTransition(moneyImage, path);
 
             Timeline fromFontSizeTimeline = createFontSizeTimeline(fromLabel, 1 / SCALE_FACTOR);
-            ScaleTransition scaleTransition = createScaleTransition(toImageView, SCALE_FACTOR);
+            ScaleTransition scaleTransition = createScaleTransition(toImageView);
 
             pathTransition.setOnFinished(event -> {
                 gameBoard.getChildren().remove(moneyImage);
@@ -207,12 +207,10 @@ public class MoneyTransferAnimation {
                 scaleTransition.play();
             });
 
-            pathTransition.setDelay(Duration.millis(i * 50));
+            pathTransition.setDelay(Duration.millis(i * 50.));
 
             if (fromFontSizeTimeline != null) {
-                fromFontSizeTimeline.setOnFinished(e -> {
-                    pathTransition.play();
-                });
+                fromFontSizeTimeline.setOnFinished(e -> pathTransition.play());
                 fromFontSizeTimeline.play();
             } else {
                 pathTransition.play();
@@ -220,19 +218,19 @@ public class MoneyTransferAnimation {
         }
     }
 
-    private ScaleTransition createScaleTransition(ImageView imageView, double scaleFactor) {
+    private ScaleTransition createScaleTransition(ImageView imageView) {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), imageView);
         scaleTransition.setFromX(1.0);
         scaleTransition.setFromY(1.0);
-        scaleTransition.setToX(scaleFactor);
-        scaleTransition.setToY(scaleFactor);
+        scaleTransition.setToX(MoneyTransferAnimation.SCALE_FACTOR);
+        scaleTransition.setToY(MoneyTransferAnimation.SCALE_FACTOR);
         scaleTransition.setAutoReverse(true);
         scaleTransition.setCycleCount(2);
         return scaleTransition;
     }
 
     private Region getPlayerBalanceNode(Pane gameBoard, Player player) {
-        return (Region) gameBoard.lookup("#player_" + player.getId()).lookup("#playerBalance");
+        return (Region) gameBoard.lookup("#player_" + player.getId()).lookup(PLAYER_BALANCE_ID);
     }
 
     private ImageView createMoneyImage() {
