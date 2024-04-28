@@ -14,13 +14,11 @@ public class BoardManager {
     private final Board board;
     private final UIUpdater uiUpdater;
     private final TileInfoPaneManager tileInfoPaneManager;
-    private Pane currentlySelectedTile;
 
     public BoardManager(Board board, UIUpdater uiUpdater, TileInfoPaneManager tileInfoPaneManager) {
         this.board = board;
         this.uiUpdater = uiUpdater;
         this.tileInfoPaneManager = tileInfoPaneManager;
-        this.currentlySelectedTile = null;
     }
 
     public void initializeBoard(AnchorPane rootPane) {
@@ -35,10 +33,10 @@ public class BoardManager {
             String tileId = "_" + tile.getPosition();
             Pane tilePane = findTilePane(rootPane, tileId);
             if (tilePane != null) {
-                attachTileClickHandler(tilePane);
+                tileInfoPaneManager.attachTileClickHandler(tilePane);
             }
         }
-        ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> clearTileSelection());
+        ((BorderPane) rootPane.getChildren().getFirst()).getCenter().setOnMouseClicked(event -> tileInfoPaneManager.clearTileSelection());
     }
 
     private Pane findTilePane(Pane parent, String tileId) {
@@ -57,41 +55,5 @@ public class BoardManager {
 
     public Node findPlayerNode(Player player, AnchorPane rootPane) {
         return rootPane.lookup("#player_" + player.getId());
-    }
-
-    private void attachTileClickHandler(Pane tilePane) {
-        tilePane.setOnMouseClicked(event -> showTileInfo(tilePane));
-    }
-
-    private void showTileInfo(Pane tilePane) {
-        String tileId = tilePane.getId();
-
-        if (currentlySelectedTile != null && currentlySelectedTile.getId().equals(tileId)) {
-            clearTileSelection();
-            return;
-        }
-        Tile tile = board.getTileByPosition(Integer.parseInt(tileId.replace("_", "")));
-        if (tile == null) {
-            return;
-        }
-
-        tileInfoPaneManager.showTileInfo(tile, false);
-
-        if (currentlySelectedTile != null) {
-            currentlySelectedTile.getStyleClass().remove("tile-selected");
-        }
-
-        if (tileInfoPaneManager.isClosable()) {
-            tilePane.getStyleClass().add("tile-selected");
-            currentlySelectedTile = tilePane;
-        }
-    }
-
-    public void clearTileSelection() {
-        if (currentlySelectedTile == null) {
-            return;
-        }
-        currentlySelectedTile.getStyleClass().remove("tile-selected");
-        currentlySelectedTile = null;
     }
 }
