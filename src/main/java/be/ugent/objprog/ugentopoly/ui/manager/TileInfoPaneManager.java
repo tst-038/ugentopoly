@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class TileInfoPaneManager {
+    private static final String SELECTED_TILE_STYLE_CLASS = "tile-selected";
     private final AnchorPane tileInfoPane;
     private final TileInfoPaneVisitor tileInfoPaneUpdater;
     private boolean isClosable;
@@ -95,11 +96,11 @@ public class TileInfoPaneManager {
         showTileInfo(tile, false);
 
         if (currentlySelectedTile != null) {
-            currentlySelectedTile.getStyleClass().remove("tile-selected");
+            currentlySelectedTile.getStyleClass().remove(SELECTED_TILE_STYLE_CLASS);
         }
 
         if (isClosable()) {
-            tilePane.getStyleClass().add("tile-selected");
+            tilePane.getStyleClass().add(SELECTED_TILE_STYLE_CLASS);
             currentlySelectedTile = tilePane;
         }
     }
@@ -109,7 +110,7 @@ public class TileInfoPaneManager {
         if (currentlySelectedTile == null) {
             return;
         }
-        currentlySelectedTile.getStyleClass().remove("tile-selected");
+        currentlySelectedTile.getStyleClass().remove(SELECTED_TILE_STYLE_CLASS);
         currentlySelectedTile = null;
     }
 }
