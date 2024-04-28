@@ -55,7 +55,7 @@ public class GameManager {
         this.logBook = new GameLogBook(logBookRoot);
         this.bank = new Bank(this);
         this.playerPositionUpdater = new PlayerPositionUpdater(logBook, bank, settings);
-        this.soundManager = new SoundManager();
+        this.soundManager = ugentopoly.getSoundManager();
         this.turnManager = new TurnManager(this, gameOverController);
 
         for (Player player : players) {

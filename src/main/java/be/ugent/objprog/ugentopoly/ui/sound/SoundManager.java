@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class SoundManager {
     private Media coinSound;
+    private MediaPlayer backgroundMusicPlayer;
     private MediaPlayer diceRollSoundPlayer;
     private MediaPlayer pionMoveSoundPlayer;
 
@@ -24,13 +25,20 @@ public class SoundManager {
 
         Media diceRollSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/diceRoll.mp3")).toString());
         diceRollSoundPlayer = new MediaPlayer(diceRollSound);
+        diceRollSoundPlayer.setVolume(0.10);
 
         Media pionMoveSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/woosh.mp3")).toString());
         pionMoveSoundPlayer = new MediaPlayer(pionMoveSound);
+        pionMoveSoundPlayer.setVolume(0.10);
+
+        Media backgroundMusic = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/background.mp3")).toString());
+        backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
+        backgroundMusicPlayer.setVolume(0.05);
     }
 
     public void playCoinSound() {
         MediaPlayer coinSoundPlayer = new MediaPlayer(coinSound);
+        coinSoundPlayer.setVolume(0.20);
         coinSoundPlayer.play();
     }
 
@@ -42,5 +50,10 @@ public class SoundManager {
     public void playPionMoveSound() {
         pionMoveSoundPlayer.stop();
         pionMoveSoundPlayer.play();
+    }
+
+    public void playBackgroundMusic() {
+        backgroundMusicPlayer.setAutoPlay(true);
+        backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 }
