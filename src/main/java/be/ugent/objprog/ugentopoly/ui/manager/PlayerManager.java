@@ -39,6 +39,8 @@ public class PlayerManager {
     }
 
     public void setPlayerPanelToActive(Player player) {
+        System.out.println();
+        System.out.println("Setting player panel to active for: "+player.getName());
         Node playerPane = gameManager.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             if (!playerPane.getStyleClass().contains(ACTIVE_PLAYER_PANEL)) {
@@ -46,12 +48,15 @@ public class PlayerManager {
             }
             Node rollDiceButton = playerPane.lookup("#rollDiceButton");
             if (rollDiceButton != null) {
+                System.out.println("Setting roll dice button to active for: "+player.getName());
                 rollDiceButton.setDisable(false);
             }
         }
     }
 
     public void setPlayerPanelToInactive(Player player) {
+        System.out.println();
+        System.out.println("Setting player panel to inactive for: "+player.getName());
         Node playerPane = gameManager.getBoardManager().findPlayerNode(player, rootPane);
         if (playerPane != null) {
             playerPane.getStyleClass().remove(ACTIVE_PLAYER_PANEL);

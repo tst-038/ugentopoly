@@ -41,6 +41,6 @@ public class JailTile extends Tile implements UIUpdatable, ILabelChangeListener,
 
     @Override
     public void onVisit(Player player) {
-        //Do nothing
+        player.getGameManager().getTileInfoPaneManager().moveOnToNextPlayer();
     }
 }
