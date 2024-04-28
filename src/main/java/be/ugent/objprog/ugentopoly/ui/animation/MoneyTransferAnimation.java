@@ -50,12 +50,12 @@ public class MoneyTransferAnimation {
             pathTransition.setOnFinished(event -> {
                 gameBoard.getChildren().remove(moneyImage);
                 toFontSizeTimeline.setOnFinished(e -> {
-                    gameManager.getSoundManager().playCoinSound();
                     completedAnimations.getAndIncrement();
                     if (completedAnimations.get() == numImages) {
                         onFinished.run();
                     }
                 });
+                gameManager.getSoundManager().playCoinSound();
                 toFontSizeTimeline.play();
             });
 
@@ -73,6 +73,9 @@ public class MoneyTransferAnimation {
     }
 
     public void animateMoneyTransfer(Player fromPlayer, Player toPlayer, int amount, Pane gameBoard) {
+        if (amount == 0){
+            return;
+        }
         Region fromPlayerNode = getPlayerBalanceNode(gameBoard, fromPlayer);
         Region toPlayerNode = getPlayerBalanceNode(gameBoard, toPlayer);
 
@@ -177,7 +180,7 @@ public class MoneyTransferAnimation {
 
     private void animateMoneyTransferToImageView(Pane gameBoard, double startX, double startY, double endX, double endY, int amount,
                                                  Label fromLabel, ImageView toImageView, Runnable onFinished) {
-        int numImages = amount / DOLLARS_PER_IMAGE + 1;
+        int numImages = amount / DOLLARS_PER_IMAGE;
         AtomicInteger completedAnimations = new AtomicInteger();
 
         for (int i = 0; i < numImages; i++) {
@@ -200,6 +203,7 @@ public class MoneyTransferAnimation {
                         onFinished.run();
                     }
                 });
+                gameManager.getSoundManager().playCoinSound();
                 scaleTransition.play();
             });
 
