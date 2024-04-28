@@ -105,6 +105,7 @@ public class TileInfoPaneManager {
     }
 
     public void clearTileSelection() {
+        hideTileInfoPane();
         if (currentlySelectedTile == null) {
             return;
         }
