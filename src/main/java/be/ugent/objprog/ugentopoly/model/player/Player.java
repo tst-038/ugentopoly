@@ -51,8 +51,12 @@ public class Player {
         this.remainingTurnsInPrison--;
     }
 
-    public void resetRemainingTurnsInPrison() {
-        this.remainingTurnsInPrison = 0;
+    public void setInJail(boolean inJail) {
+        if(inJail) {
+            setRemainingTurnsInPrison(gameManager.getSettings().getTurnsInJail());
+        } else {
+            this.remainingTurnsInPrison = 0;
+        }
     }
 
     public void addDoubleRoll() {

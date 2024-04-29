@@ -18,7 +18,7 @@ public class JailHandler {
 
         if (player.getRemainingTurnsInPrison() > 0) {
             if (hasRolledDouble) {
-                player.resetRemainingTurnsInPrison();
+                player.setInJail(false);
             } else {
                 player.decreaseRemainingTurnsInPrison();
                 return false;

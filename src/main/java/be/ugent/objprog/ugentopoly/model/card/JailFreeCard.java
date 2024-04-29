@@ -10,7 +10,7 @@ public class JailFreeCard extends Card {
 
     @Override
     public void execute(Player player, GameManager gameManager) {
-        player.resetRemainingTurnsInPrison();
+        player.setInJail(false);
         player.getInventory().removeCard(this);
     }
 }

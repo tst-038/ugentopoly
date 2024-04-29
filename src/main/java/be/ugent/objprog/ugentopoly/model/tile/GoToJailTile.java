@@ -51,7 +51,7 @@ public class GoToJailTile extends Tile implements UIUpdatable, ILabelChangeListe
             Optional<Tile> jail = gameManager.getBoardManager().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.JAIL).findFirst();
             if (jail.isPresent()) {
                 player.getPosition().updatePosition(jail.get().getPosition());
-                player.setRemainingTurnsInPrison(3);
+                player.setInJail(true);
             }
             tileInfoPaneManager.setPaneClosableAndHide();
         });

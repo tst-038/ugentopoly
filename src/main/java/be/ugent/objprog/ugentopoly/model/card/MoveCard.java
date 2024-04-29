@@ -2,10 +2,12 @@ package be.ugent.objprog.ugentopoly.model.card;
 
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
 public class MoveCard extends Card {
     private final int position;
     private final boolean collect;
+    private final boolean sendToJail;
 
     public MoveCard(String id, int position, boolean collect, Deck deck) {
         super(id, String.format(
@@ -17,6 +19,7 @@ public class MoveCard extends Card {
                 ), CardType.MOVE, deck);
         this.position = position;
         this.collect = collect;
+        this.sendToJail = deck.getGameManager().getBoardManager().getBoard().getTileByPosition(position).getType() == TileType.JAIL;
     }
 
     @Override
@@ -34,6 +37,9 @@ public class MoveCard extends Card {
 
         gameManager.getPlayerPositionUpdater().update(player, relativeMovement);
         gameManager.getTurnManager().previousPlayer();
+        if(sendToJail){
+            player.setInJail(true);
+        }
         player.getInventory().removeCard(this);
     }
 }
