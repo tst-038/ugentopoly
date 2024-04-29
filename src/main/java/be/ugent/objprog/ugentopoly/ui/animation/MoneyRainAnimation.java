@@ -11,14 +11,14 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-public class MoneyAnimation {
+public class MoneyRainAnimation {
     private static final String MONEY_IMAGE_URL = "assets/money.png";
     private static final int SCREEN_WIDTH = 850;
     private static final int SCREEN_HEIGHT = 850;
     private final int cycleCount;
     private final Random random = new Random();
 
-    public MoneyAnimation(int cycleCount) {
+    public MoneyRainAnimation(int cycleCount) {
         this.cycleCount = cycleCount;
     }
 

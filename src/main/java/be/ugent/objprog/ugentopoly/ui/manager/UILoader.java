@@ -8,7 +8,7 @@ import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.exception.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import be.ugent.objprog.ugentopoly.ui.animation.MoneyAnimation;
+import be.ugent.objprog.ugentopoly.ui.animation.MoneyRainAnimation;
 import be.ugent.objprog.ugentopoly.ui.animation.SceneTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -63,7 +63,7 @@ public class UILoader {
             Parent root = loader.load();
             controller.updateFields();
             if (root instanceof Pane rootPane) {
-                MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
+                MoneyRainAnimation moneyAnimation = new MoneyRainAnimation(-1);
                 moneyAnimation.play(rootPane, 20);
             }
             Scene scene = new Scene(root, 845, 845);

@@ -16,6 +16,8 @@ public class RailwayTilePaneFactory extends TileInfoPaneFactoryBase {
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         addTitleLabelWithImage(tileInfoPane, railwayTile.getName(), "railway-title", 10.0, getTileImageView("assets/railway.png"));
+        addRentInfo(tileInfoPane, railwayTile, 75);
+        addPriceInfo(tileInfoPane, railwayTile, 95);
         addOwnerInfo(tileInfoPane, railwayTile, onVisit);
 
         return tileInfoPane;

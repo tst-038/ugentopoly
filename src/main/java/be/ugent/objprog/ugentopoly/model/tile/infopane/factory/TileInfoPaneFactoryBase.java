@@ -5,7 +5,10 @@ import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
 import be.ugent.objprog.ugentopoly.model.behaviour.IOwnable;
+import be.ugent.objprog.ugentopoly.model.behaviour.IRentable;
+import be.ugent.objprog.ugentopoly.model.tile.StreetTile;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
+import be.ugent.objprog.ugentopoly.model.tile.TileType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -112,8 +115,8 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
 
     protected ImageView getTileImageView(String imagePath) {
         ImageView tileImage = createImageView(new ImageView(ResourceLoader.loadImage(imagePath)), 10.0);
-        tileImage.setFitHeight(60.0);
-        tileImage.setFitWidth(60.0);
+        tileImage.setFitHeight(40.0);
+        tileImage.setFitWidth(40.0);
         tileImage.setPreserveRatio(true);
         return tileImage;
     }
@@ -121,9 +124,14 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
     protected void addTitleLabelWithImage(AnchorPane tileInfoPane, String title, String styleClass, double topAnchor, ImageView image) {
         Label titleLabel = createLabel(title, styleClass, 5.0, 5.0, topAnchor, null);
         titleLabel.setGraphic(image);
-        titleLabel.setGraphicTextGap(10.0);
+        titleLabel.setGraphicTextGap(5.0);
         titleLabel.setContentDisplay(ContentDisplay.TOP);
         tileInfoPane.getChildren().add(titleLabel);
+    }
+
+    protected void addRentLabel(AnchorPane tileInfoPane, String price, String styleClass, double topAnchor) {
+        Label priceLabel = createLabel(price, styleClass, 5.0, 5.0, topAnchor, null);
+        tileInfoPane.getChildren().add(priceLabel);
     }
 
     protected void addDescriptionLabel(AnchorPane tileInfoPane, String description, String styleClass, double topAnchor) {
@@ -137,4 +145,17 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
             tileInfoPane.getChildren().add(button);
         }
     }
+
+    protected void addRentInfo(AnchorPane tileInfoPane, IRentable tile, double topAnchor) {
+        Label rentTitleLabel = createLabel(propertyReader.get("label.rent") + ": ", "street-tile-rent-title", LABEL_MARGIN, null, topAnchor, null);
+        Label rentLabel = createLabel(gameManager.getSettings().getMoneyUnit() + tile.getRent(), "street-tile-rent", null, LABEL_MARGIN, topAnchor, null);
+        tileInfoPane.getChildren().addAll(rentTitleLabel, rentLabel);
+    }
+
+    protected void addPriceInfo(AnchorPane tileInfoPane, IBuyable tile, double topAnchor) {
+        Label priceTitleLabel = createLabel(propertyReader.get("label.price") + ": ", "street-tile-price-title", LABEL_MARGIN, null, topAnchor, null);
+        Label priceLabel = createLabel(gameManager.getSettings().getMoneyUnit() + tile.getPrice(), "street-tile-price", null, LABEL_MARGIN, topAnchor, null);
+        tileInfoPane.getChildren().addAll(priceTitleLabel, priceLabel);
+    }
+
 }

@@ -4,7 +4,7 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.exception.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import be.ugent.objprog.ugentopoly.ui.animation.MoneyAnimation;
+import be.ugent.objprog.ugentopoly.ui.animation.MoneyRainAnimation;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -54,7 +54,7 @@ public class GameOverController {
             Node content = alert.getDialogPane().getContent();
 
             // Start the money animation
-            MoneyAnimation moneyAnimation = new MoneyAnimation(-1);
+            MoneyRainAnimation moneyAnimation = new MoneyRainAnimation(-1);
             moneyAnimation.play((Pane) content, 20);
 
             Button playAgainButton = (Button) root.lookup("#playAgainButton");

@@ -18,6 +18,7 @@ public class UtilityTileInfoPaneFactory extends TileInfoPaneFactoryBase {
         AnchorPane tileInfoPane = super.createTileInfoPane(tile, onVisit);
 
         addTitleLabelWithImage(tileInfoPane, utilityTile.getName(), "utility-title", 20.0, getTileImageView("assets/" + utilityTile.getId() + ".png"));
+        addPriceInfo(tileInfoPane, utilityTile, 75);
         addOwnerInfo(tileInfoPane, utilityTile, onVisit);
 
         return tileInfoPane;

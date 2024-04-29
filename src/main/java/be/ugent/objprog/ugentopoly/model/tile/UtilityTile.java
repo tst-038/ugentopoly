@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.util.List;
 import java.util.Objects;
 
 public class UtilityTile extends Tile implements IUIChangeListener, IImageChangeListener, IBuyable, IRentable {
@@ -89,7 +90,8 @@ public class UtilityTile extends Tile implements IUIChangeListener, IImageChange
 
     @Override
     public int getRent() {
-        return gameManager.getDiceHandler().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (owner.getInventory().getOwnedUtilities() == 1 ? 4 : 10);
+        int ownedUtilities = owner != null ? owner.getInventory().getOwnedUtilities() : 1;
+        return gameManager.getDiceHandler().getLastRoll().stream().mapToInt(Integer::intValue).sum() * (ownedUtilities == 1 ? 4 : 10);
     }
 
     @Override

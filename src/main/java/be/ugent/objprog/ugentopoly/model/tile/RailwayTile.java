@@ -35,7 +35,7 @@ public class RailwayTile extends Tile implements UIUpdatable, ILabelChangeListen
     }
 
     public int getRent() {
-        return (int) (rent * Math.pow(2, getOwner().getInventory().getOwnedRailways() - 1.));
+        return (int) (rent * Math.pow(2, getOwner() != null ? getOwner().getInventory().getOwnedRailways()-1 : 0));
     }
 
     public Image getImage() {

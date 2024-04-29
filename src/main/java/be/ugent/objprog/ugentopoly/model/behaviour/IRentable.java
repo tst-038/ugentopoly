@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.log.event.RentPaidEvent;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 import be.ugent.objprog.ugentopoly.model.player.Player;
+import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
 public interface IRentable extends IOwnable {
     default void payRent(Player player, GameManager gameManager) {
@@ -13,4 +14,5 @@ public interface IRentable extends IOwnable {
     }
 
     int getRent();
+    TileType getType();
 }
