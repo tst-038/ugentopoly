@@ -1,6 +1,6 @@
 package be.ugent.objprog.ugentopoly.ui.updater;
 
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -16,7 +16,7 @@ public class TileOwnershipUpdater {
         this.rootPane = rootPane;
     }
 
-    public void playerBoughtTile(Player player, IBuyable tile) {
+    public void playerBoughtTile(Player player, Buyable tile) {
         Pane tilePane = (Pane) rootPane.lookup("#_" + tile.getPosition());
         Label tileName = (Label) tilePane.lookup("Label");
 

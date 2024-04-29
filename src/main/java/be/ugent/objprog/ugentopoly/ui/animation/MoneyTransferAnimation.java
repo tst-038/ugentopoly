@@ -1,7 +1,7 @@
 package be.ugent.objprog.ugentopoly.ui.animation;
 
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import javafx.animation.*;
 import javafx.geometry.Bounds;
@@ -139,7 +139,7 @@ public class MoneyTransferAnimation {
         }
     }
 
-    public void animatePropertyBought(Player player, Pane gameBoard, IBuyable tile, Runnable onFinished) {
+    public void animatePropertyBought(Player player, Pane gameBoard, Buyable tile, Runnable onFinished) {
         Region playerNode = getPlayerBalanceNode(gameBoard, player);
         Region tileNode = (Region) gameBoard.lookup("#_" + tile.getPosition());
 

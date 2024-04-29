@@ -2,12 +2,12 @@ package be.ugent.objprog.ugentopoly.model.tile;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IVisitable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Visitable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.listener.IImageChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.ILabelChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.ImageChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.LabelChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public class ChanceTile extends Tile implements UIUpdatable, ILabelChangeListener, IImageChangeListener, IVisitable {
+public class ChanceTile extends Tile implements UIUpdatable, LabelChangeListener, ImageChangeListener, Visitable {
     public ChanceTile(String id, int position, GameManager gameManager) {
         super(id, position, TileType.CHANCE, gameManager);
     }
@@ -32,7 +32,7 @@ public class ChanceTile extends Tile implements UIUpdatable, ILabelChangeListene
     }
 
     @Override
-    public void acceptUIUpdate(IUIChangeVisitor visitor, Node tileNode, Pane rootPane) {
+    public void acceptUIUpdate(UIChangeVisitor visitor, Node tileNode, Pane rootPane) {
         visitor.visit(this, tileNode, rootPane);
     }
 

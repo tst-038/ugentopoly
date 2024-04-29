@@ -2,14 +2,14 @@ package be.ugent.objprog.ugentopoly.model.tile;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
-import be.ugent.objprog.ugentopoly.model.behaviour.IRentable;
-import be.ugent.objprog.ugentopoly.model.behaviour.IVisitable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Rentable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Visitable;
 import be.ugent.objprog.ugentopoly.model.board.Area;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.listener.ILabelChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.LabelChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class StreetTile extends Tile implements UIUpdatable, ILabelChangeListener, IBuyable, IRentable, IVisitable {
+public class StreetTile extends Tile implements UIUpdatable, LabelChangeListener, Buyable, Rentable, Visitable {
 
     private final int cost;
     private final Area area;
@@ -65,7 +65,7 @@ public class StreetTile extends Tile implements UIUpdatable, ILabelChangeListene
     }
 
     @Override
-    public void acceptUIUpdate(IUIChangeVisitor visitor, Node tileNode, Pane rootPane) {
+    public void acceptUIUpdate(UIChangeVisitor visitor, Node tileNode, Pane rootPane) {
         visitor.visit(this, tileNode, rootPane);
     }
 

@@ -3,7 +3,7 @@ package be.ugent.objprog.ugentopoly.model.player;
 import be.ugent.objprog.ugentopoly.log.event.PlayerMoveEvent;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.logic.listener.PositionListener;
-import be.ugent.objprog.ugentopoly.model.behaviour.IVisitable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Visitable;
 import be.ugent.objprog.ugentopoly.model.board.Board;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 
@@ -38,7 +38,7 @@ public class PlayerPosition {
         Board board = gameManager.getBoardManager().getBoard();
         int m = board.getTiles().size();
         newPosition = ((newPosition % m) + m) % m;
-        IVisitable current = board.getTileByPosition(newPosition);
+        Visitable current = board.getTileByPosition(newPosition);
         gameManager.getLogBook().addEntry(new PlayerMoveEvent(this.player, current));
         this.position = newPosition;
         Tile landedTile = board.getTileByPosition(position);

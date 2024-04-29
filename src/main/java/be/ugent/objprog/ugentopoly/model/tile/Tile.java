@@ -2,16 +2,16 @@ package be.ugent.objprog.ugentopoly.model.tile;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IVisitable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Visitable;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
 
-public abstract class Tile implements IVisitable {
+public abstract class Tile implements Visitable {
 
     protected final GameManager gameManager;
     private final String id;
@@ -61,5 +61,5 @@ public abstract class Tile implements IVisitable {
 
     public abstract void accept(TileVisitor visitor, boolean onVisit);
 
-    public abstract void acceptUIUpdate(IUIChangeVisitor visitor, Node tileNode, Pane rootPane);
+    public abstract void acceptUIUpdate(UIChangeVisitor visitor, Node tileNode, Pane rootPane);
 }

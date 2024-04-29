@@ -2,13 +2,13 @@ package be.ugent.objprog.ugentopoly.model.tile;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
-import be.ugent.objprog.ugentopoly.model.behaviour.IRentable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Rentable;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.listener.IImageChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.ImageChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,10 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.util.List;
 import java.util.Objects;
 
-public class UtilityTile extends Tile implements IUIChangeListener, IImageChangeListener, IBuyable, IRentable {
+public class UtilityTile extends Tile implements UIChangeListener, ImageChangeListener, Buyable, Rentable {
 
     private final int price;
     private Player owner;
@@ -40,7 +39,7 @@ public class UtilityTile extends Tile implements IUIChangeListener, IImageChange
     }
 
     @Override
-    public void acceptUIUpdate(IUIChangeVisitor visitor, Node tileNode, Pane rootPane) {
+    public void acceptUIUpdate(UIChangeVisitor visitor, Node tileNode, Pane rootPane) {
         visitor.visit(this, tileNode, rootPane);
     }
 

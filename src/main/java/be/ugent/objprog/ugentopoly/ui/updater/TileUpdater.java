@@ -2,7 +2,7 @@ package be.ugent.objprog.ugentopoly.ui.updater;
 
 import be.ugent.objprog.ugentopoly.exception.ui.UIUpdateException;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,7 +22,7 @@ public class TileUpdater {
     }
 
     public void updateTiles(List<Tile> tiles) {
-        IUIChangeVisitor visitor = new UIUpdateVisitor();
+        UIChangeVisitor visitor = new UIUpdateVisitor();
         for (Tile tile : tiles) {
             try {
                 Node node = rootPane.lookup("#_" + tile.getPosition());

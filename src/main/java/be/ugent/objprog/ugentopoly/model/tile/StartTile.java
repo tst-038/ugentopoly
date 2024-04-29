@@ -4,9 +4,9 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.visitor.TileVisitor;
-import be.ugent.objprog.ugentopoly.ui.listener.ILabelChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeListener;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.LabelChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeListener;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
-public class StartTile extends Tile implements IUIChangeListener, ILabelChangeListener {
+public class StartTile extends Tile implements UIChangeListener, LabelChangeListener {
     public StartTile(String id, int position, GameManager gameManager) {
         super(id, position, TileType.START, gameManager);
     }
@@ -30,7 +30,7 @@ public class StartTile extends Tile implements IUIChangeListener, ILabelChangeLi
     }
 
     @Override
-    public void acceptUIUpdate(IUIChangeVisitor visitor, Node tileNode, Pane rootPane) {
+    public void acceptUIUpdate(UIChangeVisitor visitor, Node tileNode, Pane rootPane) {
         visitor.visit(this, tileNode, rootPane);
     }
 

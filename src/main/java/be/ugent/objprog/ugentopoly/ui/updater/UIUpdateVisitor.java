@@ -1,11 +1,11 @@
 package be.ugent.objprog.ugentopoly.ui.updater;
 
 import be.ugent.objprog.ugentopoly.model.tile.*;
-import be.ugent.objprog.ugentopoly.ui.listener.IUIChangeVisitor;
+import be.ugent.objprog.ugentopoly.ui.listener.UIChangeVisitor;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-public class UIUpdateVisitor implements IUIChangeVisitor {
+public class UIUpdateVisitor implements UIChangeVisitor {
     @Override
     public void visit(StreetTile tile, Node tileNode, Pane rootPane) {
         tile.updateUI(tileNode, rootPane);

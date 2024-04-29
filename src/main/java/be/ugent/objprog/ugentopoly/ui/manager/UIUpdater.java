@@ -2,7 +2,7 @@ package be.ugent.objprog.ugentopoly.ui.manager;
 
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
 import be.ugent.objprog.ugentopoly.model.board.Area;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
@@ -47,7 +47,7 @@ public class UIUpdater {
         diceRollDialog.initializeDices(diceDialog);
     }
 
-    public void playerBoughtTile(Player player, IBuyable tile) {
+    public void playerBoughtTile(Player player, Buyable tile) {
         tileOwnershipUpdater.playerBoughtTile(player, tile);
     }
 

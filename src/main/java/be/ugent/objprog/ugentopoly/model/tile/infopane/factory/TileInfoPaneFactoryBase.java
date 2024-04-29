@@ -3,12 +3,10 @@ package be.ugent.objprog.ugentopoly.model.tile.infopane.factory;
 import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.model.behaviour.IBuyable;
-import be.ugent.objprog.ugentopoly.model.behaviour.IOwnable;
-import be.ugent.objprog.ugentopoly.model.behaviour.IRentable;
-import be.ugent.objprog.ugentopoly.model.tile.StreetTile;
+import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Ownable;
+import be.ugent.objprog.ugentopoly.model.behaviour.Rentable;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
-import be.ugent.objprog.ugentopoly.model.tile.TileType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -68,7 +66,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
         return button;
     }
 
-    protected void addOwnerInfo(AnchorPane tileInfoPane, IBuyable tile, boolean onVisit) {
+    protected void addOwnerInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
         if (tile.getOwner() == null) {
             addForSaleInfo(tileInfoPane, tile, onVisit);
         } else {
@@ -77,7 +75,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
         }
     }
 
-    private void addForSaleInfo(AnchorPane tileInfoPane, IBuyable tile, boolean onVisit) {
+    private void addForSaleInfo(AnchorPane tileInfoPane, Buyable tile, boolean onVisit) {
         Label forSaleLabel = createLabel(propertyReader.get("label.for_sale"), "tile-owner-title", 0.0, 0.0, 115.0, null);
         tileInfoPane.getChildren().add(forSaleLabel);
 
@@ -92,7 +90,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
         tileInfoPane.getChildren().add(priceLabel);
     }
 
-    private void addOwnerLabel(AnchorPane tileInfoPane, IOwnable tile) {
+    private void addOwnerLabel(AnchorPane tileInfoPane, Ownable tile) {
         Label ownerTitleLabel = createLabel(propertyReader.get("label.owner"), "tile-owner-title", 0.0, 0.0, 115.0, null);
         tileInfoPane.getChildren().add(ownerTitleLabel);
 
@@ -101,7 +99,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
         tileInfoPane.getChildren().add(ownerLabel);
     }
 
-    private void addPayRentButton(AnchorPane tileInfoPane, IBuyable tile, boolean onVisit, GameManager gameManager) {
+    private void addPayRentButton(AnchorPane tileInfoPane, Buyable tile, boolean onVisit, GameManager gameManager) {
         if (onVisit && tile.getOwner() != gameManager.getTurnManager().getCurrentPlayer()) {
             Button payRentButton = createButton(propertyReader.get("button.pay_rent"), "tile-pay-rent-button", "pay-rent-button", BUTTON_MARGIN, BUTTON_MARGIN);
             tileInfoPane.getChildren().add(payRentButton);
@@ -146,13 +144,13 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
         }
     }
 
-    protected void addRentInfo(AnchorPane tileInfoPane, IRentable tile, double topAnchor) {
+    protected void addRentInfo(AnchorPane tileInfoPane, Rentable tile, double topAnchor) {
         Label rentTitleLabel = createLabel(propertyReader.get("label.rent") + ": ", "street-tile-rent-title", LABEL_MARGIN, null, topAnchor, null);
         Label rentLabel = createLabel(gameManager.getSettings().getMoneyUnit() + tile.getRent(), "street-tile-rent", null, LABEL_MARGIN, topAnchor, null);
         tileInfoPane.getChildren().addAll(rentTitleLabel, rentLabel);
     }
 
-    protected void addPriceInfo(AnchorPane tileInfoPane, IBuyable tile, double topAnchor) {
+    protected void addPriceInfo(AnchorPane tileInfoPane, Buyable tile, double topAnchor) {
         Label priceTitleLabel = createLabel(propertyReader.get("label.price") + ": ", "street-tile-price-title", LABEL_MARGIN, null, topAnchor, null);
         Label priceLabel = createLabel(gameManager.getSettings().getMoneyUnit() + tile.getPrice(), "street-tile-price", null, LABEL_MARGIN, topAnchor, null);
         tileInfoPane.getChildren().addAll(priceTitleLabel, priceLabel);

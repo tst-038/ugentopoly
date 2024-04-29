@@ -4,7 +4,7 @@ import be.ugent.objprog.ugentopoly.model.tile.*;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-public interface IUIChangeVisitor {
+public interface UIChangeVisitor {
     void visit(StreetTile tile, Node tileNode, Pane rootPane);
 
     void visit(TaxTile tile, Node tileNode, Pane rootPane);

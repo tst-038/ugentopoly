@@ -5,7 +5,7 @@ import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.animation.MoneyTransferAnimation;
 
-public interface IBuyable extends IOwnable {
+public interface Buyable extends Ownable {
     default void buy(Player player, GameManager gameManager) {
         if(gameManager.getBank().withdraw(player, getPrice())) {
             setOwner(player);

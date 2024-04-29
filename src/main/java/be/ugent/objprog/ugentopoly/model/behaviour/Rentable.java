@@ -6,7 +6,7 @@ import be.ugent.objprog.ugentopoly.model.TransactionPriority;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
-public interface IRentable extends IOwnable {
+public interface Rentable extends Ownable {
     default void payRent(Player player, GameManager gameManager) {
         if(gameManager.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.MANDATORY)) {
             gameManager.getLogBook().addEntry(new RentPaidEvent(player, this));
