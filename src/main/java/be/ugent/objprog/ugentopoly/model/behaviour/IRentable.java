@@ -8,7 +8,7 @@ import be.ugent.objprog.ugentopoly.model.tile.TileType;
 
 public interface IRentable extends IOwnable {
     default void payRent(Player player, GameManager gameManager) {
-        if(gameManager.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.HIGH)) {
+        if(gameManager.getBank().transfer(player, getOwner(), getRent(), TransactionPriority.MANDATORY)) {
             gameManager.getLogBook().addEntry(new RentPaidEvent(player, this));
         }
     }

@@ -23,9 +23,9 @@ public class PlayersMoneyCard extends Card {
         players.forEach(p -> {
             if (!p.equals(player)) {
                 if (amount > 0) {
-                    gameManager.getBank().transfer(p, player, amount, TransactionPriority.HIGH);
+                    gameManager.getBank().transfer(p, player, amount, TransactionPriority.MANDATORY);
                 } else {
-                    gameManager.getBank().transfer(player, p, amount, TransactionPriority.HIGH);
+                    gameManager.getBank().transfer(player, p, amount, TransactionPriority.MANDATORY);
                 }
             }
         });

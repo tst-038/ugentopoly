@@ -45,7 +45,7 @@ public class Bank {
             new MoneyTransferAnimation().animateMoneyTransfer(fromPlayer, toPlayer, amount, gameManager.getRootPane());
             return true;
         } else {
-            if (priority == TransactionPriority.HIGH) {
+            if (priority == TransactionPriority.MANDATORY) {
                 handleInsufficientFunds(fromPlayer);
             }
             return false;
