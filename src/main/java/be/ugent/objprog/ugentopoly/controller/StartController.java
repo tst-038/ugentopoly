@@ -71,6 +71,7 @@ public class StartController {
     @FXML
     private void handlePlayButtonAction() {
         if (areAllFieldsUnique()) {
+            playButton.setDisable(true);
             ugentopoly.startGame(players);
         }
     }
