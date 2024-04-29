@@ -30,18 +30,19 @@ public class PionMoveAnimation {
         newPion.addToContainer(pionContainer);
         newPion.setVisible(false);
 
-        Bounds startBounds = getStartBounds();
-        Bounds targetBounds = getTargetBounds(newPion);
+        Bounds startBounds = currentPionContainer.localToScene(currentPionContainer.getBoundsInParent());
+        Bounds targetBounds = pionContainer.localToScene(pionContainer.getBoundsInParent());
 
-        double[] imagePosition = calculateImagePosition(newPosition, newPion);
-        double imageX = imagePosition[0];
-        double imageY = imagePosition[1];
+        double startCenterX = startBounds.getMinX() + startBounds.getWidth() / 2;
+        double startCenterY = startBounds.getMinY() + startBounds.getHeight() / 2;
 
-        currentPion.setLayoutX(startBounds.getMinX());
-        currentPion.setLayoutY(startBounds.getMinY());
+        double targetCenterX = targetBounds.getCenterX();
+        double targetCenterY = targetBounds.getCenterY();
 
-        TranslateTransition transition = createTranslateTransition(startBounds, targetBounds, imageX, imageY);
-        transition.setOnFinished(event -> onAnimationFinished(currentPionContainer, newPion, imageX, imageY));
+        currentPion.setTranslateX(startCenterX - currentPion.getBoundsInParent().getWidth() / 2);
+        currentPion.setTranslateY(startCenterY - currentPion.getBoundsInParent().getHeight() / 2);
+
+        TranslateTransition transition = createTranslateTransition(currentPionContainer, startCenterX, startCenterY, targetCenterX, targetCenterY, newPion);
 
         transition.play();
     }
@@ -50,57 +51,33 @@ public class PionMoveAnimation {
         return new PlayerPion(player, player.getPion().getImage());
     }
 
-    private Bounds getStartBounds() {
-        return currentPion.localToScene(currentPion.getBoundsInLocal());
-    }
-
-    private Bounds getTargetBounds(PlayerPion newPion) {
-        return newPion.localToScene(newPion.getBoundsInLocal());
-    }
-
-    private double[] calculateImagePosition(int newPosition, PlayerPion newPion) {
-        double containerWidth = pionContainer.getWidth();
-        double containerHeight = pionContainer.getHeight();
-        double imageWidth = newPion.getBoundsInLocal().getWidth();
-        double imageHeight = newPion.getBoundsInLocal().getHeight();
-        double marginX = 10.0;
-        double marginY = 10.0;
-
-        double imageX, imageY;
-
-        if (newPosition == 0 || newPosition == 10 || newPosition == 20 || newPosition == 30) {
-            imageX = (containerWidth - imageWidth) / 2;
-            imageY = (containerHeight - imageHeight) / 2;
-        } else if (newPosition >= 1 && newPosition <= 9) {
-            imageX = (pionContainer.getChildren().size() - 1) * (imageWidth + marginX) + marginX;
-            imageY = (containerHeight - imageHeight) / 2;
-        } else if (newPosition >= 11 && newPosition <= 19) {
-            imageX = (containerWidth - imageWidth) / 2;
-            imageY = (pionContainer.getChildren().size() - 1) * (imageHeight + marginY) + marginY;
-        } else if (newPosition >= 21 && newPosition <= 29) {
-            imageX = (pionContainer.getChildren().size()-1) * (imageWidth + marginX) - (containerWidth - imageWidth)/2;
-            imageY = (containerHeight - imageHeight) / 2;
-        } else {
-            imageX = (containerWidth - imageWidth) / 2 - (pionContainer.getChildren().size() * (imageWidth + marginX));
-            imageY = containerHeight - (pionContainer.getChildren().size() * (imageHeight + marginY) + marginY);
-        }
-
-        return new double[]{imageX, imageY};
-    }
-
-    private TranslateTransition createTranslateTransition(Bounds startBounds, Bounds targetBounds, double imageX, double imageY) {
+    private TranslateTransition createTranslateTransition(Pane currentPionContainer, double startX, double startY, double targetX, double targetY, PlayerPion newPion) {
         currentPion.toFront();
         TranslateTransition transition = new TranslateTransition(Duration.millis(500), currentPion);
-        transition.setToX(targetBounds.getMinX() - startBounds.getMinX() + imageX);
-        transition.setToY(targetBounds.getMinY() - startBounds.getMinY() + imageY);
-        return transition;
-    }
 
-    private void onAnimationFinished(Pane currentPionContainer, PlayerPion newPion, double imageX, double imageY) {
-        currentPionContainer.getChildren().remove(currentPion);
-        newPion.setVisible(true);
-        newPion.setLayoutX(imageX);
-        newPion.setLayoutY(imageY);
-        player.setPion(newPion);
+        Bounds pionBounds = currentPion.getBoundsInParent();
+        Bounds containerBounds = currentPionContainer.getBoundsInParent();
+
+        double containerCenterX = containerBounds.getWidth();
+        double containerCenterY = containerBounds.getHeight();
+
+        double pionCenterX = pionBounds.getMinX() + pionBounds.getWidth() / 2;
+        double pionCenterY = pionBounds.getMinY() + pionBounds.getHeight() / 2;
+
+        double fromX = pionCenterX - containerCenterX;
+        double fromY = pionCenterY - containerCenterY;
+
+        transition.setFromX(0);
+        transition.setFromY(0);
+        transition.setToX(targetX - startX + fromX/2);
+        transition.setToY(targetY - startY + fromY/2);
+
+        transition.setOnFinished(event -> {
+            currentPionContainer.getChildren().remove(currentPion);
+            newPion.setVisible(true);
+            player.setPion(newPion);
+        });
+
+        return transition;
     }
 }
