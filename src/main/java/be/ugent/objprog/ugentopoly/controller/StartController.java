@@ -5,7 +5,7 @@ import be.ugent.objprog.ugentopoly.data.ResourceLoader;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
-import be.ugent.objprog.ugentopoly.ui.element.PlayerPion;
+import be.ugent.objprog.ugentopoly.ui.element.PlayerPawn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -36,18 +36,18 @@ public class StartController {
     @FXML private VBox playerFieldsContainer;
     @FXML private Label playerNamesNotUnique;
     @FXML private Label playerColorsNotUnique;
-    @FXML private Label playerPionNotUnique;
+    @FXML private Label playerPawnNotUnique;
     @FXML private Label playerAmountTitle;
     @FXML private Label playerAmount;
     @FXML private Label playerColor;
     @FXML private Label playerName;
     @FXML private Button playButton;
 
-    private Ugentopoly ugentopoly;
-    private PropertyReader propertyReader;
-    private Settings settings;
+    private final Ugentopoly ugentopoly;
+    private final PropertyReader propertyReader;
+    private final Settings settings;
     private List<Player> players;
-    private ObservableList<Image> availablePions;
+    private ObservableList<Image> availablePawns;
 
     public StartController(Ugentopoly ugentopoly, PropertyReader propertyReader, Settings settings) {
         this.ugentopoly = ugentopoly;
@@ -58,8 +58,8 @@ public class StartController {
     @FXML
     private void initialize() {
         players = new ArrayList<>();
-        availablePions = FXCollections.observableArrayList(loadPionImages());
-        initializePionComboBoxes();
+        availablePawns = FXCollections.observableArrayList(loadPawnImages());
+        initializePawnComboBoxes();
         playerSlider.valueProperty().addListener((observable, oldValue, newValue) -> updatePlayerAmount(newValue.intValue()));
         playerSlider.setMax(MAX_PLAYERS);
     }
@@ -84,21 +84,21 @@ public class StartController {
         playerName.setText(propertyReader.get("label.username"));
         String notUnique = propertyReader.get("label.not_unique");
         playerColorsNotUnique.setText(notUnique);
-        playerPionNotUnique.setText(notUnique);
+        playerPawnNotUnique.setText(notUnique);
         playerNamesNotUnique.setText(notUnique);
     }
 
     private boolean areAllFieldsUnique() {
-        return playersAreUnique() && colorsAreUnique() && pionsAreUnique();
+        return playersAreUnique() && colorsAreUnique() && pawnsAreUnique();
     }
 
-    private boolean pionsAreUnique() {
-        Set<Image> pionSet = players.stream()
-                .map(Player::getPion)
+    private boolean pawnsAreUnique() {
+        Set<Image> pawnSet = players.stream()
+                .map(Player::getPawn)
                 .filter(java.util.Objects::nonNull)
-                .map(PlayerPion::getImage)
+                .map(PlayerPawn::getImage)
                 .collect(Collectors.toSet());
-        return pionSet.size() == players.size();
+        return pawnSet.size() == players.size();
     }
 
     private boolean playersAreUnique() {
@@ -111,23 +111,23 @@ public class StartController {
         return colorSet.size() == players.size();
     }
 
-    private void initializePionComboBoxes() {
+    private void initializePawnComboBoxes() {
         for (Node node : playerFieldsContainer.getChildren()) {
             if (node instanceof AnchorPane playerFieldPane && playerFieldPane.getChildren().get(2) instanceof ComboBox<?>){
-                ComboBox<Image> pionComboBox = (ComboBox<Image>) playerFieldPane.getChildren().get(2);
-                initializePionComboBox(pionComboBox);
+                ComboBox<Image> pawnComboBox = (ComboBox<Image>) playerFieldPane.getChildren().get(2);
+                initializePawnComboBox(pawnComboBox);
             }
         }
     }
 
-    private void initializePionComboBox(ComboBox<Image> pionComboBox) {
-        pionComboBox.setItems(availablePions);
-        pionComboBox.setCellFactory(param -> createPionListCell());
-        pionComboBox.setButtonCell(createPionListCell());
-        pionComboBox.addEventHandler(ComboBoxBase.ON_HIDDEN, event -> handlePionComboBoxHidden(event, pionComboBox));
+    private void initializePawnComboBox(ComboBox<Image> pawnComboBox) {
+        pawnComboBox.setItems(availablePawns);
+        pawnComboBox.setCellFactory(param -> createPawnListCell());
+        pawnComboBox.setButtonCell(createPawnListCell());
+        pawnComboBox.addEventHandler(ComboBoxBase.ON_HIDDEN, event -> handlePawnComboBoxHidden(event, pawnComboBox));
     }
 
-    private ListCell<Image> createPionListCell() {
+    private ListCell<Image> createPawnListCell() {
         return new ListCell<>() {
             private final ImageView imageView = new ImageView();
 
@@ -147,22 +147,22 @@ public class StartController {
         };
     }
 
-    private void handlePionComboBoxHidden(Event event, ComboBox<Image> pionComboBox) {
-        Player player = getPlayerForComboBox(pionComboBox);
+    private void handlePawnComboBoxHidden(Event event, ComboBox<Image> pawnComboBox) {
+        Player player = getPlayerForComboBox(pawnComboBox);
         if (player != null) {
-            Image selectedImage = pionComboBox.getSelectionModel().getSelectedItem();
+            Image selectedImage = pawnComboBox.getSelectionModel().getSelectedItem();
             if (isImageInUseByOtherPlayer(selectedImage, player)) {
-                pionComboBox.getSelectionModel().clearSelection();
-                player.setPion(null);
+                pawnComboBox.getSelectionModel().clearSelection();
+                player.setPawn(null);
             } else {
-                player.setPion(new PlayerPion(player, selectedImage));
+                player.setPawn(new PlayerPawn(player, selectedImage));
             }
             updateNotUniqueLabels();
         }
     }
 
-    private Player getPlayerForComboBox(ComboBox<Image> pionComboBox) {
-        int index = playerFieldsContainer.getChildren().indexOf(pionComboBox.getParent());
+    private Player getPlayerForComboBox(ComboBox<Image> pawnComboBox) {
+        int index = playerFieldsContainer.getChildren().indexOf(pawnComboBox.getParent());
         if (index >= 0 && index < players.size()) {
             return players.get(index);
         }
@@ -172,7 +172,7 @@ public class StartController {
     private boolean isImageInUseByOtherPlayer(Image image, Player currentPlayer) {
         return players.stream()
                 .filter(player -> player != currentPlayer)
-                .anyMatch(player -> player.getPion() != null &&  image != null && image.equals(player.getPion().getImage()));
+                .anyMatch(player -> player.getPawn() != null &&  image != null && image.equals(player.getPawn().getImage()));
     }
 
     private void updatePlayerAmount(int numPlayers) {
@@ -205,15 +205,15 @@ public class StartController {
 
         TextField usernameField = createUsernameField(index);
         ColorPicker colorPicker = createColorPicker(index);
-        ComboBox<Image> pionComboBox = createPionComboBox();
+        ComboBox<Image> pawnComboBox = createPawnComboBox();
 
         Player player = createPlayer(index, usernameField.getText(), colorPicker.getValue());
 
         usernameField.textProperty().addListener(createUsernameListener(player));
         colorPicker.valueProperty().addListener(createColorListener(player));
-        pionComboBox.valueProperty().addListener(createPionListener(player));
+        pawnComboBox.valueProperty().addListener(createPawnListener(player));
 
-        playerFieldPane.getChildren().addAll(usernameField, colorPicker, pionComboBox);
+        playerFieldPane.getChildren().addAll(usernameField, colorPicker, pawnComboBox);
         VBox.setMargin(playerFieldPane, new Insets(0, 10, 0, 10));
 
         return playerFieldPane;
@@ -238,14 +238,14 @@ public class StartController {
         return colorPicker;
     }
 
-    private ComboBox<Image> createPionComboBox() {
-        ComboBox<Image> pionComboBox = new ComboBox<>();
-        pionComboBox.setMinHeight(40);
-        pionComboBox.setPrefSize(30, 40);
-        AnchorPane.setRightAnchor(pionComboBox, 0.0);
-        AnchorPane.setTopAnchor(pionComboBox, 3.0);
-        initializePionComboBox(pionComboBox);
-        return pionComboBox;
+    private ComboBox<Image> createPawnComboBox() {
+        ComboBox<Image> pawnComboBox = new ComboBox<>();
+        pawnComboBox.setMinHeight(40);
+        pawnComboBox.setPrefSize(30, 40);
+        AnchorPane.setRightAnchor(pawnComboBox, 0.0);
+        AnchorPane.setTopAnchor(pawnComboBox, 3.0);
+        initializePawnComboBox(pawnComboBox);
+        return pawnComboBox;
     }
 
     private Player createPlayer(int index, String name, Color color) {
@@ -275,9 +275,9 @@ public class StartController {
         };
     }
 
-    private javafx.beans.value.ChangeListener<Image> createPionListener(Player player) {
+    private javafx.beans.value.ChangeListener<Image> createPawnListener(Player player) {
         return (observable, oldValue, newValue) -> {
-            player.setPion(new PlayerPion(player, newValue));
+            player.setPawn(new PlayerPawn(player, newValue));
             updateNotUniqueLabels();
         };
     }
@@ -285,11 +285,11 @@ public class StartController {
     private void updateNotUniqueLabels() {
         playerNamesNotUnique.setVisible(!playersAreUnique());
         playerColorsNotUnique.setVisible(!colorsAreUnique());
-        playerPionNotUnique.setVisible(!pionsAreUnique());
+        playerPawnNotUnique.setVisible(!pawnsAreUnique());
         playButton.setDisable(!areAllFieldsUnique());
     }
 
-    private List<Image> loadPionImages() {
+    private List<Image> loadPawnImages() {
         return List.of(
                 ResourceLoader.loadImage("assets/token1.png"),
                 ResourceLoader.loadImage("assets/token2.png"),

@@ -31,9 +31,9 @@ public class GameOverController {
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));
-            ImageView pion = (ImageView) pos.getGraphic();
-            pion.setImage(p.getPion().getImage());
-            pos.setGraphic(pion);
+            ImageView pawn = (ImageView) pos.getGraphic();
+            pawn.setImage(p.getPawn().getImage());
+            pos.setGraphic(pawn);
             pos.setTextFill(p.getColor());
             pos.setText(p.getName() + "\n" + p.getBalance());
         }

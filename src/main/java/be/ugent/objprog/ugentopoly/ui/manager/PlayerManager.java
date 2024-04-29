@@ -28,8 +28,8 @@ public class PlayerManager {
         players.forEach(player -> {
             gameManager.getBoardManager().getBoard().getTiles().stream().filter(tile -> tile.getType() == TileType.START).map(StartTile.class::cast).findFirst()
                     .ifPresent(startTile -> players.forEach(p -> p.getPosition().setInitialPosition(startTile.getPosition())));
-            Pane pionContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pionContainer");
-            player.getPion().addToContainer(pionContainer);
+            Pane pawnContainer = (Pane) rootPane.lookup("#_" + player.getPosition().getPos()).lookup("#pawnContainer");
+            player.getPawn().addToContainer(pawnContainer);
         });
         uiUpdater.updatePlayers(players);
     }

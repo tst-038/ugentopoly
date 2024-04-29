@@ -2,7 +2,7 @@ package be.ugent.objprog.ugentopoly.model.player;
 
 import be.ugent.objprog.ugentopoly.log.event.GoToJailEvent;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
-import be.ugent.objprog.ugentopoly.ui.element.PlayerPion;
+import be.ugent.objprog.ugentopoly.ui.element.PlayerPawn;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
@@ -13,7 +13,7 @@ public class Player {
     private final int id;
     private String name;
     private Color color;
-    private PlayerPion pion;
+    private PlayerPawn pawn;
     private final PlayerInventory inventory;
     private final PlayerPosition position;
     private GameManager gameManager;
@@ -107,13 +107,13 @@ public class Player {
         this.color = color;
     }
 
-    public PlayerPion getPion() {
-        return pion;
+    public PlayerPawn getPawn() {
+        return pawn;
     }
 
-    public void setPion(PlayerPion pion) {
-        getPosition().removeListener(this.pion);
-        this.pion = pion;
+    public void setPawn(PlayerPawn pawn) {
+        getPosition().removeListener(this.pawn);
+        this.pawn = pawn;
     }
 
     public PlayerInventory getInventory() {

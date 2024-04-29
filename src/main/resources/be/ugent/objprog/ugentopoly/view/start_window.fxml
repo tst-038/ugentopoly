@@ -61,8 +61,8 @@
                                                 <Font size="10.0" />
                                             </font>
                                         </Label>
-                              <Label fx:id="playerColor1" alignment="CENTER" layoutX="182.0" layoutY="14.0" prefHeight="16.0" prefWidth="52.0" text="Pion" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0" />
-                              <Label fx:id="playerPionNotUnique" layoutX="185.0" layoutY="35.0" styleClass="error" text="Niet uniek!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="8.0">
+                              <Label fx:id="playerColor1" alignment="CENTER" layoutX="182.0" layoutY="14.0" prefHeight="16.0" prefWidth="52.0" text="Pawn" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="10.0" />
+                              <Label fx:id="playerPawnNotUnique" layoutX="185.0" layoutY="35.0" styleClass="error" text="Niet uniek!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="8.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>

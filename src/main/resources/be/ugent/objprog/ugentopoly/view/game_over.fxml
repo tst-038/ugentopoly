@@ -21,7 +21,7 @@
             </ImageView>
             <Label fx:id="pos1" alignment="CENTER" contentDisplay="BOTTOM" layoutX="253.0" layoutY="40.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
-                  <ImageView fx:id="pion1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="pawn1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </graphic>
                <font>
@@ -30,7 +30,7 @@
             </Label>
             <Label fx:id="pos2" alignment="CENTER" contentDisplay="BOTTOM" layoutX="165.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
-                  <ImageView fx:id="pion2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="pawn2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </graphic>
                <font>
@@ -39,7 +39,7 @@
             </Label>
             <Label fx:id="pos3" alignment="CENTER" contentDisplay="BOTTOM" layoutX="338.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
-                  <ImageView fx:id="pion3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="pawn3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </graphic>
             </Label>

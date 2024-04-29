@@ -37,7 +37,7 @@ public class PlayerPanelUpdater {
                 Node playerNode = loadPlayerNode(player);
                 updatePlayerLabels(playerNode, player);
                 addRollDiceButtonAction(playerNode, player);
-                setPionImage(playerNode, player);
+                setPawnImage(playerNode, player);
                 addPlayerNodeToPanel(playerNode, panelIndex, playerPanel1, playerPanel2);
                 panelIndex++;
             } catch (Exception e) {
@@ -80,9 +80,9 @@ public class PlayerPanelUpdater {
         });
     }
 
-    private void setPionImage(Node playerNode, Player player) {
-        ImageView pionImage = (ImageView) playerNode.lookup("#pion");
-        pionImage.setImage(player.getPion().getImage());
+    private void setPawnImage(Node playerNode, Player player) {
+        ImageView pawnImage = (ImageView) playerNode.lookup("#pawn");
+        pawnImage.setImage(player.getPawn().getImage());
     }
 
     private void addPlayerNodeToPanel(Node playerNode, int panelIndex, HBox playerPanel1, HBox playerPanel2) {
