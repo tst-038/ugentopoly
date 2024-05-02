@@ -5,6 +5,7 @@ import be.ugent.objprog.ugentopoly.data.reader.SettingsReader;
 import be.ugent.objprog.ugentopoly.model.Settings;
 import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.ui.manager.UILoader;
+import be.ugent.objprog.ugentopoly.ui.sound.SoundManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,6 +15,7 @@ public class Ugentopoly extends Application {
     private Stage primaryStage;
     private final PropertyReader propertyReader = new PropertyReader("ugentopoly.properties");
     private final Settings settings = new SettingsReader().readSettings(propertyReader);
+    private final SoundManager soundManager = new SoundManager();
     private UILoader uiLoader;
 
     public static void main(String[] args) {
@@ -25,6 +27,7 @@ public class Ugentopoly extends Application {
         this.primaryStage = primaryStage;
         uiLoader = new UILoader(this);
         showStartWindow();
+        soundManager.playBackgroundMusic();
     }
 
     public Stage getPrimaryStage() {
@@ -45,5 +48,9 @@ public class Ugentopoly extends Application {
 
     public PropertyReader getPropertyReader() {
         return propertyReader;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 }

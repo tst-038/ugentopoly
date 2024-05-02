@@ -26,7 +26,7 @@ public class Bank {
     public void deposit(Player player, int amount, boolean fromBankAnimation) {
         player.setBalance(player.getBalance() + amount);
         if (fromBankAnimation) {
-            new MoneyTransferAnimation().animateDepositFromBank(player, gameManager.getRootPane(), amount);
+            new MoneyTransferAnimation(gameManager).animateDepositFromBank(player, gameManager.getRootPane(), amount);
         }
     }
 
@@ -42,7 +42,7 @@ public class Bank {
     public boolean transfer(Player fromPlayer, Player toPlayer, int amount, TransactionPriority priority) {
         if (withdraw(fromPlayer, amount)) {
             deposit(toPlayer, amount, false);
-            new MoneyTransferAnimation().animateMoneyTransfer(fromPlayer, toPlayer, amount, gameManager.getRootPane());
+            new MoneyTransferAnimation(gameManager).animateMoneyTransfer(fromPlayer, toPlayer, amount, gameManager.getRootPane());
             return true;
         } else {
             if (priority == TransactionPriority.MANDATORY) {
@@ -55,7 +55,7 @@ public class Bank {
     public void transferToJackpot(Player player, int amount) {
             if(withdraw(player, amount)) {
                 jackpotBalance.set(jackpotBalance.get() + amount);
-                new MoneyTransferAnimation().animateToJackpot(player, gameManager.getRootPane(), amount);
+                new MoneyTransferAnimation(gameManager).animateToJackpot(player, gameManager.getRootPane(), amount);
             }else {
                 handleInsufficientFunds(player);
             }
@@ -69,7 +69,7 @@ public class Bank {
     public void claimJackpot(Player player) {
         gameManager.getLogBook().addEntry(new JackpotClaimedEvent(player, jackpotBalance.get()));
         deposit(player, jackpotBalance.get(), false);
-        new MoneyTransferAnimation().animateClaimJackpot(player, gameManager.getRootPane(), jackpotBalance.get());
+        new MoneyTransferAnimation(gameManager).animateClaimJackpot(player, gameManager.getRootPane(), jackpotBalance.get());
         jackpotBalance.set(0);
     }
 

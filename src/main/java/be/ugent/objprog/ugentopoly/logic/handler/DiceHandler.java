@@ -32,6 +32,7 @@ public class DiceHandler {
     }
 
     public void rollDice(Player player) {
+        gameManager.getSoundManager().playDiceRollSound();
         dice.roll(rolls -> {
             lastRoll = rolls;
             gameManager.getLogBook().addEntry(new DiceRolledEvent(player, rolls.getFirst(), rolls.getLast()));
