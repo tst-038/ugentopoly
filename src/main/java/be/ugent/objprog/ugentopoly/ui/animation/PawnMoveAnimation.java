@@ -43,6 +43,7 @@ public class PawnMoveAnimation {
         currentPawn.setTranslateY(startCenterY - currentPawn.getBoundsInParent().getHeight() / 2);
 
         TranslateTransition transition = createTranslateTransition(currentPawnContainer, startCenterX, startCenterY, targetCenterX, targetCenterY, newPawn);
+        player.getGameManager().getSoundManager().playPionMoveSound();
 
         transition.play();
     }

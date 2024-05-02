@@ -1,13 +1,18 @@
 package be.ugent.objprog.ugentopoly.ui.sound;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.exception.UgentopolyException;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Objects;
 
 public class SoundManager {
-    private Clip coinSound;
+    // I am aware that this is not the best way to handle the sound,
+    // As far as I am aware, this is the only way in the standard Java library to play multiple sounds at the same time
+    private static final int COIN_SOUND_POOL_SIZE = 40;
+    private Clip[] coinSoundPool;
+    private int coinSoundIndex;
     private Clip backgroundMusicClip;
     private Clip diceRollSoundClip;
     private Clip pionMoveSoundClip;
@@ -18,10 +23,13 @@ public class SoundManager {
 
     private void loadSounds() {
         try {
-            coinSound = AudioSystem.getClip();
-            AudioInputStream coinInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.wav")));
-            assert coinSound != null;
-            coinSound.open(coinInputStream);
+            coinSoundPool = new Clip[COIN_SOUND_POOL_SIZE];
+            for (int i = 0; i < COIN_SOUND_POOL_SIZE; i++) {
+                coinSoundPool[i] = AudioSystem.getClip();
+                AudioInputStream coinInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.wav")));
+                coinSoundPool[i].open(coinInputStream);
+            }
+            coinSoundIndex = 0;
 
             diceRollSoundClip = AudioSystem.getClip();
             AudioInputStream diceRollInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/diceRoll.wav")));
@@ -38,15 +46,18 @@ public class SoundManager {
             assert backgroundMusicClip != null;
             backgroundMusicClip.open(backgroundMusicInputStream);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
+            throw new UgentopolyException("Could not load sound", e);
         }
     }
 
     public void playCoinSound() {
-        coinSound.setFramePosition(0);
-        FloatControl gainControl = (FloatControl) coinSound.getControl(FloatControl.Type.MASTER_GAIN);
+        Clip coinSoundClip = coinSoundPool[coinSoundIndex];
+        coinSoundClip.setFramePosition(0);
+        FloatControl gainControl = (FloatControl) coinSoundClip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-10.0f);
-        coinSound.start();
+        coinSoundClip.start();
+
+        coinSoundIndex = (coinSoundIndex + 1) % COIN_SOUND_POOL_SIZE;
     }
 
     public void playDiceRollSound() {
