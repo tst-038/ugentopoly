@@ -5,7 +5,7 @@ import be.ugent.objprog.ugentopoly.model.player.Player;
 
 public class JailFreeCard extends Card {
     public JailFreeCard(String id, Deck deck) {
-        super(id, deck.getGameManager().getPropertyreader().get("card.jail"), CardType.JAIL, deck);
+        super(id, deck.getGameManager().getPropertyreader().get(id), CardType.JAIL, deck);
     }
 
     @Override

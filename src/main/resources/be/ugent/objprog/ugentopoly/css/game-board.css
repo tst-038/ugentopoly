@@ -78,3 +78,11 @@ Line {
     -fx-stroke   :  black;
     -fx-stroke-width: 1px;
 }
+
+.chance-info {
+    -fx-font-size: 0.8em;
+}
+
+.chest-info {
+     -fx-font-size: 0.8em;
+}

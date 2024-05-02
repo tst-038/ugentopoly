@@ -11,12 +11,12 @@ public class PlayersMoneyCard extends Card {
 
     public PlayersMoneyCard(String id, int amount, Deck deck) {
         super(id, String.format(
-                amount > 0 ?
-                        deck.getGameManager().getPropertyreader().get("card.players_money_card_receive") : deck.getGameManager().getPropertyreader().get("card.players_money_card_pay"),
+                deck.getGameManager().getPropertyreader().get(id),
                 deck.getGameManager().getSettings().getMoneyUnit()+Math.abs(amount)
         ), CardType.PLAYERS_MONEY, deck);
         this.amount = amount;
     }
+
     @Override
     public void execute(Player player, GameManager gameManager) {
         List<Player> players = gameManager.getPlayers();

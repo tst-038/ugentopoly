@@ -7,7 +7,7 @@ public class MoveRelCard extends Card {
     private final int relative;
 
     public MoveRelCard(String id, int relative, Deck deck) {
-        super(id, String.format(deck.getGameManager().getPropertyreader().get("card.move_rel_card"), relative), CardType.MOVEREL, deck);
+        super(id, String.format(deck.getGameManager().getPropertyreader().get(id), Math.abs(relative), relative > 0 ? deck.getGameManager().getPropertyreader().get("card.forwards") : deck.getGameManager().getPropertyreader().get("card.backwards")), CardType.MOVEREL, deck);
         this.relative = relative;
     }
 

@@ -11,12 +11,12 @@ public class MoveCard extends Card {
 
     public MoveCard(String id, int position, boolean collect, Deck deck) {
         super(id, String.format(
-                deck.getGameManager().getPropertyreader().get("card.move_card"),
-                deck.getGameManager().getBoardManager().getBoard().getTileByPosition(position).getName(),
-                collect ?
+                deck.getGameManager().getPropertyreader().get(id),
+                deck.getGameManager().getBoardManager().getBoard().getTileByPosition(position).getName()) +
+                        (collect ?
                         String.format(deck.getGameManager().getPropertyreader().get("label.collect_true"), deck.getGameManager().getSettings().getMoneyUnit()+deck.getGameManager().getSettings().getStartBonus())
-                        : deck.getGameManager().getPropertyreader().get("label.collect_false")
-                ), CardType.MOVE, deck);
+                        : deck.getGameManager().getPropertyreader().get("label.collect_false"))
+                , CardType.MOVE, deck);
         this.position = position;
         this.collect = collect;
         this.sendToJail = deck.getGameManager().getBoardManager().getBoard().getTileByPosition(position).getType() == TileType.JAIL;
