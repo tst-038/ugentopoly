@@ -1,59 +1,72 @@
 package be.ugent.objprog.ugentopoly.ui.sound;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
-import be.ugent.objprog.ugentopoly.data.ResourceLoader;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URL;
+import javax.sound.sampled.*;
+import java.io.IOException;
 import java.util.Objects;
 
 public class SoundManager {
-    private Media coinSound;
-    private MediaPlayer backgroundMusicPlayer;
-    private MediaPlayer diceRollSoundPlayer;
-    private MediaPlayer pionMoveSoundPlayer;
+    private Clip coinSound;
+    private Clip backgroundMusicClip;
+    private Clip diceRollSoundClip;
+    private Clip pionMoveSoundClip;
 
     public SoundManager() {
         loadSounds();
     }
 
     private void loadSounds() {
-        coinSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.mp3")).toString());
+        try {
+            coinSound = AudioSystem.getClip();
+            AudioInputStream coinInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/coin.wav")));
+            assert coinSound != null;
+            coinSound.open(coinInputStream);
 
-        Media diceRollSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/diceRoll.mp3")).toString());
-        diceRollSoundPlayer = new MediaPlayer(diceRollSound);
-        diceRollSoundPlayer.setVolume(0.10);
+            diceRollSoundClip = AudioSystem.getClip();
+            AudioInputStream diceRollInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/diceRoll.wav")));
+            assert diceRollSoundClip != null;
+            diceRollSoundClip.open(diceRollInputStream);
 
-        Media pionMoveSound = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/woosh.mp3")).toString());
-        pionMoveSoundPlayer = new MediaPlayer(pionMoveSound);
-        pionMoveSoundPlayer.setVolume(0.10);
+            pionMoveSoundClip = AudioSystem.getClip();
+            AudioInputStream pionMoveInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/woosh.wav")));
+            assert pionMoveSoundClip != null;
+            pionMoveSoundClip.open(pionMoveInputStream);
 
-        Media backgroundMusic = new Media(Objects.requireNonNull(Ugentopoly.class.getResource("sound/background.mp3")).toString());
-        backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
-        backgroundMusicPlayer.setVolume(0.05);
+            backgroundMusicClip = AudioSystem.getClip();
+            AudioInputStream backgroundMusicInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Ugentopoly.class.getResource("sound/background.wav")));
+            assert backgroundMusicClip != null;
+            backgroundMusicClip.open(backgroundMusicInputStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
     public void playCoinSound() {
-        MediaPlayer coinSoundPlayer = new MediaPlayer(coinSound);
-        coinSoundPlayer.setVolume(0.20);
-        coinSoundPlayer.play();
+        coinSound.setFramePosition(0);
+        FloatControl gainControl = (FloatControl) coinSound.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-10.0f);
+        coinSound.start();
     }
 
     public void playDiceRollSound() {
-        diceRollSoundPlayer.stop();
-        diceRollSoundPlayer.play();
+        diceRollSoundClip.setFramePosition(0);
+        FloatControl gainControl = (FloatControl) diceRollSoundClip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-20.0f);
+        diceRollSoundClip.start();
     }
 
     public void playPionMoveSound() {
-        pionMoveSoundPlayer.stop();
-        pionMoveSoundPlayer.play();
+        pionMoveSoundClip.setFramePosition(0);
+        FloatControl gainControl = (FloatControl) pionMoveSoundClip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-20.0f);
+        pionMoveSoundClip.start();
     }
 
     public void playBackgroundMusic() {
-        backgroundMusicPlayer.setAutoPlay(true);
-        backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusicClip.setFramePosition(0);
+        FloatControl gainControl = (FloatControl) backgroundMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-26.0f);
+        backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }
