@@ -4,6 +4,7 @@ import be.ugent.objprog.ugentopoly.Ugentopoly;
 import be.ugent.objprog.ugentopoly.controller.GameOverController;
 import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.log.GameLogBook;
+import be.ugent.objprog.ugentopoly.log.event.Event;
 import be.ugent.objprog.ugentopoly.logic.handler.DiceHandler;
 import be.ugent.objprog.ugentopoly.logic.listener.GameOverListener;
 import be.ugent.objprog.ugentopoly.model.Bank;
@@ -16,6 +17,7 @@ import be.ugent.objprog.ugentopoly.ui.manager.TileInfoPaneManager;
 import be.ugent.objprog.ugentopoly.ui.manager.UIUpdater;
 import be.ugent.objprog.ugentopoly.ui.sound.SoundManager;
 import javafx.scene.Node;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class GameManager {
     private final PlayerPositionUpdater playerPositionUpdater;
     private final SoundManager soundManager;
 
-    public GameManager(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, Ugentopoly ugentopoly){
+    public GameManager(List<Player> players, AnchorPane rootPane, AnchorPane tileInfoPane, Node logBookRoot, TableView<Event> logBookTableView, Ugentopoly ugentopoly){
         this.rootPane = rootPane;
         this.settings = ugentopoly.getSettings();
         this.propertyReader = ugentopoly.getPropertyReader();
@@ -52,7 +54,7 @@ public class GameManager {
         this.cardDeckManager.init();
         this.playerManager = new PlayerManager(this, uiUpdater, rootPane);
         GameOverController gameOverController = new GameOverController(ugentopoly, this);
-        this.logBook = new GameLogBook(logBookRoot);
+        this.logBook = new GameLogBook(logBookRoot, logBookTableView);
         this.bank = new Bank(this);
         this.playerPositionUpdater = new PlayerPositionUpdater(logBook, bank, settings);
         this.soundManager = ugentopoly.getSoundManager();

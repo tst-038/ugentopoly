@@ -36,7 +36,7 @@ public class GameController {
     private GameManager gameManager;
 
     public void initializeGame(List<Player> players, Ugentopoly ugentopoly){
-        gameManager = new GameManager(players, rootPane, tileInfoPane, logbookRoot, ugentopoly);
+        gameManager = new GameManager(players, rootPane, tileInfoPane, logbookRoot, logTableView, ugentopoly);
         logTableView.setItems(gameManager.getLogBook().getEntries());
         gameManager.startGame(rootPane);
     }

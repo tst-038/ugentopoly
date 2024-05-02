@@ -2,16 +2,25 @@ package be.ugent.objprog.ugentopoly.log;
 
 import be.ugent.objprog.ugentopoly.log.event.Event;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.TableView;
 
 public class GameLogBook {
     private final Node logbookRoot;
     private final ObservableList<Event> entries;
 
-    public GameLogBook(Node logbookRoot) {
+    public GameLogBook(Node logbookRoot, TableView<Event> tableView) {
         this.logbookRoot = logbookRoot;
         entries = FXCollections.observableArrayList();
+        entries.addListener((ListChangeListener<Event>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    tableView.scrollTo(entries.size()-1);
+                }
+            }
+        });
     }
 
     public ObservableList<Event> getEntries() {
