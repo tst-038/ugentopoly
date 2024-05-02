@@ -41,6 +41,7 @@ public class StartController {
     @FXML private Label playerAmount;
     @FXML private Label playerColor;
     @FXML private Label playerName;
+    @FXML private Label playerPawn;
     @FXML private Button playButton;
 
     private final Ugentopoly ugentopoly;
@@ -82,6 +83,7 @@ public class StartController {
         playerAmountTitle.setText(propertyReader.get("label.player_amount_title"));
         playerColor.setText(propertyReader.get("label.color"));
         playerName.setText(propertyReader.get("label.username"));
+        playerPawn.setText(propertyReader.get("label.pawn"));
         String notUnique = propertyReader.get("label.not_unique");
         playerColorsNotUnique.setText(notUnique);
         playerPawnNotUnique.setText(notUnique);

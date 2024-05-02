@@ -34,7 +34,7 @@
     -fx-text-fill: #ffffff;
     -fx-alignment: center-left;
     -fx-padding: 0 0 0 10px;
-    -fx-cell-size: 40px;
+    -fx-cell-size: 80px;
 }
 
 .table-view .table-row-cell:odd {

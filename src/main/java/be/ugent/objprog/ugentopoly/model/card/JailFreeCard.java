@@ -12,6 +12,7 @@ public class JailFreeCard extends Card {
     public void execute(Player player, GameManager gameManager) {
         player.setInJail(false);
         player.getInventory().removeCard(this);
+        returnToDeck();
     }
 }
 
