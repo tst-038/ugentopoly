@@ -87,7 +87,7 @@ public class PlayerPanelUpdater {
     }
 
     private void addPlayerNodeToPanel(Node playerNode, int panelIndex, HBox playerPanel1, HBox playerPanel2) {
-        if (panelIndex % 2 == 0) {
+        if (panelIndex == 0 || panelIndex == 3) {
             playerPanel1.getChildren().addLast(playerNode);
         } else {
             playerNode.setRotate(180);

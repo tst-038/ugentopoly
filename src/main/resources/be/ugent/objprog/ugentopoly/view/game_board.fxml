@@ -636,7 +636,7 @@
                         <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
                   </HBox>
-                  <HBox fx:id="playerPanel2" maxWidth="550.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="playerPanel2" maxWidth="550.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Pane prefHeight="200.0" prefWidth="137.5" />
                      </children>
