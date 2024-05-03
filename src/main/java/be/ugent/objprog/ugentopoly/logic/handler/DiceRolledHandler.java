@@ -38,7 +38,7 @@ public class DiceRolledHandler {
             return;
         }
 
-        GoToJailHandler goToJailHandler = new GoToJailHandler(turnManager);
+        GoToJailHandler goToJailHandler = new GoToJailHandler();
         boolean landedOnGoToJail = goToJailHandler.handle(player, diceResult);
 
         player.getGameManager().getTileInfoPaneManager().setOnInfoPaneClosedListener(() -> {
