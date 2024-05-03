@@ -6,7 +6,6 @@ import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
 import be.ugent.objprog.ugentopoly.model.behaviour.Ownable;
 import be.ugent.objprog.ugentopoly.model.behaviour.Rentable;
-import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
