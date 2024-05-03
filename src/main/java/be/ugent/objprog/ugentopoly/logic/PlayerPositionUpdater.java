@@ -45,9 +45,9 @@ public class PlayerPositionUpdater {
         }
 
         if (isMovingForward) {
-            int distance = (newPosition - oldPosition + totalTiles) % totalTiles;
+            int distanceFromStart = (newPosition - oldPosition + totalTiles) % totalTiles;
             int distanceToStart = (startTile - oldPosition + totalTiles) % totalTiles;
-            return distance >= distanceToStart;
+            return distanceFromStart >= distanceToStart;
         } else {
             return false;
         }
