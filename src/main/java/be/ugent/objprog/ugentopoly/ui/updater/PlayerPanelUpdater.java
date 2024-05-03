@@ -75,6 +75,7 @@ public class PlayerPanelUpdater {
         Button rollDiceButton = (Button) playerNode.lookup("#rollDiceButton");
         rollDiceButton.setText(propertyReader.get("button.roll_dice"));
         rollDiceButton.setOnAction(event -> {
+            rollDiceButton.setDisable(true);
             gameManager.getTileInfoPaneManager().clearTileSelection();
             gameManager.getDiceHandler().rollDice(player);
         });
