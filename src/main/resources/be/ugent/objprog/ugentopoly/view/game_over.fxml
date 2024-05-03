@@ -19,7 +19,7 @@
                   <Image url="@../assets/podium.png" />
                </image>
             </ImageView>
-            <Label fx:id="pos1" alignment="CENTER" contentDisplay="BOTTOM" layoutX="253.0" layoutY="40.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label fx:id="pos1" alignment="CENTER" contentDisplay="BOTTOM" layoutX="253.0" layoutY="9.0" prefHeight="131.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
                   <ImageView fx:id="pawn1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
@@ -28,7 +28,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="pos2" alignment="CENTER" contentDisplay="BOTTOM" layoutX="165.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label fx:id="pos2" alignment="CENTER" contentDisplay="BOTTOM" layoutX="165.0" layoutY="60.0" prefHeight="130.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
                   <ImageView fx:id="pawn2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
@@ -37,7 +37,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="pos3" alignment="CENTER" contentDisplay="BOTTOM" layoutX="338.0" layoutY="90.0" prefHeight="100.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label fx:id="pos3" alignment="CENTER" contentDisplay="BOTTOM" layoutX="338.0" layoutY="60.0" prefHeight="130.0" prefWidth="95.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <graphic>
                   <ImageView fx:id="pawn3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>

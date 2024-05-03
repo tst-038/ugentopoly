@@ -60,34 +60,6 @@
     <deck type="CHANCE">
         <card type="JAIL" id="card.chance.01" />
         <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
-        <card type="MOVE" collect="false" position="10" id="card.chance.02" />
         <card type="MOVE" collect="true" position="19" id="card.chance.03" />
         <card type="MOVE" collect="true" position="31" id="card.chance.04" />
         <card type="MOVEREL" relative="-3" id="card.chance.05" />

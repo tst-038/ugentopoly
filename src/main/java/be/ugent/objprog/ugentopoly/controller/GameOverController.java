@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.controller;
 
 import be.ugent.objprog.ugentopoly.Ugentopoly;
+import be.ugent.objprog.ugentopoly.data.reader.PropertyReader;
 import be.ugent.objprog.ugentopoly.exception.ui.UIInitializationException;
 import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.player.Player;
@@ -42,7 +43,9 @@ public class GameOverController {
             pawn.setImage(p.getPawn().getImage());
             pos.setGraphic(pawn);
             pos.setTextFill(p.getColor());
-            pos.setText(p.getName() + "\n" + p.getBalance());
+            PropertyReader propertyReader = gameManager.getPropertyreader();
+            String moneyUnit = gameManager.getSettings().getMoneyUnit();
+            pos.setText(p.getName() + "\n" + propertyReader.get("label.balance") + " " + moneyUnit + p.getBalance() + "\n" + propertyReader.get("label.networth") + " " + moneyUnit + p.networthProperty().getValue());
         }
     }
 
