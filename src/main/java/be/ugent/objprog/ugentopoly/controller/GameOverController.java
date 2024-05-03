@@ -13,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GameOverController {
     private final Ugentopoly ugentopoly;
@@ -27,7 +29,12 @@ public class GameOverController {
     }
 
     private void init(Node rootPane) {
-        List<Player> playersByMoney = gameManager.getPlayers().stream().sorted(Comparator.comparingInt(Player::getBalance)).toList().reversed();
+        List<Player> playersByMoney = gameManager.getPlayers().stream()
+                .sorted(Comparator.comparingInt(Player::getBalance)
+                        .thenComparingInt(player -> player.networthProperty().getValue())
+                        .thenComparing(Player::getId))
+                .collect(Collectors.toList());
+        Collections.reverse(playersByMoney);
         for (int i = 0; i < Math.min(playersByMoney.size(), 3); i++) {
             Player p = playersByMoney.get(i);
             Label pos = (Label) rootPane.lookup("#pos" + (i + 1));

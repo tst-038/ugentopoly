@@ -6,6 +6,7 @@ import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.behaviour.Buyable;
 import be.ugent.objprog.ugentopoly.model.behaviour.Ownable;
 import be.ugent.objprog.ugentopoly.model.behaviour.Rentable;
+import be.ugent.objprog.ugentopoly.model.player.Player;
 import be.ugent.objprog.ugentopoly.model.tile.Tile;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -81,6 +82,7 @@ public abstract class TileInfoPaneFactoryBase implements ITileInfoPaneFactory {
 
         if (onVisit) {
             Button buyButton = createButton(propertyReader.get("button.buy"), "tile-buy-button", "buy-button", BUTTON_MARGIN, null);
+            buyButton.setDisable(gameManager.getBank().hasInsufficientBalance(gameManager.getTurnManager().getCurrentPlayer(), tile.getPrice()));
             Button cancelButton = createButton(propertyReader.get("button.close"), "tile-close-button", "close-button", null, BUTTON_MARGIN);
             tileInfoPane.getChildren().addAll(buyButton, cancelButton);
         }

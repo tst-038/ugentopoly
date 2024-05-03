@@ -96,7 +96,6 @@ public class StreetTile extends Tile implements UIUpdatable, LabelChangeListener
                 buy(player, gameManager);
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
-            buy.setDisable(gameManager.getBank().hasInsufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> tileInfoPaneManager.setPaneClosableAndHide());
         }
     }

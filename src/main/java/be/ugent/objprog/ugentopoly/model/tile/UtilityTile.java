@@ -77,7 +77,6 @@ public class UtilityTile extends Tile implements UIChangeListener, ImageChangeLi
                 player.getInventory().addOwnedUtility();
                 tileInfoPaneManager.setPaneClosableAndHide();
             });
-            buy.setDisable(gameManager.getBank().hasInsufficientBalance(player, getPrice()));
             pane.lookup("#close-button").setOnMouseClicked(event -> tileInfoPaneManager.setPaneClosableAndHide());
         }
     }
