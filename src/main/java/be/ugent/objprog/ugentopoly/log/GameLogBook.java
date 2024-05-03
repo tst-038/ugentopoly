@@ -1,6 +1,7 @@
 package be.ugent.objprog.ugentopoly.log;
 
 import be.ugent.objprog.ugentopoly.log.event.Event;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,11 +16,7 @@ public class GameLogBook {
         this.logbookRoot = logbookRoot;
         entries = FXCollections.observableArrayList();
         entries.addListener((ListChangeListener<Event>) change -> {
-            while (change.next()) {
-                if (change.wasAdded()) {
-                    tableView.scrollTo(entries.size()-1);
-                }
-            }
+            Platform.runLater(() -> tableView.scrollTo(entries.size()-1));
         });
     }
 
