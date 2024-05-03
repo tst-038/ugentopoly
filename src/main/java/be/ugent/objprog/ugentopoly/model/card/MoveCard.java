@@ -36,7 +36,6 @@ public class MoveCard extends Card {
         }
 
         gameManager.getPlayerPositionUpdater().update(player, relativeMovement);
-        gameManager.getTurnManager().previousPlayer();
         if(sendToJail){
             player.setInJail(true);
         }

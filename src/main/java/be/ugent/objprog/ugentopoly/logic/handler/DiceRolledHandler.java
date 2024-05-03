@@ -38,10 +38,11 @@ public class DiceRolledHandler {
             return;
         }
 
-        GoToJailHandler goToJailHandler = new GoToJailHandler();
-        boolean landedOnGoToJail = goToJailHandler.handle(player);
+        GoToJailHandler goToJailHandler = new GoToJailHandler(turnManager);
+        boolean landedOnGoToJail = goToJailHandler.handle(player, diceResult);
 
         player.getGameManager().getTileInfoPaneManager().setOnInfoPaneClosedListener(() -> {
+            player.getGameManager().getTileInfoPaneManager().setOnInfoPaneClosedListener(null);
             if (!hasRolledDouble || landedOnGoToJail) {
                 turnManager.nextPlayer();
             } else {
