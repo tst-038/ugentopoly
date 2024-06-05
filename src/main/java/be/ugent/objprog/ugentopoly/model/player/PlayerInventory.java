@@ -1,5 +1,6 @@
 package be.ugent.objprog.ugentopoly.model.player;
 
+import be.ugent.objprog.ugentopoly.logic.GameManager;
 import be.ugent.objprog.ugentopoly.model.card.Card;
 import be.ugent.objprog.ugentopoly.model.card.CardType;
 
@@ -22,6 +23,7 @@ public class PlayerInventory {
     }
 
     public void removeCard(Card card) {
+        System.out.println("Removing card" + cards + " " + card);
         cards.remove(card);
     }
 
@@ -49,9 +51,9 @@ public class PlayerInventory {
         return ownedUtilities;
     }
 
-    public void useGetOutOfJailFreeCard() {
+    public void useGetOutOfJailFreeCard(Player player) {
         cards.stream()
                 .filter(card -> card.getType() == CardType.JAIL)
-                .findFirst().ifPresent(getOutOfJailFreeCard -> cards.remove(getOutOfJailFreeCard));
+                .findFirst().ifPresent(getOutOfJailFreeCard -> getOutOfJailFreeCard.execute(player, player.getGameManager()));
     }
 }

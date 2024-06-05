@@ -29,7 +29,6 @@ public class ChanceTileInfoPaneFactory extends TileInfoPaneFactoryBase {
             Player currentPlayer = gameManager.getTurnManager().getCurrentPlayer();
             Card card = gameManager.getDeckManager().getChanceDeck().drawCard(currentPlayer);
             currentPlayer.getInventory().addCard(card);
-            card.returnToDeck();
             return card.getDescription();
         } else {
             return gameManager.getPropertyreader().getTileDescription(chanceTile.getId());

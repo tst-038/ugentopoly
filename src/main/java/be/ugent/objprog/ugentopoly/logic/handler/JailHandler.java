@@ -13,7 +13,7 @@ public class JailHandler {
                 .findFirst();
 
         if (landedTile.isPresent() && landedTile.get().getType() == TileType.JAIL && player.getRemainingTurnsInPrison() > 0) {
-            player.getInventory().useGetOutOfJailFreeCard();
+            player.getInventory().useGetOutOfJailFreeCard(player);
         }
 
         if (player.getRemainingTurnsInPrison() > 0) {
@@ -24,6 +24,7 @@ public class JailHandler {
                 return false;
             }
         }
+        System.out.println("jailhandler says free");
         return true;
     }
 }

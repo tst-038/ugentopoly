@@ -40,5 +40,6 @@ public class MoveCard extends Card {
             player.setInJail(true);
         }
         player.getInventory().removeCard(this);
+        returnToDeck();
     }
 }

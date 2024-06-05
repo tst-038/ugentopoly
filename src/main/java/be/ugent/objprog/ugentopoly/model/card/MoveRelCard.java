@@ -14,7 +14,6 @@ public class MoveRelCard extends Card {
     @Override
     public void execute(Player player, GameManager gameManager) {
         gameManager.getPlayerPositionUpdater().update(player, relative);
-        gameManager.getTurnManager().previousPlayer();
         player.getInventory().removeCard(this);
         returnToDeck();
     }

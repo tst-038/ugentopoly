@@ -44,6 +44,7 @@ public class PlayerPosition {
         Tile landedTile = board.getTileByPosition(position);
         landedTile.onVisit(player);
         notifyListeners();
+        System.out.println(player.getName() + " is now on " + player.getInventory().getCards());
     }
 
     public void setInitialPosition(int position) {

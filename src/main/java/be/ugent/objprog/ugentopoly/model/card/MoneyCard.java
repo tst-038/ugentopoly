@@ -22,5 +22,6 @@ public class MoneyCard extends Card {
         }
 
         player.getInventory().removeCard(this);
+        returnToDeck();
     }
 }
